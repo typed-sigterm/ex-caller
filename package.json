@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "pnpm web:build && tauri build && tauri build --target i686-pc-windows-msvc",
+    "build": "tauri build",
     "dev": "tauri dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",

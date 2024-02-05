@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   vite: {
     clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_', 'EXC_'],
   },
   spaLoadingTemplate: true,
   devServer: {

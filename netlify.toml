@@ -1,0 +1,9 @@
+[build]
+command = "pnpm web:build"
+publish = "dist"
+
+[context.branch-deploy.environment]
+EXC_CANARY = true
+
+[context.deploy-preview.environment]
+EXC_CANARY = true
