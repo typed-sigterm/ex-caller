@@ -45,6 +45,13 @@ function handleClose() {
         <NaiveIcon class="absolute right-3" name="ep:right" />
       </NCard>
       <SettingsUi class="mt-6" />
+      <div class="flex items-center" style="color: #86909c;">
+        ExCaller {{ version }}
+        <img class="inline w-4 mx-2" src="/logo.png">
+        <NA href="/licenses.txt" target="_blank">
+          开放源代码许可
+        </NA>
+      </div>
       <template #header>
         设置
       </template>
