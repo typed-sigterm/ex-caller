@@ -22,19 +22,23 @@ refreshGroups()
 const unmounted = ref(false)
 onUnmounted(() => unmounted.value = true)
 
-const names = computed(() => getGroupOptions(config.value.group))
-const shownNames = ref<RollCallOption[]>([])
-onUnmounted(() => shownNames.value = [])
+const names = ref<RollCallOption[]>([])
+const refreshNames = () => names.value = getGroupOptions(config.value.group)
+watchImmediate(() => config.value.group, refreshNames)
 
+const shownNames = ref<RollCallOption[]>([])
 watchImmediate(names, async () => {
-  shownNames.value = []
-  const len = names.value.length
-  for (let i = 0; i < len; ++i)
-    await processNamesChunk(i)
+  const legacy = shownNames.value
+  const origin = names.value
+  const len = origin.length
+  for (let i = 0; i < len; ++i) {
+    if (origin[i] !== legacy[i]) // 增量更新
+      await processNamesChunk(i)
+  }
 })
 function processNamesChunk(offset: number) {
   return new Promise((resolve) => {
-    shownNames.value.push(names.value[offset])
+    shownNames.value[offset] = names.value[offset]
     requestAnimationFrame(resolve)
   })
 }
@@ -54,6 +58,14 @@ function handleNewNameList() {
 
 function handleUpdate() {
   setGroupOptions(config.value.group, shownNames.value)
+  refreshNames()
+}
+
+const showBatchInput = ref(false)
+const showImportExcel = ref(false)
+function handleImportDone(items: string[]) {
+  setGroupOptions(config.value.group, names.value.concat(items))
+  refreshNames()
 }
 </script>
 
@@ -79,6 +91,30 @@ function handleUpdate() {
     :min="2"
     show-sort-button
     @update:value="handleUpdate"
+  />
+
+  <NSpace class="mt-5">
+    <NButton @click="showBatchInput = true">
+      批量输入
+      <template #icon>
+        <NaiveIcon name="ep:list" />
+      </template>
+    </NButton>
+    <NButton @click="showImportExcel = true">
+      从 Excel 导入
+      <template #icon>
+        <NaiveIcon name="vscode-icons:file-type-excel" />
+      </template>
+    </NButton>
+  </NSpace>
+
+  <SettingsNameListBatchInput
+    v-model:show="showBatchInput"
+    @done="handleImportDone"
+  />
+  <SettingsNameListImportExcel
+    v-model:show="showImportExcel"
+    @done="handleImportDone"
   />
 </template>
 
