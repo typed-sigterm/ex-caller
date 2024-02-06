@@ -45,7 +45,16 @@ jobs:
         env:
           REF: ${{ github.ref_name }}
           REPO: ${{ github.repository }}
-      - uses: dtolnay/rust-toolchain@stable
+      - name: 安装 macOS 工具链
+        if: ${{ matrix.platform == 'macos-latest' }}
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin, x86_64-apple-darwin
+      - name: 安装 Windows 工具链
+        if: ${{ matrix.platform == 'windows-latest' }}
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: i686-pc-windows-msvc, x86_64-pc-windows-msvc
       - uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
@@ -54,8 +63,27 @@ jobs:
           version: 8
       - run: pnpm install
       - run: pnpm web:build
-      - uses: tauri-apps/tauri-action@v0
+      - name: 构建与发布 macOS 安装包
+        if: ${{ matrix.platform == 'macos-latest' }}
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ steps.get-release.outputs.result }}
+          args: --target universal-apple-darwin
+      - name: 构建与发布 Windows x64 安装包
+        if: ${{ matrix.platform == 'windows-latest' }}
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ steps.get-release.outputs.result }}
+          args: --target x86_64-pc-windows-msvc
+      - name: 构建与发布 Windows x86 安装包
+        if: ${{ matrix.platform == 'windows-latest' }}
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          releaseId: ${{ steps.get-release.outputs.result }}
+          args: --target i686-pc-windows-msvc

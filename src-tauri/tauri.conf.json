@@ -30,7 +30,7 @@
           "languages": ["zh-CN"]
         },
         "webviewInstallMode": {
-          "type": "downloadBootstrapper"
+          "type": "embedBootstrapper"
         }
       }
     },
