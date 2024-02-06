@@ -1,9 +1,6 @@
 name: 发布更新
 
 on:
-  push:
-    tags:
-      - v*
   workflow_dispatch:
 
 jobs:
@@ -20,7 +17,7 @@ jobs:
           git checkout -b latest origin/latest
           git merge --ff-only origin/main
           git push origin latest
-  release: # https://tauri.app/v1/guides/building/cross-platform/#example-workflow
+  release:
     permissions:
       contents: write
     strategy:
@@ -30,13 +27,28 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - id: get-release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const [owner, repo] = process.env.REPO.split('/')
+            const { data } = await octokit.request('GET /repos/{owner}/{repo}/releases/tags/{tag}', {
+              owner,
+              repo,
+              tag: process.env.REF,
+              headers: { 'X-GitHub-Api-Version': '2022-11-28' },
+            })
+            return data.id
+        env:
+          REF: ${{ github.action_ref }}
+          REPO: ${{ github.repository }}
       - uses: dtolnay/rust-toolchain@stable
       - uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -46,8 +58,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: 'v__VERSION__'
-          releaseBody: 'See the assets to download and install this version.'
-          releaseDraft: true
-          prerelease: false
+          releaseId: ${{ steps.get-release.outputs.result }}
