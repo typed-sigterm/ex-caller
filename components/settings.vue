@@ -1,15 +1,13 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
 
-defineProps<{
-  /** 是否显示设置。 */
-  show: boolean
-}>()
 const emit = defineEmits<{
-  (ev: 'update:show', show: boolean): void
   /** 设置面板关闭。 */
   (ev: 'close'): void
 }>()
+/** 是否显示。 */
+const show = defineModel<boolean>('show', { required: true })
+
 const DRAWER_DEFAULT_WIDTH = 450
 const DRAWER_MIN_WIDTH = 300
 
@@ -25,13 +23,12 @@ function handleClose() {
 
 <template>
   <NDrawer
-    :show="show"
+    v-model:show="show"
     :default-width="DRAWER_DEFAULT_WIDTH"
     :min-width="DRAWER_MIN_WIDTH"
     resizable
     @click.stop
     @after-leave="handleClose"
-    @update:show="(v) => $emit('update:show', v)"
   >
     <NDrawerContent closable>
       <NCard @click="showNameList = true">

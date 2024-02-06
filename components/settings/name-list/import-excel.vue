@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import type { UploadCustomRequestOptions } from 'naive-ui'
 
-defineProps<{
-  /** 是否显示。 */
-  show?: boolean
-}>()
 const emit = defineEmits<{
-  (ev: 'update:show', showing: boolean): void
   /** 输入完成。 */
   (ev: 'done', names: string[]): void
 }>()
+/** 是否显示。 */
+const show = defineModel<boolean>('show', { required: true })
 
 const input = ref<string[][]>([])
 const total = computed(() => input.value.flat().length)
@@ -34,7 +31,7 @@ const handleOk = () => emit('done', input.value.flat())
 
 <template>
   <NModal
-    :show="show"
+    v-model:show="show"
     preset="confirm"
     title="从 Excel 导入"
     :close-on-esc="false"
@@ -42,7 +39,6 @@ const handleOk = () => emit('done', input.value.flat())
     :positive-button-props="{ disabled: !total }"
     negative-text="取消"
     @positive-click="handleOk"
-    @update:show="(v) => $emit('update:show', v)"
   >
     <NUpload :show-remove-button="false" :custom-request="customRequest">
       <NUploadDragger>

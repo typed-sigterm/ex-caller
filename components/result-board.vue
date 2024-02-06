@@ -6,25 +6,22 @@ const props = withDefaults(defineProps<{
   value?: string
   /** 是否显示“继续抽取”按钮。 @default true */
   showResume?: boolean
-  /** 是否正在播放“继续抽取”按钮的显示动画。 */
-  showingResume?: boolean
   /** 显示“继续抽取”按钮后，是否显示彩带效果。 @default true */
   confetti?: boolean
 }>(), {
   showResume: true,
   confetti: true,
 })
-
 const emit = defineEmits<{
-  (ev: 'update:showingResume', showingResume: boolean): void
   /** 开始抽取。 */
   (ev: 'start'): void
   /** 暂停抽取。 */
   (ev: 'pause'): void
 }>()
+const showingResume = defineModel<boolean>('showingResume', { required: true })
 
 const beforeAnimation = ref(false)
-watch(() => props.showingResume, async (v) => {
+watch(showingResume, async (v) => {
   if (!v)
     return
   // 停止后等待 1s
@@ -38,9 +35,9 @@ watch(() => props.showingResume, async (v) => {
 
   // 再等待 1s 显示按钮
   await promiseTimeout(1000)
-  if (!props.showingResume)
+  if (!v)
     return
-  emit('update:showingResume', false)
+  showingResume.value = false
 })
 
 function handlePause() {
