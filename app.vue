@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
 import { zhCN } from 'naive-ui'
+import { gc } from './utils/gc'
 
 const loading = ref(true)
 const show = ref(false)
