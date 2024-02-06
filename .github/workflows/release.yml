@@ -43,7 +43,7 @@ jobs:
             })
             return data.id
         env:
-          REF: ${{ github.action_ref }}
+          REF: ${{ github.ref_name }}
           REPO: ${{ github.repository }}
       - uses: dtolnay/rust-toolchain@stable
       - uses: swatinem/rust-cache@v2
