@@ -23,7 +23,7 @@ function handleRenameOk() {
 }
 
 function handleDelete() {
-  deleteGroup(group.value)
+  useGroup(group.value).value = null
   emit('delete')
 }
 </script>

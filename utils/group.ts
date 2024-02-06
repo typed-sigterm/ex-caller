@@ -5,9 +5,9 @@ export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['弭儿', '艾达', 'Kou
 
 const GROUP_PREFIX = 'group/'
 /** 获取名单在 `localStorage` 中的键。 */
-const getGroupKey = (name: string) => GROUP_PREFIX + name
+export const getGroupKey = (name: string) => GROUP_PREFIX + name
 /** 获取`localStorage` 中的键对应的名称。 */
-const getGroupName = (key: string) => key.slice(GROUP_PREFIX.length)
+export const getGroupName = (key: string) => key.slice(GROUP_PREFIX.length)
 
 /** 获取所有名单的名称。 */
 export function getGroups() {
@@ -20,36 +20,16 @@ export function getGroups() {
   return ret
 }
 
-/** 获取名单的选项。 */
-export function getGroupOptions(name: string): RollCallOption[] {
-  const key = getGroupKey(name)
-  const ret = localStorage.getItem(key)
-  if (ret === null) { // 查找一个不存在的名单
-    setGroupOptions(name, DEFAULT_GROUP_OPTIONS) // 则创建默认名单
-    return DEFAULT_GROUP_OPTIONS
-  }
-  return JSON.parse(ret)
-}
-
-/** 设置名单的选项。 */
-export function setGroupOptions(name: string, options: RollCallOption[]) {
-  localStorage.setItem(getGroupKey(name), JSON.stringify(options))
-}
-
 /** 判断名单是否存在。 */
 export function hasGroup(name: string) {
   return localStorage.getItem(getGroupKey(name)) !== null
 }
 
-/** 删除名单。 */
-export function deleteGroup(name: string) {
-  return localStorage.removeItem(getGroupKey(name))
-}
-
 /** 重命名名单。 */
 export function renameGroup(from: string, to: string) {
-  setGroupOptions(to, getGroupOptions(from))
-  deleteGroup(from)
+  const origin = useGroup(from)
+  useGroup(to).value = origin.value
+  origin.value = null
 }
 
 /** 生成新的名单名称。 */
@@ -57,7 +37,7 @@ export function generateNewGroupName() {
   const keys = getGroups()
   let ret = ''
   let index = keys.length
-  do {
+  do { // 避免与现有名单冲突
     ++index
     ret = `名单 ${index}`
   } while (keys.includes(ret))

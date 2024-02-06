@@ -3,7 +3,7 @@ const config = useConfigStore()
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
-    options: getGroupOptions(config.group),
+    options: useGroup(config.group).value,
     duration: config.interval,
     ...options,
   })

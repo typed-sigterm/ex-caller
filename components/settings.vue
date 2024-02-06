@@ -11,11 +11,11 @@ const show = defineModel<boolean>('show', { required: true })
 const DRAWER_DEFAULT_WIDTH = 450
 const DRAWER_MIN_WIDTH = 300
 
-const showNameList = ref(false)
+const showGroup = ref(false)
 const showPlan = ref(false)
 
 function handleClose() {
-  showNameList.value = false
+  showGroup.value = false
   emit('close')
   promiseTimeout(500).then(gc)
 }
@@ -31,7 +31,7 @@ function handleClose() {
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
-      <NCard @click="showNameList = true">
+      <NCard @click="showGroup = true">
         <NaiveIcon class="mr-1" name="ep:list" :size="18" />
         名单设置
         <NaiveIcon class="absolute right-3" name="ep:right" />
@@ -56,14 +56,14 @@ function handleClose() {
   </NDrawer>
 
   <NDrawer
-    v-model:show="showNameList"
+    v-model:show="showGroup"
     :default-width="DRAWER_DEFAULT_WIDTH"
     :min-width="DRAWER_MIN_WIDTH"
     resizable
     @click.stop
   >
     <NDrawerContent closable>
-      <SettingsNameList @switch-group="gc" />
+      <SettingsGroup @switch-group="gc" />
       <template #header>
         名单设置
       </template>

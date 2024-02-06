@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SelectOption } from 'naive-ui'
 import type { VNodeChild } from 'vue'
-import { SettingsNameListGroupName } from '#components'
+import { SettingsGroupName } from '#components'
 
 defineEmits<{
   /** 切换名单。 */
@@ -11,10 +11,11 @@ defineEmits<{
 const config = useConfigStore()
 const groups = ref<SelectOption[]>([])
 function refreshGroups() {
+  console.log(getGroups())
   groups.value = getGroups().sort().map(v => ({
     label: v,
     value: v,
-    class: 'name-list-group-name-item',
+    class: 'group-name-item',
   }))
 }
 refreshGroups()
@@ -22,10 +23,7 @@ refreshGroups()
 const unmounted = ref(false)
 onUnmounted(() => unmounted.value = true)
 
-const names = ref<RollCallOption[]>([])
-const refreshNames = () => names.value = getGroupOptions(config.group)
-watchImmediate(() => config.group, refreshNames)
-
+const names = computed(() => useGroup(config.group).value)
 const shownNames = ref<RollCallOption[]>([])
 watchImmediate(names, async () => {
   const legacy = shownNames.value
@@ -44,28 +42,27 @@ function processNamesChunk(offset: number) {
 }
 
 function renderGroupName(options: SelectOption): VNodeChild {
-  return h(SettingsNameListGroupName, {
+  return h(SettingsGroupName, {
     ...options,
-    onRename: refreshGroups,
-    onDelete: refreshGroups,
+    // 处理事件，需要下一帧才会真正操作 localStorage
+    onRename: () => nextTick(refreshGroups),
+    onDelete: () => nextTick(refreshGroups),
   })
 }
 
-function handleNewNameList() {
-  setGroupOptions(generateNewGroupName(), DEFAULT_GROUP_OPTIONS)
+function handleNewGroup() {
+  useGroup(generateNewGroupName())
   refreshGroups()
 }
 
 function handleUpdate() {
-  setGroupOptions(config.group, shownNames.value)
-  refreshNames()
+  useGroup(config.group).value = shownNames.value
 }
 
 const showBatchInput = ref(false)
 const showImportExcel = ref(false)
 function handleImportDone(items: string[]) {
-  setGroupOptions(config.group, names.value.concat(items))
-  refreshNames()
+  useGroup(config.group).value = names.value.concat(items)
 }
 </script>
 
@@ -78,7 +75,7 @@ function handleImportDone(items: string[]) {
       :render-label="renderGroupName"
       @update:value="$emit('switchGroup')"
     />
-    <NButton class="ml-1" @click="handleNewNameList">
+    <NButton class="ml-1" @click="handleNewGroup">
       新建名单
       <template #icon>
         <NaiveIcon name="ep:plus" :size="16" />
@@ -108,11 +105,11 @@ function handleImportDone(items: string[]) {
     </NButton>
   </NSpace>
 
-  <SettingsNameListBatchInput
+  <SettingsGroupBatchInput
     v-model:show="showBatchInput"
     @done="handleImportDone"
   />
-  <SettingsNameListImportExcel
+  <SettingsGroupImportExcel
     v-model:show="showImportExcel"
     @done="handleImportDone"
   />
@@ -125,7 +122,7 @@ function handleImportDone(items: string[]) {
 </style>
 
 <style lang="postcss">
-.name-list-group-name-item {
+.group-name-item {
   &.n-base-select-option--selected .operator-delete {
     @apply hidden;
   }
