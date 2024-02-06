@@ -35,7 +35,7 @@ jobs:
         with:
           script: |
             const [owner, repo] = process.env.REPO.split('/')
-            const { data } = await octokit.request('GET /repos/{owner}/{repo}/releases/tags/{tag}', {
+            const { data } = await github.request('GET /repos/{owner}/{repo}/releases/tags/{tag}', {
               owner,
               repo,
               tag: process.env.REF,
