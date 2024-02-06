@@ -44,8 +44,8 @@ function handleSettingsClose() {
   <ResultBoard
     v-bind="$attrs"
     v-model:showing-resume="showingResume"
-    :value="result?.currentValue"
-    :show-resume="!result?.isActive"
+    :value="result.currentValue"
+    :show-resume="!result.isActive"
     :confetti="config.ui.confetti"
     @start="handleStart"
     @pause="handlePause"

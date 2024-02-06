@@ -11,7 +11,6 @@ defineEmits<{
 const config = useConfigStore()
 const groups = ref<SelectOption[]>([])
 function refreshGroups() {
-  console.log(getGroups())
   groups.value = getGroups().sort().map(v => ({
     label: v,
     value: v,
