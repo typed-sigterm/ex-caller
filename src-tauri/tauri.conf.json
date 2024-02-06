@@ -26,8 +26,11 @@
         "wix": {
           "language": ["zh-CN"]
         },
+        "nsis": {
+          "languages": ["zh-CN"]
+        },
         "webviewInstallMode": {
-          "type": "offlineInstaller"
+          "type": "downloadBootstrapper"
         }
       }
     },
