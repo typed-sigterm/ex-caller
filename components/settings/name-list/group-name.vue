@@ -7,7 +7,7 @@ const emit = defineEmits<{
   (ev: 'delete'): void
 }>()
 
-const config = useContextConfig()
+const config = useConfigStore()
 const group = toRef(props, 'value') as Ref<string>
 
 const renaming = ref('')
@@ -17,8 +17,8 @@ function handleRenameOk() {
   if (group.value === to) // 没改
     return
   renameGroup(group.value, to)
-  if (config.value.group === group.value) // 修改的是当前名单，要同步更改
-    config.value.group = to
+  if (config.group === group.value) // 修改的是当前名单，要同步更改
+    config.group = to
   emit('rename', to)
 }
 

@@ -8,7 +8,7 @@ defineEmits<{
   (ev: 'switchGroup'): void
 }>()
 
-const config = useContextConfig()
+const config = useConfigStore()
 const groups = ref<SelectOption[]>([])
 function refreshGroups() {
   groups.value = getGroups().sort().map(v => ({
@@ -23,8 +23,8 @@ const unmounted = ref(false)
 onUnmounted(() => unmounted.value = true)
 
 const names = ref<RollCallOption[]>([])
-const refreshNames = () => names.value = getGroupOptions(config.value.group)
-watchImmediate(() => config.value.group, refreshNames)
+const refreshNames = () => names.value = getGroupOptions(config.group)
+watchImmediate(() => config.group, refreshNames)
 
 const shownNames = ref<RollCallOption[]>([])
 watchImmediate(names, async () => {
@@ -57,14 +57,14 @@ function handleNewNameList() {
 }
 
 function handleUpdate() {
-  setGroupOptions(config.value.group, shownNames.value)
+  setGroupOptions(config.group, shownNames.value)
   refreshNames()
 }
 
 const showBatchInput = ref(false)
 const showImportExcel = ref(false)
 function handleImportDone(items: string[]) {
-  setGroupOptions(config.value.group, names.value.concat(items))
+  setGroupOptions(config.group, names.value.concat(items))
   refreshNames()
 }
 </script>

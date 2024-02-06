@@ -18,5 +18,3 @@ export const DEFAULT_USER_CONFIG: UserConfig = {
     confetti: true,
   },
 }
-
-export const CONTEXT_CONFIG_KEY = Symbol('context-config')

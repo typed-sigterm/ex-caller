@@ -1,16 +1,10 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  /** 用户配置。 */
-  config: UserConfig
-}>()
-
-const config = toRef(props, 'config')
-provide(CONTEXT_CONFIG_KEY, config)
+const config = useConfigStore()
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
-    options: getGroupOptions(config.value.group),
-    duration: config.value.interval,
+    options: getGroupOptions(config.group),
+    duration: config.interval,
     ...options,
   })
 }

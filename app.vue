@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
 import { zhCN } from 'naive-ui'
-import { gc } from './utils/gc'
+import { gc } from '~/utils/gc'
 
 const loading = ref(true)
 const show = ref(false)
@@ -19,7 +19,7 @@ promiseTimeout(2000).then(() => show.value = true)
     :style="{ opacity: show ? 1 : 0 }"
     :locale="zhCN"
   >
-    <ExCaller :config="useUserConfig().value" />
+    <ExCaller />
   </NaiveConfig>
   <Loading
     v-if="!show"

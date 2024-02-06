@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   modules: [
     '@bg-dev/nuxt-naiveui',
     '@nuxtjs/tailwindcss',
+    '@pinia/nuxt',
     '@vueuse/nuxt',
   ],
   app: {
@@ -10,6 +11,9 @@ export default defineNuxtConfig({
       title: 'ExCaller',
       htmlAttrs: { lang: 'zh-CN' },
     },
+  },
+  imports: {
+    dirs: ['./stores'],
   },
   vite: {
     clearScreen: false,
