@@ -1,7 +1,7 @@
 {
   "build": {
     "beforeDevCommand": "pnpm web:dev",
-    "beforeBuildCommand": "echo 注意：运行此命令前需手动运行 `pnpm web:build`",
+    "beforeBuildCommand": "",
     "devPath": "http://localhost:6408",
     "distDir": "../dist"
   },

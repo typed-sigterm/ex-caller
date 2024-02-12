@@ -8,7 +8,7 @@
     "dev": "tauri dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",
-    "web:build": "nuxt build",
+    "web:build": "nuxt generate",
     "web:dev": "nuxt dev"
   },
   "devDependencies": {
