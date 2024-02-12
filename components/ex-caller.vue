@@ -24,9 +24,10 @@ function handlePause() {
   result.value.pause()
 }
 
+const loadSettings = ref(false) // 是否需要加载设置组件
 const showSettings = ref(false)
 function handleOpenSettings() {
-  showSettings.value = true
+  loadSettings.value = showSettings.value = true
   // 正在点名时打开设置，停止点名，不显示点名结果
   if (result.value.isActive)
     result.value.reset()
@@ -56,7 +57,11 @@ function handleSettingsClose() {
     :size="24"
     @click="handleOpenSettings"
   />
-  <Settings v-model:show="showSettings" @close="handleSettingsClose" />
+  <LazySettings
+    v-if="loadSettings"
+    v-model:show="showSettings"
+    @close="handleSettingsClose"
+  />
 </template>
 
 <style lang="postcss" scoped>
