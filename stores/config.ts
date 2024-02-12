@@ -1,10 +1,10 @@
+import { UserConfigSchema } from '~/utils/config'
+
 export const useConfigStore = defineStore('config', {
   state: () => {
-    const ret = useLocalStorage<UserConfig>(
-      'config',
-      structuredClone(DEFAULT_USER_CONFIG), // 深拷贝，防止修改 DEFAULT_USER_CONFIG
-    )
+    const ret = useLocalStorage<UserConfig>('config', UserConfigSchema.parse({}))
     useGroup(ret.value.group) // 处理名单不存在的情况
+    ret.value = UserConfigSchema.parse(ret.value)
     return ret
   },
 })

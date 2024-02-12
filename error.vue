@@ -11,7 +11,7 @@ const handleRefresh = () => location.reload()
 <template>
   <div class="w-full h-full flex justify-center items-center">
     <NResult status="500" title="貌似出了点问题">
-      <pre>{{ error }}</pre>
+      <pre class="text-left">{{ error }}</pre>
       <template #footer>
         <NButton type="primary" @click="handleRefresh">
           刷新一下
