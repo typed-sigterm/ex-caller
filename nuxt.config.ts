@@ -6,6 +6,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@vueuse/nuxt',
   ],
+  nitro: {
+    preset: 'static',
+  },
   app: {
     head: {
       title: 'ExCaller',
