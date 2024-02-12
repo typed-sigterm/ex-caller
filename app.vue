@@ -23,8 +23,7 @@ promiseTimeout(2000).then(() => show.value = true)
   </NaiveConfig>
   <Loading
     v-if="!show"
-    class="loading"
-    :style="{ opacity: loading ? 1 : 0 }"
+    :style="{ opacity: loading ? 1 : 0, transition: 'all .4s' }"
     :show="loading"
   />
 </template>
@@ -33,9 +32,5 @@ promiseTimeout(2000).then(() => show.value = true)
 #__nuxt,
 #__nuxt > .n-config-provider {
   @apply w-screen h-screen;
-}
-.loading {
-  transition: all .4s;
-  background: center / auto no-repeat url("/loading.png");
 }
 </style>

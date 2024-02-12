@@ -6,5 +6,11 @@ defineProps<{
 </script>
 
 <template>
-  <div class="fixed top-0 w-screen h-screen" />
+  <div class="loading fixed top-0 w-screen h-screen" />
 </template>
+
+<style scoped>
+.loading {
+  background: center / auto no-repeat url("/loading.webp");
+}
+</style>
