@@ -26,5 +26,9 @@ function handleInputIntervalDone() {
     <NFormItem label="彩带效果">
       <NSwitch v-model:value="config.ui.confetti" />
     </NFormItem>
+
+    <NFormItem label="首屏动画">
+      <NSwitch v-model:value="config.ui.firstScreenAnimation" />
+    </NFormItem>
   </NForm>
 </template>

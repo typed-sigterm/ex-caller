@@ -6,11 +6,21 @@ import { gc } from '~/utils/gc'
 const loading = ref(true)
 const show = ref(false)
 
-promiseTimeout(1600).then(() => {
+function playAnimation() {
+  promiseTimeout(1600).then(() => {
+    loading.value = false
+    gc()
+  })
+  promiseTimeout(2000).then(() => show.value = true)
+}
+
+if (useConfigStore().ui.firstScreenAnimation) {
+  playAnimation()
+}
+else { // 关闭了首屏动画，直接显示
   loading.value = false
-  gc()
-})
-promiseTimeout(2000).then(() => show.value = true)
+  show.value = true
+}
 </script>
 
 <template>

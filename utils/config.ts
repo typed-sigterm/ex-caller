@@ -8,6 +8,8 @@ export interface UserConfig {
   ui: {
     /** 抽取完成后是否显示彩带效果。 */
     confetti: boolean
+    /** 是否显示首屏动画。 */
+    firstScreenAnimation?: boolean
   }
 }
 
@@ -16,5 +18,6 @@ export const DEFAULT_USER_CONFIG: UserConfig = {
   group: '名单 1',
   ui: {
     confetti: true,
+    firstScreenAnimation: true,
   },
 }
