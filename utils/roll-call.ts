@@ -16,7 +16,7 @@ export interface RollCallConfig {
   options: RollCallOption[]
   /** 选项切换间隔时间（单位：ms）。 */
   duration: number
-  /** 开始的下标。 @default 0 */
+  /** 开始的下标。 */
   defaultIndex?: number
   /** 开始显示的值。 */
   defaultValue?: string

@@ -6,10 +6,10 @@ function optionToString(option: RollCallOption) {
 /**
  * 点名。
  *
- * 默认暂停，需要调用返回值的 `.value.resume()` 来开始。
+ * 默认暂停，需要调用返回值的 `.value.start()` 来开始。
  */
 export default (config: RollCallConfig): Ref<RollCallController> => {
-  const { options, duration, defaultIndex = 0, defaultValue } = config
+  const { options, duration, defaultIndex, defaultValue } = config
 
   const currentIndex = ref<number | undefined>(defaultIndex)
   const currentValue = ref<string | undefined>(defaultValue)
