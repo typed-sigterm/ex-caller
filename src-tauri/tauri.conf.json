@@ -1,6 +1,6 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm web:dev",
+    "beforeDevCommand": "pnpm cross-env EXC_ENV=App 'pnpm web:dev'",
     "beforeBuildCommand": "",
     "devPath": "http://localhost:6408",
     "distDir": "../dist"
@@ -10,6 +10,17 @@
     "version": "0.2.0"
   },
   "tauri": {
+    "allowlist": {
+      "dialog": {
+        "all": true
+      },
+      "fs": {
+        "writeFile": true
+      },
+      "path": {
+        "all": true
+      }
+    },
     "bundle": {
       "active": true,
       "targets": "all",

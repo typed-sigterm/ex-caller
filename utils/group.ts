@@ -1,3 +1,6 @@
+import { save } from '@tauri-apps/api/dialog'
+import { writeFile } from '@tauri-apps/api/fs'
+import { desktopDir } from '@tauri-apps/api/path'
 import type { RollCallOption } from './roll-call'
 
 export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['弭儿', '艾达', 'Kouma', '鸠', '伯尼斯', 'Branda', 'Dlyro', '艾尔帕克', 'Fuli', '阿爽', 'Lily', 'Carl', '克洛诺斯', 'Findstr', 'Theo', '久住', '尊师古卢', '萨芙', '帕拉斯', '门图', 'Igallta', 'Gino', 'Sultan']
@@ -59,4 +62,32 @@ export async function importGroupFromExcel(file: File) {
     .filter(v => typeof v[0] === 'string') as string[][])
     .map(v => v[0].trim())
     .filter(Boolean)
+}
+
+/** 导出名单到文本文件。 */
+export async function exportGroupToText(group: string) {
+  const filename = `${group}.txt`
+  const text = useGroup(group).value.join('\n')
+
+  if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
+    const path = await save({
+      defaultPath: await desktopDir() + filename, // 默认保存到桌面
+      filters: [
+        { name: '文本文件', extensions: ['txt'] },
+        { name: '所有文件', extensions: ['*'] },
+      ],
+    })
+    if (!path)
+      return
+    await writeFile(path, text)
+  }
+  else { // 浏览器环境，利用 a 标签
+    const blob = new Blob([text], { type: 'text/plain; charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const el = document.createElement('a')
+    el.href = url
+    el.download = filename
+    el.click()
+    URL.revokeObjectURL(url)
+  }
 }

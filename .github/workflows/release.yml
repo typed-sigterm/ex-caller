@@ -18,6 +18,8 @@ jobs:
           git merge --ff-only origin/main
           git push origin latest
   release:
+    env:
+      EXC_ENV: App
     permissions:
       contents: write
     strategy:

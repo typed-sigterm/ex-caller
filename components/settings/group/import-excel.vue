@@ -33,7 +33,7 @@ const handleOk = () => emit('done', input.value.flat())
   <NModal
     v-model:show="show"
     preset="confirm"
-    title="从 Excel 导入"
+    title="导入 Excel"
     :close-on-esc="false"
     positive-text="确定"
     :positive-button-props="{ disabled: !total }"
@@ -55,7 +55,7 @@ const handleOk = () => emit('done', input.value.flat())
       共检测到 {{ total }} 个名字，点击“确认”即可导入。
     </NP>
     <template #icon>
-      <NaiveIcon name="vscode-icons:file-type-excel" :size="24" />
+      <NaiveIcon name="vscode-icons:file-type-excel" :size="28" />
     </template>
   </NModal>
 </template>

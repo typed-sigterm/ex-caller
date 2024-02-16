@@ -19,9 +19,6 @@ function refreshGroups() {
 }
 refreshGroups()
 
-const unmounted = ref(false)
-onUnmounted(() => unmounted.value = true)
-
 const names = computed(() => useGroup(config.group).value)
 const shownNames = ref<RollCallOption[]>([])
 watchImmediate(names, async () => {
@@ -57,12 +54,6 @@ function handleNewGroup() {
 function handleUpdate() {
   useGroup(config.group).value = shownNames.value
 }
-
-const showBatchInput = ref(false)
-const showImportExcel = ref(false)
-function handleImportDone(items: string[]) {
-  useGroup(config.group).value = names.value.concat(items)
-}
 </script>
 
 <template>
@@ -81,37 +72,14 @@ function handleImportDone(items: string[]) {
       </template>
     </NButton>
   </NFormItem>
-
   <NDynamicInput
     v-model:value="shownNames"
+    class="mb-5"
     :min="2"
     show-sort-button
     @update:value="handleUpdate"
   />
-
-  <NSpace class="mt-5">
-    <NButton @click="showBatchInput = true">
-      批量输入
-      <template #icon>
-        <NaiveIcon name="ep:list" />
-      </template>
-    </NButton>
-    <NButton @click="showImportExcel = true">
-      从 Excel 导入
-      <template #icon>
-        <NaiveIcon name="vscode-icons:file-type-excel" />
-      </template>
-    </NButton>
-  </NSpace>
-
-  <SettingsGroupBatchInput
-    v-model:show="showBatchInput"
-    @done="handleImportDone"
-  />
-  <SettingsGroupImportExcel
-    v-model:show="showImportExcel"
-    @done="handleImportDone"
-  />
+  <SettingsGroupOperations v-model:names="names" :group="config.group" />
 </template>
 
 <style lang="postcss" scoped>

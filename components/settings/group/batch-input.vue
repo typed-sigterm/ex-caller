@@ -30,5 +30,9 @@ function handleOk() {
   >
     <NP>每行一个名字，自动去除<strong>头尾的空格</strong>和<strong>空行</strong>。</NP>
     <NInput v-model:value="input" type="textarea" />
+
+    <template #icon>
+      <NaiveIcon name="ep:list" :size="28" />
+    </template>
   </NModal>
 </template>
