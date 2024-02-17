@@ -3,7 +3,7 @@ import { writeFile } from '@tauri-apps/api/fs'
 import { desktopDir } from '@tauri-apps/api/path'
 import type { RollCallOption } from './roll-call'
 
-export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['弭儿', '艾达', 'Kouma', '鸠', '伯尼斯', 'Branda', 'Dlyro', '艾尔帕克', 'Fuli', '阿爽', 'Lily', 'Carl', '克洛诺斯', 'Findstr', 'Theo', '久住', '尊师古卢', '萨芙', '帕拉斯', '门图', 'Igallta', 'Gino', 'Sultan']
+export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['鸠', 'Gino', 'Carl', 'Dlyro', 'Fuli', '久住', '尊师古卢', 'Sultan', 'Igallta', '弭儿']
 
 const GROUP_PREFIX = 'group/'
 /** 获取名单在 `localStorage` 中的键。 */
