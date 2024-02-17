@@ -1,3 +1,6 @@
+import { reactive } from 'vue'
+import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider'
+
 import { version as v } from '../package.json'
 
 export const isDev = import.meta.env.DEV
@@ -16,8 +19,21 @@ export enum Env {
   Browser,
   App,
 }
+export const ui = reactive<{
+  dialog?: DialogApiInjection
+}>({})
+export function setupUiHooks() {
+  ui.dialog = useDialog()
+}
 
 /** 弹窗显示非致命错误。 */
-export function alertError(message: unknown) {
-  console.error(String(message))
+export function alertError(content: unknown) {
+  ui.dialog?.error({
+    title: '错误',
+    content: String(content),
+    positiveText: '确定',
+    positiveButtonProps: {
+      type: 'primary',
+    },
+  })
 }

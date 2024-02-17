@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+setupUiHooks()
 const config = useConfigStore()
 
 function getRollCall(options?: Partial<RollCallConfig>) {

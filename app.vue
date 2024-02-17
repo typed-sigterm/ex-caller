@@ -29,7 +29,9 @@ else { // 关闭了首屏动画，直接显示
     :style="{ opacity: show ? 1 : 0 }"
     :locale="zhCN"
   >
-    <ExCaller />
+    <NDialogProvider>
+      <ExCaller />
+    </NDialogProvider>
   </NaiveConfig>
   <Loading
     v-if="!show"
