@@ -59,7 +59,7 @@ jobs:
           targets: i686-pc-windows-msvc, x86_64-pc-windows-msvc
       - uses: swatinem/rust-cache@v2
         with:
-          workspaces: './src-tauri -> target'
+          workspaces: ./src-tauri -> target
       - uses: pnpm/action-setup@v2
         with:
           version: 8
