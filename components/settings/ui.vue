@@ -16,8 +16,8 @@ function handleInputIntervalDone() {
       <NSlider
         v-model:value="inputInterval"
         :format-tooltip="ms => `${ms / 1000} 秒`"
-        :max="1000"
-        :min="20"
+        :max="MAX_INTERVAL"
+        :min="MIN_INTERVAL"
         :step="10"
         @dragend="handleInputIntervalDone"
       />

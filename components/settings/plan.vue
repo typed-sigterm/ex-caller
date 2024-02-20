@@ -24,6 +24,7 @@ onBeforeUnmount(() => { // 保存设置
   <NFormItem v-if="config.plan.enabled" label="接下来点到">
     <DynamicInput
       v-model:value="queue"
+      :max="MAX_PLAN_QUEUE_SIZE"
       #="{ index }: { index: number }"
       @remove="(index) => queue.splice(index, 1)"
     >

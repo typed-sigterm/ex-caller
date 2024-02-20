@@ -1,9 +1,6 @@
 import { save } from '@tauri-apps/api/dialog'
 import { writeFile } from '@tauri-apps/api/fs'
 import { desktopDir } from '@tauri-apps/api/path'
-import type { RollCallOption } from './roll-call'
-
-export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['鸠', 'Gino', 'Carl', 'Dlyro', 'Fuli', '久住', '尊师古卢', 'Sultan', 'Igallta', '弭儿']
 
 const GROUP_PREFIX = 'group/'
 /** 获取名单在 `localStorage` 中的键。 */

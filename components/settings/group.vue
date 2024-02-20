@@ -39,6 +39,10 @@ function renderGroupName(options: SelectOption): VNodeChild {
 }
 
 function handleNewGroup() {
+  if (groups.value.length >= MAX_GROUP_COUNT) {
+    ui.message.error('名单数量已达上限')
+    return
+  }
   useGroup(generateNewGroupName())
 }
 </script>
@@ -62,6 +66,7 @@ function handleNewGroup() {
     v-model:value="names"
     class="mb-5"
     :min="2"
+    :max="MAX_GROUP_MEMBER_COUNT"
     show-sort-button
   />
   <SettingsGroupOperations v-model:names="names" />

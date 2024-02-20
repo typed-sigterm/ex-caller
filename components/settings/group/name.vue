@@ -2,7 +2,7 @@
 import type { SelectOption } from 'naive-ui'
 
 const props = defineProps<SelectOption>()
-defineEmits<{
+const emit = defineEmits<{
   (ev: 'rename', to: string): void
   (ev: 'delete'): void
 }>()
@@ -11,6 +11,15 @@ const renameTo = ref('')
 function handleRenamingUpdate(show: boolean) {
   if (show)
     renameTo.value = props.value as string
+}
+function handleRename() {
+  if (renameTo.value === props.value)
+    return
+  if (useGroupList().value.includes(renameTo.value)) {
+    ui.message.error('与现有名单重名了哦')
+    return
+  }
+  emit('rename', renameTo.value)
 }
 </script>
 
@@ -22,12 +31,13 @@ function handleRenamingUpdate(show: boolean) {
         :show-icon="false"
         positive-text="重命名"
         @update:show="handleRenamingUpdate"
-        @positive-click="$emit('rename', renameTo)"
+        @positive-click="handleRename"
       >
         <NInput
           v-model:value="renameTo"
           type="text"
           size="small"
+          :maxlength="MAX_GROUP_NAME_LENGTH"
         />
         <template #trigger>
           <NButton
