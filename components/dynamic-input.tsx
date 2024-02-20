@@ -1,7 +1,8 @@
 import { NDynamicInput } from 'naive-ui'
 
 export default defineComponent({
-  setup(_, { attrs, slots }) {
+  inheritAttrs: false,
+  setup(_, { attrs, emit, slots }) {
     const propsValue = toRef(attrs, 'value') as Ref<unknown[] | undefined>
     const displayValue: Ref<unknown[]> = ref([])
 
@@ -14,13 +15,20 @@ export default defineComponent({
           await nextFrame()
         }
       }
+      if (origin.length < legacy.length) // 选项变少
+        displayValue.value.splice(origin.length)
     }, { immediate: true, deep: true })
+
+    const handleEdit = () => {
+      emit('update:value', displayValue.value)
+    }
 
     return () => (
       <NDynamicInput
         {...attrs}
         v-model:value={displayValue.value}
         v-slots={slots}
+        onUpdate:value={handleEdit}
       />
     )
   },
