@@ -10,7 +10,7 @@ export default defineComponent({
       const legacy = displayValue.value
       for (let i = 0; i < origin.length; ++i) {
         if (origin[i] !== legacy[i]) { // 简单增量更新
-          // displayValue.value[i] = propsValue.value?.[i]
+          displayValue.value[i] = propsValue.value?.[i]
           await nextFrame()
         }
       }
