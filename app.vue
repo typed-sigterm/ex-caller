@@ -33,9 +33,11 @@ onMounted(() => {
     :style="{ opacity: show ? 1 : 0 }"
     :locale="zhCN"
   >
-    <NDialogProvider>
-      <ExCaller />
-    </NDialogProvider>
+    <NMessageProvider>
+      <NDialogProvider>
+        <ExCaller />
+      </NDialogProvider>
+    </NMessageProvider>
   </NaiveConfig>
   <Loading
     v-if="!show"
