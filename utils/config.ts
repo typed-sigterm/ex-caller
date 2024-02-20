@@ -12,6 +12,13 @@ export const UserConfigSchema = z.object({
     /** 是否显示首屏动画。 */
     firstScreenAnimation: z.boolean().default(true),
   }).default({}),
+  /** 计划设置。 */
+  plan: z.object({
+    /** 是否启用计划队列。 */
+    enabled: z.boolean().default(false),
+    /** 计划队列。 */
+    queue: z.array(z.string()).default([]),
+  }).default({}),
 })
 
 /** 用户配置。 */

@@ -13,13 +13,9 @@ export const getGroupName = (key: string) => key.slice(GROUP_PREFIX.length)
 
 /** 获取所有名单的名称。 */
 export function getGroups() {
-  const ret: string[] = []
-  for (let i = 1; i <= localStorage.length; ++i) {
-    const key = localStorage.key(i)
-    if (key?.startsWith(GROUP_PREFIX))
-      ret.push(getGroupName(key))
-  }
-  return ret
+  return Object.keys(localStorage)
+    .filter(v => v.startsWith(GROUP_PREFIX))
+    .map(getGroupName)
 }
 
 /** 判断名单是否存在。 */
@@ -67,7 +63,7 @@ export async function importGroupFromExcel(file: File) {
 /** 导出名单到文本文件。 */
 export async function exportGroupToText(group: string) {
   const filename = `${group}.txt`
-  const text = useGroup(group).value.join('\n')
+  const text = useGroupMembers(group).value.join('\n')
 
   if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
     const path = await save({

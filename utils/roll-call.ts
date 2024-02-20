@@ -38,3 +38,9 @@ export interface RollCallController {
   /** 重置为默认状态。 */
   reset: () => void
 }
+
+export function rollCallOptionToString(option: RollCallOption) {
+  if (typeof option === 'string')
+    return option
+  return option.value
+}
