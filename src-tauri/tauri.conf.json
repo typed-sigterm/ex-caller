@@ -38,7 +38,7 @@
           "language": ["zh-CN"]
         },
         "nsis": {
-          "languages": ["zh-CN"]
+          "languages": ["SimpChinese"]
         },
         "webviewInstallMode": {
           "type": "embedBootstrapper"
