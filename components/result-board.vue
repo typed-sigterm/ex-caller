@@ -59,7 +59,7 @@ function handlePause() {
       class="w-16 h-16"
       type="primary"
       round
-      @click.stop="() => emit('start')"
+      @click.stop="emit('start')"
     >
       <template #icon>
         <NaiveIcon class="ml-1" name="ant-design:caret-right-filled" :size="36" />
@@ -72,7 +72,7 @@ function handlePause() {
       <NButton
         v-if="showResume && !beforeAnimation"
         class="resume-button"
-        @click.stop="() => emit('start')"
+        @click.stop="emit('start')"
       >
         继续点名
         <template #icon>

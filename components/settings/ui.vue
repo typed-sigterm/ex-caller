@@ -15,7 +15,7 @@ function handleInputIntervalDone() {
     <NFormItem label="过号时间">
       <NSlider
         v-model:value="inputInterval"
-        :format-tooltip="(ms) => `${ms / 1000} 秒`"
+        :format-tooltip="ms => `${ms / 1000} 秒`"
         :max="1000"
         :min="20"
         :step="10"

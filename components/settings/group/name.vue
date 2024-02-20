@@ -2,48 +2,40 @@
 import type { SelectOption } from 'naive-ui'
 
 const props = defineProps<SelectOption>()
-const emit = defineEmits<{
+defineEmits<{
   (ev: 'rename', to: string): void
   (ev: 'delete'): void
 }>()
 
-const config = useConfigStore()
-const group = toRef(props, 'value') as Ref<string>
-
-const renaming = ref('')
-const handleRename = () => renaming.value = group.value
-function handleRenameOk() {
-  const to = renaming.value
-  if (group.value === to) // 没改
-    return
-  renameGroup(group.value, to)
-  if (config.group === group.value) // 修改的是当前名单，要同步更改
-    config.group = to
-  emit('rename', to)
-}
-
-function handleDelete() {
-  useGroup(group.value).value = null
-  emit('delete')
+const renameTo = ref('')
+function handleRenamingUpdate(show: boolean) {
+  if (show)
+    renameTo.value = props.value as string
 }
 </script>
 
 <template>
   <div class="w-full">
     <div class="flex">
-      {{ group }}
+      {{ value }}
       <NPopconfirm
         :show-icon="false"
         positive-text="重命名"
-        @positive-click="handleRenameOk"
+        @update:show="handleRenamingUpdate"
+        @positive-click="$emit('rename', renameTo)"
       >
         <NInput
-          v-model:value="renaming"
+          v-model:value="renameTo"
           type="text"
           size="small"
         />
         <template #trigger>
-          <NButton class="operator ml-1" size="tiny" text @click.stop="handleRename">
+          <NButton
+            class="operator ml-1"
+            size="tiny"
+            text
+            @click.stop="$emit('rename', renameTo)"
+          >
             <NaiveIcon name="ep:edit" :size="14" />
           </NButton>
         </template>
@@ -52,9 +44,9 @@ function handleDelete() {
       <NPopconfirm
         positive-text="确认删除"
         :positive-button-props="{ type: 'error' }"
-        @positive-click="handleDelete"
+        @positive-click="$emit('delete')"
       >
-        确认删除名单“{{ group }}”？删除后无法找回。
+        确认删除名单“{{ value }}”？删除后无法找回。
         <template #trigger>
           <NButton
             class="operator operator-delete ml-0.5"

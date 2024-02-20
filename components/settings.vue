@@ -63,7 +63,7 @@ function handleClose() {
     @click.stop
   >
     <NDrawerContent closable>
-      <SettingsGroup @switch-group="gc" />
+      <SettingsGroup />
       <template #header>
         名单设置
       </template>

@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  group: string
-}>()
+const group = useConfigStore().group
 const names = defineModel<RollCallOption[]>('names', { required: true })
 
 const showBatchInput = ref(false)
@@ -14,7 +12,7 @@ function handleImportDone(items: string[]) {
 const exporting = ref(false)
 async function handleExport() {
   exporting.value = true
-  await exportGroupToText(props.group).catch((e) => {
+  await exportGroupToText(group).catch((e) => {
     console.error(e)
     alertError(e)
   })
