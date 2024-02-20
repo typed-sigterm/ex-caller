@@ -1,6 +1,6 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
+    "vitest.explorer",
     "vue.volar",
     "vue.vscode-typescript-vue-plugin",
     "tauri-apps.tauri-vscode"
