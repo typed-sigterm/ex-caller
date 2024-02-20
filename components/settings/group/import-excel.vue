@@ -26,7 +26,14 @@ function customRequest(options: UploadCustomRequestOptions) {
     })
 }
 
-const handleOk = () => emit('done', input.value.flat())
+function handleOk() {
+  return emit(
+    'done',
+    input.value
+      .flat()
+      .filter((_, i) => i < MAX_GROUP_MEMBER_COUNT), // 保证名字数量不超过上限
+  )
+}
 </script>
 
 <template>
@@ -53,6 +60,10 @@ const handleOk = () => emit('done', input.value.flat())
     </NUpload>
     <NP v-if="input.length">
       共检测到 {{ total }} 个名字，点击“确认”即可导入。
+    </NP>
+    <NP v-if="total > MAX_GROUP_MEMBER_COUNT">
+      注意：已超过 {{ MAX_GROUP_MEMBER_COUNT }} 个名字，
+      将只导入前 {{ MAX_GROUP_MEMBER_COUNT }} 个。
     </NP>
     <template #icon>
       <NaiveIcon name="vscode-icons:file-type-excel" :size="28" />

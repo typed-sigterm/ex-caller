@@ -10,15 +10,13 @@ export default (name: string) => {
   cache.set(name, ret)
 
   const list = useGroupList()
-  watchImmediate(ret, (v) => { // 同步到缓存、列表
+  watchImmediate(ret, (v) => { // 同步到列表
     if (v == null) {
       list.value = list.value.filter(v => v !== name)
-      cache.delete(name)
     }
     else {
       if (!list.value.includes(name))
         list.value.push(name)
-      cache.set(name, ret)
     }
   })
 

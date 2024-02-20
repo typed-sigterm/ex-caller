@@ -19,6 +19,7 @@ const groups = computed<SelectOption[]>(() => {
     class: 'group-name-item',
   }))
 })
+const limited = computed(() => useGroupList().value.length >= MAX_GROUP_COUNT)
 
 function renderGroupName(options: SelectOption): VNodeChild {
   // 处理事件，需要下一帧才会真正操作 localStorage
@@ -39,11 +40,9 @@ function renderGroupName(options: SelectOption): VNodeChild {
 }
 
 function handleNewGroup() {
-  if (groups.value.length >= MAX_GROUP_COUNT) {
-    ui.message.error('名单数量已达上限')
-    return
-  }
-  useGroup(generateNewGroupName())
+  const name = generateNewGroupName()
+  useGroup(name) // 创建名单
+  config.group = name // 切换到新名单
 }
 </script>
 
@@ -55,7 +54,7 @@ function handleNewGroup() {
       :options="groups"
       :render-label="renderGroupName"
     />
-    <NButton class="ml-1" @click="handleNewGroup">
+    <NButton class="ml-1" :disabled="limited" @click="handleNewGroup">
       新建名单
       <template #icon>
         <NaiveIcon name="ep:plus" :size="16" />

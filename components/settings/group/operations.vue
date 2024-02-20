@@ -2,6 +2,8 @@
 const group = useConfigStore().group
 const names = defineModel<RollCallOption[]>('names', { required: true })
 
+const limited = computed(() => useGroupList().value.length >= MAX_GROUP_COUNT)
+
 const showBatchInput = ref(false)
 
 const showImportExcel = ref(false)
@@ -22,13 +24,13 @@ async function handleExport() {
 
 <template>
   <NSpace>
-    <NButton @click="showBatchInput = true">
+    <NButton :disabled="limited" @click="showBatchInput = true">
       批量输入
       <template #icon>
         <NaiveIcon name="ep:list" />
       </template>
     </NButton>
-    <NButton @click="showImportExcel = true">
+    <NButton :disabled="limited" @click="showImportExcel = true">
       导入 Excel
       <template #icon>
         <NaiveIcon name="vscode-icons:file-type-excel" />
@@ -41,6 +43,9 @@ async function handleExport() {
       </template>
     </NButton>
   </NSpace>
+  <NP v-if="limited">
+    名单数量已达上限，无法导入新名单。
+  </NP>
 
   <SettingsGroupBatchInput
     v-model:show="showBatchInput"

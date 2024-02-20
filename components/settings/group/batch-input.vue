@@ -9,11 +9,15 @@ const show = defineModel<boolean>('show', { required: true })
 const input = ref('')
 
 function handleOk() {
-  // 向上传递，并去除空元素
   const names = input.value
     .split('\n')
     .map(v => v.trim())
-    .filter(Boolean)
+    .filter(Boolean) // 去除空元素
+  if (names.length >= MAX_GROUP_MEMBER_COUNT) {
+    ui.message.error('名单数量已达上限')
+    return
+  }
+
   emit('done', names)
 }
 </script>
