@@ -35,7 +35,7 @@ ex-caller
 - 启动 tauri 和 Nuxt 的开发服务器：`pnpm dev`
 - 仅启动 Nuxt 开发服务器 `pnpm web:dev`
 - 检查代码格式：`pnpm lint`
-- 构建：`pnpm web:build` 然后 `pnpm build`
+- 构建：`pnpm build`
 
 开始开发之前，需要运行 `pnpm install` 安装依赖。
 

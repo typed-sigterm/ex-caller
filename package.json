@@ -4,7 +4,8 @@
   "version": "0.3.0",
   "private": true,
   "scripts": {
-    "build": "tauri build",
+    "app:build": "tauri build",
+    "build": "pnpm web:build && pnpm app:build",
     "dev": "tauri dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",
