@@ -13,7 +13,7 @@ const result = getRollCall()
 
 const unstarted = ref(true) // 是否未开始过
 const showingResume = ref(false) // 是否正在播放动画
-const planned = computed(() => config.plan.enabled && config.plan.queue.length)
+const planned = computed(() => config.plan.enabled && config.plan.queue.length > 0)
 
 function handleStart() {
   result.value.start()
@@ -25,7 +25,7 @@ function handlePause() {
   showingResume.value = true
   result.value.pause()
 
-  if (planned) { // 有计划则执行计划
+  if (planned.value) { // 有计划则执行计划
     result.value.currentValue = config.plan.queue[0]
     config.plan.queue.shift()
   }
@@ -60,7 +60,7 @@ function handleSettingsClose() {
   />
   <NaiveIcon
     class="settings-button absolute text-gray-200 hover:text-gray-600 cursor-pointer"
-    :style="{ color: config.plan.enabled ? '#d03050' : undefined }"
+    :style="{ color: planned ? '#d03050' : undefined }"
     name="ep:setting"
     :size="24"
     @click="handleOpenSettings"
