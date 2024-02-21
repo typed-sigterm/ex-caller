@@ -1,6 +1,6 @@
 [package]
 name = "ex-caller"
-version = "0.3.1"
+version = "0.3.2"
 description = "一款功能丰富的随机点名工具"
 
 [build-dependencies]
