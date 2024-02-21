@@ -9,7 +9,7 @@ async function wait(times = 1) {
 }
 
 describe.concurrent('useRollCall', () => {
-  it('应当正确初始化', () => {
+  it('初始化', () => {
     const inst = useRollCall({
       options: ['A', 'B'],
       duration,
@@ -19,7 +19,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBeUndefined()
   })
 
-  it('应当正确处理传入的默认值', () => {
+  it('处理传入的默认值', () => {
     const inst = useRollCall({
       options: ['A', 'B'],
       duration,
@@ -31,7 +31,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBe('BBB')
   })
 
-  it('间隔指定时间后，应当下一个', async () => {
+  it('定时下一个', async () => {
     const inst = useRollCall({
       options: ['A', 'B'],
       duration,
@@ -42,7 +42,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBe('B')
   })
 
-  it('应当循环抽取', async () => {
+  it('循环抽取', async () => {
     const inst = useRollCall({
       options: ['A', 'B'],
       duration,
@@ -53,7 +53,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBe('A')
   })
 
-  it('暂停后，应当停止下一个', async () => {
+  it('暂停后立即停止', async () => {
     const inst = useRollCall({
       options: ['A', 'B', 'C'],
       duration,
@@ -68,7 +68,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBe('B')
   })
 
-  it('恢复后，应当立即下一个', async () => {
+  it('恢复后立即下一个并继续', async () => {
     const inst = useRollCall({
       options: ['A', 'B', 'C'],
       duration,
@@ -82,7 +82,7 @@ describe.concurrent('useRollCall', () => {
     expect(inst.value.currentValue).toBe('C')
   })
 
-  it('应当正确重置', async () => {
+  it('重置', async () => {
     const inst = useRollCall({
       options: ['A', 'B'],
       duration,
