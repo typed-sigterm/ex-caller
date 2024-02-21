@@ -1,12 +1,14 @@
-import type { RemovableRef } from '@vueuse/core'
-
-const cache = new Map<string, RemovableRef<RollCallOption[]>>()
+const cache = new Map<string, Ref<RollCallOption[] | null>>()
 
 export default (name: string) => {
   if (cache.has(name))
     return cache.get(name)!
 
-  const ret = useLocalStorage<RollCallOption[]>(getGroupKey(name), DEFAULT_GROUP_OPTIONS)
+  const ret: Ref<RollCallOption[] | null> = useLocalStorage<RollCallOption[]>(
+    getGroupKey(name),
+    DEFAULT_GROUP_OPTIONS,
+    { flush: 'sync' },
+  )
   cache.set(name, ret)
 
   const list = useGroupList()
@@ -22,3 +24,5 @@ export default (name: string) => {
 
   return ret
 }
+
+export const clearGroupCache = () => cache.clear()

@@ -60,7 +60,7 @@ export async function importGroupFromExcel(file: File) {
 /** 导出名单到文本文件。 */
 export async function exportGroupToText(group: string) {
   const filename = `${group}.txt`
-  const text = useGroupMembers(group).value.join('\n')
+  const text = useGroupMembers(group).value!.join('\n')
 
   if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
     const path = await save({

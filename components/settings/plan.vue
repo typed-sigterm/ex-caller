@@ -4,7 +4,7 @@ import type { SelectOption } from 'naive-ui/es/select/src/interface'
 const config = useConfigStore()
 const queue = ref([...config.plan.queue])
 const options = computed((): SelectOption[] => {
-  return useGroupMembers(config.group).value.map(v => ({
+  return useGroupMembers(config.group).value!.map(v => ({
     value: v,
     label: v,
   }))
