@@ -44,7 +44,7 @@ function handleClose() {
       <SettingsUi class="mt-6" />
       <div class="flex items-center" style="color: #86909c;">
         ExCaller {{ version }}
-        <img class="inline w-4 mx-2" src="/logo.png">
+        <img class="inline w-4 mx-2" src="/logo.webp">
         <NA href="/licenses.txt" target="_blank">
           开放源代码许可
         </NA>

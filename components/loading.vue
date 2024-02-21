@@ -11,6 +11,6 @@ defineProps<{
 
 <style scoped>
 .loading {
-  background: center / auto no-repeat url("/loading.webp");
+  background: center / 100px auto no-repeat url("/loading.webp");
 }
 </style>
