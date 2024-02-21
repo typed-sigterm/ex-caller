@@ -1,7 +1,3 @@
-import { save } from '@tauri-apps/api/dialog'
-import { writeFile } from '@tauri-apps/api/fs'
-import { desktopDir } from '@tauri-apps/api/path'
-
 const GROUP_PREFIX = 'group/'
 /** 获取名单在 `localStorage` 中的键。 */
 export const getGroupKey = (name: string) => GROUP_PREFIX + name
@@ -59,28 +55,11 @@ export async function importGroupFromExcel(file: File) {
 
 /** 导出名单到文本文件。 */
 export async function exportGroupToText(group: string) {
-  const filename = `${group}.txt`
-  const text = useGroupMembers(group).value!.join('\n')
-
-  if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
-    const path = await save({
-      defaultPath: await desktopDir() + filename, // 默认保存到桌面
-      filters: [
-        { name: '文本文件', extensions: ['txt'] },
-        { name: '所有文件', extensions: ['*'] },
-      ],
-    })
-    if (!path)
-      return
-    await writeFile(path, text)
-  }
-  else { // 浏览器环境，利用 a 标签
-    const blob = new Blob([text], { type: 'text/plain; charset=utf-8' })
-    const url = URL.createObjectURL(blob)
-    const el = document.createElement('a')
-    el.href = url
-    el.download = filename
-    el.click()
-    URL.revokeObjectURL(url)
-  }
+  await saveFile(
+    `${group}.txt`,
+    useGroupMembers(group).value!.join('\n'),
+    {
+      filters: [{ name: '文本文件', extensions: ['txt'] }],
+    },
+  )
 }
