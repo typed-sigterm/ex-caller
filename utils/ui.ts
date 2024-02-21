@@ -16,7 +16,10 @@ export interface SaveFileOptions {
   defaultPath?: string
   filters?: DialogFilter[]
 }
-/** 保存文件。 */
+/**
+ * 保存文件。
+ * @returns 是否保存成功
+ */
 export async function saveFile(filename: string, content: string, options: SaveFileOptions) {
   if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
     const {
@@ -31,7 +34,7 @@ export async function saveFile(filename: string, content: string, options: SaveF
       ],
     })
     if (!path)
-      return
+      return false
     await writeFile(path, content)
   }
   else { // 浏览器环境，利用 a 标签
@@ -43,5 +46,6 @@ export async function saveFile(filename: string, content: string, options: SaveF
     el.click()
     URL.revokeObjectURL(url)
     await promiseTimeout(1000) /// 1s 等待开始下载
+    return true
   }
 }

@@ -53,9 +53,12 @@ export async function importGroupFromExcel(file: File) {
     .filter(Boolean)
 }
 
-/** 导出名单到文本文件。 */
+/**
+ * 导出名单到文本文件。
+ * @returns 是否导出成功
+ */
 export async function exportGroupToText(group: string) {
-  await saveFile(
+  return await saveFile(
     `${group}.txt`,
     useGroupMembers(group).value!.join('\n'),
     {

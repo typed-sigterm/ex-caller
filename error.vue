@@ -11,8 +11,10 @@ const showClearConfig = ref(false)
 const clearingConfig = ref(false)
 async function handleClearConfig() {
   clearingConfig.value = true
-  await saveFile('config.json', JSON.stringify(localStorage))
-  clearingConfig.value = false
+  if (!await saveFile('config.json', JSON.stringify(localStorage))) { // 用户取消
+    clearingConfig.value = false
+    return
+  }
   localStorage.clear()
   location.reload()
 }
