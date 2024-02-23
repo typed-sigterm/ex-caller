@@ -19,7 +19,9 @@ export function shouldStartGuide(key: keyof Guide) {
   return true
 }
 
-export const confetti = new JSConfetti()
+export const confetti = import.meta.env.VITEST
+  ? {} as JSConfetti // vitest 不支持 canvas
+  : new JSConfetti()
 
 export function nextFrame() {
   return new Promise(
