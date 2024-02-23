@@ -4,6 +4,21 @@ import { desktopDir } from '@tauri-apps/api/path'
 import { promiseTimeout } from '@vueuse/core'
 import JSConfetti from 'js-confetti'
 
+/**
+ * 判断是否应该开始教程。
+ *
+ * 如果返回 `true`，则应该开始教程，下次调用不再返回 `true`。
+ * @param key 教程名称
+ * @returns 是否应该开始教程
+ */
+export function shouldStartGuide(key: keyof Guide) {
+  const store = useGuideStore()
+  if (store[key])
+    return false
+  store.$patch({ [key]: true })
+  return true
+}
+
 export const confetti = new JSConfetti()
 
 export function nextFrame() {

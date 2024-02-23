@@ -45,10 +45,19 @@ function handlePause() {
     return
   emit('pause')
 }
+
+export interface Expose {
+  resultBoard: Ref<HTMLDivElement | null>
+  startButton: Ref<HTMLButtonElement | null>
+}
+const resultBoard = ref<HTMLDivElement | null>(null)
+const startButton = ref<HTMLButtonElement | null>(null)
+defineExpose<Expose>({ resultBoard, startButton })
 </script>
 
 <template>
   <NFlex
+    :ref="(vnode: any) => resultBoard = vnode?.$el ?? null"
     class="h-full items-center" :class="[showingResume && 'showing-resume']"
     vertical
     justify="center"
@@ -56,6 +65,7 @@ function handlePause() {
   >
     <NButton
       v-if="value === undefined"
+      :ref="(vnode: any) => startButton = vnode?.$el ?? null"
       class="w-16 h-16"
       type="primary"
       round

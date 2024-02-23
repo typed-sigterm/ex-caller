@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { Expose as ResultBoardExpose } from '~/components/result-board.vue'
+
 setupUiHooks()
 const config = useConfigStore()
 
@@ -46,10 +48,21 @@ function handleSettingsClose() {
     defaultValue: result.value.currentValue,
   }).value
 }
+
+const resultBoardExpose = ref<ResultBoardExpose | null>(null)
+onMounted(() => { // 教程
+  if (!shouldStartGuide('welcome'))
+    return
+  startWelcomeGuide({
+    ...resultBoardExpose.value!,
+    settingsButton: document.querySelector('.settings-button'),
+  })
+})
 </script>
 
 <template>
   <ResultBoard
+    ref="resultBoardExpose"
     v-bind="$attrs"
     v-model:showing-resume="showingResume"
     :value="result.currentValue"

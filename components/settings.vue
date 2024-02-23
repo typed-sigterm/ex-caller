@@ -19,6 +19,13 @@ function handleClose() {
   emit('close')
   promiseTimeout(500).then(gc)
 }
+
+watch(showPlan, async (v) => { // 教程
+  if (!v || !shouldStartGuide('plan'))
+    return
+  await promiseTimeout(500)
+  startPlanGuide({ drawer: document.querySelector('#plan-drawer') })
+})
 </script>
 
 <template>
@@ -71,6 +78,7 @@ function handleClose() {
   </NDrawer>
 
   <NDrawer
+    id="plan-drawer"
     v-model:show="showPlan"
     :default-width="DRAWER_DEFAULT_WIDTH"
     :min-width="DRAWER_MIN_WIDTH"

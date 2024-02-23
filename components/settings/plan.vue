@@ -15,10 +15,16 @@ onBeforeUnmount(() => { // 保存设置
     v => typeof v === 'string' && v.length,
   ) // 过滤空值、无效值
 })
+
+export interface Expose {
+  enableField: Ref<HTMLDivElement | null>
+}
+const enableField = ref<HTMLDivElement | null>(null)
+defineExpose<Expose>({ enableField })
 </script>
 
 <template>
-  <NFormItem label="启用计划" label-placement="left">
+  <NFormItem ref="enableField" label="启用计划" label-placement="left">
     <NSwitch v-model:value="config.plan.enabled" />
   </NFormItem>
   <NFormItem v-if="config.plan.enabled" label="接下来点到">
