@@ -4,8 +4,8 @@ import { z } from 'zod'
 import type { MaybeRef } from '@vueuse/core'
 
 export const GuideSchema = z.object({
-  welcome: z.boolean().optional(),
-  plan: z.boolean().optional(),
+  welcome: z.boolean().default(false),
+  plan: z.boolean().default(false),
 })
 
 export type Guide = z.infer<typeof GuideSchema>
