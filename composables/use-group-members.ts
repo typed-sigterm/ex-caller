@@ -1,5 +1,5 @@
 export default (name: string) => {
   return computed(
-    () => useGroup(name).value.map(rollCallOptionToString),
+    () => useGroup(name).value.map(rollCallOptionToString) ?? [],
   )
 }

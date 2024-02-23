@@ -22,12 +22,13 @@ const groups = computed<SelectOption[]>(() => {
 const limited = computed(() => useGroupList().value.length >= MAX_GROUP_COUNT)
 
 function renderGroupName(options: SelectOption): VNodeChild {
-  // 处理事件，需要下一帧才会真正操作 localStorage
   const handleRename = (to: string) => {
     renameGroup(options.value as string, to)
+    if (config.group === options.value) // 重命名当前名单
+      config.$patch({ group: to })
   }
   const handleDelete = () => {
-    useGroup(options.value as string).value = null
+    removeGroup(options.value as string)
   }
 
   return (
@@ -39,10 +40,10 @@ function renderGroupName(options: SelectOption): VNodeChild {
   )
 }
 
-function handleNewGroup() {
+function handleAddGroup() {
   const name = generateNewGroupName()
-  useGroup(name) // 创建名单
-  config.group = name // 切换到新名单
+  addGroup(name) // 创建名单
+  config.$patch({ group: name }) // 切换到新名单
 }
 </script>
 
@@ -54,7 +55,7 @@ function handleNewGroup() {
       :options="groups"
       :render-label="renderGroupName"
     />
-    <NButton class="ml-1" :disabled="limited" @click="handleNewGroup">
+    <NButton class="ml-1" :disabled="limited" @click="handleAddGroup">
       新建名单
       <template #icon>
         <NaiveIcon name="ep:plus" :size="16" />

@@ -11,16 +11,23 @@ export function getGroups() {
     .map(getGroupName)
 }
 
-/** 判断名单是否存在。 */
 export function hasGroup(name: string) {
   return localStorage.getItem(getGroupKey(name)) !== null
 }
 
-/** 重命名名单。 */
+export function addGroup(name: string) {
+  localStorage.setItem(getGroupKey(name), JSON.stringify(DEFAULT_GROUP_OPTIONS))
+  refreshGroupList()
+}
+
+export function removeGroup(name: string) {
+  localStorage.removeItem(getGroupKey(name))
+  refreshGroupList()
+}
+
 export function renameGroup(from: string, to: string) {
-  const origin = useGroup(from)
-  useGroup(to).value = origin.value
-  origin.value = null
+  useGroup(to).value = useGroup(from).value
+  removeGroup(from)
 }
 
 /** 生成新的名单名称。 */
