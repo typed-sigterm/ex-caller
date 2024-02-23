@@ -37,5 +37,6 @@ export default defineNuxtConfig({
   },
   naiveui: {
     iconDownload: !import.meta.env.VITEST,
+    iconCollectionsUrl: 'https://raw.githubusercontent.com/iconify/icon-sets/master/collections.json',
   },
 })
