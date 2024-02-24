@@ -1,3 +1,3 @@
 # ExCaller
 
-ExCaller 是一款功能丰富的随机点名工具。
+ExCaller 是一个简约风格的随机点名工具。

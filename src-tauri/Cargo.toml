@@ -1,7 +1,7 @@
 [package]
 name = "ex-caller"
 version = "0.4.0"
-description = "一款功能丰富的随机点名工具"
+description = "一个简约风格的随机点名工具"
 
 [build-dependencies]
 tauri-build = { version = "1.5", features = [] }
