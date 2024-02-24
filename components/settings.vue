@@ -49,13 +49,7 @@ watch(showPlan, async (v) => { // 教程
         <NaiveIcon class="absolute right-3" name="ep:right" />
       </NCard>
       <SettingsUi class="mt-6" />
-      <div class="flex items-center" style="color: #86909c;">
-        ExCaller {{ version }}
-        <img class="inline w-4 mx-2" src="/logo.webp">
-        <NA href="/licenses.txt" target="_blank">
-          开放源代码许可
-        </NA>
-      </div>
+      <SettingsFooter />
       <template #header>
         设置
       </template>
