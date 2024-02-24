@@ -8,13 +8,9 @@ const names = computed({
   get: () => useGroup(config.group).value,
   set: v => useGroup(config.group).value = v,
 })
-/**
- * @member label 名单在列表中的索引
- * @member value 名单名称
- */
 const groups = computed<SelectOption[]>(() => {
-  return useGroupList().value.map((item, index) => ({
-    label: index.toString(),
+  return useGroupList().value.map(item => ({
+    label: '',
     value: item,
     class: 'group-name-item',
   }))
