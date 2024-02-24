@@ -40,7 +40,7 @@ function handleRename() {
           :maxlength="MAX_GROUP_NAME_LENGTH"
         />
         <template #trigger>
-          <NButton class="operator ml-1" size="tiny" text>
+          <NButton class="operator ml-1" size="tiny" text @click.stop>
             <NaiveIcon name="ep:edit" :size="14" />
           </NButton>
         </template>
