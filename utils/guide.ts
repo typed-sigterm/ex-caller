@@ -5,6 +5,7 @@ import type { MaybeRef } from '@vueuse/core'
 
 export const GuideSchema = z.object({
   welcome: z.boolean().default(false),
+  stopCalling: z.boolean().default(false),
   plan: z.boolean().default(false),
 })
 
@@ -36,6 +37,15 @@ export function startWelcomeGuide(elements: GuideElements<'startButton' | 'setti
       popover: { title: '设置', description: '点击齿轮按钮打开设置界面。' },
     }, {
       popover: { title: '就这些', description: '是不是足够简约？（笑）' },
+    }],
+  }).drive()
+}
+
+export function startStopCallingGuide(elements: GuideElements<'resultBoard'>) {
+  createDriver({
+    steps: [{
+      element: toElement(elements.resultBoard),
+      popover: { title: '停止抽取', description: '开始抽取后，点击任意位置停止抽取。' },
     }],
   }).drive()
 }

@@ -17,9 +17,13 @@ const unstarted = ref(true) // 是否未开始过
 const showingResume = ref(false) // 是否正在播放动画
 const planned = computed(() => config.plan.enabled && config.plan.queue.length > 0)
 
+const resultBoardExpose = ref<ResultBoardExpose | null>(null)
+
 function handleStart() {
   result.value.start()
   unstarted.value = false
+  if (shouldStartGuide('stopCalling'))
+    startStopCallingGuide(resultBoardExpose.value!)
 }
 function handlePause() {
   if (!result.value?.isActive || showingResume.value)
@@ -49,7 +53,6 @@ function handleSettingsClose() {
   }).value
 }
 
-const resultBoardExpose = ref<ResultBoardExpose | null>(null)
 onMounted(() => { // 教程
   if (!shouldStartGuide('welcome'))
     return
