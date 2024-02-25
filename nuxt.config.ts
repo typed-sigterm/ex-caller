@@ -8,6 +8,7 @@ if (Number.isNaN(__ENV__) || !(__ENV__ in Env))
   throw new Error('Invalid environment value')
 
 export default defineNuxtConfig({
+  devtools: { enabled: false }, // 没必要
   ssr: false,
   modules: [
     '@bg-dev/nuxt-naiveui',
