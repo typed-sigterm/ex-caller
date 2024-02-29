@@ -11,6 +11,8 @@ export const UserConfigSchema = z.object({
     confetti: z.boolean().default(true),
     /** 是否显示首屏动画。 */
     firstScreenAnimation: z.boolean().default(true),
+    /** 设置按钮位置。 */
+    settingsButton: z.enum(['top-right', 'center']).default('top-right'),
   }).default({}),
   /** 计划设置。 */
   plan: z.object({

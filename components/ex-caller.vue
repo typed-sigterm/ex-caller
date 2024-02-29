@@ -72,15 +72,37 @@ onMounted(() => { // 教程
     :confetti="config.ui.confetti"
     @start="handleStart"
     @pause="handlePause"
-  />
+  >
+    <template v-if="config.ui.settingsButton === 'center'" #startOperators>
+      <LargeButton
+        :type="config.plan.enabled ? 'error' : 'info'"
+        @click="handleOpenSettings"
+      >
+        <template #icon>
+          <NaiveIcon name="ep:setting" :size="32" />
+        </template>
+      </LargeButton>
+    </template>
+
+    <template v-if="config.ui.settingsButton === 'center'" #resumeOperators>
+      <NButton circle @click="handleOpenSettings">
+        <template #icon>
+          <NaiveIcon name="ep:setting" :size="18" />
+        </template>
+      </NButton>
+    </template>
+  </ResultBoard>
+
   <NaiveIcon
+    v-if="config.ui.settingsButton === 'top-right'"
+    :plan-enabled="config.plan.enabled"
     class="settings-button"
     :class="[config.plan.enabled && 'plan-enabled']"
-    title="设置"
     name="ep:setting"
     :size="24"
     @click="handleOpenSettings"
   />
+
   <LazySettings
     v-if="loadSettings"
     v-model:show="showSettings"
@@ -99,12 +121,15 @@ onMounted(() => { // 教程
   }
 
   @apply absolute cursor-pointer opacity-20;
+  top: 8px;
   top: calc(env(safe-area-inset-top) + 8px);
+  right: 8px;
   right: calc(env(safe-area-inset-right) + 8px);
   transition: all .3s;
   animation: rotating 5s linear infinite forwards;
   animation-play-state: paused;
 }
+
 @keyframes rotating {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -18,6 +18,10 @@ const emit = defineEmits<{
   /** 暂停抽取。 */
   (ev: 'pause'): void
 }>()
+defineSlots<{
+  startOperators: () => any
+  resumeOperators: () => any
+}>()
 const showingResume = defineModel<boolean>('showingResume', { required: true })
 
 const beforeAnimation = ref(false)
@@ -56,48 +60,44 @@ defineExpose<Expose>({ resultBoard, startButton })
 </script>
 
 <template>
-  <NFlex
+  <NSpace
     :ref="(vnode: any) => resultBoard = vnode?.$el ?? null"
     class="h-full items-center" :class="[showingResume && 'showing-resume']"
     vertical
     justify="center"
     @click="handlePause"
   >
-    <NButton
-      v-if="value === undefined"
-      :ref="(vnode: any) => startButton = vnode?.$el ?? null"
-      class="w-16 h-16"
-      type="primary"
-      round
-      @click.stop="emit('start')"
-    >
-      <template #icon>
-        <NaiveIcon class="ml-1" name="ant-design:caret-right-filled" :size="36" />
-      </template>
-    </NButton>
+    <NSpace v-if="value === undefined">
+      <LargeButton type="primary" @click.stop="emit('start')">
+        <template #icon>
+          <NaiveIcon class="ml-1" name="ant-design:caret-right-filled" :size="36" />
+        </template>
+      </LargeButton>
+      <slot name="startOperators" />
+    </NSpace>
+
     <template v-else>
       <span class="current-value mb-2 text-5xl">
         {{ value }}
       </span>
-      <NButton
-        v-if="showResume && !beforeAnimation"
-        class="resume-button"
-        @click.stop="emit('start')"
-      >
-        继续点名
-        <template #icon>
-          <NaiveIcon name="ant-design:play-circle-filled" :size="20" />
-        </template>
-      </NButton>
+      <NSpace v-if="showResume && !beforeAnimation" class="resume-operators">
+        <NButton class="resume-button" @click.stop="emit('start')">
+          继续点名
+          <template #icon>
+            <NaiveIcon name="ant-design:play-circle-filled" :size="20" />
+          </template>
+        </NButton>
+        <slot name="resumeOperators" />
+      </NSpace>
     </template>
-  </NFlex>
+  </NSpace>
 </template>
 
 <style lang="postcss" scoped>
-.showing-resume .resume-button {
-  animation: show-resume-button .65s forwards;
+.showing-resume .resume-operators {
+  animation: show-resume-operators .65s forwards;
 }
-@keyframes show-resume-button {
+@keyframes show-resume-operators {
   from {
     @apply opacity-0;
     transform: translateY(16px);

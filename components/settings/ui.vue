@@ -30,5 +30,18 @@ function handleInputIntervalDone() {
     <NFormItem label="首屏动画">
       <NSwitch v-model:value="config.ui.firstScreenAnimation" />
     </NFormItem>
+
+    <NFormItem label="设置按钮位置">
+      <NSelect
+        v-model:value="config.ui.settingsButton"
+        :options="[{
+          label: '屏幕右上角',
+          value: 'top-right',
+        }, {
+          label: '屏幕中央',
+          value: 'center',
+        }]"
+      />
+    </NFormItem>
   </NForm>
 </template>
