@@ -15,7 +15,6 @@ const result = getRollCall()
 
 const unstarted = ref(true) // 是否未开始过
 const showingResume = ref(false) // 是否正在播放动画
-const planned = computed(() => config.plan.enabled && config.plan.queue.length > 0)
 
 const resultBoardExpose = ref<ResultBoardExpose | null>(null)
 
@@ -31,7 +30,7 @@ function handlePause() {
   showingResume.value = true
   result.value.pause()
 
-  if (planned.value) { // 有计划则执行计划
+  if (config.plan.enabled && config.plan.queue.length > 0) { // 有计划则执行计划
     result.value.currentValue = config.plan.queue[0]
     config.plan.queue.shift()
   }
@@ -75,8 +74,9 @@ onMounted(() => { // 教程
     @pause="handlePause"
   />
   <NaiveIcon
-    class="settings-button absolute text-gray-200 hover:text-gray-600 cursor-pointer"
-    :style="{ color: planned ? '#d03050' : undefined }"
+    class="settings-button"
+    :class="[config.plan.enabled && 'plan-enabled']"
+    title="设置"
     name="ep:setting"
     :size="24"
     @click="handleOpenSettings"
@@ -90,8 +90,23 @@ onMounted(() => { // 教程
 
 <style lang="postcss" scoped>
 .settings-button {
+  &:hover {
+    animation-play-state: running;
+  }
+  &.plan-enabled {
+    @apply opacity-100;
+    color: #d03050;
+  }
+
+  @apply absolute cursor-pointer opacity-20;
   top: calc(env(safe-area-inset-top) + 8px);
   right: calc(env(safe-area-inset-right) + 8px);
   transition: all .3s;
+  animation: rotating 5s linear infinite forwards;
+  animation-play-state: paused;
+}
+@keyframes rotating {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 </style>
