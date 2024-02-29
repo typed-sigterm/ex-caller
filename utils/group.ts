@@ -25,6 +25,14 @@ export function removeGroup(name: string) {
   refreshGroupList()
 }
 
+/** 检查指定应当存在的名单，若存在问题则修复数据。 */
+export function fixGroup(name: string) {
+  if (!hasGroup(name)) // 没有则加回去
+    addGroup(name)
+  if (useGroup(name).value.length < 2) // 人太少则多加点
+    useGroup(name).value.push(...DEFAULT_GROUP_OPTIONS)
+}
+
 export function renameGroup(from: string, to: string) {
   useGroup(to).value = useGroup(from).value
   removeGroup(from)
