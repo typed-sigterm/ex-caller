@@ -53,7 +53,8 @@ function handlePause() {
 
 <template>
   <NSpace
-    class="h-full items-center" :class="[showingResume && 'showing-resume']"
+    class="h-full items-center"
+    :class="[showingResume && 'showing-resume']"
     vertical
     justify="center"
     @click="handlePause"
@@ -68,9 +69,9 @@ function handlePause() {
     </NSpace>
 
     <template v-else>
-      <span class="current-value mb-2 text-5xl">
+      <p class="mb-2 text-5xl">
         {{ value }}
-      </span>
+      </p>
       <NSpace v-if="showResume && !beforeAnimation" class="resume-operators">
         <NButton class="resume-button" @click.stop="emit('start')">
           继续点名

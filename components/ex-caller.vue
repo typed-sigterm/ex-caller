@@ -63,6 +63,7 @@ prefetchComponents('LazySettings')
   <ResultBoard
     v-bind="$attrs"
     v-model:showing-resume="showingResume"
+    :style="{ userSelect: result.isActive ? 'none' : 'auto' }"
     :value="result.currentValue"
     :show-resume="!result.isActive"
     :confetti="config.ui.confetti"
