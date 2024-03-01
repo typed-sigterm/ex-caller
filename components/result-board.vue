@@ -49,26 +49,17 @@ function handlePause() {
     return
   emit('pause')
 }
-
-export interface Expose {
-  resultBoard: Ref<HTMLDivElement | null>
-  startButton: Ref<HTMLButtonElement | null>
-}
-const resultBoard = ref<HTMLDivElement | null>(null)
-const startButton = ref<HTMLButtonElement | null>(null)
-defineExpose<Expose>({ resultBoard, startButton })
 </script>
 
 <template>
   <NSpace
-    :ref="(vnode: any) => resultBoard = vnode?.$el ?? null"
     class="h-full items-center" :class="[showingResume && 'showing-resume']"
     vertical
     justify="center"
     @click="handlePause"
   >
     <NSpace v-if="value === undefined">
-      <LargeButton type="primary" @click.stop="emit('start')">
+      <LargeButton type="primary" data-guide-id="start-button" @click.stop="emit('start')">
         <template #icon>
           <NaiveIcon class="ml-1" name="ant-design:caret-right-filled" :size="36" />
         </template>

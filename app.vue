@@ -21,6 +21,11 @@ else { // 关闭了首屏动画，直接显示
   loading.value = false
   show.value = true
 }
+
+watch(show, (v) => {
+  if (v)
+    bus.emit('login')
+})
 </script>
 
 <template>

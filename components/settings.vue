@@ -24,7 +24,10 @@ watch(showPlan, async (v) => { // 教程
   if (!v || !shouldStartGuide('plan'))
     return
   await promiseTimeout(500)
-  startPlanGuide({ drawer: document.querySelector('#plan-drawer') })
+  triggerPlanGuide({
+    enableField: document.querySelector('[data-guide-id="enable-plan-field"]'),
+    drawer: document.querySelector('[data-guide-id="plan-drawer"]'),
+  })
 })
 </script>
 
@@ -72,11 +75,11 @@ watch(showPlan, async (v) => { // 教程
   </NDrawer>
 
   <NDrawer
-    id="plan-drawer"
     v-model:show="showPlan"
     :default-width="DRAWER_DEFAULT_WIDTH"
     :min-width="DRAWER_MIN_WIDTH"
     resizable
+    data-guide-id="plan-drawer"
     @click.stop
   >
     <NDrawerContent closable>

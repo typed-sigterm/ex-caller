@@ -3,20 +3,15 @@ import { writeFile } from '@tauri-apps/api/fs'
 import { desktopDir } from '@tauri-apps/api/path'
 import { promiseTimeout } from '@vueuse/core'
 import JSConfetti from 'js-confetti'
+import type { Guide } from './guide'
 
-/**
- * 判断是否应该开始教程。
- *
- * 如果返回 `true`，则应该开始教程，下次调用不再返回 `true`。
- * @param key 教程名称
- * @returns 是否应该开始教程
- */
+/** 判断是否应该开始教程。 */
 export function shouldStartGuide(key: keyof Guide) {
-  const store = useGuideStore()
-  if (store[key])
-    return false
-  store.$patch({ [key]: true })
-  return true
+  return !useGuideStore()[key]
+}
+/** 标记教程为已完成。 */
+export function markGuideAsStarted(key: keyof Guide) {
+  useGuideStore().$patch({ [key]: true })
 }
 
 export const confetti = import.meta.env.VITEST

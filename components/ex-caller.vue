@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { Expose as ResultBoardExpose } from '~/components/result-board.vue'
-
 setupUiHooks()
 const config = useConfigStore()
 
@@ -16,13 +14,12 @@ const result = getRollCall()
 const unstarted = ref(true) // 是否未开始过
 const showingResume = ref(false) // 是否正在播放动画
 
-const resultBoardExpose = ref<ResultBoardExpose | null>(null)
-
 function handleStart() {
   result.value.start()
   unstarted.value = false
-  if (shouldStartGuide('stopCalling'))
-    startStopCallingGuide(resultBoardExpose.value!)
+  triggerStopCallingGuide({
+    resultBoard: document.querySelector('[data-guide-id="result-board"]'),
+  })
 }
 function handlePause() {
   if (!result.value?.isActive || showingResume.value)
@@ -52,30 +49,29 @@ function handleSettingsClose() {
   }).value
 }
 
-onMounted(() => { // 教程
-  if (!shouldStartGuide('welcome'))
-    return
-  startWelcomeGuide({
-    ...resultBoardExpose.value!,
-    settingsButton: document.querySelector('.settings-button'),
+bus.on('login', () => { // 教程
+  triggerWelcomeGuide({
+    startButton: document.querySelector('[data-guide-id="start-button"]'),
+    settingsButton: document.querySelector('[data-guide-id="settings-button"]'),
   })
 })
 </script>
 
 <template>
   <ResultBoard
-    ref="resultBoardExpose"
     v-bind="$attrs"
     v-model:showing-resume="showingResume"
     :value="result.currentValue"
     :show-resume="!result.isActive"
     :confetti="config.ui.confetti"
+    data-guide-id="result-board"
     @start="handleStart"
     @pause="handlePause"
   >
     <template v-if="config.ui.settingsButton === 'center'" #startOperators>
       <LargeButton
         :type="config.plan.enabled ? 'error' : 'info'"
+        data-guide-id="settings-button"
         @click="handleOpenSettings"
       >
         <template #icon>
@@ -100,6 +96,7 @@ onMounted(() => { // 教程
     :class="[config.plan.enabled && 'plan-enabled']"
     name="ep:setting"
     :size="24"
+    data-guide-id="settings-button"
     @click="handleOpenSettings"
   />
 
