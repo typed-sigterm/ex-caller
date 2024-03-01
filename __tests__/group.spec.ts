@@ -1,6 +1,4 @@
 import 'mock-local-storage'
-import { generateNewGroupName, getGroupKey, getGroupName, getGroups, hasGroup, renameGroup } from '~/utils/group'
-import { refreshGroupList } from '~/composables/use-group-list'
 
 const MEMBERS = ['p1', 'p2']
 const MEMBERS_STR = JSON.stringify(MEMBERS)
@@ -8,12 +6,25 @@ const MEMBERS_STR = JSON.stringify(MEMBERS)
 beforeEach(() => {
   localStorage.clear()
   refreshGroupList()
+  resetGroupCache()
 })
 
 describe('名单相关工具函数', () => {
   it('格式化名单名称', () => {
     expect(getGroupKey('哈')).toBe('group/哈')
     expect(getGroupName('group/哈')).toBe('哈')
+  })
+
+  it('获取名单', () => {
+    localStorage.setItem('group/g1', MEMBERS_STR)
+    expect(getGroup('g1')).toEqual(MEMBERS)
+    expect(getGroup('g2')).toEqual([])
+  })
+
+  it('设置名单', () => {
+    localStorage.setItem('group/g1', '[]')
+    setGroup('g1', MEMBERS)
+    expect(getGroup('g1')).toEqual(MEMBERS)
   })
 
   it('获取名单列表', () => {
@@ -24,10 +35,23 @@ describe('名单相关工具函数', () => {
     expect(getGroups()).toEqual(['g1', 'g2'])
   })
 
+  it('添加名单', () => {
+    addGroup('g1')
+    expect(JSON.parse(localStorage.getItem('group/g1')!)).toEqual(DEFAULT_GROUP_OPTIONS)
+  })
+
+  it('删除名单', () => {
+    localStorage.setItem('group/g1', MEMBERS_STR)
+    removeGroup('g1')
+    expect(localStorage.getItem('group/g1')).toBe(null)
+  })
+
   it('判断名单是否存在', () => {
     localStorage.setItem('group/g1', MEMBERS_STR)
     expect(hasGroup('g1')).toBe(true)
     expect(hasGroup('g2')).toBe(false)
+    localStorage.removeItem('group/g1')
+    expect(hasGroup('g1')).toBe(false)
   })
 
   it('修改名单名称', () => {
@@ -47,20 +71,21 @@ describe('名单相关工具函数', () => {
 })
 
 describe('useGroup', () => {
-  it('自动添加名单，填入默认值', () => {
-    expect(useGroup('g1').value).toEqual(DEFAULT_GROUP_OPTIONS)
-    expect(getGroups()).toEqual(['g1'])
+  it('自动添加名单', () => {
+    expect(useGroup('g1').value).toEqual([])
   })
 
-  it('删除名单', () => {
-    const g = useGroup('g1')
-    expect(getGroups()).toEqual(['g1'])
-    g.value = null
-    expect(getGroups()).toEqual([])
+  it('获取名单', async () => {
+    addGroup('g1')
+    setGroup('g1', MEMBERS)
+    await nextTick()
+    expect(getGroup('g1')).toEqual(MEMBERS)
   })
 
-  it('缓存', () => { //
-    expect(useGroup('g1')).toBe(useGroup('g1')) // 返回相同对象
+  it('设置名单', async () => {
+    useGroup('g1').value = MEMBERS
+    await nextTick()
+    expect(getGroup('g1')).toEqual(MEMBERS)
   })
 })
 
@@ -71,27 +96,21 @@ describe('useGroupMembers', () => {
     expect(useGroupMembers('g1').value).toEqual(MEMBERS)
   })
 
-  // blocked by https://github.com/vueuse/vueuse/issues/3808
-  it.skip('名单删除时为空', () => {
-    const g = useGroup('g1')
-    g.value = null
+  it('名单删除后为空', () => {
+    addGroup('g1')
+    removeGroup('g1')
     expect(useGroupMembers('g1').value).toEqual([])
   })
 })
 
 describe('useGroupList', () => {
-  // blocked by https://github.com/vueuse/vueuse/issues/3808
-  it.skip('同步名单列表', () => {
-    useGroup('g1')
-    const g2 = useGroup('g2')
+  it('同步名单列表', () => {
+    addGroup('g1')
+    addGroup('g2')
     expect(useGroupList().value).toEqual(['g1', 'g2'])
-    g2.value = null
+    removeGroup('g2')
     expect(useGroupList().value).toEqual(['g1'])
     renameGroup('g1', 'g3')
     expect(useGroupList().value).toEqual(['g3'])
-  })
-
-  it('缓存', () => {
-    expect(useGroupList()).toBe(useGroupList()) // 返回相同对象
   })
 })
