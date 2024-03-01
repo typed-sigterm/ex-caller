@@ -55,6 +55,8 @@ bus.on('login', () => { // 教程
     settingsButton: document.querySelector('[data-guide-id="settings-button"]'),
   })
 })
+
+prefetchComponents('LazySettings')
 </script>
 
 <template>
