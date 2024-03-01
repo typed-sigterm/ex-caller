@@ -11,30 +11,39 @@ export function getGroups() {
     .map(getGroupName)
 }
 
+export function getGroup(name: string): RollCallOption[] {
+  return JSON.parse(localStorage.getItem(getGroupKey(name)) ?? '[]')
+}
+
+export function setGroup(name: string, value: RollCallOption[]) {
+  localStorage.setItem(getGroupKey(name), JSON.stringify(value))
+}
+
 export function hasGroup(name: string) {
   return localStorage.getItem(getGroupKey(name)) !== null
 }
 
 export function addGroup(name: string) {
   localStorage.setItem(getGroupKey(name), JSON.stringify(DEFAULT_GROUP_OPTIONS))
-  refreshGroupList()
+  bus.emit('group:add', name)
 }
 
 export function removeGroup(name: string) {
   localStorage.removeItem(getGroupKey(name))
-  refreshGroupList()
+  bus.emit('group:remove', name)
 }
 
 /** 检查指定应当存在的名单，若存在问题则修复数据。 */
 export function fixGroup(name: string) {
   if (!hasGroup(name)) // 没有则加回去
     addGroup(name)
-  if (useGroup(name).value.length < 2) // 人太少则多加点
-    useGroup(name).value.push(...DEFAULT_GROUP_OPTIONS)
+  if (getGroup(name).length < 2) // 人太少则多加点
+    setGroup(name, DEFAULT_GROUP_OPTIONS)
 }
 
 export function renameGroup(from: string, to: string) {
-  useGroup(to).value = useGroup(from).value
+  addGroup(to)
+  setGroup(to, getGroup(from))
   removeGroup(from)
 }
 

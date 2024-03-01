@@ -29,6 +29,9 @@ dependencies:
   js-confetti:
     specifier: ^0.12.0
     version: 0.12.0
+  mitt:
+    specifier: ^3.0.1
+    version: 3.0.1
   naive-ui:
     specifier: ^2.38.1
     version: 2.38.1(vue@3.4.19)
@@ -5832,6 +5835,10 @@ packages:
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
+
+  /mitt@3.0.1:
+    resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
 
   /mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}

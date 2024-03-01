@@ -1,6 +1,6 @@
-import { generateNewGroupName, getGroupKey, getGroupName, getGroups, hasGroup, renameGroup } from '~/utils/group'
-import { clearGroupCache } from '~/composables/use-group'
 import 'mock-local-storage'
+import { generateNewGroupName, getGroupKey, getGroupName, getGroups, hasGroup, renameGroup } from '~/utils/group'
+import { refreshGroupList } from '~/composables/use-group-list'
 
 const MEMBERS = ['p1', 'p2']
 const MEMBERS_STR = JSON.stringify(MEMBERS)
@@ -8,7 +8,6 @@ const MEMBERS_STR = JSON.stringify(MEMBERS)
 beforeEach(() => {
   localStorage.clear()
   refreshGroupList()
-  clearGroupCache()
 })
 
 describe('名单相关工具函数', () => {

@@ -1,8 +1,14 @@
-const groupList = ref<string[]>([])
+const groupList = ref(getGroups())
+export default () => groupList
 
 export function refreshGroupList() {
   groupList.value = getGroups()
 }
-// 在 App.vue 中初始化
 
-export default () => groupList
+bus.on('group:add', (name) => {
+  groupList.value.push(name)
+  groupList.value.sort()
+})
+bus.on('group:remove', (name) => {
+  groupList.value = groupList.value.filter(item => item !== name)
+})

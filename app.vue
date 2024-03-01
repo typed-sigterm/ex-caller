@@ -21,10 +21,6 @@ else { // 关闭了首屏动画，直接显示
   loading.value = false
   show.value = true
 }
-
-onMounted(() => {
-  refreshGroupList()
-})
 </script>
 
 <template>

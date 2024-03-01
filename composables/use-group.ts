@@ -1,21 +1,18 @@
-import type { RemovableRef } from '@vueuse/core'
 import { fixGroup } from '~/utils/group'
 
-const cache = new Map<string, RemovableRef<RollCallOption[]>>()
+const cache = new Map<string, Ref<RollCallOption[]>>()
 
 export default (name: string) => {
   if (cache.has(name))
     return cache.get(name)!
-
-  const ret = useLocalStorage<RollCallOption[]>(
-    getGroupKey(name),
-    [],
-    { flush: 'sync' },
-  )
   fixGroup(name)
+  const ret = ref(getGroup(name))
   cache.set(name, ret)
-
   return ret
 }
 
-export const clearGroupCache = () => cache.clear()
+bus.on('group:remove', (name) => {
+  if (cache.has(name))
+    cache.get(name)!.value = []
+  cache.delete(name)
+})

@@ -4,10 +4,7 @@ import type { VNodeChild } from 'vue'
 import { SettingsGroupName } from '#components'
 
 const config = useConfigStore()
-const names = computed({
-  get: () => useGroup(config.group).value,
-  set: v => useGroup(config.group).value = v,
-})
+const names = computed(() => useGroup(config.group)) // ref 包 ref
 const groups = computed<SelectOption[]>(() => {
   return useGroupList().value.map(item => ({
     label: '',
@@ -59,13 +56,13 @@ function handleAddGroup() {
     </NButton>
   </NFormItem>
   <DynamicInput
-    v-model:value="names"
+    v-model:value="names.value"
     class="mb-5"
     :min="2"
     :max="MAX_GROUP_MEMBER_COUNT"
     show-sort-button
   />
-  <SettingsGroupOperations v-model:names="names" />
+  <SettingsGroupOperations v-model:names="names.value" />
 </template>
 
 <style lang="postcss" scoped>
