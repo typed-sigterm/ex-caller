@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { UploadCustomRequestOptions } from 'naive-ui'
+import IconUpload from '~icons/ep/upload-filled'
+import IconExcel from '~icons/vscode-icons/file-type-excel'
 
 const emit = defineEmits<{
   /** 输入完成。 */
@@ -49,7 +51,11 @@ function handleOk() {
   >
     <NUpload :show-remove-button="false" :custom-request="customRequest">
       <NUploadDragger>
-        <div><NaiveIcon name="ep:upload-filled" :size="48" /></div>
+        <div>
+          <NIcon :size="48">
+            <IconUpload />
+          </NIcon>
+        </div>
         <NText class="text-base">
           点击此处或拖动文件到此区域
         </NText>
@@ -66,7 +72,9 @@ function handleOk() {
       将只导入前 {{ MAX_GROUP_MEMBER_COUNT }} 个。
     </NP>
     <template #icon>
-      <NaiveIcon name="vscode-icons:file-type-excel" :size="28" />
+      <NIcon :size="28">
+        <IconExcel />
+      </NIcon>
     </template>
   </NModal>
 </template>

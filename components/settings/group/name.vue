@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { SelectOption } from 'naive-ui'
+import IconEdit from '~icons/ep/edit'
+import IconDelete from '~icons/ep/delete'
 
 const props = defineProps<SelectOption>()
 const emit = defineEmits<{
@@ -41,7 +43,9 @@ function handleRename() {
         />
         <template #trigger>
           <NButton class="operator ml-1" size="tiny" text>
-            <NaiveIcon name="ep:edit" :size="14" />
+            <NIcon :size="14">
+              <IconEdit />
+            </NIcon>
           </NButton>
         </template>
       </NPopconfirm>
@@ -59,7 +63,9 @@ function handleRename() {
             text
             @click.stop
           >
-            <NaiveIcon name="ep:delete" :size="14" />
+            <NIcon :size="14">
+              <IconDelete />
+            </NIcon>
           </NButton>
         </template>
       </NPopconfirm>

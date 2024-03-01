@@ -4,7 +4,7 @@ const showLicenses = ref(false)
 </script>
 
 <template>
-  <div class="flex items-center" :style="{ color: '#86909c' }">
+  <div class="flex items-center" style="color: #86909c;">
     ExCaller {{ version }}
     <img class="inline w-4 mx-2" src="/logo.webp">
     <NButton text @click="showLicenses = true">

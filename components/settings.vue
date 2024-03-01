@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
+import IconList from '~icons/ep/list'
+import IconFlag from '~icons/ep/flag'
 
 const emit = defineEmits<{
   /** 设置面板关闭。 */
@@ -41,16 +43,16 @@ watch(showPlan, async (v) => { // 教程
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
-      <NCard @click="showGroup = true">
-        <NaiveIcon class="mr-1" name="ep:list" :size="18" />
-        名单设置
-        <NaiveIcon class="absolute right-3" name="ep:right" />
-      </NCard>
-      <NCard @click="showPlan = true">
-        <NaiveIcon class="mr-1" name="ep:flag" :size="18" />
-        计划设置
-        <NaiveIcon class="absolute right-3" name="ep:right" />
-      </NCard>
+      <SettingsSubEntry title="名单设置" @click="showGroup = true">
+        <template #icon>
+          <IconList />
+        </template>
+      </SettingsSubEntry>
+      <SettingsSubEntry title="计划设置" @click="showPlan = true">
+        <template #icon>
+          <IconFlag />
+        </template>
+      </SettingsSubEntry>
       <SettingsUi class="mt-6" />
       <SettingsFooter />
       <template #header>

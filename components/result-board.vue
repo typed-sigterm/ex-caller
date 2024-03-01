@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
+import IconStart from '~icons/ant-design/caret-right-filled'
+import IconResume from '~icons/ant-design/play-circle-filled'
 
 const props = withDefaults(defineProps<{
   /** 当前抽取到的值。 */
@@ -62,7 +64,9 @@ function handlePause() {
     <NSpace v-if="value === undefined">
       <LargeButton type="primary" data-guide-id="start-button" @click.stop="emit('start')">
         <template #icon>
-          <NaiveIcon class="ml-1" name="ant-design:caret-right-filled" :size="36" />
+          <NIcon class="ml-1" :size="36">
+            <IconStart />
+          </NIcon>
         </template>
       </LargeButton>
       <slot name="startOperators" />
@@ -76,7 +80,9 @@ function handlePause() {
         <NButton class="resume-button" @click.stop="emit('start')">
           继续点名
           <template #icon>
-            <NaiveIcon name="ant-design:play-circle-filled" :size="20" />
+            <NIcon :size="20">
+              <IconResume />
+            </NIcon>
           </template>
         </NButton>
         <slot name="resumeOperators" />

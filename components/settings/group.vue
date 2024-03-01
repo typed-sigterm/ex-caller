@@ -2,6 +2,7 @@
 import type { SelectOption } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import { SettingsGroupName } from '#components'
+import IconPlus from '~icons/ep/plus'
 
 const config = useConfigStore()
 const names = computed(() => useGroup(config.group)) // ref 包 ref
@@ -51,7 +52,9 @@ function handleAddGroup() {
     <NButton class="ml-1" :disabled="limited" @click="handleAddGroup">
       新建名单
       <template #icon>
-        <NaiveIcon name="ep:plus" :size="16" />
+        <NIcon :size="16">
+          <IconPlus />
+        </NIcon>
       </template>
     </NButton>
   </NFormItem>

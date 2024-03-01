@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import IconDownload from '~icons/ep/download'
+import IconList from '~icons/ep/list'
+import IconExcel from '~icons/vscode-icons/file-type-excel'
+
 const group = useConfigStore().group
 const names = defineModel<RollCallOption[]>('names', { required: true })
 
@@ -27,19 +31,25 @@ async function handleExport() {
     <NButton :disabled="limited" @click="showBatchInput = true">
       批量输入
       <template #icon>
-        <NaiveIcon name="ep:list" />
+        <NIcon :size="20">
+          <IconList />
+        </NIcon>
       </template>
     </NButton>
     <NButton :disabled="limited" @click="showImportExcel = true">
       导入 Excel
       <template #icon>
-        <NaiveIcon name="vscode-icons:file-type-excel" />
+        <NIcon :size="20">
+          <IconExcel />
+        </NIcon>
       </template>
     </NButton>
     <NButton :loading="exporting" @click="handleExport">
       导出
       <template #icon>
-        <NaiveIcon name="ep:download" />
+        <NIcon :size="20">
+          <IconDownload />
+        </NIcon>
       </template>
     </NButton>
   </NSpace>

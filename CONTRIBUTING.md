@@ -39,8 +39,6 @@ ex-caller
 
 开始开发之前，需要运行 `pnpm install` 安装依赖。
 
-有时需要科学上网，注意终端需要设置环境变量 `HTTP_PROXY` `HTTPS_PROXY` 才能使全局代理生效。有时还需要设置环境变量 `NODE_TLS_REJECT_UNAUTHORIZED` 为 `0`。
-
 ## 代码规范
 
 遵循 [ESLint 配置](./eslint.config.js) 即可。

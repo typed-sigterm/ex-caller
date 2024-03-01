@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vueuse/nuxt',
+    'unplugin-icons/nuxt',
   ],
   app: {
     head: {
@@ -34,9 +35,5 @@ export default defineNuxtConfig({
   spaLoadingTemplate: true,
   devServer: {
     port: 6408,
-  },
-  naiveui: {
-    iconDownload: !import.meta.env.VITEST,
-    iconCollectionsUrl: 'https://raw.githubusercontent.com/iconify/icon-sets/master/collections.json',
   },
 })

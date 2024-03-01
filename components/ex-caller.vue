@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import IconSettings from '~icons/ep/setting'
+
 setupUiHooks()
 const config = useConfigStore()
 
@@ -78,7 +80,9 @@ prefetchComponents('LazySettings')
         @click="handleOpenSettings"
       >
         <template #icon>
-          <NaiveIcon name="ep:setting" :size="32" />
+          <NIcon :size="32">
+            <IconSettings />
+          </NIcon>
         </template>
       </LargeButton>
     </template>
@@ -86,22 +90,24 @@ prefetchComponents('LazySettings')
     <template v-if="config.ui.settingsButton === 'center'" #resumeOperators>
       <NButton circle @click="handleOpenSettings">
         <template #icon>
-          <NaiveIcon name="ep:setting" :size="18" />
+          <NIcon :size="18">
+            <IconSettings />
+          </NIcon>
         </template>
       </NButton>
     </template>
   </ResultBoard>
 
-  <NaiveIcon
+  <NIcon
     v-if="config.ui.settingsButton === 'top-right'"
-    :plan-enabled="config.plan.enabled"
     class="settings-button"
-    :class="[config.plan.enabled && 'plan-enabled']"
-    name="ep:setting"
     :size="24"
+    :class="[config.plan.enabled && 'plan-enabled']"
     data-guide-id="settings-button"
     @click="handleOpenSettings"
-  />
+  >
+    <IconSettings />
+  </NIcon>
 
   <LazySettings
     v-if="loadSettings"
@@ -121,9 +127,7 @@ prefetchComponents('LazySettings')
   }
 
   @apply absolute cursor-pointer opacity-20;
-  top: 8px;
   top: calc(env(safe-area-inset-top) + 8px);
-  right: 8px;
   right: calc(env(safe-area-inset-right) + 8px);
   transition: all .3s;
   animation: rotating 5s linear infinite forwards;

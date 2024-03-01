@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import IconList from '~icons/ep/list'
+
 const emit = defineEmits<{
   /** 输入完成。 */
   (ev: 'done', names: string[]): void
@@ -36,7 +38,9 @@ function handleOk() {
     <NInput v-model:value="input" type="textarea" />
 
     <template #icon>
-      <NaiveIcon name="ep:list" :size="28" />
+      <NIcon :size="28">
+        <IconList />
+      </NIcon>
     </template>
   </NModal>
 </template>
