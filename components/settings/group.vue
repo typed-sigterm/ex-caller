@@ -5,24 +5,33 @@ import { SettingsGroupName } from '#components'
 import IconPlus from '~icons/ep/plus'
 
 const config = useConfigStore()
-const names = computed(() => useGroup(config.group)) // ref 包 ref
+const group = useGroupStore()
+
+const names = ref<RollCallOption[]>([])
+watchImmediate(() => config.group, () => {
+  names.value = useGroup(config.group).value
+})
+watch(names, (v) => {
+  useGroup(config.group).value = v
+})
+
 const groups = computed<SelectOption[]>(() => {
-  return useGroupList().value.map(item => ({
+  return group.nameList.map(item => ({
     label: '',
     value: item,
     class: 'group-name-item',
   }))
 })
-const limited = computed(() => useGroupList().value.length >= MAX_GROUP_COUNT)
+const limited = computed(() => group.nameList.length >= MAX_GROUP_COUNT)
 
 function renderGroupName(options: SelectOption): VNodeChild {
   const handleRename = (to: string) => {
-    renameGroup(options.value as string, to)
+    group.rename(options.value as string, to)
     if (config.group === options.value) // 重命名当前名单
-      config.$patch({ group: to })
+      config.group = to
   }
   const handleDelete = () => {
-    removeGroup(options.value as string)
+    group.remove(options.value as string)
   }
 
   return (
@@ -36,8 +45,8 @@ function renderGroupName(options: SelectOption): VNodeChild {
 
 function handleAddGroup() {
   const name = generateNewGroupName()
-  addGroup(name) // 创建名单
-  config.$patch({ group: name }) // 切换到新名单
+  group.add(name) // 创建名单
+  config.group = name // 切换到新名单
 }
 </script>
 
@@ -59,13 +68,13 @@ function handleAddGroup() {
     </NButton>
   </NFormItem>
   <DynamicInput
-    v-model:value="names.value"
+    v-model:value="names"
     class="mb-5"
     :min="2"
     :max="MAX_GROUP_MEMBER_COUNT"
     show-sort-button
   />
-  <SettingsGroupOperations v-model:names="names.value" />
+  <SettingsGroupOperations v-model:names="names" />
 </template>
 
 <style lang="postcss" scoped>

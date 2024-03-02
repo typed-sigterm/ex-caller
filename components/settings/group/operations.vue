@@ -3,10 +3,10 @@ import IconDownload from '~icons/ep/download'
 import IconList from '~icons/ep/list'
 import IconExcel from '~icons/vscode-icons/file-type-excel'
 
-const group = useConfigStore().group
+const currentGroup = useConfigStore().group
 const names = defineModel<RollCallOption[]>('names', { required: true })
 
-const limited = computed(() => useGroupList().value.length >= MAX_GROUP_COUNT)
+const limited = computed(() => useGroupStore().nameList.length >= MAX_GROUP_COUNT)
 
 const showBatchInput = ref(false)
 
@@ -18,7 +18,7 @@ function handleImportDone(items: string[]) {
 const exporting = ref(false)
 async function handleExport() {
   exporting.value = true
-  await exportGroupToText(group).catch((e) => {
+  await exportGroupToText(currentGroup).catch((e) => {
     console.error(e)
     alertError(e)
   })

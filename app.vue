@@ -22,7 +22,7 @@ else { // 关闭了首屏动画，直接显示
   show.value = true
 }
 
-watch(show, (v) => {
+watchImmediate(show, (v) => {
   if (v)
     bus.emit('login')
 })

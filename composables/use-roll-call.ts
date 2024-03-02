@@ -1,8 +1,3 @@
-/** 获取待点选项的值。 */
-function optionToString(option: RollCallOption) {
-  return typeof option === 'string' ? option : option.value
-}
-
 /**
  * 点名。
  *
@@ -20,7 +15,7 @@ export default (config: RollCallConfig): Ref<RollCallController> => {
     if (i >= options.length) // 越界
       i = 0
     const incoming = options[i]
-    currentValue.value = optionToString(incoming)
+    currentValue.value = rollCallOptionToString(incoming)
     currentIndex.value = i
 
     if (typeof incoming === 'string') { // 选项未覆盖 duration

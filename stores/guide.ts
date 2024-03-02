@@ -1,5 +1,3 @@
-import { GuideSchema } from '~/utils/guide'
-
 export const useGuideStore = defineStore('guide', {
   state: () => {
     const ret = useLocalStorage('guide', GuideSchema.parse({}))

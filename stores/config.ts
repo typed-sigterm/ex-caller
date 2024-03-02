@@ -1,6 +1,3 @@
-import { UserConfigSchema } from '~/utils/config'
-import { fixGroup } from '~/utils/group'
-
 export const useConfigStore = defineStore('config', {
   state: () => {
     const ret = useLocalStorage<UserConfig>('config', UserConfigSchema.parse({}))

@@ -9,42 +9,32 @@ export function getGroups() {
   return Object.keys(localStorage)
     .filter(v => v.startsWith(GROUP_PREFIX))
     .map(getGroupName)
+    .sort()
 }
 
-export function getGroup(name: string): RollCallOption[] {
-  return JSON.parse(localStorage.getItem(getGroupKey(name)) ?? '[]')
+export function getStoragedGroup(name: string): RollCallOption[] {
+  if (!hasStoragedGroup(name))
+    throw new Error(`Cannot find group "${name}"`)
+  return JSON.parse(localStorage.getItem(getGroupKey(name))!)
 }
 
-export function setGroup(name: string, value: RollCallOption[]) {
+export function setStoragedGroup(name: string, value: RollCallOption[]) {
   localStorage.setItem(getGroupKey(name), JSON.stringify(value))
 }
 
-export function hasGroup(name: string) {
+export function hasStoragedGroup(name: string) {
   return localStorage.getItem(getGroupKey(name)) !== null
 }
 
-export function addGroup(name: string) {
-  localStorage.setItem(getGroupKey(name), JSON.stringify(DEFAULT_GROUP_OPTIONS))
-  bus.emit('group:add', name)
-}
-
-export function removeGroup(name: string) {
+export function removeStoragedGroup(name: string) {
   localStorage.removeItem(getGroupKey(name))
-  bus.emit('group:remove', name)
 }
 
 /** 检查指定应当存在的名单，若存在问题则修复数据。 */
 export function fixGroup(name: string) {
-  if (!hasGroup(name)) // 没有则加回去
-    addGroup(name)
-  if (getGroup(name).length < 2) // 人太少则多加点
-    setGroup(name, DEFAULT_GROUP_OPTIONS)
-}
-
-export function renameGroup(from: string, to: string) {
-  addGroup(to)
-  setGroup(to, getGroup(from))
-  removeGroup(from)
+  const group = useGroupStore()
+  if (!hasStoragedGroup(name) || getStoragedGroup(name).length === 0) // 没有则加回去
+    group.add(name)
 }
 
 /** 生成新的名单名称。 */

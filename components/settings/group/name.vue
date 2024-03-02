@@ -17,7 +17,7 @@ function handleRenamingUpdate(show: boolean) {
 function handleRename() {
   if (renameTo.value === props.value)
     return
-  if (useGroupList().value.includes(renameTo.value)) {
+  if (useGroupStore().has(renameTo.value)) {
     ui.message.error('与现有名单重名了哦')
     return
   }
