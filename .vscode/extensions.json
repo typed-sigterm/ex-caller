@@ -2,7 +2,8 @@
   "recommendations": [
     "vitest.explorer",
     "vue.volar",
-    "vue.vscode-typescript-vue-plugin",
-    "tauri-apps.tauri-vscode"
+    "tauri-apps.tauri-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss"
   ]
 }
