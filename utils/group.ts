@@ -5,41 +5,41 @@ export const getGroupKey = (name: string) => GROUP_PREFIX + name
 export const getGroupName = (key: string) => key.slice(GROUP_PREFIX.length)
 
 /** 获取所有名单的名称。 */
-export function getGroups() {
+export function getStoredGroups() {
   return Object.keys(localStorage)
     .filter(v => v.startsWith(GROUP_PREFIX))
     .map(getGroupName)
     .sort()
 }
 
-export function getStoragedGroup(name: string): RollCallOption[] {
-  if (!hasStoragedGroup(name))
+export function getStoredGroup(name: string): RollCallOption[] {
+  if (!hasStoredGroup(name))
     throw new Error(`Cannot find group "${name}"`)
   return JSON.parse(localStorage.getItem(getGroupKey(name))!)
 }
 
-export function setStoragedGroup(name: string, value: RollCallOption[]) {
+export function setStoredGroup(name: string, value: RollCallOption[]) {
   localStorage.setItem(getGroupKey(name), JSON.stringify(value))
 }
 
-export function hasStoragedGroup(name: string) {
+export function hasStoredGroup(name: string) {
   return localStorage.getItem(getGroupKey(name)) !== null
 }
 
-export function removeStoragedGroup(name: string) {
+export function removeStoredGroup(name: string) {
   localStorage.removeItem(getGroupKey(name))
 }
 
 /** 检查指定应当存在的名单，若存在问题则修复数据。 */
 export function fixGroup(name: string) {
   const group = useGroupStore()
-  if (!hasStoragedGroup(name) || getStoragedGroup(name).length === 0) // 没有则加回去
+  if (!hasStoredGroup(name) || getStoredGroup(name).length === 0) // 没有则加回去
     group.add(name)
 }
 
 /** 生成新的名单名称。 */
 export function generateNewGroupName() {
-  const keys = getGroups()
+  const keys = getStoredGroups()
   let ret = ''
   let index = keys.length
   do { // 避免与现有名单冲突

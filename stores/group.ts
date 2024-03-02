@@ -7,12 +7,12 @@
 function createGroup(name: string, options?: RollCallOption[]) {
   const group = ref(options ?? structuredClone(DEFAULT_GROUP_OPTIONS))
   const stop = watchImmediate(group, (v) => { // 持久化，立即执行是为了初始化
-    setStoragedGroup(name, v)
+    setStoredGroup(name, v)
   })
   const cleanup = () => {
     stop()
     group.value = []
-    removeStoragedGroup(name)
+    removeStoredGroup(name)
   }
   return [name, group, cleanup] as const
 }
@@ -20,8 +20,8 @@ function createGroup(name: string, options?: RollCallOption[]) {
 export const useGroupStore = defineStore('group', {
   state: () => {
     const data = []
-    for (const name of getGroups())
-      data.push(createGroup(name, getStoragedGroup(name)))
+    for (const name of getStoredGroups())
+      data.push(createGroup(name, getStoredGroup(name)))
     return { data }
   },
   getters: {
@@ -52,7 +52,7 @@ export const useGroupStore = defineStore('group', {
       return this.nameList.includes(name)
     },
     rename(from: string, to: string) {
-      this.add(to, getStoragedGroup(from))
+      this.add(to, getStoredGroup(from))
       this.remove(from)
     },
   },
