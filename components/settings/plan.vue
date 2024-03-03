@@ -26,7 +26,6 @@ onBeforeUnmount(() => { // 保存设置
       v-model:value="queue"
       :max="MAX_PLAN_QUEUE_SIZE"
       #="{ index }: { index: number }"
-      @remove="(index) => queue.splice(index, 1)"
     >
       <NSelect
         v-model:value="queue[index]"

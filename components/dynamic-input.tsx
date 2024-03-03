@@ -9,7 +9,7 @@ export default defineComponent({
     const syncing = ref(false)
     const syncId = ref(0)
 
-    watchImmediate(propsValue, async (v) => {
+    watch(propsValue, async (v) => {
       syncing.value = true
       const id = ++syncId.value
       const origin = toRaw(v) ?? []
@@ -24,7 +24,7 @@ export default defineComponent({
         if (id !== syncId.value) // 有新的更新
           return
       }
-    })
+    }, { immediate: true, deep: true }) // 如果不深度监听，字符串变化不会触发更新
 
     return () => (
       <NDynamicInput
