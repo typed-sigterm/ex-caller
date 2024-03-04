@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 const showLicenses = ref(false)
+
+const version = __VERSION__
 </script>
 
 <template>
