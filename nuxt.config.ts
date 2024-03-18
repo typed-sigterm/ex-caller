@@ -38,8 +38,10 @@ export default defineNuxtConfig({
     clearScreen: false,
     envPrefix: ['VITE_', 'TAURI_', 'EXC_'],
     define: {
-      __VERSION__: `'${__VERSION__}'`,
       __ENV__,
+      '__VERSION__': `'${__VERSION__}'`,
+      'Env.Browser': `${Env.Browser}`,
+      'Env.App': `${Env.App}`,
     },
   },
   spaLoadingTemplate: true,

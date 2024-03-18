@@ -2,11 +2,14 @@ import { reactive } from 'vue'
 import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider'
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider'
 
+// 在 `nuxt.config.ts` 中通过 `vite.define` 选项实现值替换与 tree-shake
+// 不能直接用 `const enum`，因为有时候会用到 `Env[...]`
 /** 运行环境。 */
 export enum Env {
   Browser,
   App,
 }
+
 export const ui = reactive({} as {
   dialog: DialogApiInjection
   message: MessageApiInjection
