@@ -2,59 +2,50 @@
   "build": {
     "beforeDevCommand": "pnpm cross-env EXC_ENV=App 'pnpm web:dev'",
     "beforeBuildCommand": "",
-    "devPath": "http://localhost:6408",
-    "distDir": "../dist"
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:6408"
   },
-  "package": {
-    "productName": "ExCaller",
-    "version": "0.4.2"
-  },
-  "tauri": {
-    "allowlist": {
-      "dialog": {
-        "all": true
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "windows": {
+      "wix": {
+        "language": [
+          "zh-CN"
+        ]
       },
-      "fs": {
-        "writeFile": true
+      "nsis": {
+        "languages": [
+          "SimpChinese"
+        ]
       },
-      "path": {
-        "all": true
-      },
-      "shell": {
-        "open": true
+      "webviewInstallMode": {
+        "type": "embedBootstrapper"
       }
     },
-    "bundle": {
-      "active": true,
-      "targets": "all",
-      "identifier": "app.is-an.ex-caller",
-      "publisher": "Zihan Hu",
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "windows": {
-        "wix": {
-          "language": ["zh-CN"]
-        },
-        "nsis": {
-          "languages": ["SimpChinese"]
-        },
-        "webviewInstallMode": {
-          "type": "embedBootstrapper"
-        }
+    "publisher": "Zihan Hu",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "productName": "ExCaller",
+  "version": "0.4.2",
+  "identifier": "app.is-an.ex-caller",
+  "plugins": {},
+  "app": {
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "ExCaller",
+        "width": 800,
+        "height": 600,
+        "center": true
       }
-    },
-    "windows": [{
-      "fullscreen": false,
-      "resizable": true,
-      "title": "ExCaller",
-      "width": 800,
-      "height": 600,
-      "center": true
-    }]
+    ]
   }
 }

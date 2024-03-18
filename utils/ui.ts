@@ -1,6 +1,7 @@
-import { type DialogFilter, save } from '@tauri-apps/api/dialog'
-import { writeFile } from '@tauri-apps/api/fs'
-import { desktopDir } from '@tauri-apps/api/path'
+import type { DialogFilter } from '@tauri-apps/plugin-dialog'
+import { save } from '@tauri-apps/plugin-dialog'
+import { writeFile } from '@tauri-apps/plugin-fs'
+import { desktopDir, resolve } from '@tauri-apps/api/path'
 import { promiseTimeout } from '@vueuse/core'
 import JSConfetti from 'js-confetti'
 import type { Guide } from './guide'
@@ -35,7 +36,7 @@ export interface SaveFileOptions {
 export async function saveFile(filename: string, content: string, options: SaveFileOptions) {
   if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
     const {
-      defaultPath = await desktopDir() + filename, // 默认保存到桌面
+      defaultPath = await resolve(await desktopDir(), filename), // 默认保存到桌面
       filters = [],
     } = options ?? {}
     const path = await save({
@@ -47,7 +48,8 @@ export async function saveFile(filename: string, content: string, options: SaveF
     })
     if (!path)
       return false
-    await writeFile(path, content)
+    const encoder = new TextEncoder()
+    await writeFile(path, encoder.encode(content))
   }
   else { // 浏览器环境，利用 a 标签
     const blob = new Blob([content], { type: 'text/plain; charset=utf-8' })
