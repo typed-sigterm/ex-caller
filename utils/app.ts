@@ -3,7 +3,8 @@ import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider'
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider'
 
 /** 运行环境。 */
-export enum Env {
+// eslint-disable-next-line no-restricted-syntax
+export const enum Env {
   Browser,
   App,
 }
