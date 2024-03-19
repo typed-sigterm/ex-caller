@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "app:build": "tauri build",
-    "build": "pnpm web:build && pnpm app:build",
+    "build": "cross-env EXC_ENV=App 'pnpm web:build && pnpm app:build'",
     "dev": "tauri dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",
@@ -26,7 +26,7 @@
     "driver.js": "^1.3.1",
     "js-confetti": "^0.12.0",
     "mitt": "^3.0.1",
-    "nuxt": "^3.11.0",
+    "nuxt": "^3.11.1",
     "pinia": "^2.1.7",
     "unplugin-icons": "^0.18.5",
     "vue": "^3.4.21",
@@ -43,7 +43,7 @@
     "@vue/test-utils": "^2.4.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
-    "happy-dom": "^13.10.0",
+    "happy-dom": "^13.0.1",
     "mock-local-storage": "^1.1.24",
     "typescript": "^5.4.2",
     "vitest": "^1.4.0"
