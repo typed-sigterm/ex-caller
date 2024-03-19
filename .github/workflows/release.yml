@@ -19,8 +19,6 @@ jobs:
           git push origin latest
   release:
     name: 发布更新包
-    env:
-      EXC_ENV: App
     permissions:
       contents: write
     strategy:
