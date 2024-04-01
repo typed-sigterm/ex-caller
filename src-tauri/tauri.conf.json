@@ -1,7 +1,6 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm cross-env EXC_ENV=App 'pnpm web:dev'",
-    "beforeBuildCommand": "",
+    "beforeDevCommand": "pnpm cross-env EXC_APP=1 'pnpm web:dev'",
     "frontendDist": "../dist",
     "devUrl": "http://localhost:6408"
   },

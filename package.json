@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "app:build": "tauri build",
-    "build": "cross-env EXC_ENV=App 'pnpm web:build && pnpm app:build'",
+    "build": "cross-env EXC_APP=1 'pnpm web:build && pnpm app:build'",
     "dev": "tauri dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",

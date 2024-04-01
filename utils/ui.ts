@@ -34,7 +34,7 @@ export interface SaveFileOptions {
  * @returns 是否保存成功
  */
 export async function saveFile(filename: string, content: string, options: SaveFileOptions) {
-  if (__ENV__ === Env.App) { // 独立 app 环境，使用 Tauri API
+  if (__APP__) { // 独立 app 环境，使用 Tauri API
     const {
       defaultPath = await resolve(await desktopDir(), filename), // 默认保存到桌面
       filters = [],
