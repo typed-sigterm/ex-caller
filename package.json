@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.4.2",
   "private": true,
+  "packageManager": "pnpm@8.15.5",
   "scripts": {
     "app:build": "tauri build",
     "build": "cross-env EXC_APP=1 'pnpm web:build && pnpm app:build'",
@@ -14,7 +15,7 @@
     "web:dev": "nuxt dev"
   },
   "dependencies": {
-    "@bg-dev/nuxt-naiveui": "^1.10.4",
+    "@bg-dev/nuxt-naiveui": "^1.11.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
     "@tauri-apps/api": "2.0.0-beta.6",
@@ -34,7 +35,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.8.3",
+    "@antfu/eslint-config": "^2.11.6",
     "@iconify-json/ant-design": "^1.1.15",
     "@iconify-json/ep": "^1.1.15",
     "@iconify-json/vscode-icons": "^1.1.33",
@@ -43,9 +44,9 @@
     "@vue/test-utils": "^2.4.5",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
-    "happy-dom": "^13.0.1",
+    "happy-dom": "^13.10.1",
     "mock-local-storage": "^1.1.24",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.3",
     "vitest": "^1.4.0"
   }
 }
