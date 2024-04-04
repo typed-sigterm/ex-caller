@@ -2,10 +2,10 @@
 import IconList from '~icons/ep/list'
 
 const emit = defineEmits<{
-  /** 输入完成。 */
+  /** 输入完成 */
   (ev: 'done', names: string[]): void
 }>()
-/** 是否显示。 */
+/** 是否显示 */
 const show = defineModel<boolean>('show', { required: true })
 
 const input = ref('')

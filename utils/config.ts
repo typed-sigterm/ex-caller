@@ -1,29 +1,29 @@
 import { z } from 'zod'
 
 export const UserConfigSchema = z.object({
-  /** 待点名单名称。 */
+  /** 待点名单名称 */
   group: z.string().default('名单 1'),
-  /** 开始点名后，每个待点选项停留的时间。 */
+  /** 开始点名后，每个待点选项停留的时间 */
   interval: z.number().default(100),
-  /** 界面设置。 */
+  /** 界面设置 */
   ui: z.object({
-    /** 抽取完成后是否显示彩带效果。 */
+    /** 抽取完成后是否显示彩带效果 */
     confetti: z.boolean().default(true),
-    /** 是否显示首屏动画。 */
+    /** 是否显示首屏动画 */
     firstScreenAnimation: z.boolean().default(true),
-    /** 设置按钮位置。 */
+    /** 设置按钮位置 */
     settingsButton: z.enum(['top-right', 'center']).default('top-right'),
   }).default({}),
-  /** 计划设置。 */
+  /** 计划设置 */
   plan: z.object({
-    /** 是否启用计划队列。 */
+    /** 是否启用计划队列 */
     enabled: z.boolean().default(false),
-    /** 计划队列。 */
+    /** 计划队列 */
     queue: z.array(z.string()).default([]),
   }).default({}),
 })
 
-/** 用户配置。 */
+/** 用户配置 */
 export type UserConfig = z.infer<typeof UserConfigSchema>
 
 export const MAX_GROUP_NAME_LENGTH = 50

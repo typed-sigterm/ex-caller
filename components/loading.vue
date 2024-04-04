@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 defineProps<{
-  /** 是否显示。 */
+  /** 是否显示 */
   show: boolean
 }>()
 </script>

@@ -25,7 +25,7 @@ export const useGroupStore = defineStore('group', {
     return { data }
   },
   getters: {
-    /** 名单列表。 */
+    /** 名单列表 */
     nameList(state) {
       return state.data.map(v => v[0])
     },

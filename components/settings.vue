@@ -4,10 +4,10 @@ import IconList from '~icons/ep/list'
 import IconFlag from '~icons/ep/flag'
 
 const emit = defineEmits<{
-  /** 设置面板关闭。 */
+  /** 设置面板关闭 */
   (ev: 'close'): void
 }>()
-/** 是否显示。 */
+/** 是否显示 */
 const show = defineModel<boolean>('show', { required: true })
 
 const DRAWER_DEFAULT_WIDTH = 450

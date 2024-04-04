@@ -4,20 +4,26 @@ import IconStart from '~icons/ant-design/caret-right-filled'
 import IconResume from '~icons/ant-design/play-circle-filled'
 
 const props = withDefaults(defineProps<{
-  /** 当前抽取到的值。 */
+  /** 当前抽取到的值 */
   value?: string
-  /** 是否显示“继续抽取”按钮。 @default true */
+  /**
+   * 是否显示“继续抽取”按钮
+   * @default true
+   */
   showResume?: boolean
-  /** 显示“继续抽取”按钮后，是否显示彩带效果。 @default true */
+  /**
+   * 显示“继续抽取”按钮后，是否显示彩带效果
+   * @default true
+   */
   confetti?: boolean
 }>(), {
   showResume: true,
   confetti: true,
 })
 const emit = defineEmits<{
-  /** 开始抽取。 */
+  /** 开始抽取 */
   (ev: 'start'): void
-  /** 暂停抽取。 */
+  /** 暂停抽取 */
   (ev: 'pause'): void
 }>()
 defineSlots<{
