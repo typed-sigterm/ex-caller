@@ -97,17 +97,17 @@ function handlePause() {
   </NSpace>
 </template>
 
-<style lang="postcss" scoped>
+<style  scoped>
 .showing-resume .resume-operators {
   animation: show-resume-operators .65s forwards;
 }
 @keyframes show-resume-operators {
   from {
-    @apply opacity-0;
+    opacity: 0;
     transform: translateY(16px);
   }
   to {
-    @apply opacity-100;
+    opacity: 1;
     transform: translateY(0);
   }
 }

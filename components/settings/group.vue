@@ -77,19 +77,19 @@ function handleAddGroup() {
   <SettingsGroupOperations v-model:names="names" />
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .group-selector :deep(.operator) {
-  @apply hidden;
+  display: none;
 }
 </style>
 
 <style lang="postcss">
 .group-name-item {
   &.n-base-select-option--selected .operator-delete {
-    @apply hidden;
+    display: none;
   }
   .n-base-select-option__content {
-    @apply w-full !important;
+    width: 100% !important;
   }
 }
 </style>

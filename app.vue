@@ -47,22 +47,18 @@ watchImmediate(show, (v) => {
   />
 </template>
 
-<style lang="postcss">
-#__nuxt,
-#__nuxt > .n-config-provider {
-  @apply w-screen h-screen;
+<style>
+#__nuxt, #__nuxt > .n-config-provider {
+  width: 100vw;
+  height: 100vh;
 }
 
 .markdown-body {
   a {
     color: #36ad6a;
   }
-  p {
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-  }
-  table {
-    border-collapse: unset;
+  code, kbd, pre, samp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
   }
 }
 </style>

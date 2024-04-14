@@ -4,6 +4,6 @@
     "vue.volar",
     "tauri-apps.tauri-vscode",
     "dbaeumer.vscode-eslint",
-    "bradlc.vscode-tailwindcss"
+    "antfu.unocss"
   ]
 }

@@ -3,6 +3,7 @@ import Markdown from 'unplugin-vue-markdown/vite'
 // @ts-expect-error untyped
 import MarkdownItInline from 'markdown-it-for-inline'
 import type Token from 'markdown-it/lib/token.mjs'
+import PostcssPresetEnv from 'postcss-preset-env'
 import { version } from './package.json'
 
 const commit: string | undefined = process.env.COMMIT_REF
@@ -16,8 +17,8 @@ export default defineNuxtConfig({
   ssr: false,
   modules: [
     '@bg-dev/nuxt-naiveui',
-    '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@unocss/nuxt',
     '@vueuse/nuxt',
     'unplugin-icons/nuxt',
   ],
@@ -36,6 +37,11 @@ export default defineNuxtConfig({
     define: {
       __APP__: `${!!process.env.EXC_APP}`,
       __VERSION__: `'${__VERSION__}'`,
+    },
+    css: {
+      postcss: {
+        plugins: [PostcssPresetEnv()],
+      },
     },
     plugins: [
       Markdown({

@@ -122,16 +122,18 @@ prefetchComponents('LazySettings')
     animation-play-state: running;
   }
   &.plan-enabled {
-    @apply opacity-100;
     color: #d03050;
+    opacity: 1;
   }
 
-  @apply absolute cursor-pointer opacity-20;
+  position: absolute;
   top: calc(env(safe-area-inset-top) + 8px);
   right: calc(env(safe-area-inset-right) + 8px);
   transition: all .3s;
   animation: rotating 5s linear infinite forwards;
   animation-play-state: paused;
+  cursor: pointer;
+  opacity: 0.2;
 }
 
 @keyframes rotating {

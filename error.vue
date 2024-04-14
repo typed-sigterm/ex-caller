@@ -59,8 +59,11 @@ async function handleClearConfig() {
   </div>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 :deep() .n-result-content {
-  @apply w-full text-center mx-auto my-0 mt-4;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 4rem;
 }
 </style>

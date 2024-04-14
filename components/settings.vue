@@ -95,7 +95,8 @@ watch(showPlan, async (v) => { // 教程
 
 <style lang="postcss" scoped>
 :deep() .n-card {
-  @apply cursor-pointer mb-2;
+  cursor: pointer;
+  margin-bottom: 8px;
   transition: box-shadow .5s;
 
   &:hover {
@@ -104,7 +105,8 @@ watch(showPlan, async (v) => { // 教程
   }
 
   > .n-card__content {
-    @apply p-3 flex;
+    display: flex;
+    padding: 12px;
   }
 }
 </style>
