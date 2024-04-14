@@ -36,8 +36,13 @@ function handlePause() {
 }
 
 const loadSettings = ref(false) // 是否需要加载设置组件
+const loadedSettings = ref(false) // 设置组件是否已经加载完成
 const showSettings = ref(false)
+const showLoadingSettings = computed(() => showSettings.value && !loadedSettings.value)
+
 function handleOpenSettings() {
+  if (showSettings.value)
+    return
   loadSettings.value = showSettings.value = true
   // 正在点名时打开设置，停止点名，不显示点名结果
   if (result.value.isActive)
@@ -76,6 +81,7 @@ prefetchComponents('LazySettings')
     <template v-if="config.ui.settingsButton === 'center'" #startOperators>
       <LargeButton
         :type="config.plan.enabled ? 'error' : 'info'"
+        :loading="showLoadingSettings"
         data-guide-id="settings-button"
         @click="handleOpenSettings"
       >
@@ -101,17 +107,22 @@ prefetchComponents('LazySettings')
   <NIcon
     v-if="config.ui.settingsButton === 'top-right'"
     class="settings-button"
+    :class="[
+      config.plan.enabled && 'plan-enabled',
+      showLoadingSettings ? 'cursor-wait' : 'cursor-pointer',
+    ]"
     :size="24"
-    :class="[config.plan.enabled && 'plan-enabled']"
     data-guide-id="settings-button"
     @click="handleOpenSettings"
   >
-    <IconSettings />
+    <NSpin v-if="showLoadingSettings" />
+    <IconSettings v-else />
   </NIcon>
 
   <LazySettings
     v-if="loadSettings"
     v-model:show="showSettings"
+    @open="loadedSettings = true"
     @close="handleSettingsClose"
   />
 </template>
@@ -125,14 +136,17 @@ prefetchComponents('LazySettings')
     color: #d03050;
     opacity: 1;
   }
+  :deep() .n-spin, :deep() .n-base-loading__icon {
+    width: 24px;
+    height: 24px;
+  }
 
-  position: absolute;
+  position: fixed;
   top: calc(env(safe-area-inset-top) + 8px);
   right: calc(env(safe-area-inset-right) + 8px);
   transition: all .3s;
   animation: rotating 5s linear infinite forwards;
   animation-play-state: paused;
-  cursor: pointer;
   opacity: 0.2;
 }
 

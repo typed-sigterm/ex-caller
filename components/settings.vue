@@ -4,7 +4,7 @@ import IconList from '~icons/ep/list'
 import IconFlag from '~icons/ep/flag'
 
 const emit = defineEmits<{
-  /** 设置面板关闭 */
+  (ev: 'open'): void
   (ev: 'close'): void
 }>()
 /** 是否显示 */
@@ -40,6 +40,7 @@ watch(showPlan, async (v) => { // 教程
     :min-width="DRAWER_MIN_WIDTH"
     resizable
     @click.stop
+    @after-enter="$emit('open')"
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
