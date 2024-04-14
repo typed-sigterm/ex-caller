@@ -25,7 +25,6 @@
 | [`unplugin-icons`](https://github.com/unplugin/unplugin-icons) | [MIT License](https://github.com/unplugin/unplugin-icons/blob/main/LICENSE) | 否 |
 | [`unplugin-vue-markdown`](https://github.com/unplugin/unplugin-vue-markdown) | [MIT License](https://github.com/unplugin/unplugin-vue-markdown/blob/main/LICENSE) | 否 |
 | [`pinia`](https://github.com/vuejs/pinia) | [MIT License](https://github.com/vuejs/pinia/blob/v2/LICENSE) | 否 |
-postcss-preset-env
 | [`postcss-preset-env`](https://preset-env.cssdb.org/) | [MIT No Attribution License](https://github.com/csstools/postcss-plugins/blob/main/LICENSE.md) | 否 |
 | [`xlsx`](https://sheetjs.com/) | [Apache-2.0 License](https://git.sheetjs.com/sheetjs/sheetjs/src/branch/master/LICENSE) | 否 |
 | [`zod`](https://zod.dev) | [MIT License](https://github.com/colinhacks/zod/blob/master/LICENSE) | 否 |
