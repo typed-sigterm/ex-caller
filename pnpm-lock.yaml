@@ -44,6 +44,9 @@ dependencies:
   js-confetti:
     specifier: ^0.12.0
     version: 0.12.0
+  markdown-it-for-inline:
+    specifier: ^2.0.1
+    version: 2.0.1
   mitt:
     specifier: ^3.0.1
     version: 3.0.1
@@ -6676,6 +6679,10 @@ packages:
       ssri: 10.0.5
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /markdown-it-for-inline@2.0.1:
+    resolution: {integrity: sha512-JGOi3/Ohhzehs+1qSA4CkDydmVBtiYi2q2BD//YtTbSK+75InrGJX2MtPq1AdMeC4BV7rwEhq1+3pLnwGbsgzA==}
     dev: false
 
   /markdown-it@14.1.0:
