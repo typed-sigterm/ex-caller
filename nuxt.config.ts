@@ -1,4 +1,8 @@
 import process from 'node:process'
+import Markdown from 'unplugin-vue-markdown/vite'
+// @ts-expect-error untyped
+import MarkdownItInline from 'markdown-it-for-inline'
+import type Token from 'markdown-it/lib/token.mjs'
 import { version } from './package.json'
 
 const commit: string | undefined = process.env.COMMIT_REF
@@ -32,6 +36,26 @@ export default defineNuxtConfig({
     define: {
       __APP__: `${!!process.env.EXC_APP}`,
       __VERSION__: `'${__VERSION__}'`,
+    },
+    plugins: [
+      Markdown({
+        markdownItOptions: {
+          linkify: true,
+        },
+        markdownItSetup(md) {
+          md.use( // 链接跳转到新标签页
+            MarkdownItInline,
+            'url_new_win',
+            'link_open',
+            (tokens: Token[], idx: number) => {
+              tokens[idx].attrPush(['target', '_blank'])
+            },
+          )
+        },
+      }),
+    ],
+    vue: {
+      include: [/\.vue$/, /\.md$/],
     },
   },
   spaLoadingTemplate: true,

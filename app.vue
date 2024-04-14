@@ -52,4 +52,17 @@ watchImmediate(show, (v) => {
 #__nuxt > .n-config-provider {
   @apply w-screen h-screen;
 }
+
+.markdown-body {
+  a {
+    color: #36ad6a;
+  }
+  p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+  }
+  table {
+    border-collapse: unset;
+  }
+}
 </style>
