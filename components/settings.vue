@@ -10,27 +10,19 @@ const emit = defineEmits<{
 /** 是否显示 */
 const show = defineModel<boolean>('show', { required: true })
 
-const DRAWER_DEFAULT_WIDTH = 450
-const DRAWER_MIN_WIDTH = 300
-
-const showGroup = ref(false)
-const showPlan = ref(false)
-
 function handleClose() {
-  showGroup.value = false
   emit('close')
   promiseTimeout(500).then(gc)
 }
-
-watch(showPlan, async (v) => { // 教程
-  if (!v || !shouldStartGuide('plan'))
+async function handleShowOrClosePlan(show: boolean) {
+  if (!show || !shouldStartGuide('plan'))
     return
   await promiseTimeout(500)
   triggerPlanGuide({
     enableField: document.querySelector('[data-guide-id="enable-plan-field"]'),
     drawer: document.querySelector('[data-guide-id="plan-drawer"]'),
   })
-})
+}
 </script>
 
 <template>
@@ -44,12 +36,18 @@ watch(showPlan, async (v) => { // 教程
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
-      <SettingsSubEntry title="名单设置" @click="showGroup = true">
+      <SettingsSubEntry title="名单设置">
+        <SettingsGroup />
         <template #icon>
           <IconList />
         </template>
       </SettingsSubEntry>
-      <SettingsSubEntry title="计划设置" @click="showPlan = true">
+      <SettingsSubEntry
+        title="计划设置"
+        :drawer-attrs="{ 'data-guide-id': 'plan-drawer' }"
+        @update:show="handleShowOrClosePlan"
+      >
+        <SettingsPlan />
         <template #icon>
           <IconFlag />
         </template>
@@ -58,37 +56,6 @@ watch(showPlan, async (v) => { // 教程
       <SettingsFooter />
       <template #header>
         设置
-      </template>
-    </NDrawerContent>
-  </NDrawer>
-
-  <NDrawer
-    v-model:show="showGroup"
-    :default-width="DRAWER_DEFAULT_WIDTH"
-    :min-width="DRAWER_MIN_WIDTH"
-    resizable
-    @click.stop
-  >
-    <NDrawerContent closable>
-      <SettingsGroup />
-      <template #header>
-        名单设置
-      </template>
-    </NDrawerContent>
-  </NDrawer>
-
-  <NDrawer
-    v-model:show="showPlan"
-    :default-width="DRAWER_DEFAULT_WIDTH"
-    :min-width="DRAWER_MIN_WIDTH"
-    resizable
-    data-guide-id="plan-drawer"
-    @click.stop
-  >
-    <NDrawerContent closable>
-      <SettingsPlan />
-      <template #header>
-        计划设置
       </template>
     </NDrawerContent>
   </NDrawer>
