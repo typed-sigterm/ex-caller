@@ -3,6 +3,8 @@ import { promiseTimeout } from '@vueuse/core'
 import { zhCN } from 'naive-ui'
 import { gc } from '~/utils/gc'
 
+setupTheme() // 异步初始化主题
+
 const loading = ref(true)
 const show = ref(false)
 
@@ -47,7 +49,7 @@ watchImmediate(show, (v) => {
   />
 </template>
 
-<style>
+<style lang="postcss">
 #__nuxt, #__nuxt > .n-config-provider {
   width: 100vw;
   height: 100vh;

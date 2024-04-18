@@ -5,7 +5,7 @@ export const UserConfigSchema = z.object({
   group: z.string().default('名单 1'),
   /** 开始点名后，每个待点选项停留的时间 */
   interval: z.number().default(100),
-  /** 界面设置 */
+  /** 主题设置 */
   ui: z.object({
     /** 抽取完成后是否显示彩带效果 */
     confetti: z.boolean().default(true),

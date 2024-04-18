@@ -3,6 +3,7 @@ import IconSettings from '~icons/ep/setting'
 
 setupUiHooks()
 const config = useConfigStore()
+const theme = useThemeStore()
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
@@ -70,7 +71,11 @@ prefetchComponents('LazySettings')
   <ResultBoard
     v-bind="$attrs"
     v-model:showing-resume="showingResume"
-    :style="{ userSelect: result.isActive ? 'none' : 'auto' }"
+    class="bg-no-repeat bg-center bg-cover"
+    :style="{
+      userSelect: result.isActive ? 'none' : 'auto',
+      backgroundImage: theme.background && `url(${theme.background.url})`,
+    }"
     :value="result.currentValue"
     :show-resume="!result.isActive"
     :confetti="config.ui.confetti"

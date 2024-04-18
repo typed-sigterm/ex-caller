@@ -22,3 +22,5 @@ export function alertError(content: unknown) {
     },
   })
 }
+
+export const createNotInAppError = () => createError('浏览器端暂不支持此功能，请下载 App 体验')

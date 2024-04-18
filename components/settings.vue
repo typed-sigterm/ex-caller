@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core'
-import IconList from '~icons/ep/list'
 import IconFlag from '~icons/ep/flag'
+import IconList from '~icons/ep/list'
+import IconPictureFilled from '~icons/ep/picture-filled'
 
 const emit = defineEmits<{
   (ev: 'open'): void
@@ -23,6 +24,8 @@ async function handleShowOrClosePlan(show: boolean) {
     drawer: document.querySelector('[data-guide-id="plan-drawer"]'),
   })
 }
+
+const inApp = __APP__
 </script>
 
 <template>
@@ -40,6 +43,12 @@ async function handleShowOrClosePlan(show: boolean) {
         <SettingsGroup />
         <template #icon>
           <IconList />
+        </template>
+      </SettingsSubEntry>
+      <SettingsSubEntry title="主题设置" only-in-app>
+        <SettingsTheme v-if="inApp" /> <!-- for tree shaking -->
+        <template #icon>
+          <IconPictureFilled />
         </template>
       </SettingsSubEntry>
       <SettingsSubEntry
@@ -60,21 +69,3 @@ async function handleShowOrClosePlan(show: boolean) {
     </NDrawerContent>
   </NDrawer>
 </template>
-
-<style lang="postcss" scoped>
-:deep() .n-card {
-  cursor: pointer;
-  margin-bottom: 8px;
-  transition: box-shadow .5s;
-
-  &:hover {
-    box-shadow: 0 0 4px 2px var(--n-border-color);
-    transition: box-shadow .2s;
-  }
-
-  > .n-card__content {
-    display: flex;
-    padding: 12px;
-  }
-}
-</style>
