@@ -3,7 +3,8 @@ import { promiseTimeout } from '@vueuse/core'
 import { zhCN } from 'naive-ui'
 import { gc } from '~/utils/gc'
 
-setupTheme() // 异步初始化主题
+if (__APP__)
+  setupTheme() // 异步初始化主题
 
 const loading = ref(true)
 const show = ref(false)
