@@ -1,13 +1,6 @@
 import { BaseDirectory, writeFile } from '@tauri-apps/plugin-fs'
 import type { LoadLocalFileResult } from '~/utils/fs'
 
-const RESOURCE = ['background'] as const
-export type ResourceName = typeof RESOURCE extends readonly (infer T)[] ? T : never
-
-function getThemeResource(name: ResourceName) {
-  return loadLocalFile(`theme/${name}`, BaseDirectory.AppData)
-}
-
 export const useThemeStore = defineStore('theme', {
   state: () => {
     return {
@@ -21,7 +14,7 @@ export const useThemeStore = defineStore('theme', {
      * @param names 资源名称列表，不传则刷新全部资源
      */
     async refresh(names?: ResourceName[]) {
-      await Promise.all((names ?? RESOURCE).map(async (name) => {
+      await Promise.all((names ?? RESOURCES).map(async (name) => {
         this.$patch({
           [name]: await getThemeResource(name),
         })

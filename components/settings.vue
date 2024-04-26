@@ -24,8 +24,6 @@ async function handleShowOrClosePlan(show: boolean) {
     drawer: document.querySelector('[data-guide-id="plan-drawer"]'),
   })
 }
-
-const inApp = __APP__
 </script>
 
 <template>
@@ -46,7 +44,9 @@ const inApp = __APP__
         </template>
       </SettingsSubEntry>
       <SettingsSubEntry title="主题设置" only-in-app>
-        <SettingsTheme v-if="inApp" /> <!-- for tree shaking -->
+        <template #default="{ close }">
+          <SettingsTheme @commit="close" @discard="close" />
+        </template>
         <template #icon>
           <IconPictureFilled />
         </template>

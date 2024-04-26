@@ -11,7 +11,7 @@ const props = defineProps<{
 }>()
 defineSlots<{
   /** 点击后弹出的 drawer 的内容 */
-  default: () => any
+  default: (props: { open: () => void, close: () => void }) => any
   icon: () => any
 }>()
 
@@ -52,7 +52,7 @@ const supported = computed(() => {
     resizable
   >
     <NDrawerContent closable>
-      <slot />
+      <slot :open="() => show = true" :close="() => show = false" />
       <template #header>
         {{ title }}
       </template>
