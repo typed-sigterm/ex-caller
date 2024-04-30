@@ -24,14 +24,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, windows-latest]
+        platform: [windows-latest, macos-latest]
+        include:
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+          - platform: windows-latest
+            target: i686-pc-windows-msvc
+          - platform: macos-latest
+            target: universal-apple-darwin
+            install: aarch64-apple-darwin, x86_64-apple-darwin
+          # i686-apple-darwin 在 Rust 平台支持的 Tier 3，不一定能正常工作，所以不支持
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - id: get-release
+      - name: 获取 release ID
+        id: get-release
         uses: actions/github-script@v7
         with:
           script: |
@@ -46,45 +56,24 @@ jobs:
         env:
           REF: ${{ github.ref_name }}
           REPO: ${{ github.repository }}
-      - name: 安装 macOS 工具链
-        if: ${{ matrix.platform == 'macos-latest' }}
-        uses: dtolnay/rust-toolchain@stable
+      - name: 安装工具链
+        uses: dtolnay/rust-toolchain@032431f26ad14217b24e529fa2ab72cf558de38b
         with:
-          targets: aarch64-apple-darwin, x86_64-apple-darwin
-      - name: 安装 Windows 工具链
-        if: ${{ matrix.platform == 'windows-latest' }}
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: i686-pc-windows-msvc, x86_64-pc-windows-msvc
-      - uses: swatinem/rust-cache@v2
+          targets: ${{ matrix.install || matrix.target }}
+      - name: 缓存依赖
+        uses: swatinem/rust-cache@v2
         with:
           workspaces: ./src-tauri -> target
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-      - run: pnpm install
-      - run: pnpm web:build
-      - name: 构建与发布 macOS 安装包
-        if: ${{ matrix.platform == 'macos-latest' }}
+          run_install: true
+      - name: 构建应用
+        run: pnpm web:build
+      - name: 构建与发布安装包
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ steps.get-release.outputs.result }}
-          args: --target universal-apple-darwin
-      - name: 构建与发布 Windows x64 安装包
-        if: ${{ matrix.platform == 'windows-latest' }}
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          releaseId: ${{ steps.get-release.outputs.result }}
-          args: --target x86_64-pc-windows-msvc
-      - name: 构建与发布 Windows x86 安装包
-        if: ${{ matrix.platform == 'windows-latest' }}
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          releaseId: ${{ steps.get-release.outputs.result }}
-          args: --target i686-pc-windows-msvc
+          args: --target ${{matrix.target}}
