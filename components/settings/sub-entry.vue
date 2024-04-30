@@ -18,7 +18,7 @@ defineSlots<{
 const show = defineModel<boolean>('show')
 
 const supported = computed(() => {
-  return __APP__ || !props.onlyInApp
+  return IN_APP || !props.onlyInApp
 })
 </script>
 

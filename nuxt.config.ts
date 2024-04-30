@@ -35,7 +35,6 @@ export default defineNuxtConfig({
     clearScreen: false,
     envPrefix: ['VITE_', 'TAURI_', 'EXC_'],
     define: {
-      __APP__: `${!!process.env.EXC_APP}`,
       __VERSION__: `'${__VERSION__}'`,
     },
     css: {

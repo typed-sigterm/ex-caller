@@ -6,7 +6,7 @@ const emit = defineEmits<{
   (ev: 'discard'): void
 }>()
 
-if (!__APP__)
+if (!IN_APP)
   throw createNotInAppError()
 
 const theme = useThemeStore()
