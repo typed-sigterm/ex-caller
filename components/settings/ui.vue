@@ -27,10 +27,6 @@ function handleInputIntervalDone() {
       <NSwitch v-model:value="config.ui.confetti" />
     </NFormItem>
 
-    <NFormItem label="首屏动画">
-      <NSwitch v-model:value="config.ui.firstScreenAnimation" />
-    </NFormItem>
-
     <NFormItem label="设置按钮位置">
       <NSelect
         v-model:value="config.ui.settingsButton"

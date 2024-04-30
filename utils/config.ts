@@ -9,8 +9,6 @@ export const UserConfigSchema = z.object({
   ui: z.object({
     /** 抽取完成后是否显示彩带效果 */
     confetti: z.boolean().default(true),
-    /** 是否显示首屏动画 */
-    firstScreenAnimation: z.boolean().default(true),
     /** 设置按钮位置 */
     settingsButton: z.enum(['top-right', 'center']).default('top-right'),
   }).default({}),
