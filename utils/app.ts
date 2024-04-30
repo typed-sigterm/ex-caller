@@ -2,7 +2,16 @@ import { reactive } from 'vue'
 import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider'
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider'
 import { isTauri } from '@tauri-apps/api/core'
+import { version } from '~/package.json'
 
+const commit: string | undefined = import.meta.env.COMMIT_REF
+export const VERSION = import.meta.env.DEV
+  ? 'Dev'
+  : import.meta.env.EXC_CANARY
+    ? (commit ? commit.slice(0, 7) : 'Canary')
+    : `v${version}`
+
+/** 是否独立 App 环境 */
 export const IN_APP = isTauri() as boolean
 
 export const ui = reactive({} as {

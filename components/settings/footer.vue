@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import Licenses from '~/3rd-party-licenses.md'
 
-const version = __VERSION__
 const showLicenses = ref(false)
 </script>
 
 <template>
   <div class="flex items-center" style="color: #86909c;">
-    ExCaller {{ version }}
+    ExCaller {{ VERSION }}
     <img class="inline w-4 mx-2" src="/logo.webp">
     <NButton text @click="showLicenses = true">
       开放源代码许可
