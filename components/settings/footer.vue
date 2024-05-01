@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import Licenses from '~/3rd-party-licenses.md'
-
+const loadLicenses = ref(false)
 const showLicenses = ref(false)
 </script>
 
@@ -8,7 +7,7 @@ const showLicenses = ref(false)
   <div class="flex items-center" style="color: #86909c;">
     ExCaller {{ VERSION }}
     <img class="inline w-4 mx-2" src="/logo.webp">
-    <NButton text @click="showLicenses = true">
+    <NButton text @click="loadLicenses = showLicenses = true">
       开放源代码许可
     </NButton>
   </div>
@@ -20,18 +19,7 @@ const showLicenses = ref(false)
     title="ExCaller 开放源代码许可"
   >
     <NScrollbar class="w-[600px] h-full">
-      <Licenses class="h-0" />
+      <LazyLicenses v-if="loadLicenses" class="h-0" />
     </NScrollbar>
   </NModal>
 </template>
-
-<style lang="postcss" scoped>
-:deep() {
-  h1 {
-    display: none;
-  }
-  h1 + p {
-    margin-block-start: 0;
-  }
-}
-</style>
