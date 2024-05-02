@@ -12,7 +12,7 @@ export const VERSION = import.meta.env.DEV
     : `v${version}`
 
 /** 是否独立 App 环境 */
-export const IN_APP = isTauri() as boolean
+export const IN_APP = isTauri()
 
 export const ui = reactive({} as {
   dialog: DialogApiInjection
