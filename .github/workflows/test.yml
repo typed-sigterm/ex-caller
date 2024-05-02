@@ -1,0 +1,35 @@
+name: 代码质量测试
+
+on:
+  push:
+    branches-ignore:
+      - latest
+
+jobs:
+  lint:
+    name: 代码风格检查
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+      - uses: pnpm/action-setup@v3
+        with:
+          run_install: true
+      - name: 运行代码风格检查
+        run: pnpm lint
+
+  unit-test:
+    name: 单元测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+      - uses: pnpm/action-setup@v3
+        with:
+          run_install: true
+      - name: 运行单元测试
+        run: pnpm test
