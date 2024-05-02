@@ -1,10 +1,4 @@
 {
   "extends": "./.nuxt/tsconfig.json",
-  "compilerOptions": {
-    "types": [
-      "vite/client",
-      "vitest/globals",
-      "unplugin-icons/types/vue"
-    ]
-  }
+  "exclude": ["./src-tauri"]
 }
