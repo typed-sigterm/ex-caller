@@ -2,7 +2,7 @@
 command = "pnpm web:build"
 publish = "dist"
 
-[environment]
+[build.environment]
 EXC_NO_APP = "1"
 
 [context.branch-deploy.environment]
