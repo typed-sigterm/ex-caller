@@ -12,7 +12,7 @@ const show = ref(false)
 promiseTimeout(1500).then(() => loading.value = false)
 promiseTimeout(1850).then(() => {
   show.value = true
-  bus.emit('login')
+  triggerWelcomeGuide()
 })
 </script>
 

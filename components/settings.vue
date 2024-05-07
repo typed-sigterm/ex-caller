@@ -19,10 +19,7 @@ async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return
   await promiseTimeout(500)
-  triggerPlanGuide({
-    enableField: document.querySelector('[data-guide-id="enable-plan-field"]'),
-    drawer: document.querySelector('[data-guide-id="plan-drawer"]'),
-  })
+  triggerPlanGuide()
 }
 </script>
 

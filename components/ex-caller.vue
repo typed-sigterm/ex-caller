@@ -20,9 +20,7 @@ const showingResume = ref(false) // 是否正在播放动画
 function handleStart() {
   result.value.start()
   unstarted.value = false
-  triggerStopCallingGuide({
-    resultBoard: document.querySelector('[data-guide-id="result-board"]'),
-  })
+  triggerStopCallingGuide()
 }
 function handlePause() {
   if (!result.value?.isActive || showingResume.value)
@@ -56,13 +54,6 @@ function handleSettingsClose() {
     defaultValue: result.value.currentValue,
   }).value
 }
-
-bus.on('login', () => { // 教程
-  triggerWelcomeGuide({
-    startButton: document.querySelector('[data-guide-id="start-button"]'),
-    settingsButton: document.querySelector('[data-guide-id="settings-button"]'),
-  })
-})
 
 prefetchComponents('LazySettings')
 </script>

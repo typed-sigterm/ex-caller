@@ -17,7 +17,6 @@
 | [`@vueuse/nuxt`](https://github.com/vueuse/vueuse) | [MIT License](https://github.com/vueuse/vueuse/blob/main/LICENSE) | 否 |
 | [`driver.js`](https://driverjs.com/) | [MIT License](https://github.com/kamranahmedse/driver.js/blob/master/license) | 否 |
 | [`js-confetti`](https://github.com/loonywizard/js-confetti) | [MIT License](https://github.com/loonywizard/js-confetti/blob/main/LICENSE) | 否 |
-| [`mitt`](https://github.com/developit/mitt) | [MIT License](https://github.com/developit/mitt/blob/main/LICENSE) | 否 |
 | [`nuxt`](https://nuxt.com) | [MIT License](https://github.com/nuxt/nuxt/blob/main/LICENSE) | 否 |
 | [`serde`](https://serde.rs/) | [MIT License](https://github.com/serde-rs/serde/blob/master/LICENSE-MIT) | 否 |
 | [`serde_json`](https://github.com/serde-rs/json) | [MIT License](https://github.com/serde-rs/json/blob/master/LICENSE-MIT) | 否 |
