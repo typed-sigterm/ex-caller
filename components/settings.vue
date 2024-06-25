@@ -41,9 +41,7 @@ async function handleShowOrClosePlan(show: boolean) {
         </template>
       </SettingsSubEntry>
       <SettingsSubEntry title="主题设置" only-in-app>
-        <template #default="{ close }">
-          <SettingsTheme @commit="close" @discard="close" />
-        </template>
+        <SettingsTheme />
         <template #icon>
           <IconPictureFilled />
         </template>

@@ -1,24 +1,44 @@
 import { BaseDirectory, writeFile } from '@tauri-apps/plugin-fs'
-import type { LoadLocalFileResult } from '~/utils/fs'
+
+export const THEME_DEFAULT_PROPERTIES = {
+  backgroundRolling: {
+    originalName: '',
+    mimeType: DEFAULT_MIME_TYPE,
+  },
+}
 
 export const useThemeStore = defineStore('theme', {
   state: () => {
     return {
-      background: undefined as LoadLocalFileResult,
+      properties: structuredClone(THEME_DEFAULT_PROPERTIES),
+      background: undefined as LoadedLocalFile | undefined,
+      backgroundRolling: undefined as LoadedLocalFile | undefined,
     }
   },
 
   actions: {
+    /** 初始化。 */
+    async init() {
+      await tryMkdirRecursive('theme', BaseDirectory.AppData)
+
+      // store 内修改同步到本地文件
+      const localProps = await useJsonFile(this.properties, 'theme/properties.json', BaseDirectory.AppData)
+      this.properties = localProps.value
+      watchDeep(() => this.properties, v => localProps.value = v)
+
+      await this.refresh()
+    },
+
     /**
      * 刷新资源信息。
      * @param names 资源名称列表，不传则刷新全部资源
      */
     async refresh(names?: ResourceName[]) {
+      const resources: Array<[string, LoadedLocalFile | undefined]> = []
       await Promise.all((names ?? RESOURCES).map(async (name) => {
-        this.$patch({
-          [name]: await getThemeResource(name),
-        })
+        resources.push([name, await getThemeResource(name)])
       }))
+      this.$patch(Object.fromEntries(resources))
     },
 
     /**
@@ -39,8 +59,8 @@ export const useThemeStore = defineStore('theme', {
 
       // 加载新资源
       if (data)
-        await writeFile('theme/background', data, { baseDir: BaseDirectory.AppData })
-      this.refresh([name])
+        await writeFile(`theme/${name}`, data, { baseDir: BaseDirectory.AppData })
+      await this.refresh([name])
     },
   },
 })

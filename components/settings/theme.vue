@@ -1,52 +1,70 @@
 <script lang="ts" setup>
 import type { UploadFileInfo } from 'naive-ui'
 
-const emit = defineEmits<{
-  (ev: 'commit'): void
-  (ev: 'discard'): void
-}>()
-
 if (!IN_APP)
   throw createNotInAppError()
 
 const theme = useThemeStore()
 
-function getResource(name: ResourceName): UploadFileInfo | undefined {
+function getResource(name: ResourceName, filename?: string): UploadFileInfo | undefined {
   const resource = theme[name]
   if (!resource)
     return
   return resource && {
     id: crypto.randomUUID(),
-    name,
+    name: filename ?? name,
     status: 'finished',
     url: resource.url,
   }
 }
 
-const background = ref(getResource('background'))
-watch(background, v => theme.setResource('background', v?.file ?? undefined))
-
-const form = ref({
-  background: background.value,
-})
-
-function commit() {
-  for (const name of RESOURCES)
-    theme.setResource(name, form.value[name]?.file ?? undefined)
-  emit('commit')
+/**
+ * 响应式获取资源。
+ * @param name 资源名称
+ * @param filename 用户选择文件时的原文件名
+ */
+function getResourceRef(name: ResourceName, filename?: string) {
+  const ret = ref(getResource(name, filename))
+  watch(ret, v => theme.setResource(name, v?.file ?? undefined))
+  return ret
 }
+
+const background = getResourceRef('background')
+const backgroundRolling = getResourceRef(
+  'backgroundRolling',
+  theme.properties.backgroundRolling.originalName,
+)
+
+watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
+  if (file) { // 选择了文件，更新 properties
+    theme.$patch({
+      properties: {
+        backgroundRolling: {
+          originalName: file.name,
+          mimeType: file.type ?? DEFAULT_MIME_TYPE,
+        },
+      },
+    })
+  }
+  else { // 删除了文件，恢复默认值
+    theme.$patch({
+      properties: {
+        backgroundRolling: THEME_DEFAULT_PROPERTIES.backgroundRolling,
+      },
+    })
+  }
+})
 </script>
 
 <template>
   <NFormItem label="默认背景">
-    <SingleImageSelector v-model:file="form.background" />
+    <SingleFileSelector v-model:file="background" />
   </NFormItem>
-  <NFlex>
-    <NButton type="primary" @click="commit">
-      保存
-    </NButton>
-    <NButton @click="$emit('discard')">
-      取消
-    </NButton>
-  </NFlex>
+  <NFormItem label="点名时的背景">
+    <SingleFileSelector
+      v-model:file="backgroundRolling"
+      list-type="text"
+      accept="image/*,video/*"
+    />
+  </NFormItem>
 </template>

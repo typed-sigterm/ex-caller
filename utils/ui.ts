@@ -1,5 +1,4 @@
 import JSConfetti from 'js-confetti'
-import { BaseDirectory } from '@tauri-apps/plugin-fs'
 import type { Guide } from './guide'
 
 export const DRAWER_DEFAULT_WIDTH = 450
@@ -22,9 +21,4 @@ export function nextFrame() {
   return new Promise(
     resolve => requestAnimationFrame(resolve),
   )
-}
-
-export async function setupTheme() {
-  await tryMkdirRecursive('theme', BaseDirectory.AppData)
-  useThemeStore().refresh()
 }

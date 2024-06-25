@@ -2,7 +2,7 @@ import type { DialogFilter } from '@tauri-apps/plugin-dialog'
 import { save } from '@tauri-apps/plugin-dialog'
 import type { BaseDirectory } from '@tauri-apps/plugin-fs'
 import { exists, mkdir, readFile, remove, writeFile } from '@tauri-apps/plugin-fs'
-import { desktopDir, resolve } from '@tauri-apps/api/path'
+import { appDataDir, desktopDir, resolve } from '@tauri-apps/api/path'
 import { promiseTimeout } from '@vueuse/core'
 
 export interface SaveFileOptions {
@@ -60,23 +60,38 @@ export async function tryMkdirRecursive(path: string, baseDir: BaseDirectory) {
   }
 }
 
-export type LoadLocalFileResult = {
+interface LoadLocalFileOptions {
+  /**
+   * 文件 MIME Type
+   * @default 'application/octet-stream'
+   */
+  type?: string
+}
+
+export interface LoadedLocalFile {
   blob: Blob
+  /** {@link blob} url */
   url: string
+  /** 销毁 {@link blob} 对象，释放内存 */
   revoke: () => void
+  /** 删除本地文件 */
   rm: () => Promise<void>
-} | undefined
+}
 
 /** 读取本地文件，生成 Blob 对象。 */
-export async function loadLocalFile(path: string, baseDir: BaseDirectory): Promise<LoadLocalFileResult> {
+export async function loadLocalFile(path: string, baseDir: BaseDirectory, options?: LoadLocalFileOptions): Promise<LoadedLocalFile | undefined> {
   if (!IN_APP)
     throw createNotInAppError()
-
   if (!await exists(path, { baseDir }))
     return
-  const blob = new Blob([await readFile(path, { baseDir })])
+
+  const blob = new Blob(
+    [await readFile(path, { baseDir })],
+    { type: options?.type ?? DEFAULT_MIME_TYPE },
+  )
   const url = URL.createObjectURL(blob)
   const revoke = () => URL.revokeObjectURL(url)
   const rm = () => remove(path, { baseDir })
+
   return { blob, url, revoke, rm }
 }
