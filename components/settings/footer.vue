@@ -32,13 +32,14 @@ const showChangelog = ref(false)
     </InfoModal>
 
     <a href="https://github.com/typed-sigterm/ex-caller" target="_blank">
-      <IconGitHub />
+      <NIcon :size="16"><IconGitHub /></NIcon>
     </a>
   </div>
 </template>
 
 <style scoped>
 a:link, a:visited {
-  color: initial
+  color: initial;
+  height: 16px;
 }
 </style>
