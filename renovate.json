@@ -2,9 +2,15 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":dependencyDashboard"
+    "group:allNonMajor",
+    ":dependencyDashboard",
+    ":dependencyDashboardApproval"
   ],
   "labels": [
     "dependencies"
+  ],
+  "prCreation": "approval",
+  "ignoreDeps": [
+    "node"
   ]
 }
