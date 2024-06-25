@@ -57,7 +57,7 @@ jobs:
           REF: ${{ github.ref_name }}
           REPO: ${{ github.repository }}
       - name: 安装工具链
-        uses: dtolnay/rust-toolchain@032431f26ad14217b24e529fa2ab72cf558de38b
+        uses: dtolnay/rust-toolchain@21dc36fb71dd22e3317045c0c31a3f4249868b17
         with:
           targets: ${{ matrix.install || matrix.target }}
       - name: 缓存依赖
