@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import Licenses from '~/3rd-party-licenses.md'
+import LicensesMd from '~/3rd-party-licenses.md'
 </script>
 
 <template>
-  <Licenses />
+  <LicensesMd />
 </template>
 
 <style lang="postcss" scoped>
