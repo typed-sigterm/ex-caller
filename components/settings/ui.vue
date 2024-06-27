@@ -11,7 +11,7 @@ function handleInputIntervalDone() {
 </script>
 
 <template>
-  <NForm :model="config.ui" label-placement="left">
+  <NForm label-placement="left">
     <NFormItem label="过号时间">
       <NSlider
         v-model:value="inputInterval"
@@ -24,20 +24,7 @@ function handleInputIntervalDone() {
     </NFormItem>
 
     <NFormItem label="彩带效果">
-      <NSwitch v-model:value="config.ui.confetti" />
-    </NFormItem>
-
-    <NFormItem label="设置按钮位置">
-      <NSelect
-        v-model:value="config.ui.settingsButton"
-        :options="[{
-          label: '屏幕右上角',
-          value: 'top-right',
-        }, {
-          label: '屏幕中央',
-          value: 'center',
-        }]"
-      />
+      <NSwitch v-model:value="config.confetti" />
     </NFormItem>
   </NForm>
 </template>

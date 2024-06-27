@@ -78,13 +78,13 @@ prefetchComponents('LazySettings')
     v-model:status="status"
     class="bg-no-repeat bg-center bg-cover"
     :value="result.currentValue"
-    :confetti="config.ui.confetti"
+    :confetti="config.confetti"
     data-guide-id="result-board"
     @start="handleStart"
     @pausing="handlePausing"
     @paused="handlePaused"
   >
-    <template v-if="config.ui.settingsButton === 'center'" #startExtraOperators>
+    <template #startExtraOperators>
       <LargeButton
         :type="config.plan.enabled ? 'error' : 'info'"
         :loading="showLoadingSettings"
@@ -99,7 +99,7 @@ prefetchComponents('LazySettings')
       </LargeButton>
     </template>
 
-    <template v-if="config.ui.settingsButton === 'center'" #resumeExtraOperators>
+    <template #resumeExtraOperators>
       <NButton circle @click="handleOpenSettings">
         <template #icon>
           <NIcon :size="18">
@@ -110,21 +110,6 @@ prefetchComponents('LazySettings')
     </template>
   </ResultBoard>
 
-  <NIcon
-    v-if="config.ui.settingsButton === 'top-right'"
-    class="settings-button"
-    :class="[
-      config.plan.enabled && 'plan-enabled',
-      showLoadingSettings ? 'cursor-wait' : 'cursor-pointer',
-    ]"
-    :size="24"
-    data-guide-id="settings-button"
-    @click="handleOpenSettings"
-  >
-    <NSpin v-if="showLoadingSettings" />
-    <IconSettings v-else />
-  </NIcon>
-
   <LazySettings
     v-if="loadSettings"
     v-model:show="showSettings"
@@ -132,32 +117,3 @@ prefetchComponents('LazySettings')
     @close="handleSettingsClose"
   />
 </template>
-
-<style lang="postcss" scoped>
-.settings-button {
-  &:hover {
-    animation-play-state: running;
-  }
-  &.plan-enabled {
-    color: #d03050;
-    opacity: 1;
-  }
-  :deep() .n-spin, :deep() .n-base-loading__icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  position: fixed;
-  top: calc(env(safe-area-inset-top) + 8px);
-  right: calc(env(safe-area-inset-right) + 8px);
-  transition: all .3s;
-  animation: rotating 5s linear infinite forwards;
-  animation-play-state: paused;
-  opacity: 0.2;
-}
-
-@keyframes rotating {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-</style>
