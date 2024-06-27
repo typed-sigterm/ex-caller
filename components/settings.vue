@@ -8,18 +8,26 @@ const emit = defineEmits<{
   (ev: 'open'): void
   (ev: 'close'): void
 }>()
-/** 是否显示 */
 const show = defineModel<boolean>('show', { required: true })
 
-function handleClose() {
-  emit('close')
-  promiseTimeout(500).then(gc)
-}
 async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return
   await promiseTimeout(500)
   triggerPlanGuide()
+}
+
+const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
+
+const showCanaryAlert = useLocalStorage('canary-alert', true)
+// 为了避免 showCanaryAlert 变成 false 导致 <NAlert> 来不及播放关闭动画
+// 每次打开时都要重新同步一下，在 handleClose 中处理
+const showCanaryAlertNow = ref(showCanaryAlert.value)
+
+function handleClose() {
+  emit('close')
+  promiseTimeout(500).then(gc)
+  showCanaryAlertNow.value = showCanaryAlert.value
 }
 </script>
 
@@ -34,18 +42,36 @@ async function handleShowOrClosePlan(show: boolean) {
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
+      <NAlert
+        v-if="__CANARY__ && showCanaryAlertNow"
+        class="mb-3"
+        type="warning"
+        closable
+        @after-leave="showCanaryAlert = false"
+      >
+        您正在使用 Canary 版本，功能尚不稳定。
+        <br>
+        若遇到问题，欢迎
+        <a class="cursor-pointer" @click="feedback = true">
+          提交反馈
+        </a>
+        。
+      </NAlert>
+
       <SettingsSubEntry title="名单设置">
         <SettingsGroup />
         <template #icon>
           <IconList />
         </template>
       </SettingsSubEntry>
+
       <SettingsSubEntry title="主题设置" only-in-app>
         <SettingsTheme />
         <template #icon>
           <IconPictureFilled />
         </template>
       </SettingsSubEntry>
+
       <SettingsSubEntry
         title="计划设置"
         :drawer-attrs="{ 'data-guide-id': 'plan-drawer' }"
@@ -56,8 +82,11 @@ async function handleShowOrClosePlan(show: boolean) {
           <IconFlag />
         </template>
       </SettingsSubEntry>
+
       <SettingsUi class="mt-6" />
+
       <SettingsFooter />
+
       <template #header>
         设置
       </template>

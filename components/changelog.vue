@@ -3,14 +3,17 @@ import ChangelogMd from './changelog-simplified.md'
 </script>
 
 <template>
+  <NAlert v-if="true" type="info">
+    Canary 版本更新内容请前往
+    <a :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`" target="_blank">GitHub</a>
+    查看。
+    <br>
+    构建时间：<NTime :time="useRuntimeConfig().public.buildTime" />
+  </NAlert>
   <ChangelogMd />
 </template>
 
 <style lang="postcss" scoped>
-.markdown-body > *:first-child {
-  margin-top: 0;
-}
-
 :deep() {
   h2 { /* 版本号 */
     text-align: center;

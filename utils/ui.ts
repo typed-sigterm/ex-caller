@@ -22,3 +22,6 @@ export function nextFrame() {
     resolve => requestAnimationFrame(resolve),
   )
 }
+
+/** 是否显示提交反馈引导弹窗 */
+export const feedbackGuideShow = ref(false)

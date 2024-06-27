@@ -11,6 +11,8 @@ onMounted(() => {
     email.value = `typed.sigterm${String.fromCharCode(64)}gmail.com`
   })
 })
+
+const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
 </script>
 
 <template>
@@ -29,7 +31,7 @@ onMounted(() => {
       </template>
     </LinkToModal>
     <NDivider vertical />
-    <LinkToModal modal-title="提交反馈">
+    <LinkToModal v-model:show-modal="feedback" modal-title="提交反馈">
       提交反馈
       <template #modalContent>
         <p class="mt-0">
@@ -52,6 +54,9 @@ onMounted(() => {
             请在邮件主题中包含 <code>[ExCaller]</code>，否则反馈可能无法得到及时处理。
           </li>
         </ul>
+        <p v-if="__CANARY__">
+          如果问题仅出现在 Canary 版本中，请在反馈中注明。
+        </p>
         <p>
           收到反馈后，我们会尽快处理，感谢您的支持。
         </p>

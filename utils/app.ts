@@ -6,12 +6,19 @@ import { version } from '~/package.json'
 
 export const GITHUB_REPO_URL = 'https://github.com/typed-sigterm/ex-caller'
 
-const commit: string | undefined = import.meta.env.COMMIT_REF
-export const VERSION = import.meta.env.DEV
-  ? 'Dev'
-  : import.meta.env.EXC_CANARY
-    ? (commit ? commit.slice(0, 7) : 'Canary')
-    : `v${version}`
+/** 是否正式生产环境 */
+export const __GA__ = import.meta.env.PROD && !import.meta.env.EXC_CANARY
+/** 是否 Canary 生产环境 */
+export const __CANARY__ = import.meta.env.EXC_CANARY
+/** 是否开发环境 */
+export const __DEV__ = !import.meta.env.PROD
+
+const commit = import.meta.env.COMMIT_REF ?? '0000000'
+export const VERSION = __GA__
+  ? `v${version}` // 正式版本显示版本号
+  : __CANARY__
+    ? commit.slice(0, 7) // Canary 版本显示 commit id
+    : 'DEV' // 开发版本显示 DEV
 
 /** 是否独立 App 环境 */
 export const __APP__ = !import.meta.env.EXC_NO_APP && isTauri()

@@ -22,6 +22,11 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['./stores'],
   },
+  runtimeConfig: {
+    public: {
+      buildTime: Date.now(),
+    },
+  },
   vite: {
     clearScreen: false,
     envPrefix: ['EXC_', 'COMMIT_REF'],
