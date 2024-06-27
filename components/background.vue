@@ -7,24 +7,32 @@ const status = defineModel<Status>('status')
 const theme = useThemeStore()
 
 // 预加载背景视频
-watchImmediate(() => theme.backgroundRolling?.url, (url) => {
-  if (!url)
-    return
-  useHead({
-    link: [{
-      rel: 'prefetch',
-      href: url,
-    }],
+if (IN_APP) {
+  watchImmediate(() => theme.backgroundRolling?.url, (url) => {
+    if (!url)
+      return
+    useHead({
+      link: [{
+        rel: 'prefetch',
+        href: url,
+      }],
+    })
   })
-})
+}
 
 const videoElement = ref<HTMLVideoElement | null>(null)
 const rollingUsingVideo = computed(() => { // backgroundRolling 使用视频
   return theme.backgroundRolling && theme.backgroundRolling.url
 })
 
-whenever(() => status.value === 'pausing', () => {
-  videoElement.value?.pause()
+watch(() => status.value, (value) => {
+  if (value === 'pausing')
+    videoElement.value?.pause()
+
+  // ready-rolling 时，如果无需加载视频，则直接切换到 rolling
+  // 如果需要加载视频，则在 <video> 事件里处理了
+  if (value === 'ready-rolling' && !rollingUsingVideo.value)
+    status.value = 'rolling'
 })
 
 const [DefineDefaultBackground, DefaultBackground] = createReusableTemplate()
