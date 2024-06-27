@@ -14,7 +14,7 @@ export interface SaveFileOptions {
  * @returns 是否保存成功
  */
 export async function saveFile(filename: string, content: string, options: SaveFileOptions) {
-  if (IN_APP) { // 独立 app 环境，使用 Tauri API
+  if (__APP__) { // 独立 app 环境，使用 Tauri API
     const {
       defaultPath = await resolve(await desktopDir(), filename), // 默认保存到桌面
       filters = [],
@@ -46,7 +46,7 @@ export async function saveFile(filename: string, content: string, options: SaveF
 
 /** 递归创建目录 */
 export async function tryMkdirRecursive(path: string, baseDir: BaseDirectory) {
-  if (!IN_APP)
+  if (!__APP__)
     throw createNotInAppError()
 
   let current = ''
@@ -80,7 +80,7 @@ export interface LoadedLocalFile {
 
 /** 读取本地文件，生成 Blob 对象。 */
 export async function loadLocalFile(path: string, baseDir: BaseDirectory, options?: LoadLocalFileOptions): Promise<LoadedLocalFile | undefined> {
-  if (!IN_APP)
+  if (!__APP__)
     throw createNotInAppError()
   if (!await exists(path, { baseDir }))
     return

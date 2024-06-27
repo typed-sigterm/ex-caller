@@ -7,7 +7,7 @@ const status = defineModel<Status>('status')
 const theme = useThemeStore()
 
 // 预加载背景视频
-if (IN_APP) {
+if (__APP__) {
   watchImmediate(() => theme.backgroundRolling?.url, (url) => {
     if (!url)
       return

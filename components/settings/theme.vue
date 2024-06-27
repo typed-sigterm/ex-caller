@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { UploadFileInfo } from 'naive-ui'
 
-if (!IN_APP)
+if (!__APP__)
   throw createNotInAppError()
 
 const theme = useThemeStore()

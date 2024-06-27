@@ -2,7 +2,7 @@
 import { promiseTimeout } from '@vueuse/core'
 import { zhCN } from 'naive-ui'
 
-if (IN_APP)
+if (__APP__)
   await useThemeStore().init() // 异步初始化主题
 
 const loading = ref(true)
