@@ -52,12 +52,10 @@ body::-webkit-scrollbar {
   height: 100vh;
 }
 
-.markdown-body {
-  a {
-    color: #36ad6a;
-  }
-  code, kbd, pre, samp {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  }
+a {
+  color: #36ad6a;
+}
+code, kbd, pre, samp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 }
 </style>

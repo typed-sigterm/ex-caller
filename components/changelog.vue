@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ChangelogMd from '~/CHANGELOG.md'
+import ChangelogMd from './changelog-simplified.md'
 </script>
 
 <template>
@@ -7,18 +7,18 @@ import ChangelogMd from '~/CHANGELOG.md'
 </template>
 
 <style lang="postcss" scoped>
+.markdown-body > *:first-child {
+  margin-top: 0;
+}
+
 :deep() {
-  h1 {
-    display: none;
+  h2 { /* 版本号 */
+    text-align: center;
   }
-  h1 + h2 {
-    margin-block-start: 0;
-  }
-  h2::before { /* 版本号 */
-    content: 'v';
-  }
+
   h3 { /* “新功能”“bug 修复”等 */
-    all: unset;
+    margin: 0;
+    font-size: inherit
   }
 
   ul {

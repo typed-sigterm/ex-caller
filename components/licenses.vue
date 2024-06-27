@@ -12,7 +12,7 @@ import LicensesMd from '~/3rd-party-licenses.md'
     display: none;
   }
   h1 + p {
-    margin-block-start: 0;
+    margin-top: 0;
   }
 }
 </style>
