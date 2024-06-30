@@ -4,6 +4,13 @@
   "version": "0.4.2",
   "private": true,
   "packageManager": "pnpm@9.0.6",
+  "author": "Typed SIGTERM",
+  "license": "MIT",
+  "homepage": "https://ex-caller.by-ts.top/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typed-sigterm/ex-caller"
+  },
   "engines": {
     "node": "20"
   },
