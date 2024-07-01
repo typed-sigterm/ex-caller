@@ -9,7 +9,6 @@
   "labels": [
     "dependencies"
   ],
-  "prCreation": "approval",
   "ignoreDeps": [
     "node"
   ]
