@@ -55,7 +55,7 @@
     "@types/markdown-it": "^14.1.1",
     "@vue/test-utils": "^2.4.5",
     "eslint": "^8.57.0",
-    "happy-dom": "^13.10.1",
+    "happy-dom": "^14.0.0",
     "mock-local-storage": "^1.1.24",
     "typescript": "^5.4.5",
     "vitest": "^1.5.3"
