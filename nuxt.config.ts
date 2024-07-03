@@ -6,6 +6,7 @@ import PostcssPresetEnv from 'postcss-preset-env'
 
 export default defineNuxtConfig({
   ssr: false,
+
   modules: [
     '@bg-dev/nuxt-naiveui',
     '@pinia/nuxt',
@@ -13,20 +14,24 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'unplugin-icons/nuxt',
   ],
+
   app: {
     head: {
       title: 'ExCaller',
       htmlAttrs: { lang: 'zh-CN' },
     },
   },
+
   imports: {
     dirs: ['./stores'],
   },
+
   runtimeConfig: {
     public: {
       buildTime: Date.now(),
     },
   },
+
   vite: {
     clearScreen: false,
     envPrefix: ['EXC_', 'COMMIT_REF'],
@@ -56,8 +61,12 @@ export default defineNuxtConfig({
       include: [/\.vue$/, /\.md$/],
     },
   },
+
   spaLoadingTemplate: true,
+
   devServer: {
     port: 6408,
   },
+
+  compatibilityDate: '2024-07-03',
 })
