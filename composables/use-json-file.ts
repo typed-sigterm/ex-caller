@@ -1,5 +1,5 @@
 import type { BaseDirectory } from '@tauri-apps/plugin-fs'
-import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
+import { exists, readTextFile, writeTextFile } from '@tauri-apps/plugin-fs'
 
 export default async <T = any>(initial: T, path: string, baseDir: BaseDirectory) => {
   const ret = ref(initial)
@@ -7,10 +7,10 @@ export default async <T = any>(initial: T, path: string, baseDir: BaseDirectory)
     return writeTextFile(path, JSON.stringify(content), { baseDir })
   }
 
-  try {
+  if (await exists(path, { baseDir })) {
     ret.value = JSON.parse(await readTextFile(path, { baseDir }))
   }
-  catch (e) {
+  else {
     await write(initial)
   }
 

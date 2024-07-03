@@ -39,7 +39,7 @@ export async function saveFile(filename: string, content: string, options: SaveF
     el.download = filename
     el.click()
     URL.revokeObjectURL(url)
-    await promiseTimeout(1000) /// 1s 等待开始下载
+    await promiseTimeout(1000) // 1s 等待开始下载
     return true
   }
 }
@@ -51,6 +51,8 @@ export async function tryMkdirRecursive(path: string, baseDir: BaseDirectory) {
 
   let current = ''
   let created = false
+  if (!await exists('./', { baseDir })) // 先保证根目录存在
+    await mkdir('./', { baseDir })
   for (const part of path.split('/')) {
     current += part
     if (created || !await exists(current, { baseDir })) {
