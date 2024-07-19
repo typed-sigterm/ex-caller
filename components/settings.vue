@@ -17,8 +17,6 @@ async function handleShowOrClosePlan(show: boolean) {
   triggerPlanGuide()
 }
 
-const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
-
 const showCanaryAlert = useLocalStorage('canary-alert', true)
 // 为了避免 showCanaryAlert 变成 false 导致 <NAlert> 来不及播放关闭动画
 // 每次打开时都要重新同步一下，在 handleClose 中处理
@@ -35,6 +33,7 @@ function handleClose() {
   <NDrawer
     v-model:show="show"
     :default-width="DRAWER_DEFAULT_WIDTH"
+    display-directive="show"
     :min-width="DRAWER_MIN_WIDTH"
     resizable
     @click.stop
@@ -52,7 +51,7 @@ function handleClose() {
         您正在使用 Canary 版本，功能尚不稳定。
         <br>
         若遇到问题，欢迎
-        <a class="cursor-pointer" @click="feedback = true">
+        <a class="cursor-pointer" @click="bus.emit('send-feedback')">
           提交反馈
         </a>
         。

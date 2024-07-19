@@ -13,10 +13,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: |
+      - name: 检查版本稳定性
+        id: check-stability
+        uses: actions/github-script@v7
+        with:
+          script: |
+            import { prerelease } from 'semver'
+            import { version } from './package.json'
+            return !prerelease(version)
+      - name: 更新 latest 分支
+        if: steps.check-stability.outputs.result
+        run: |
           git checkout -b latest origin/latest
           git merge --ff-only origin/main
           git push origin latest
+      - name: 更新 insider 分支
+        if: !steps.check-stability.outputs.result
+        run: |
+          git checkout -b insider origin/insider || git switch -c insider
+          git merge --ff-only origin/main
+          git push origin insider
+      - name: 删除 insider 分支
+        if: steps.check-stability.outputs.result
+        run: |
+          git push origin -d insider || true
   release:
     name: 发布更新包
     permissions:
@@ -70,9 +90,10 @@ jobs:
       - name: 构建应用
         run: pnpm web:build
       - name: 构建与发布安装包
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ steps.get-release.outputs.result }}
+          updaterJsonKeepUniversal: true
           args: --target ${{matrix.target}}

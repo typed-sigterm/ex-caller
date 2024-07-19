@@ -11,6 +11,8 @@ const show = ref(false)
 // 动画和事件
 promiseTimeout(1500).then(() => loading.value = false)
 promiseTimeout(1850).then(() => {
+  bus.emit('login')
+  bus.emit('check-update')
   show.value = true
   triggerWelcomeGuide()
 })
@@ -23,6 +25,7 @@ promiseTimeout(1850).then(() => {
   >
     <NMessageProvider>
       <NDialogProvider>
+        <Updater v-if="__APP__" />
         <ExCaller />
       </NDialogProvider>
     </NMessageProvider>

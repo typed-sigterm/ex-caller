@@ -12,7 +12,22 @@ onMounted(() => {
   })
 })
 
-const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
+const showFeedback = ref(false)
+bus.on('send-feedback', () => showFeedback.value = true)
+
+const checkingUpdate = ref(false)
+function checkUpdate() {
+  if (checkingUpdate.value)
+    return
+  checkingUpdate.value = true
+
+  const handleUpdateChecked = () => {
+    checkingUpdate.value = false
+    bus.off('update-checked', handleUpdateChecked)
+  }
+  bus.on('update-checked', handleUpdateChecked)
+  bus.emit('check-update')
+}
 </script>
 
 <template>
@@ -31,7 +46,7 @@ const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
       </template>
     </LinkToModal>
     <NDivider vertical />
-    <LinkToModal v-model:show-modal="feedback" modal-title="提交反馈">
+    <LinkToModal v-model:show-modal="showFeedback" modal-title="提交反馈">
       提交反馈
       <template #modalContent>
         <p class="mt-0">
@@ -62,6 +77,10 @@ const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
         </p>
       </template>
     </LinkToModal>
+    <NDivider v-if="__APP__" vertical />
+    <NButton v-if="__APP__" text :loading="checkingUpdate" @click="checkUpdate">
+      检查更新
+    </NButton>
   </div>
 
   <div class="flex items-center mt-2" style="color: #86909c;">
@@ -78,3 +97,12 @@ const feedback = feedbackGuideShow // https://github.com/nuxt/nuxt/issues/27868
     </a>
   </div>
 </template>
+
+<style scoped>
+:deep() .n-button__icon {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  --n-icon-size: 16px;
+}
+</style>
