@@ -1,0 +1,26 @@
+name: autofix.ci # needed to securely identify the workflow
+
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - renovate/**
+
+permissions:
+  contents: read
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+      - run: pnpm lint --fix
+      - uses: autofix-ci/action@1.3.1
+        with:
+          commit-message: 'style: autofix'
