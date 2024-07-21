@@ -1,28 +1,28 @@
 <script lang="ts" setup>
-import IconDownload from '~icons/ep/download'
-import IconList from '~icons/ep/list'
-import IconExcel from '~icons/vscode-icons/file-type-excel'
+import IconDownload from '~icons/ep/download';
+import IconList from '~icons/ep/list';
+import IconExcel from '~icons/vscode-icons/file-type-excel';
 
-const currentGroup = useConfigStore().group
-const names = defineModel<RollCallOption[]>('names', { required: true })
+const currentGroup = useConfigStore().group;
+const names = defineModel<RollCallOption[]>('names', { required: true });
 
-const limited = computed(() => useGroupStore().nameList.length >= MAX_GROUP_COUNT)
+const limited = computed(() => useGroupStore().nameList.length >= MAX_GROUP_COUNT);
 
-const showBatchInput = ref(false)
+const showBatchInput = ref(false);
 
-const showImportExcel = ref(false)
+const showImportExcel = ref(false);
 function handleImportDone(items: string[]) {
-  names.value.push(...items)
+  names.value.push(...items);
 }
 
-const exporting = ref(false)
+const exporting = ref(false);
 async function handleExport() {
-  exporting.value = true
+  exporting.value = true;
   await exportGroupToText(currentGroup).catch((e) => {
-    console.error(e)
-    alertError(e)
-  })
-  exporting.value = false
+    console.error(e);
+    alertError(e);
+  });
+  exporting.value = false;
 }
 </script>
 

@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { NuxtError } from '#app'
+import type { NuxtError } from '#app';
 
 defineProps<{
   error: NuxtError
-}>()
+}>();
 
-const handleRefresh = () => location.reload()
+const handleRefresh = () => location.reload();
 
-const showClearConfig = ref(false)
-const clearingConfig = ref(false)
+const showClearConfig = ref(false);
+const clearingConfig = ref(false);
 async function handleClearConfig() {
-  clearingConfig.value = true
+  clearingConfig.value = true;
   if (!await saveFile('config.json', JSON.stringify(localStorage))) { // 用户取消
-    clearingConfig.value = false
-    return
+    clearingConfig.value = false;
+    return;
   }
-  localStorage.clear()
-  location.reload()
+  localStorage.clear();
+  location.reload();
 }
 </script>
 

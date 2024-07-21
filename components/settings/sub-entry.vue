@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import IconRight from '~icons/ep/right'
-import IconLock from '~icons/ep/lock'
+import IconRight from '~icons/ep/right';
+import IconLock from '~icons/ep/lock';
 
 const props = defineProps<{
   title: string
@@ -8,18 +8,18 @@ const props = defineProps<{
   onlyInApp?: boolean
   /** 点击后弹出的 drawer 的附加属性 */
   drawerAttrs?: any
-}>()
+}>();
 defineSlots<{
   /** 点击后弹出的 drawer 的内容 */
   default: (props: { open: () => void, close: () => void }) => any
   icon: () => any
-}>()
+}>();
 
-const show = defineModel<boolean>('show')
+const show = defineModel<boolean>('show');
 
 const supported = computed(() => {
-  return __APP__ || !props.onlyInApp
-})
+  return __APP__ || !props.onlyInApp;
+});
 </script>
 
 <template>

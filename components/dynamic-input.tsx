@@ -1,31 +1,31 @@
-import { NDynamicInput, NSpin } from 'naive-ui'
+import { NDynamicInput, NSpin } from 'naive-ui';
 
 export default defineComponent({
   name: 'DynamicInput',
   inheritAttrs: false,
   setup(_, { attrs, emit, slots }) {
-    const propsValue = toRef(attrs, 'value') as Ref<unknown[] | undefined>
-    const displayValue: Ref<unknown[]> = ref([])
-    const syncing = ref(false)
-    const syncId = ref(0)
+    const propsValue = toRef(attrs, 'value') as Ref<unknown[] | undefined>;
+    const displayValue: Ref<unknown[]> = ref([]);
+    const syncing = ref(false);
+    const syncId = ref(0);
 
     watch(propsValue, async (v) => {
-      syncing.value = true
-      const id = ++syncId.value
-      const origin = toRaw(v) ?? []
-      const legacy = displayValue.value
+      syncing.value = true;
+      const id = ++syncId.value;
+      const origin = toRaw(v) ?? [];
+      const legacy = displayValue.value;
       if (origin.length < legacy.length) // 选项变少
-        displayValue.value.splice(origin.length)
+        displayValue.value.splice(origin.length);
       for (let i = 0; i < origin.length; ++i) {
         if (origin[i] !== legacy[i]) { // 简单增量更新
-          displayValue.value[i] = v?.[i]
-          await nextFrame()
+          displayValue.value[i] = v?.[i];
+          await nextFrame();
         }
         if (id !== syncId.value) // 有新的更新
-          return
+          return;
       }
-      syncing.value = false
-    }, { immediate: true, deep: true }) // 如果不深度监听，字符串变化不会触发更新
+      syncing.value = false;
+    }, { immediate: true, deep: true }); // 如果不深度监听，字符串变化不会触发更新
 
     return () => (
       <NSpin show={syncing.value}>
@@ -42,6 +42,6 @@ export default defineComponent({
           }
         />
       </NSpin>
-    )
+    );
   },
-}) as typeof NDynamicInput
+}) as typeof NDynamicInput;

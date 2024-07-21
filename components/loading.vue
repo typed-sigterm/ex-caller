@@ -2,7 +2,7 @@
 defineProps<{
   /** 是否播放动画 */
   animation?: boolean
-}>()
+}>();
 </script>
 
 <template>

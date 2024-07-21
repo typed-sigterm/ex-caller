@@ -1,14 +1,14 @@
-import { type Config, driver } from 'driver.js'
-import { z } from 'zod'
-import 'driver.js/dist/driver.css'
+import { type Config, driver } from 'driver.js';
+import { z } from 'zod';
+import 'driver.js/dist/driver.css';
 
 export const GuideSchema = z.object({
   welcome: z.boolean().default(false),
   stopCalling: z.boolean().default(false),
   plan: z.boolean().default(false),
-})
+});
 
-export type Guide = z.infer<typeof GuideSchema>
+export type Guide = z.infer<typeof GuideSchema>;
 
 export function createDriver(config?: Config) {
   return driver({
@@ -18,10 +18,10 @@ export function createDriver(config?: Config) {
     doneBtnText: '完成',
     progressText: '步骤 {{current}} / {{total}}',
     ...config,
-  })
+  });
 }
 
-const getElement = (id: string) => document.querySelector(`[data-guide-id="${id}"]`) ?? undefined
+const getElement = (id: string) => document.querySelector(`[data-guide-id="${id}"]`) ?? undefined;
 
 /**
  * 若教程未完成，开始教程，完成教程后标记为已完成。
@@ -30,15 +30,15 @@ const getElement = (id: string) => document.querySelector(`[data-guide-id="${id}
  */
 function drive(name: keyof Guide, options: Config) {
   if (!shouldStartGuide(name))
-    return
+    return;
   const driver = createDriver({
     ...options,
     onDestroyed(...args) {
-      markGuideAsStarted(name)
-      options.onDeselected?.(...args)
+      markGuideAsStarted(name);
+      options.onDeselected?.(...args);
     },
-  })
-  driver.drive()
+  });
+  driver.drive();
 }
 
 export function triggerWelcomeGuide() {
@@ -54,7 +54,7 @@ export function triggerWelcomeGuide() {
     }, {
       popover: { title: '就这些', description: '是不是足够简约？（笑）' },
     }],
-  })
+  });
 }
 
 export function triggerStopCallingGuide() {
@@ -63,7 +63,7 @@ export function triggerStopCallingGuide() {
       element: getElement('result-board'),
       popover: { title: '停止抽取', description: '开始抽取后，点击任意位置停止抽取。' },
     }],
-  })
+  });
 }
 
 export function triggerPlanGuide() {
@@ -75,5 +75,5 @@ export function triggerPlanGuide() {
       element: getElement('enable-plan-field'),
       popover: { title: '不过为了防止滥用', description: '启用计划后，设置按钮会变成红色。' },
     }],
-  })
+  });
 }

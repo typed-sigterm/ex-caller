@@ -7,7 +7,7 @@ export interface RollCallAdvancedOption {
 }
 
 /** 待点选项 */
-export type RollCallOption = string | RollCallAdvancedOption
+export type RollCallOption = string | RollCallAdvancedOption;
 
 export interface RollCallConfig {
   /** 随机选项 */
@@ -43,46 +43,45 @@ export interface RollCallController {
  * 默认暂停，需要调用返回值的 `.value.start()` 来开始。
  */
 export default (config: RollCallConfig): Ref<RollCallController> => {
-  const { options, duration, defaultIndex, defaultValue } = config
+  const { options, duration, defaultIndex, defaultValue } = config;
 
-  const currentIndex = ref<number | undefined>(defaultIndex)
-  const currentValue = ref<string | undefined>(defaultValue)
-  const currentDuration = ref(duration)
+  const currentIndex = ref<number | undefined>(defaultIndex);
+  const currentValue = ref<string | undefined>(defaultValue);
+  const currentDuration = ref(duration);
 
   const next = () => {
-    let i = (currentIndex.value ?? -1) + 1 // 若未开始，下一个为第一个，即下标 -1+1
+    let i = (currentIndex.value ?? -1) + 1; // 若未开始，下一个为第一个，即下标 -1+1
     if (i >= options.length) // 越界
-      i = 0
-    const incoming = options[i]
-    currentValue.value = rollCallOptionToString(incoming)
-    currentIndex.value = i
+      i = 0;
+    const incoming = options[i];
+    currentValue.value = rollCallOptionToString(incoming);
+    currentIndex.value = i;
 
     if (typeof incoming === 'string') { // 选项未覆盖 duration
-      currentDuration.value = config.duration
+      currentDuration.value = config.duration;
+    } else if (incoming.duration !== config.duration) { // 选项覆盖了 duration
+      currentDuration.value = incoming.duration;
     }
-    else if (incoming.duration !== config.duration) { // 选项覆盖了 duration
-      currentDuration.value = incoming.duration
-    }
-  }
+  };
 
-  const { pause, resume, isActive } = useIntervalFn(next, duration)
-  pause()
+  const { pause, resume, isActive } = useIntervalFn(next, duration);
+  pause();
   const start = () => {
     if (isActive.value)
-      return
-    next()
-    resume()
-  }
+      return;
+    next();
+    resume();
+  };
   const reset = () => {
-    pause()
-    currentValue.value = currentIndex.value = undefined
-  }
+    pause();
+    currentValue.value = currentIndex.value = undefined;
+  };
 
-  return ref({ currentValue, currentIndex, next, pause, start, isActive, reset })
-}
+  return ref({ currentValue, currentIndex, next, pause, start, isActive, reset });
+};
 
 export function rollCallOptionToString(option: RollCallOption) {
   if (typeof option === 'string')
-    return option
-  return option.value
+    return option;
+  return option.value;
 }

@@ -1,32 +1,32 @@
 <script lang="ts" setup>
-import IconGitHub from '~icons/ant-design/github-filled'
-import avatarTypedSigterm from '~/assets/typed-sigterm.png'
+import IconGitHub from '~icons/ant-design/github-filled';
+import avatarTypedSigterm from '~/assets/typed-sigterm.png';
 
-const loadLicenses = ref(false)
-const loadChangelog = ref(false)
+const loadLicenses = ref(false);
+const loadChangelog = ref(false);
 
-const email = ref('')
+const email = ref('');
 onMounted(() => {
   nextTick().then(() => {
-    email.value = `typed.sigterm${String.fromCharCode(64)}gmail.com`
-  })
-})
+    email.value = `typed.sigterm${String.fromCharCode(64)}gmail.com`;
+  });
+});
 
-const showFeedback = ref(false)
-bus.on('send-feedback', () => showFeedback.value = true)
+const showFeedback = ref(false);
+bus.on('send-feedback', () => showFeedback.value = true);
 
-const checkingUpdate = ref(false)
+const checkingUpdate = ref(false);
 function checkUpdate() {
   if (checkingUpdate.value)
-    return
-  checkingUpdate.value = true
+    return;
+  checkingUpdate.value = true;
 
   const handleUpdateChecked = () => {
-    checkingUpdate.value = false
-    bus.off('update-checked', handleUpdateChecked)
-  }
-  bus.on('update-checked', handleUpdateChecked)
-  bus.emit('check-update')
+    checkingUpdate.value = false;
+    bus.off('update-checked', handleUpdateChecked);
+  };
+  bus.on('update-checked', handleUpdateChecked);
+  bus.emit('check-update');
 }
 </script>
 

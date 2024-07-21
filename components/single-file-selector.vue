@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { UploadFileInfo } from 'naive-ui'
-import type { ListType } from 'naive-ui/es/upload/src/interface'
-import IconPlus from '~icons/ep/plus'
+import type { UploadFileInfo } from 'naive-ui';
+import type { ListType } from 'naive-ui/es/upload/src/interface';
+import IconPlus from '~icons/ep/plus';
 
 withDefaults(defineProps<{
   /** 可选择的文件 MIME Type，用逗号分隔 */
@@ -11,8 +11,8 @@ withDefaults(defineProps<{
 }>(), {
   accept: 'image/*',
   listType: 'image-card',
-})
-const file = defineModel<UploadFileInfo | undefined>('file')
+});
+const file = defineModel<UploadFileInfo | undefined>('file');
 </script>
 
 <template>

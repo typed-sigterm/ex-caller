@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import type { UploadCustomRequestOptions } from 'naive-ui'
-import IconUpload from '~icons/ep/upload-filled'
-import IconExcel from '~icons/vscode-icons/file-type-excel'
+import type { UploadCustomRequestOptions } from 'naive-ui';
+import IconUpload from '~icons/ep/upload-filled';
+import IconExcel from '~icons/vscode-icons/file-type-excel';
 
 const emit = defineEmits<{
   /** 输入完成 */
   (ev: 'done', names: string[]): void
-}>()
+}>();
 /** 是否显示 */
-const show = defineModel<boolean>('show', { required: true })
+const show = defineModel<boolean>('show', { required: true });
 
-const input = ref<string[][]>([])
-const total = computed(() => input.value.flat().length)
+const input = ref<string[][]>([]);
+const total = computed(() => input.value.flat().length);
 
 function customRequest(options: UploadCustomRequestOptions) {
   if (!options.file.file)
-    return
-  options.onProgress({ percent: Math.floor(Math.random() * 100) })
+    return;
+  options.onProgress({ percent: Math.floor(Math.random() * 100) });
   importGroupFromExcel(options.file.file)
     .then((v) => {
-      input.value.push(v)
-      options.onFinish()
+      input.value.push(v);
+      options.onFinish();
     })
     .catch((e) => {
-      console.error(e)
-      options.onError()
-    })
+      console.error(e);
+      options.onError();
+    });
 }
 
 function handleOk() {
@@ -34,7 +34,7 @@ function handleOk() {
     input.value
       .flat()
       .filter((_, i) => i < MAX_GROUP_MEMBER_COUNT), // 保证名字数量不超过上限
-  )
+  );
 }
 </script>
 

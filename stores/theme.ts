@@ -1,11 +1,11 @@
-import { BaseDirectory, writeFile } from '@tauri-apps/plugin-fs'
+import { BaseDirectory, writeFile } from '@tauri-apps/plugin-fs';
 
 export const THEME_DEFAULT_PROPERTIES = {
   backgroundRolling: {
     originalName: '',
     mimeType: DEFAULT_MIME_TYPE,
   },
-}
+};
 
 export const useThemeStore = defineStore('theme', {
   state: () => {
@@ -13,20 +13,20 @@ export const useThemeStore = defineStore('theme', {
       properties: structuredClone(THEME_DEFAULT_PROPERTIES),
       background: undefined as LoadedLocalFile | undefined,
       backgroundRolling: undefined as LoadedLocalFile | undefined,
-    }
+    };
   },
 
   actions: {
     /** 初始化。 */
     async init() {
-      await tryMkdirRecursive('theme', BaseDirectory.AppData)
+      await tryMkdirRecursive('theme', BaseDirectory.AppData);
 
       // store 内修改同步到本地文件
-      const localProps = await useJsonFile(this.properties, 'theme/properties.json', BaseDirectory.AppData)
-      this.properties = localProps.value
-      watchDeep(() => this.properties, v => localProps.value = v)
+      const localProps = await useJsonFile(this.properties, 'theme/properties.json', BaseDirectory.AppData);
+      this.properties = localProps.value;
+      watchDeep(() => this.properties, v => localProps.value = v);
 
-      await this.refresh()
+      await this.refresh();
     },
 
     /**
@@ -34,11 +34,11 @@ export const useThemeStore = defineStore('theme', {
      * @param names 资源名称列表，不传则刷新全部资源
      */
     async refresh(names?: ResourceName[]) {
-      const resources: Array<[string, LoadedLocalFile | undefined]> = []
+      const resources: Array<[string, LoadedLocalFile | undefined]> = [];
       await Promise.all((names ?? RESOURCES).map(async (name) => {
-        resources.push([name, await getThemeResource(name)])
-      }))
-      this.$patch(Object.fromEntries(resources))
+        resources.push([name, await getThemeResource(name)]);
+      }));
+      this.$patch(Object.fromEntries(resources));
     },
 
     /**
@@ -48,19 +48,19 @@ export const useThemeStore = defineStore('theme', {
      */
     async setResource(name: ResourceName, data?: Uint8Array | File) {
       if (data instanceof File)
-        data = new Uint8Array(await data.arrayBuffer())
+        data = new Uint8Array(await data.arrayBuffer());
 
       // 如果有旧资源，先释放
-      const old = this[name]
+      const old = this[name];
       if (old) {
-        old.revoke()
-        await old.rm().catch(() => 0) // 删除文件，忽略失败
+        old.revoke();
+        await old.rm().catch(() => 0); // 删除文件，忽略失败
       }
 
       // 加载新资源
       if (data)
-        await writeFile(`theme/${name}`, data, { baseDir: BaseDirectory.AppData })
-      await this.refresh([name])
+        await writeFile(`theme/${name}`, data, { baseDir: BaseDirectory.AppData });
+      await this.refresh([name]);
     },
   },
-})
+});

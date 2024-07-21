@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-const config = useConfigStore()
+const config = useConfigStore();
 
-const inputInterval = ref(config.interval)
+const inputInterval = ref(config.interval);
 config.$subscribe(() => {
-  inputInterval.value = config.interval
-})
+  inputInterval.value = config.interval;
+});
 function handleInputIntervalDone() {
-  config.interval = inputInterval.value
+  config.interval = inputInterval.value;
 }
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import LicensesMd from '~/3rd-party-licenses.md'
+import LicensesMd from '~/3rd-party-licenses.md';
 </script>
 
 <template>

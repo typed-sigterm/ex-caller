@@ -1,8 +1,8 @@
-import Markdown from 'unplugin-vue-markdown/vite'
+import Markdown from 'unplugin-vue-markdown/vite';
 // @ts-expect-error untyped
-import MarkdownItInline from 'markdown-it-for-inline'
-import type Token from 'markdown-it/lib/token.mjs'
-import PostcssPresetEnv from 'postcss-preset-env'
+import MarkdownItInline from 'markdown-it-for-inline';
+import type Token from 'markdown-it/lib/token.mjs';
+import PostcssPresetEnv from 'postcss-preset-env';
 
 export default defineNuxtConfig({
   ssr: false,
@@ -51,9 +51,9 @@ export default defineNuxtConfig({
             'url_new_win',
             'link_open',
             (tokens: Token[], idx: number) => {
-              tokens[idx].attrPush(['target', '_blank'])
+              tokens[idx].attrPush(['target', '_blank']);
             },
-          )
+          );
         },
       }),
     ],
@@ -69,4 +69,4 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-03',
-})
+});

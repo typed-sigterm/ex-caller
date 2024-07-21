@@ -1,57 +1,54 @@
 <script lang="ts" setup>
-import type { Update } from '@tauri-apps/plugin-updater'
-import { check } from '@tauri-apps/plugin-updater'
+import type { Update } from '@tauri-apps/plugin-updater';
+import { check } from '@tauri-apps/plugin-updater';
 
-const loaded = ref(false)
-bus.on('login', () => loaded.value = true)
+const loaded = ref(false);
+bus.on('login', () => loaded.value = true);
 
-const update = ref<Update | null>(null)
+const update = ref<Update | null>(null);
 
-const showUpdateInfoModal = ref(false)
-const showDownloadModal = ref(false)
+const showUpdateInfoModal = ref(false);
+const showDownloadModal = ref(false);
 
 async function checkUpdate() {
   try {
-    update.value = await check()
-    showUpdateInfoModal.value = true
+    update.value = await check();
+    showUpdateInfoModal.value = true;
+  } catch (e) {
+    console.error(e);
+    update.value = null;
   }
-  catch (e) {
-    console.error(e)
-    update.value = null
-  }
-  bus.emit('update-checked', !!update.value)
+  bus.emit('update-checked', !!update.value);
 }
-bus.on('check-update', checkUpdate)
+bus.on('check-update', checkUpdate);
 
-const downloadStatus = ref<'idle' | 'downloading' | 'installing' | 'failed'>('idle')
-const downloadedSize = ref(Number.NaN)
-const artifactSize = ref(Number.NaN)
+const downloadStatus = ref<'idle' | 'downloading' | 'installing' | 'failed'>('idle');
+const downloadedSize = ref(Number.NaN);
+const artifactSize = ref(Number.NaN);
 
 function startUpdate() {
   update.value?.downloadAndInstall((progress) => {
     if (progress.event === 'Started') {
-      downloadStatus.value = 'downloading'
-      downloadedSize.value = 0
-      artifactSize.value = progress.data.contentLength ?? Number.NaN
-    }
-    else if (progress.event === 'Progress') {
-      downloadedSize.value = progress.data.chunkLength
-    }
-    else {
-      downloadStatus.value = 'installing'
-      showDownloadModal.value = true
+      downloadStatus.value = 'downloading';
+      downloadedSize.value = 0;
+      artifactSize.value = progress.data.contentLength ?? Number.NaN;
+    } else if (progress.event === 'Progress') {
+      downloadedSize.value = progress.data.chunkLength;
+    } else {
+      downloadStatus.value = 'installing';
+      showDownloadModal.value = true;
     }
   }).catch(() => {
-    downloadStatus.value = 'failed'
-  })
+    downloadStatus.value = 'failed';
+  });
 }
 
 function cancelUpdate() {
-  update.value?.close()
-  downloadStatus.value = 'idle'
-  downloadedSize.value = Number.NaN
-  artifactSize.value = Number.NaN
-  showDownloadModal.value = showUpdateInfoModal.value = false
+  update.value?.close();
+  downloadStatus.value = 'idle';
+  downloadedSize.value = Number.NaN;
+  artifactSize.value = Number.NaN;
+  showDownloadModal.value = showUpdateInfoModal.value = false;
 }
 </script>
 

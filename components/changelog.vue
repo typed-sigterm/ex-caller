@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ChangelogMd from './changelog-simplified.md'
+import ChangelogMd from './changelog-simplified.md';
 </script>
 
 <template>

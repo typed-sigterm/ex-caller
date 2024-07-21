@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import { promiseTimeout } from '@vueuse/core'
-import IconFlag from '~icons/ep/flag'
-import IconList from '~icons/ep/list'
-import IconPictureFilled from '~icons/ep/picture-filled'
+import { promiseTimeout } from '@vueuse/core';
+import IconFlag from '~icons/ep/flag';
+import IconList from '~icons/ep/list';
+import IconPictureFilled from '~icons/ep/picture-filled';
 
 const emit = defineEmits<{
   (ev: 'open'): void
   (ev: 'close'): void
-}>()
-const show = defineModel<boolean>('show', { required: true })
+}>();
+const show = defineModel<boolean>('show', { required: true });
 
 async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))
-    return
-  await promiseTimeout(500)
-  triggerPlanGuide()
+    return;
+  await promiseTimeout(500);
+  triggerPlanGuide();
 }
 
-const showCanaryAlert = useLocalStorage('canary-alert', true)
+const showCanaryAlert = useLocalStorage('canary-alert', true);
 // 为了避免 showCanaryAlert 变成 false 导致 <NAlert> 来不及播放关闭动画
 // 每次打开时都要重新同步一下，在 handleClose 中处理
-const showCanaryAlertNow = ref(showCanaryAlert.value)
+const showCanaryAlertNow = ref(showCanaryAlert.value);
 
 function handleClose() {
-  emit('close')
-  promiseTimeout(500).then(gc)
-  showCanaryAlertNow.value = showCanaryAlert.value
+  emit('close');
+  promiseTimeout(500).then(gc);
+  showCanaryAlertNow.value = showCanaryAlert.value;
 }
 </script>
 

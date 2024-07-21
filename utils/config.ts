@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const UserConfigSchema = z.object({
   /** 待点名单名称 */
@@ -14,17 +14,17 @@ export const UserConfigSchema = z.object({
     /** 计划队列 */
     queue: z.array(z.string()).default([]),
   }).default({}),
-})
+});
 
 /** 用户配置 */
-export type UserConfig = z.infer<typeof UserConfigSchema>
+export type UserConfig = z.infer<typeof UserConfigSchema>;
 
-export const MAX_GROUP_NAME_LENGTH = 50
-export const MAX_GROUP_COUNT = 100
-export const MAX_GROUP_MEMBER_COUNT = 10000
-export const MAX_GROUP_MEMBER_LENGTH = 100
-export const MAX_INTERVAL = 1000
-export const MIN_INTERVAL = 20
-export const MAX_PLAN_QUEUE_SIZE = 10000
+export const MAX_GROUP_NAME_LENGTH = 50;
+export const MAX_GROUP_COUNT = 100;
+export const MAX_GROUP_MEMBER_COUNT = 10000;
+export const MAX_GROUP_MEMBER_LENGTH = 100;
+export const MAX_INTERVAL = 1000;
+export const MIN_INTERVAL = 20;
+export const MAX_PLAN_QUEUE_SIZE = 10000;
 
-export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['鸠', 'Gino', 'Carl', 'Dlyro', 'Fuli', '久住', '尊师古卢', 'Sultan', 'Igallta', '弭儿']
+export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['鸠', 'Gino', 'Carl', 'Dlyro', 'Fuli', '久住', '尊师古卢', 'Sultan', 'Igallta', '弭儿'];

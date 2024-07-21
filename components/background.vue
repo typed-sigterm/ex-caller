@@ -1,41 +1,41 @@
 <script lang="ts" setup>
-export type Status = 'normal' | 'ready-rolling' | 'rolling' | 'pausing'
+export type Status = 'normal' | 'ready-rolling' | 'rolling' | 'pausing';
 
 /** 当前状态（决定显示的背景） */
-const status = defineModel<Status>('status')
+const status = defineModel<Status>('status');
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 
 // 预加载背景视频
 if (__APP__) {
   watchImmediate(() => theme.backgroundRolling?.url, (url) => {
     if (!url)
-      return
+      return;
     useHead({
       link: [{
         rel: 'prefetch',
         href: url,
       }],
-    })
-  })
+    });
+  });
 }
 
-const videoElement = ref<HTMLVideoElement | null>(null)
+const videoElement = ref<HTMLVideoElement | null>(null);
 const rollingUsingVideo = computed(() => { // backgroundRolling 使用视频
-  return theme.backgroundRolling && theme.backgroundRolling.url
-})
+  return theme.backgroundRolling && theme.backgroundRolling.url;
+});
 
 watch(() => status.value, (value) => {
   if (value === 'pausing')
-    videoElement.value?.pause()
+    videoElement.value?.pause();
 
   // ready-rolling 时，如果无需加载视频，则直接切换到 rolling
   // 如果需要加载视频，则在 <video> 事件里处理了
   if (value === 'ready-rolling' && !rollingUsingVideo.value)
-    status.value = 'rolling'
-})
+    status.value = 'rolling';
+});
 
-const [DefineDefaultBackground, DefaultBackground] = createReusableTemplate()
+const [DefineDefaultBackground, DefaultBackground] = createReusableTemplate();
 </script>
 
 <template>

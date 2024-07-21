@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import { promiseTimeout } from '@vueuse/core'
-import { zhCN } from 'naive-ui'
+import { promiseTimeout } from '@vueuse/core';
+import { zhCN } from 'naive-ui';
 
 if (__APP__)
-  await useThemeStore().init() // 异步初始化主题
+  await useThemeStore().init(); // 异步初始化主题
 
-const loading = ref(true)
-const show = ref(false)
+const loading = ref(true);
+const show = ref(false);
 
 // 动画和事件
-promiseTimeout(1500).then(() => loading.value = false)
+promiseTimeout(1500).then(() => loading.value = false);
 promiseTimeout(1850).then(() => {
-  bus.emit('login')
-  bus.emit('check-update')
-  show.value = true
-  triggerWelcomeGuide()
-})
+  bus.emit('login');
+  bus.emit('check-update');
+  show.value = true;
+  triggerWelcomeGuide();
+});
 </script>
 
 <template>

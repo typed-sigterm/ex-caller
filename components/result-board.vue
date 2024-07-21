@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { promiseTimeout } from '@vueuse/core'
-import IconStart from '~icons/ant-design/caret-right-filled'
-import IconResume from '~icons/ant-design/play-circle-filled'
+import { promiseTimeout } from '@vueuse/core';
+import IconStart from '~icons/ant-design/caret-right-filled';
+import IconResume from '~icons/ant-design/play-circle-filled';
 
-export type Status = 'rolling' | 'pausing' | 'paused'
+export type Status = 'rolling' | 'pausing' | 'paused';
 
 const props = withDefaults(defineProps<{
   /** 当前抽取到的值 */
@@ -16,37 +16,37 @@ const props = withDefaults(defineProps<{
 }>(), {
   showResume: true,
   confetti: true,
-})
+});
 const emit = defineEmits<{
   (ev: 'start'): void
   (ev: 'pausing'): void
   (ev: 'paused'): void
-}>()
+}>();
 defineSlots<{
   startExtraOperators: () => any
   resumeExtraOperators: () => any
-}>()
-const status = defineModel<Status>('status')
+}>();
+const status = defineModel<Status>('status');
 
 whenever(() => status.value === 'pausing', async (pausing) => {
   // 停止后等待 1s
-  await promiseTimeout(1000)
+  await promiseTimeout(1000);
   if (!pausing)
-    return
+    return;
   // 播放特效
   if (props.confetti)
-    confetti.addConfetti()
+    confetti.addConfetti();
   // 再等待 1s 显示按钮
-  await promiseTimeout(1000)
+  await promiseTimeout(1000);
   if (!pausing)
-    return
-  emit('paused')
-})
+    return;
+  emit('paused');
+});
 
 function handlePause() {
   if (status.value !== 'rolling')
-    return
-  emit('pausing')
+    return;
+  emit('pausing');
 }
 </script>
 

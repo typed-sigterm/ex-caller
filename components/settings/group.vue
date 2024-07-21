@@ -1,38 +1,38 @@
 <script lang="tsx" setup>
-import type { SelectOption } from 'naive-ui'
-import type { VNodeChild } from 'vue'
-import { SettingsGroupName } from '#components'
-import IconPlus from '~icons/ep/plus'
+import type { SelectOption } from 'naive-ui';
+import type { VNodeChild } from 'vue';
+import { SettingsGroupName } from '#components';
+import IconPlus from '~icons/ep/plus';
 
-const config = useConfigStore()
-const group = useGroupStore()
+const config = useConfigStore();
+const group = useGroupStore();
 
-const names = ref<RollCallOption[]>([])
+const names = ref<RollCallOption[]>([]);
 watchImmediate(() => config.group, () => {
-  names.value = useGroup(config.group).value
-})
+  names.value = useGroup(config.group).value;
+});
 watch(names, (v) => {
-  useGroup(config.group).value = v
-})
+  useGroup(config.group).value = v;
+});
 
 const groups = computed<SelectOption[]>(() => {
   return group.nameList.map(item => ({
     label: '',
     value: item,
     class: 'group-name-item',
-  }))
-})
-const limited = computed(() => group.nameList.length >= MAX_GROUP_COUNT)
+  }));
+});
+const limited = computed(() => group.nameList.length >= MAX_GROUP_COUNT);
 
 function renderGroupName(options: SelectOption): VNodeChild {
   const handleRename = (to: string) => {
-    group.rename(options.value as string, to)
+    group.rename(options.value as string, to);
     if (config.group === options.value) // 重命名当前名单
-      config.group = to
-  }
+      config.group = to;
+  };
   const handleDelete = () => {
-    group.remove(options.value as string)
-  }
+    group.remove(options.value as string);
+  };
 
   return (
     <SettingsGroupName
@@ -40,13 +40,13 @@ function renderGroupName(options: SelectOption): VNodeChild {
       onRename={handleRename}
       onDelete={handleDelete}
     />
-  )
+  );
 }
 
 function handleAddGroup() {
-  const name = generateNewGroupName()
-  group.add(name) // 创建名单
-  config.group = name // 切换到新名单
+  const name = generateNewGroupName();
+  group.add(name); // 创建名单
+  config.group = name; // 切换到新名单
 }
 </script>
 

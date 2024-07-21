@@ -1,8 +1,8 @@
 declare module '*.md' {
-  import type { ComponentOptions } from 'vue'
+  import type { ComponentOptions } from 'vue';
 
-  const Component: ComponentOptions
-  export default Component
+  const Component: ComponentOptions;
+  export default Component;
 }
 
-export {}
+export {};

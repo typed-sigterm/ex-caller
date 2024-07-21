@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import type { SelectOption } from 'naive-ui/es/select/src/interface'
+import type { SelectOption } from 'naive-ui/es/select/src/interface';
 
-const config = useConfigStore()
-const queue = ref([...config.plan.queue])
+const config = useConfigStore();
+const queue = ref([...config.plan.queue]);
 const options = computed((): SelectOption[] => {
   return useGroupMembers(config.group).value!.map(v => ({
     value: v,
     label: v,
-  }))
-})
+  }));
+});
 
 onBeforeUnmount(() => { // 保存设置
   config.plan.queue = queue.value.filter(
     v => typeof v === 'string' && v.length,
-  ) // 过滤空值、无效值
-})
+  ); // 过滤空值、无效值
+});
 </script>
 
 <template>

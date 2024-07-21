@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { UploadFileInfo } from 'naive-ui'
+import type { UploadFileInfo } from 'naive-ui';
 
 if (!__APP__)
-  throw createNotInAppError()
+  throw createNotInAppError();
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 
 function getResource(name: ResourceName, filename?: string): UploadFileInfo | undefined {
-  const resource = theme[name]
+  const resource = theme[name];
   if (!resource)
-    return
+    return;
   return resource && {
     id: crypto.randomUUID(),
     name: filename ?? name,
     status: 'finished',
     url: resource.url,
-  }
+  };
 }
 
 /**
@@ -24,16 +24,16 @@ function getResource(name: ResourceName, filename?: string): UploadFileInfo | un
  * @param filename 用户选择文件时的原文件名
  */
 function getResourceRef(name: ResourceName, filename?: string) {
-  const ret = ref(getResource(name, filename))
-  watch(ret, v => theme.setResource(name, v?.file ?? undefined))
-  return ret
+  const ret = ref(getResource(name, filename));
+  watch(ret, v => theme.setResource(name, v?.file ?? undefined));
+  return ret;
 }
 
-const background = getResourceRef('background')
+const background = getResourceRef('background');
 const backgroundRolling = getResourceRef(
   'backgroundRolling',
   theme.properties.backgroundRolling.originalName,
-)
+);
 
 watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
   if (file) { // 选择了文件，更新 properties
@@ -44,16 +44,15 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
           mimeType: file.type ?? DEFAULT_MIME_TYPE,
         },
       },
-    })
-  }
-  else { // 删除了文件，恢复默认值
+    });
+  } else { // 删除了文件，恢复默认值
     theme.$patch({
       properties: {
         backgroundRolling: THEME_DEFAULT_PROPERTIES.backgroundRolling,
       },
-    })
+    });
   }
-})
+});
 </script>
 
 <template>

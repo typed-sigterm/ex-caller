@@ -1,4 +1,4 @@
-import mitt from 'mitt'
+import mitt from 'mitt';
 
 export const bus = mitt<{
   /** 进入主界面 */
@@ -17,4 +17,4 @@ export const bus = mitt<{
    * @param 忽略的版本号
    */
   'dismiss-update': string
-}>()
+}>();

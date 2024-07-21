@@ -1,26 +1,26 @@
 <script lang="ts" setup>
-import IconList from '~icons/ep/list'
+import IconList from '~icons/ep/list';
 
 const emit = defineEmits<{
   /** 输入完成 */
   (ev: 'done', names: string[]): void
-}>()
+}>();
 /** 是否显示 */
-const show = defineModel<boolean>('show', { required: true })
+const show = defineModel<boolean>('show', { required: true });
 
-const input = ref('')
+const input = ref('');
 
 function handleOk() {
   const names = input.value
     .split('\n')
     .map(v => v.trim())
-    .filter(Boolean) // 去除空元素
+    .filter(Boolean); // 去除空元素
   if (names.length >= MAX_GROUP_MEMBER_COUNT) {
-    ui.message.error('名单数量已达上限')
-    return
+    ui.message.error('名单数量已达上限');
+    return;
   }
 
-  emit('done', names)
+  emit('done', names);
 }
 </script>
 

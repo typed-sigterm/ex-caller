@@ -2,15 +2,15 @@
 defineProps<{
   /** 弹窗标题 */
   modalTitle: string
-}>()
+}>();
 defineSlots<{
   /** 触发弹窗的操作，发出 `click` 事件时打开弹窗 */
   default: () => any
   /** 弹窗内容 */
   modalContent: () => any
-}>()
+}>();
 
-const showModal = defineModel<boolean>('showModal')
+const showModal = defineModel<boolean>('showModal');
 </script>
 
 <template>
