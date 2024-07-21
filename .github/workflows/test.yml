@@ -1,11 +1,14 @@
 name: 代码质量测试
 
 on:
+  pull_request:
+    branches-ignore:
+      - renovate/**
   push:
     branches-ignore:
+      - insider
       - latest
       - renovate/**
-  pull_request:
 
 jobs:
   unit-test:
@@ -13,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-      - uses: pnpm/action-setup@v3
-        with:
-          run_install: true
-      - name: 运行单元测试
-        run: pnpm test
+          cache: pnpm
+
+      - run: pnpm install
+      - run: pnpm test
