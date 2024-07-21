@@ -1,10 +1,10 @@
-import antfu from '@antfu/eslint-config'
+import ts from '@typed-sigterm/eslint-config';
 
-export default antfu({
+export default ts({
   ignores: ['src-tauri/target'],
   javascript: {
     overrides: {
       'no-undef': [0],
     },
   },
-})
+});
