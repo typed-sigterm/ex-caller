@@ -49,9 +49,9 @@ export const createNotInAppError = () => createError('Please download the app to
 
 export const DEFAULT_LANG = 'en';
 
-export async function switchLanguage(i18n: ReturnType<typeof useI18n>, lang: string) {
-  await i18n.loadLocaleMessages(lang);
-  i18n.setLocale(lang);
+export function switchLanguage(i18n: ReturnType<typeof useI18n>, lang: string) {
+  if (i18n.locale.value !== lang)
+    i18n.setLocale(lang);
   useHead({
     htmlAttrs: { lang },
   });

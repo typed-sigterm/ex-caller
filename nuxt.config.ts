@@ -70,14 +70,4 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-03',
-
-  i18n: {
-    locales: [
-      { code: 'en', file: 'en.ts' },
-      { code: 'zh-CN', file: 'zh-CN.ts' },
-    ],
-    langDir: 'locales',
-    lazy: true,
-    defaultLocale: 'en',
-  },
 });

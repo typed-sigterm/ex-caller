@@ -10,8 +10,6 @@ const options: DropdownOption[] = [
 ];
 
 function handleSelect(key: string) {
-  if (i18n.locale.value === key)
-    return;
   switchLanguage(i18n, key);
 }
 </script>
