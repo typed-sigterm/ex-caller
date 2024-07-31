@@ -4,7 +4,7 @@ import type { UploadFileInfo } from 'naive-ui';
 if (!__APP__)
   throw createNotInAppError();
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const theme = useThemeStore();
 

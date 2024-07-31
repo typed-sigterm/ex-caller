@@ -15,7 +15,7 @@ defineSlots<{
   icon: () => any
 }>();
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const show = defineModel<boolean>('show');
 

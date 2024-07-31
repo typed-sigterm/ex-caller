@@ -2,7 +2,7 @@
 import type { Update } from '@tauri-apps/plugin-updater';
 import { check } from '@tauri-apps/plugin-updater';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const loaded = ref(false);
 bus.on('login', () => loaded.value = true);

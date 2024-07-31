@@ -4,4 +4,4 @@ export default {
   confirm: 'Confirm',
   cancel: 'Cancel',
   error: 'Error',
-} satisfies I18nRequiedText
+} satisfies I18nRequiedText;

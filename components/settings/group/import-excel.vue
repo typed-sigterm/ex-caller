@@ -10,7 +10,7 @@ const emit = defineEmits<{
 /** 是否显示 */
 const show = defineModel<boolean>('show', { required: true });
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const input = ref<string[][]>([]);
 const total = computed(() => input.value.flat().length);

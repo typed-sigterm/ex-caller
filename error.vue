@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import type { NuxtError } from '#app';
 
+const { error } = defineProps<{
+  error: NuxtError
+}>();
 const { t, locale } = useI18n({ useScope: 'local' });
 locale.value = window.navigator.language === 'zh-CN' ? 'zh-CN' : 'en';
-
-const { error } = defineProps<{
-  error: NuxtError;
-}>();
 
 console.error('Last uncaught error: %o', error);
 

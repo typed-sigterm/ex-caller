@@ -10,7 +10,7 @@ const emit = defineEmits<{
 }>();
 const show = defineModel<boolean>('show', { required: true });
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))

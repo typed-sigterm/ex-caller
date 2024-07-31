@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ChangelogMd from './changelog-simplified.md';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 </script>
 
 <template>

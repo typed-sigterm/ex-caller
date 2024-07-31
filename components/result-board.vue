@@ -28,7 +28,7 @@ defineSlots<{
 }>();
 const status = defineModel<Status>('status');
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 whenever(() => status.value === 'pausing', async (pausing) => {
   // 停止后等待 1s
@@ -71,7 +71,7 @@ function handlePause() {
           </NIcon>
         </template>
       </LargeButton>
-      
+
       <slot name="startExtraOperators" />
     </NSpace>
 

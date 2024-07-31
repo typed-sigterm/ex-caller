@@ -2,7 +2,7 @@
 import IconGitHub from '~icons/ant-design/github-filled';
 import avatarTypedSigterm from '~/assets/typed-sigterm.png';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const loadLicenses = ref(false);
 const loadChangelog = ref(false);
@@ -77,7 +77,7 @@ function checkUpdate() {
             {{ t('feedback.email-subject.after') }}
           </li>
         </ul>
-        
+
         <p v-if="__CANARY__">
           {{ t('canary') }}
         </p>
@@ -86,9 +86,9 @@ function checkUpdate() {
         </p>
       </template>
     </LinkToModal>
-  
+
     <NDivider v-if="__APP__" vertical />
-  
+
     <NButton v-if="__APP__" text :loading="checkingUpdate" @click="checkUpdate">
       {{ t('check-update') }}
     </NButton>

@@ -3,7 +3,7 @@ import IconDownload from '~icons/ep/download';
 import IconList from '~icons/ep/list';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const currentGroup = useConfigStore().group;
 const names = defineModel<RollCallOption[]>('names', { required: true });

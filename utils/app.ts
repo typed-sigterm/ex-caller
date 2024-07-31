@@ -34,7 +34,7 @@ export function setupUiHooks() {
 
 /** 弹窗显示非致命错误。 */
 export function alertError(content: unknown) {
-  const { t } = useI18n()
+  const { t } = useI18n();
   ui.dialog.error({
     title: t('error'),
     content: String(content),

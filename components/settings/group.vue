@@ -4,7 +4,7 @@ import type { VNodeChild } from 'vue';
 import { SettingsGroupName } from '#components';
 import IconPlus from '~icons/ep/plus';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const config = useConfigStore();
 const group = useGroupStore();

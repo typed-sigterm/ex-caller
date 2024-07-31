@@ -9,7 +9,7 @@ const emit = defineEmits<{
   (ev: 'delete'): void
 }>();
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const renameTo = ref('');
 function handleRenamingUpdate(show: boolean) {
