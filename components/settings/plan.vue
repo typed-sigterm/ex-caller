@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SelectOption } from 'naive-ui/es/select/src/interface';
 
-const { t } = useI18n({ useScope: 'local' })
+const { t } = useI18n({ useScope: 'local' });
 
 const config = useConfigStore();
 const queue = ref([...config.plan.queue]);
@@ -29,7 +29,7 @@ onBeforeUnmount(() => { // 保存设置
       v-model:value="queue"
       :max="MAX_PLAN_QUEUE_SIZE"
     >
-      <template #="{ index }: { index: number }">
+      <template #default="{ index }: { index: number }">
         <NSelect
           v-model:value="queue[index]"
           :options="options"
