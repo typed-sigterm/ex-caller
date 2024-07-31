@@ -79,7 +79,7 @@ function checkUpdate() {
         </ul>
 
         <p v-if="__CANARY__">
-          {{ t('canary') }}
+          {{ t('feedback.canary') }}
         </p>
         <p>
           {{ t('feedback.thanks') }}
