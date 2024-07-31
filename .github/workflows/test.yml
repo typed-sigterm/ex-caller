@@ -10,6 +10,10 @@ on:
       - latest
       - renovate/**
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }} 
+  cancel-in-progress: true
+
 jobs:
   unit-test:
     name: 单元测试
