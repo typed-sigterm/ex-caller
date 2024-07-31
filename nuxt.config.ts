@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@bg-dev/nuxt-naiveui',
+    '@nuxtjs/i18n',
     '@pinia/nuxt',
     '@unocss/nuxt',
     '@vueuse/nuxt',
@@ -18,7 +19,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'ExCaller',
-      htmlAttrs: { lang: 'zh-CN' },
+      htmlAttrs: { lang: '' },
     },
   },
 

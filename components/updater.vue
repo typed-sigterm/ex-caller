@@ -2,6 +2,8 @@
 import type { Update } from '@tauri-apps/plugin-updater';
 import { check } from '@tauri-apps/plugin-updater';
 
+const { t } = useI18n({ useScope: 'local' });
+
 const loaded = ref(false);
 bus.on('login', () => loaded.value = true);
 
@@ -57,10 +59,10 @@ function cancelUpdate() {
     v-if="loaded && update"
     v-model:show="showUpdateInfoModal"
     preset="dialog"
-    title="发现新版本"
+    :title="t('title')"
     type="info"
-    positive-text="立即更新"
-    negative-text="忽略"
+    :positive-text="t('start-update')"
+    :negative-text="t('skip')"
     @positive-click="startUpdate"
     @negative-click="bus.emit('dismiss-update', update!.version)"
   >
@@ -70,7 +72,9 @@ function cancelUpdate() {
         v{{ update.version }}
       </strong>
     </p>
-    <a :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`" target="_blank">查看更新内容</a>
+    <a :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`" target="_blank">
+      {{ t('view-changelog') }}
+    </a>
   </NModal>
 
   <NModal
@@ -78,9 +82,9 @@ function cancelUpdate() {
     v-model:show="showDownloadModal"
     preset="dialog"
     :show-icon="false"
-    title="正在更新"
+    :title="t('updating')"
     :closable="false"
-    negative-text="取消"
+    :negative-text="t('cancel')"
     @negative-click="cancelUpdate"
   >
     <NProgress
@@ -90,3 +94,19 @@ function cancelUpdate() {
     />
   </NModal>
 </template>
+
+<i18n lang="yaml">
+en:
+  title: New Version Available
+  start-update: Update Now
+  skip: Skip
+  view-changelog: View Changelog
+  updating: Updating
+
+zh-CN:
+  title: 发现新版本
+  start-update: 立即更新
+  skip: 忽略
+  view-changelog: 查看更新内容
+  updating: 正在更新
+</i18n>

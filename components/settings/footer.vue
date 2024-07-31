@@ -2,6 +2,8 @@
 import IconGitHub from '~icons/ant-design/github-filled';
 import avatarTypedSigterm from '~/assets/typed-sigterm.png';
 
+const { t } = useI18n({ useScope: 'local' });
+
 const loadLicenses = ref(false);
 const loadChangelog = ref(false);
 
@@ -32,54 +34,63 @@ function checkUpdate() {
 
 <template>
   <div class="flex items-center">
-    <LinkToModal modal-title="ExCaller 开放源代码许可" @click="loadLicenses = true">
-      开放源代码许可
+    <LinkToModal :modal-title="t('3rd-party-licenses-title')" @click="loadLicenses = true">
+      {{ t('3rd-party-licenses') }}
       <template #modalContent>
         <LazyLicenses v-if="loadLicenses" />
       </template>
     </LinkToModal>
+
     <NDivider vertical />
-    <LinkToModal modal-title="ExCaller 更新记录" @click="loadChangelog = true">
-      更新记录
+
+    <LinkToModal :modal-title="t('changelog-title')" @click="loadChangelog = true">
+      {{ t('changelog') }}
       <template #modalContent>
         <LazyChangelog v-if="loadChangelog" />
       </template>
     </LinkToModal>
+
     <NDivider vertical />
-    <LinkToModal v-model:show-modal="showFeedback" modal-title="提交反馈">
-      提交反馈
+
+    <LinkToModal v-model:show-modal="showFeedback" :modal-title="t('feedback.title')">
+      {{ t('feedback.title') }}
       <template #modalContent>
         <p class="mt-0">
-          如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。
+          {{ t('feedback.desc') }}
         </p>
-        <p>通过以下任一方式提交反馈：</p>
+        <p>{{ t('feedback.ways') }}</p>
+
         <ul class="line-height-normal">
           <li>
-            在 GitHub 上
             <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
-              创建 issue
+              {{ t('feedback.github') }}
             </a>
           </li>
           <li>
-            发送邮件到
-            <a :href="`mailto:${email}?subject=%5BExCaller%5D%20%E5%8F%8D%E9%A6%88%EF%BC%9A`">
+            {{ t('feedback.email') }}
+            <a :href="`mailto:${email}?subject=%5BExCaller%5D%20`">
               <code>{{ email }}</code>
             </a>
             <br>
-            请在邮件主题中包含 <code>[ExCaller]</code>，否则反馈可能无法得到及时处理。
+            {{ t('feedback.email-subject.before') }}
+            <code>[ExCaller]</code>
+            {{ t('feedback.email-subject.after') }}
           </li>
         </ul>
+
         <p v-if="__CANARY__">
-          如果问题仅出现在 Canary 版本中，请在反馈中注明。
+          {{ t('feedback.canary') }}
         </p>
         <p>
-          收到反馈后，我们会尽快处理，感谢您的支持。
+          {{ t('feedback.thanks') }}
         </p>
       </template>
     </LinkToModal>
+
     <NDivider v-if="__APP__" vertical />
+
     <NButton v-if="__APP__" text :loading="checkingUpdate" @click="checkUpdate">
-      检查更新
+      {{ t('check-update') }}
     </NButton>
   </div>
 
@@ -106,3 +117,41 @@ function checkUpdate() {
   --n-icon-size: 16px;
 }
 </style>
+
+<i18n lang="yaml">
+en:
+  3rd-party-licenses: Open Source Licenses
+  3rd-party-licenses-title: ExCaller Open Source Licenses
+  changelog: Changelog
+  changelog-title: ExCaller Changelog
+  check-update: Check Update
+  feedback:
+    title: Send Feedback
+    desc: If you have any problems or suggestions while using ExCaller, feel free to send feedback to us.
+    ways: 'You can send feedback through either of the following ways:'
+    github: Create an issue on GitHub
+    email: Send an email to
+    email-subject:
+      before: Please include
+      after: in the email subject, otherwise the feedback may not be processed in time.
+    canary: If the problem only occurs in the Canary version, please indicate in the feedback.
+    thanks: After receiving the feedback, we will process it as soon as possible. Thank you for your support.
+
+zh-CN:
+  3rd-party-licenses: 开放源代码许可
+  3rd-party-licenses-title: ExCaller 开放源代码许可
+  changelog: 更新记录
+  changelog-title: ExCaller 更新记录
+  check-update: 检查更新
+  feedback:
+    title: 提交反馈
+    desc: 如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。
+    ways: 通过以下任一方式提交反馈：
+    github: 在 GitHub 上创建 issue
+    email: 发送邮件到
+    email-subject:
+      before: 请在邮件主题中包含
+      after: ，否则反馈可能无法得到及时处理。
+    canary: 如果问题仅出现在 Canary 版本中，请在反馈中注明。
+    thanks: 收到反馈后，我们会尽快处理，感谢您的支持。
+</i18n>

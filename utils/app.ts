@@ -34,16 +34,27 @@ export function setupUiHooks() {
 
 /** 弹窗显示非致命错误。 */
 export function alertError(content: unknown) {
+  const { t } = useI18n();
   ui.dialog.error({
-    title: '错误',
+    title: t('error'),
     content: String(content),
-    positiveText: '确定',
+    positiveText: t('confirm'),
     positiveButtonProps: {
       type: 'primary',
     },
   });
 }
 
-export const createNotInAppError = () => createError('浏览器端暂不支持此功能，请下载 App 体验');
+export const createNotInAppError = () => createError('Please download the app to experience this feature.');
+
+export const DEFAULT_LANG = 'en';
+
+export function switchLanguage(i18n: ReturnType<typeof useI18n>, lang: string) {
+  if (i18n.locale.value !== lang)
+    i18n.setLocale(lang);
+  useHead({
+    htmlAttrs: { lang },
+  });
+}
 
 export const DEFAULT_MIME_TYPE = 'application/octet-stream';

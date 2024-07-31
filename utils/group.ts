@@ -44,7 +44,7 @@ export function generateNewGroupName() {
   let index = keys.length;
   do { // 避免与现有名单冲突
     ++index;
-    ret = `名单 ${index}`;
+    ret = `#${index}`;
   } while (keys.includes(ret));
   return ret;
 }

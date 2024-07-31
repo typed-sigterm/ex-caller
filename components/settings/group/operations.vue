@@ -3,6 +3,8 @@ import IconDownload from '~icons/ep/download';
 import IconList from '~icons/ep/list';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
+const { t } = useI18n({ useScope: 'local' });
+
 const currentGroup = useConfigStore().group;
 const names = defineModel<RollCallOption[]>('names', { required: true });
 
@@ -29,23 +31,25 @@ async function handleExport() {
 <template>
   <NSpace>
     <NButton :disabled="limited" @click="showBatchInput = true">
-      批量输入
+      {{ t('batch-input') }}
       <template #icon>
         <NIcon :size="20">
           <IconList />
         </NIcon>
       </template>
     </NButton>
+
     <NButton :disabled="limited" @click="showImportExcel = true">
-      导入 Excel
+      {{ t('import-excel') }}
       <template #icon>
         <NIcon :size="20">
           <IconExcel />
         </NIcon>
       </template>
     </NButton>
+
     <NButton :loading="exporting" @click="handleExport">
-      导出
+      {{ t('export') }}
       <template #icon>
         <NIcon :size="20">
           <IconDownload />
@@ -53,8 +57,9 @@ async function handleExport() {
       </template>
     </NButton>
   </NSpace>
+
   <NP v-if="limited">
-    名单数量已达上限，无法导入新名单。
+    {{ t('reached-limit') }}
   </NP>
 
   <SettingsGroupBatchInput
@@ -66,3 +71,18 @@ async function handleExport() {
     @done="handleImportDone"
   />
 </template>
+
+<i18n lang="yaml">
+en:
+  batch-input: Batch Input
+  import-excel: Import .xlsx
+  export: Export
+  batch-input-desc: One name per line, automatically remove leading and trailing spaces and empty lines.
+  reached-limit: The number of names has reached the limit and new names cannot be imported
+
+zh-CN:
+  batch-input: 批量输入
+  import-excel: 导入 Excel
+  export: 导出
+  reached-limit: 名单数量已达上限，无法导入新名单
+</i18n>

@@ -4,10 +4,11 @@
 
 | 名称 | 许可证 | 是否经过修改 |
 | :---: | :---: | :---: |
+| [`@bg-dev/nuxt-naiveui`](https://github.com/becem-gharbi/nuxt-naiveui) | [MIT License](https://github.com/becem-gharbi/nuxt-naiveui/blob/main/LICENSE) | 否 |
 | [`@iconify-json/ant-design`](https://icon-sets.iconify.design/ant-design/) | [MIT License](https://github.com/ant-design/ant-design-icons/blob/master/LICENSE) | 否 |
 | [`@iconify-json/ep`](https://icon-sets.iconify.design/ep/) | [MIT License](https://github.com/element-plus/element-plus-icons/blob/main/LICENSE) | 否 |
+| [`@iconify-json/lucide`](https://icon-sets.iconify.design/lucide/) | [ISC License](https://github.com/lucide-icons/lucide) | 否 |
 | [`@iconify-json/vscode-icons`](https://icon-sets.iconify.design/vscode-icons/) | [MIT License](https://github.com/vscode-icons/vscode-icons/blob/master/LICENSE) | 否 |
-| [`@bg-dev/nuxt-naiveui`](https://github.com/becem-gharbi/nuxt-naiveui) | [MIT License](https://github.com/becem-gharbi/nuxt-naiveui/blob/main/LICENSE) | 否 |
 | [`@pinia/nuxt`](https://github.com/vuejs/pinia/tree/v2/packages/nuxt) | [MIT License](https://github.com/vuejs/pinia/blob/main/LICENSE) | 否 |
 | [`@tauri-apps/api`](https://github.com/tauri-apps/tauri) | [MIT License](https://github.com/tauri-apps/tauri/blob/dev/LICENSE_MIT) | 否 |
 | [`@tauri-apps/plugin-dialog`,<br>`tauri-plugin-dialog`](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog) | [MIT License](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog/LICENSE_MIT) | 否 |

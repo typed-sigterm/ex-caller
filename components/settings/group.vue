@@ -4,6 +4,8 @@ import type { VNodeChild } from 'vue';
 import { SettingsGroupName } from '#components';
 import IconPlus from '~icons/ep/plus';
 
+const { t } = useI18n({ useScope: 'local' });
+
 const config = useConfigStore();
 const group = useGroupStore();
 
@@ -51,7 +53,7 @@ function handleAddGroup() {
 </script>
 
 <template>
-  <NFormItem label="名单" label-placement="left">
+  <NFormItem :label="t('current')" label-placement="left">
     <NSelect
       v-model:value="config.group"
       class="group-selector"
@@ -59,7 +61,7 @@ function handleAddGroup() {
       :render-label="renderGroupName"
     />
     <NButton class="ml-1" :disabled="limited" @click="handleAddGroup">
-      新建名单
+      {{ t('create-namelist') }}
       <template #icon>
         <NIcon :size="16">
           <IconPlus />
@@ -67,6 +69,7 @@ function handleAddGroup() {
       </template>
     </NButton>
   </NFormItem>
+
   <DynamicInput
     v-model:value="names"
     class="mb-5"
@@ -74,6 +77,7 @@ function handleAddGroup() {
     :max="MAX_GROUP_MEMBER_COUNT"
     show-sort-button
   />
+
   <SettingsGroupOperations v-model:names="names" />
 </template>
 
@@ -93,3 +97,13 @@ function handleAddGroup() {
   }
 }
 </style>
+
+<i18n lang="yaml">
+en:
+  current: Current Namelist
+  create-namelist: New
+
+zh-CN:
+  current: 当前名单
+  create-namelist: 新建名单
+</i18n>
