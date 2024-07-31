@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   lint:
+    name: 代码风格检查
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,5 +29,6 @@ jobs:
       - run: pnpm lint --fix
 
       - uses: autofix-ci/action@v1.3.1
+        if: always()
         with:
           commit-message: 'style: autofix'
