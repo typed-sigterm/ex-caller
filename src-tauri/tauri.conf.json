@@ -9,10 +9,10 @@
     "targets": "all",
     "windows": {
       "wix": {
-        "language": ["zh-CN"]
+        "language": ["zh-CN", "en-US"]
       },
       "nsis": {
-        "languages": ["SimpChinese"]
+        "languages": ["SimpChinese", "English"]
       },
       "webviewInstallMode": {
         "type": "embedBootstrapper"

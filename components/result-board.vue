@@ -28,6 +28,8 @@ defineSlots<{
 }>();
 const status = defineModel<Status>('status');
 
+const { t } = useI18n({ useScope: 'local' })
+
 whenever(() => status.value === 'pausing', async (pausing) => {
   // 停止后等待 1s
   await promiseTimeout(1000);
@@ -69,6 +71,7 @@ function handlePause() {
           </NIcon>
         </template>
       </LargeButton>
+      
       <slot name="startExtraOperators" />
     </NSpace>
 
@@ -76,9 +79,10 @@ function handlePause() {
       <p class="mb-2 text-5xl">
         {{ value }}
       </p>
+
       <NSpace v-if="status === 'paused'" class="resume-operators">
         <NButton class="resume-button" @click.stop="$emit('start')">
-          继续点名
+          {{ t('continue-rolling') }}
           <template #icon>
             <NIcon :size="20">
               <IconResume />
@@ -106,3 +110,11 @@ function handlePause() {
   }
 }
 </style>
+
+<i18n lang="yaml">
+en:
+  continue-rolling: Continue
+
+zh-CN:
+  continue-rolling: 继续点名
+</i18n>

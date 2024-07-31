@@ -15,6 +15,8 @@ defineSlots<{
   icon: () => any
 }>();
 
+const { t } = useI18n({ useScope: 'local' })
+
 const show = defineModel<boolean>('show');
 
 const supported = computed(() => {
@@ -24,7 +26,7 @@ const supported = computed(() => {
 
 <template>
   <NTooltip :disabled="supported">
-    由于技术限制，请下载 App 体验此功能
+    {{ t('unsupported') }}
     <template #trigger>
       <NCard
         class="card"
@@ -86,3 +88,11 @@ const supported = computed(() => {
   }
 }
 </style>
+
+<i18n lang="yaml">
+en:
+  unsupported: Due to technical limitations, please download the App to experience this feature
+
+zh-CN:
+  unsupported: 由于技术限制，请下载 App 体验此功能
+</i18n>

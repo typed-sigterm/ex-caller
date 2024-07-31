@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const { t } = useI18n({ useScope: 'local' })
+
 const config = useConfigStore();
 
 const inputInterval = ref(config.interval);
@@ -12,10 +14,10 @@ function handleInputIntervalDone() {
 
 <template>
   <NForm label-placement="left">
-    <NFormItem label="过号时间">
+    <NFormItem :label="t('interval')">
       <NSlider
         v-model:value="inputInterval"
-        :format-tooltip="ms => `${ms / 1000} 秒`"
+        :format-tooltip="ms => `${ms / 1000}${t('second')}`"
         :max="MAX_INTERVAL"
         :min="MIN_INTERVAL"
         :step="10"
@@ -23,8 +25,20 @@ function handleInputIntervalDone() {
       />
     </NFormItem>
 
-    <NFormItem label="彩带效果">
+    <NFormItem :label="t('confetti')">
       <NSwitch v-model:value="config.confetti" />
     </NFormItem>
   </NForm>
 </template>
+
+<i18n lang="yaml">
+en:
+  interval: Interval
+  confetti: Confetti Effect
+  second: s
+
+zh-CN:
+  interval: 过号时间
+  confetti: 彩带效果
+  second: ' 秒'
+</i18n>

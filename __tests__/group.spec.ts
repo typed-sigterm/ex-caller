@@ -72,14 +72,14 @@ describe('fixGroup', () => {
 
 describe('generateNewGroupName', () => {
   it('应当从 名单数量 +1 开始', () => {
-    expect(generateNewGroupName()).toBe('名单 1');
+    expect(generateNewGroupName()).toBe('#1');
     setStoredGroup('g1', []);
-    expect(generateNewGroupName()).toBe('名单 2');
+    expect(generateNewGroupName()).toBe('#2');
   });
 
   it('应当生成唯一的名称', () => {
-    setStoredGroup('名单 2', []);
-    setStoredGroup('名单 3', []);
-    expect(generateNewGroupName()).toBe('名单 4');
+    setStoredGroup('#2', []);
+    setStoredGroup('#3', []);
+    expect(generateNewGroupName()).toBe('#4');
   });
 });

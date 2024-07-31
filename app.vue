@@ -1,12 +1,27 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core';
-import { zhCN } from 'naive-ui';
+import { enUS, zhCN } from 'naive-ui';
+
+const i18n = useI18n();
+watchImmediate(usePreferredLanguages(), (langs) => {
+  for (const lang of langs) {
+    if (i18n.availableLocales.includes(lang)) {
+      switchLanguage(i18n, lang);
+      return;
+    }
+  }
+  switchLanguage(i18n, 'en');
+});
 
 if (__APP__)
   await useThemeStore().init(); // 异步初始化主题
 
 const loading = ref(true);
 const show = ref(false);
+
+const locale = computed(() => {
+  return markRaw(i18n.locale.value === 'zh-CN' ? zhCN : enUS);
+});
 
 // 动画和事件
 promiseTimeout(1500).then(() => loading.value = false);
@@ -19,10 +34,7 @@ promiseTimeout(1850).then(() => {
 </script>
 
 <template>
-  <NaiveConfig
-    :style="{ opacity: show ? 1 : 0 }"
-    :locale="zhCN"
-  >
+  <NaiveConfig :style="{ opacity: show ? 1 : 0 }" :locale>
     <NMessageProvider>
       <NDialogProvider>
         <Updater v-if="__APP__" />

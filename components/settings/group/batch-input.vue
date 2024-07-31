@@ -8,8 +8,9 @@ const emit = defineEmits<{
 /** 是否显示 */
 const show = defineModel<boolean>('show', { required: true });
 
-const input = ref('');
+const { t } = useI18n({ useScope: 'local' })
 
+const input = ref('');
 function handleOk() {
   const names = input.value
     .split('\n')
@@ -27,14 +28,14 @@ function handleOk() {
 <template>
   <NModal
     v-model:show="show"
-    preset="confirm"
-    title="批量输入"
+    preset="dialog"
+    :title="t('title')"
     :close-on-esc="false"
-    positive-text="确定"
-    negative-text="取消"
+    :positive-text="t('confirm')"
+    :negative-text="t('cancel')"
     @positive-click="handleOk"
   >
-    <NP>每行一个名字，自动去除<strong>头尾的空格</strong>和<strong>空行</strong>。</NP>
+    <NP>{{ t('tip') }}</NP>
     <NInput v-model:value="input" type="textarea" />
 
     <template #icon>
@@ -44,3 +45,15 @@ function handleOk() {
     </template>
   </NModal>
 </template>
+
+<i18n lang="yaml">
+en:
+  title: Batch Input
+  tip: One name per line, automatically remove leading and trailing spaces and empty lines.
+  confirm: Confirm & Add namelist
+
+zh-CN:
+  title: 批量输入
+  tip: 每行一个名字，自动去除头尾的空格和空行。
+  confirm: 确认
+</i18n>

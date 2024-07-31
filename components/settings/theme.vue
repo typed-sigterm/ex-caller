@@ -4,6 +4,8 @@ import type { UploadFileInfo } from 'naive-ui';
 if (!__APP__)
   throw createNotInAppError();
 
+const { t } = useI18n({ useScope: 'local' })
+
 const theme = useThemeStore();
 
 function getResource(name: ResourceName, filename?: string): UploadFileInfo | undefined {
@@ -56,10 +58,10 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
 </script>
 
 <template>
-  <NFormItem label="默认背景">
+  <NFormItem :label="t('default-background')">
     <SingleFileSelector v-model:file="background" />
   </NFormItem>
-  <NFormItem label="点名时的背景">
+  <NFormItem :label="t('background-rolling')">
     <SingleFileSelector
       v-model:file="backgroundRolling"
       list-type="text"
@@ -67,3 +69,13 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
     />
   </NFormItem>
 </template>
+
+<i18n lang="yaml">
+en:
+  default-background: Default Background
+  background-rolling: Background When Rolling
+
+zh-CN:
+  default-background: 默认背景
+  background-rolling: 点名时的背景
+</i18n>

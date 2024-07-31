@@ -10,6 +10,8 @@ const emit = defineEmits<{
 }>();
 const show = defineModel<boolean>('show', { required: true });
 
+const { t } = useI18n({ useScope: 'local' })
+
 async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return;
@@ -57,14 +59,14 @@ function handleClose() {
         。
       </NAlert>
 
-      <SettingsSubEntry title="名单设置">
+      <SettingsSubEntry :title="t('entry.namelist')">
         <SettingsGroup />
         <template #icon>
           <IconList />
         </template>
       </SettingsSubEntry>
 
-      <SettingsSubEntry title="主题设置" only-in-app>
+      <SettingsSubEntry :title="t('entry.theme')" only-in-app>
         <SettingsTheme />
         <template #icon>
           <IconPictureFilled />
@@ -72,7 +74,7 @@ function handleClose() {
       </SettingsSubEntry>
 
       <SettingsSubEntry
-        title="计划设置"
+        :title="t('entry.plan')"
         :drawer-attrs="{ 'data-guide-id': 'plan-drawer' }"
         @update:show="handleShowOrClosePlan"
       >
@@ -87,8 +89,33 @@ function handleClose() {
       <SettingsFooter />
 
       <template #header>
-        设置
+        <span>{{ t('title') }}</span>
+        <SettingsLanguage />
       </template>
     </NDrawerContent>
   </NDrawer>
 </template>
+
+<style scoped>
+:deep() .n-drawer-header__main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+</style>
+
+<i18n lang="yaml">
+en:
+  title: Settings
+  entry:
+    namelist: Namelists
+    theme: Theme
+    plan: Plans
+
+zh-CN:
+  title: 设置
+  entry:
+    namelist: 名单设置
+    theme: 主题设置
+    plan: 计划设置
+</i18n>
