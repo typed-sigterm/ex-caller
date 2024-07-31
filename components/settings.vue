@@ -50,13 +50,12 @@ function handleClose() {
         closable
         @after-leave="showCanaryAlert = false"
       >
-        您正在使用 Canary 版本，功能尚不稳定。
-        <br>
-        若遇到问题，欢迎
-        <a class="cursor-pointer" @click="bus.emit('send-feedback')">
-          提交反馈
-        </a>
-        。
+        <I18nT keypath="canary.alert">
+          <br>
+          <a class="cursor-pointer" @click="bus.emit('send-feedback')">
+            {{ t('canary.feedback') }}
+          </a>
+        </I18nT>
       </NAlert>
 
       <SettingsSubEntry :title="t('entry.namelist')">
@@ -111,6 +110,9 @@ en:
     namelist: Namelists
     theme: Theme
     plan: Plans
+  canary:
+    alert: You are using the Canary version, which is unstable. {0}If you encounter any problems, please{1}.
+    feedback: submit feedback
 
 zh-CN:
   title: 设置
@@ -118,4 +120,7 @@ zh-CN:
     namelist: 名单设置
     theme: 主题设置
     plan: 计划设置
+  canary:
+    alert: 您正在使用 Canary 版本，功能尚不稳定。{0}若遇到问题，欢迎{1}。
+    feedback: 提交反馈
 </i18n>
