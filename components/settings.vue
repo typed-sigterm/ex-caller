@@ -45,7 +45,6 @@ function handleClose() {
     <NDrawerContent closable>
       <NAlert
         v-if="__CANARY__ && showCanaryAlertNow"
-        class="mb-3"
         type="warning"
         closable
         @after-leave="showCanaryAlert = false"
@@ -101,6 +100,10 @@ function handleClose() {
   justify-content: space-between;
   width: 100%;
 }
+
+.n-alert {
+  margin-bottom: 12px;
+}
 </style>
 
 <i18n lang="yaml">
@@ -111,7 +114,7 @@ en:
     theme: Theme
     plan: Plans
   canary:
-    alert: You are using the Canary version, which is unstable. {0}If you encounter any problems, please{1}.
+    alert: You are using the Canary version, which is unstable. If you encounter any problems, please {1}.
     feedback: submit feedback
 
 zh-CN:
