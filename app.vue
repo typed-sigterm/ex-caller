@@ -3,15 +3,6 @@ import { promiseTimeout } from '@vueuse/core';
 import { enUS, zhCN } from 'naive-ui';
 
 const i18n = useI18n();
-watchImmediate(usePreferredLanguages(), (langs) => {
-  for (const lang of langs) {
-    if (i18n.availableLocales.includes(lang)) {
-      switchLanguage(i18n, lang);
-      return;
-    }
-  }
-  switchLanguage(i18n, 'en');
-});
 
 if (__APP__)
   await useThemeStore().init(); // 异步初始化主题
