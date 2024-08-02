@@ -1,5 +1,5 @@
 [build]
-command = "pnpm web:build"
+command = "pnpm build:web"
 publish = "dist"
 
 [build.environment]

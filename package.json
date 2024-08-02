@@ -15,14 +15,14 @@
     "node": "20"
   },
   "scripts": {
-    "app:build": "tauri build",
-    "build": "pnpm web:build && pnpm app:build",
+    "build": "pnpm build:web && pnpm build:app",
+    "build:app": "tauri build",
+    "build:web": "nuxt generate",
     "dev": "tauri dev",
+    "dev:web": "nuxt dev",
     "lint": "eslint .",
     "postinstall": "nuxt prepare",
-    "test": "vitest run",
-    "web:build": "nuxt generate",
-    "web:dev": "nuxt dev"
+    "test": "vitest run"
   },
   "dependencies": {
     "@bg-dev/nuxt-naiveui": "^1.13.0",

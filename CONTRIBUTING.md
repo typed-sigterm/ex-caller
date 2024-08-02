@@ -33,7 +33,7 @@ ex-caller
 ## 脚本
 
 - 启动 tauri 和 Nuxt 的开发服务器：`pnpm dev`
-- 仅启动 Nuxt 开发服务器 `pnpm web:dev`
+- 仅启动 Nuxt 开发服务器 `pnpm dev:web`
 - 检查代码格式：`pnpm lint`
 - 构建：`pnpm build`
 
