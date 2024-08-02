@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 import { promiseTimeout } from '@vueuse/core';
-import IconFlag from '~icons/ep/flag';
-import IconList from '~icons/ep/list';
-import IconPictureFilled from '~icons/ep/picture-filled';
 
 const emit = defineEmits<{
   (ev: 'open'): void
@@ -57,30 +54,30 @@ function handleClose() {
         </I18nT>
       </NAlert>
 
-      <SettingsSubEntry :title="t('entry.namelist')">
+      <SettingsEntry :title="t('entry.namelist')">
         <SettingsGroup />
         <template #icon>
-          <IconList />
+          <LucideNotebookTabs :size="18" />
         </template>
-      </SettingsSubEntry>
+      </SettingsEntry>
 
-      <SettingsSubEntry :title="t('entry.theme')" only-in-app>
+      <SettingsEntry :title="t('entry.theme')" only-in-app>
         <SettingsTheme />
         <template #icon>
-          <IconPictureFilled />
+          <LucidePalette :size="18" />
         </template>
-      </SettingsSubEntry>
+      </SettingsEntry>
 
-      <SettingsSubEntry
+      <SettingsEntry
         :title="t('entry.plan')"
         :drawer-attrs="{ 'data-guide-id': 'plan-drawer' }"
         @update:show="handleShowOrClosePlan"
       >
         <SettingsPlan />
         <template #icon>
-          <IconFlag />
+          <LucideFlag :size="18" />
         </template>
-      </SettingsSubEntry>
+      </SettingsEntry>
 
       <SettingsUi class="mt-6" />
 

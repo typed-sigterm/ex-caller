@@ -1,7 +1,4 @@
 <script lang="ts" setup>
-import IconRight from '~icons/ep/right';
-import IconLock from '~icons/ep/lock';
-
 const props = defineProps<{
   title: string
   /** 是否只支持独立 App 环境 */
@@ -33,14 +30,9 @@ const supported = computed(() => {
         :class="[!supported && 'unsupported']"
         @click="show = true"
       >
-        <NIcon class="mr-1" :size="18">
-          <slot name="icon" />
-        </NIcon>
-        {{ title }}
-        <NIcon class="absolute right-3" :size="20">
-          <IconRight v-if="supported" />
-          <IconLock v-else />
-        </NIcon>
+        <slot name="icon" />
+        <span class="ml-1">{{ title }}</span>
+        <LucideArrowRight v-if="supported" class="absolute right-3" :size="20" />
       </NCard>
     </template>
   </NTooltip>
@@ -72,20 +64,15 @@ const supported = computed(() => {
     color: #98999b;
   }
 
-  &:hover {
-    box-shadow: 0 0 4px 2px var(--n-border-color);
-    transition: box-shadow .2s;
-
-    &.unsupported {
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-  }
-
   > .n-card__content {
     display: flex;
     padding: 12px;
   }
+}
+
+.card:hover {
+  box-shadow: 0 0 4px 2px var(--n-border-color);
+  transition: box-shadow .2s;
 }
 </style>
 

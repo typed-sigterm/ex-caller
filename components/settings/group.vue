@@ -2,7 +2,6 @@
 import type { SelectOption } from 'naive-ui';
 import type { VNodeChild } from 'vue';
 import { SettingsGroupName } from '#components';
-import IconPlus from '~icons/ep/plus';
 
 const { t } = useI18n({ useScope: 'local' });
 
@@ -63,9 +62,7 @@ function handleAddGroup() {
     <NButton class="ml-1" :disabled="limited" @click="handleAddGroup">
       {{ t('create-namelist') }}
       <template #icon>
-        <NIcon :size="16">
-          <IconPlus />
-        </NIcon>
+        <LucidePlus :size="16" />
       </template>
     </NButton>
   </NFormItem>

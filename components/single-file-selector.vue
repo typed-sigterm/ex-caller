@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { UploadFileInfo } from 'naive-ui';
 import type { ListType } from 'naive-ui/es/upload/src/interface';
-import IconPlus from '~icons/ep/plus';
 
 withDefaults(defineProps<{
   /** 可选择的文件 MIME Type，用逗号分隔 */
@@ -25,9 +24,7 @@ const file = defineModel<UploadFileInfo | undefined>('file');
     @update:file-list="(ev) => file = ev[0]"
   >
     <NUploadDragger v-if="!file" class="flex justify-center">
-      <NIcon class="block" :size="36">
-        <IconPlus />
-      </NIcon>
+      <LucidePlus class="block" :size="36" />
     </NUploadDragger>
   </NUpload>
 </template>

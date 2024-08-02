@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import IconDownload from '~icons/ep/download';
-import IconList from '~icons/ep/list';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
 const { t } = useI18n({ useScope: 'local' });
@@ -33,9 +31,7 @@ async function handleExport() {
     <NButton :disabled="limited" @click="showBatchInput = true">
       {{ t('batch-input') }}
       <template #icon>
-        <NIcon :size="20">
-          <IconList />
-        </NIcon>
+        <LucideNotebookTabs :size="20" />
       </template>
     </NButton>
 
@@ -51,9 +47,7 @@ async function handleExport() {
     <NButton :loading="exporting" @click="handleExport">
       {{ t('export') }}
       <template #icon>
-        <NIcon :size="20">
-          <IconDownload />
-        </NIcon>
+        <LucideDownload :size="20" />
       </template>
     </NButton>
   </NSpace>

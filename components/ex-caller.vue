@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { Status as ResultStatus } from './result-board.vue';
 import type { Status as BackgroundStatus } from './background.vue';
-import IconSettings from '~icons/ep/setting';
 
 setupUiHooks();
 const config = useConfigStore();
@@ -93,7 +92,7 @@ prefetchComponents('LazySettings');
       >
         <template #icon>
           <NIcon :size="32">
-            <IconSettings />
+            <LucideSettings :stroke-width="1.8" />
           </NIcon>
         </template>
       </LargeButton>
@@ -103,7 +102,7 @@ prefetchComponents('LazySettings');
       <NButton circle @click="handleOpenSettings">
         <template #icon>
           <NIcon :size="18">
-            <IconSettings />
+            <LucideSettings :stroke-width="1.8" />
           </NIcon>
         </template>
       </NButton>

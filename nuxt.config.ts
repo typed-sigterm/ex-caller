@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@unocss/nuxt',
     '@vueuse/nuxt',
+    'nuxt-lucide-icons',
     'unplugin-icons/nuxt',
   ],
 

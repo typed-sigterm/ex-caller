@@ -28,7 +28,6 @@
     "@bg-dev/nuxt-naiveui": "^1.13.0",
     "@iconify-json/ant-design": "^1.1.16",
     "@iconify-json/ep": "^1.1.15",
-    "@iconify-json/lucide": "^1.1.203",
     "@iconify-json/vscode-icons": "^1.1.33",
     "@nuxtjs/i18n": "^8.3.3",
     "@pinia/nuxt": "^0.5.1",
@@ -44,6 +43,7 @@
     "markdown-it-for-inline": "^2.0.1",
     "mitt": "^3.0.1",
     "nuxt": "^3.11.2",
+    "nuxt-lucide-icons": "^1.0.5",
     "pinia": "^2.1.7",
     "postcss-preset-env": "^9.5.9",
     "unplugin-icons": "^0.19.0",
@@ -62,6 +62,7 @@
     "eslint": "^8.57.0",
     "happy-dom": "^14.0.0",
     "mock-local-storage": "^1.1.24",
+    "npm-run-all2": "^6.2.2",
     "semver": "^7.6.3",
     "typescript": "^5.4.5",
     "vitest": "^2.0.0"

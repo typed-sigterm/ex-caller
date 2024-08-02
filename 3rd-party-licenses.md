@@ -6,8 +6,6 @@
 | :---: | :---: | :---: |
 | [`@bg-dev/nuxt-naiveui`](https://github.com/becem-gharbi/nuxt-naiveui) | [MIT License](https://github.com/becem-gharbi/nuxt-naiveui/blob/main/LICENSE) | 否 |
 | [`@iconify-json/ant-design`](https://icon-sets.iconify.design/ant-design/) | [MIT License](https://github.com/ant-design/ant-design-icons/blob/master/LICENSE) | 否 |
-| [`@iconify-json/ep`](https://icon-sets.iconify.design/ep/) | [MIT License](https://github.com/element-plus/element-plus-icons/blob/main/LICENSE) | 否 |
-| [`@iconify-json/lucide`](https://icon-sets.iconify.design/lucide/) | [ISC License](https://github.com/lucide-icons/lucide) | 否 |
 | [`@iconify-json/vscode-icons`](https://icon-sets.iconify.design/vscode-icons/) | [MIT License](https://github.com/vscode-icons/vscode-icons/blob/master/LICENSE) | 否 |
 | [`@pinia/nuxt`](https://github.com/vuejs/pinia/tree/v2/packages/nuxt) | [MIT License](https://github.com/vuejs/pinia/blob/main/LICENSE) | 否 |
 | [`@tauri-apps/api`](https://github.com/tauri-apps/tauri) | [MIT License](https://github.com/tauri-apps/tauri/blob/dev/LICENSE_MIT) | 否 |
@@ -22,6 +20,7 @@
 | [`js-confetti`](https://github.com/loonywizard/js-confetti) | [MIT License](https://github.com/loonywizard/js-confetti/blob/main/LICENSE) | 否 |
 | [`mitt`](https://github.com/developit/mitt) | [MIT License](https://github.com/developit/mitt/blob/main/LICENSE) | 否 |
 | [`nuxt`](https://nuxt.com) | [MIT License](https://github.com/nuxt/nuxt/blob/main/LICENSE) | 否 |
+| [`nuxt-lucide-icons`](https://github.com/swisnl/nuxt-lucide-icons) | [MIT License](https://github.com/swisnl/nuxt-lucide-icons/blob/main/LICENSE.md) | 否 |
 | [`semver`](https://github.com/npm/node-semver) | [ISC License](https://github.com/npm/node-semver/blob/main/LICENSE) | 否 |
 | [`serde`](https://serde.rs/) | [MIT License](https://github.com/serde-rs/serde/blob/master/LICENSE-MIT) | 否 |
 | [`serde_json`](https://github.com/serde-rs/json) | [MIT License](https://github.com/serde-rs/json/blob/master/LICENSE-MIT) | 否 |

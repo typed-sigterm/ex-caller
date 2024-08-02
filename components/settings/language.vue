@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { DropdownOption } from 'naive-ui';
-import IconLanguages from '~icons/lucide/languages';
 
 const i18n = useI18n();
 
@@ -16,6 +15,6 @@ function handleSelect(key: string) {
 
 <template>
   <NDropdown :options @select="handleSelect">
-    <IconLanguages class="cursor-pointer outline-none" style="height: 18px;" />
+    <LucideLanguages class="cursor-pointer outline-none" :size="18" />
   </NDropdown>
 </template>

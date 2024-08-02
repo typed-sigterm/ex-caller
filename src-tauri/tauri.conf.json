@@ -1,6 +1,6 @@
 {
   "build": {
-    "beforeDevCommand": "pnpm dev:web",
+    "beforeDevCommand": "run-p dev:web",
     "frontendDist": "../dist",
     "devUrl": "http://localhost:6408"
   },
