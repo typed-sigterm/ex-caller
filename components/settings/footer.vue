@@ -90,7 +90,7 @@ function checkUpdate() {
     <NDivider v-if="__APP__" vertical />
 
     <NButton v-if="__APP__" text :loading="checkingUpdate" @click="checkUpdate">
-      {{ t('check-update') }}
+      {{ checkingUpdate ? '' : t('check-update') }}
     </NButton>
   </div>
 
@@ -120,8 +120,8 @@ function checkUpdate() {
 
 <i18n lang="yaml">
 en:
-  3rd-party-licenses: Open Source Licenses
-  3rd-party-licenses-title: ExCaller Open Source Licenses
+  3rd-party-licenses: OSS Licenses
+  3rd-party-licenses-title: Third-party Open Source Licenses
   changelog: Changelog
   changelog-title: ExCaller Changelog
   check-update: Check Update
