@@ -62,6 +62,7 @@ const supported = computed(() => {
 
   &.unsupported {
     color: #98999b;
+    cursor: not-allowed;
   }
 
   > .n-card__content {
