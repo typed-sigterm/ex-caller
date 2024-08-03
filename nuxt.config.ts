@@ -5,6 +5,10 @@ import type Token from 'markdown-it/lib/token.mjs';
 import PostcssPresetEnv from 'postcss-preset-env';
 
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 4,
+  },
+
   ssr: false,
 
   modules: [

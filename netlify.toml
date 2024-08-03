@@ -4,6 +4,7 @@ publish = "dist"
 
 [build.environment]
 EXC_NO_APP = "1"
+NODE_VERSION = "20"
 
 [context.branch-deploy.environment]
 EXC_CANARY = "1"
