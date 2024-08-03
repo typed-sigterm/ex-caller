@@ -4,11 +4,6 @@ on:
   pull_request:
     branches-ignore:
       - renovate/**
-  push:
-    branches-ignore:
-      - insider
-      - latest
-      - renovate/**
 
 permissions:
   contents: read
