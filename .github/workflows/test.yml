@@ -4,11 +4,6 @@ on:
   pull_request:
     branches-ignore:
       - renovate/**
-  push:
-    branches-ignore:
-      - insider
-      - latest
-      - renovate/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
