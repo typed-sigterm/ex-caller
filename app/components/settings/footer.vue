@@ -34,7 +34,10 @@ function checkUpdate() {
 
 <template>
   <div class="flex items-center">
-    <LinkToModal :modal-title="t('3rd-party-licenses-title')" @click="loadLicenses = true">
+    <LinkToModal
+      :modal-title="t('3rd-party-licenses-title')"
+      @click="loadLicenses = true"
+    >
       {{ t('3rd-party-licenses') }}
       <template #modalContent>
         <LazyLicenses v-if="loadLicenses" />
@@ -43,7 +46,10 @@ function checkUpdate() {
 
     <NDivider vertical />
 
-    <LinkToModal :modal-title="t('changelog-title')" @click="loadChangelog = true">
+    <LinkToModal
+      :modal-title="t('changelog-title')"
+      @click="loadChangelog = true"
+    >
       {{ t('changelog') }}
       <template #modalContent>
         <LazyChangelog v-if="loadChangelog" />
@@ -52,7 +58,10 @@ function checkUpdate() {
 
     <NDivider vertical />
 
-    <LinkToModal v-model:show-modal="showFeedback" :modal-title="t('feedback.title')">
+    <LinkToModal
+      v-model:show-modal="showFeedback"
+      :modal-title="t('feedback.title')"
+    >
       {{ t('feedback.title') }}
       <template #modalContent>
         <p class="mt-0">
@@ -89,7 +98,12 @@ function checkUpdate() {
 
     <NDivider v-if="__APP__" vertical />
 
-    <NButton v-if="__APP__" text :loading="checkingUpdate" @click="checkUpdate">
+    <NButton
+      v-if="__APP__"
+      text
+      :loading="checkingUpdate"
+      @click="checkUpdate"
+    >
       {{ checkingUpdate ? '' : t('check-update') }}
     </NButton>
   </div>
@@ -98,7 +112,11 @@ function checkUpdate() {
     ExCaller {{ VERSION }}
     <img class="inline w-4 mx-2 select-none" src="/logo.webp">
     Made by
-    <a class="inline-flex mx-1 select-none" href="https://www.typed-sigterm.me/" target="_blank">
+    <a
+      class="inline-flex mx-1 select-none"
+      href="https://www.typed-sigterm.me/"
+      target="_blank"
+    >
       <img class="w-3.5" :src="avatarTypedSigterm" alt="Typed SIGTERM">
     </a>
     , and
@@ -127,15 +145,23 @@ en:
   check-update: Check Update
   feedback:
     title: Send Feedback
-    desc: If you have any problems or suggestions while using ExCaller, feel free to send feedback to us.
+    desc:
+      If you have any problems or suggestions while using ExCaller,
+      feel free to send feedback to us.
     ways: 'You can send feedback through either of the following ways:'
     github: Create an issue on GitHub
     email: Send an email to
     email-subject:
       before: Please include
-      after: in the email subject, otherwise the feedback may not be processed in time.
-    canary: If the problem only occurs in the Canary version, please indicate in the feedback.
-    thanks: After receiving the feedback, we will process it as soon as possible. Thank you for your support.
+      after:
+        in the email subject,
+        otherwise the feedback may not be processed in time.
+    canary:
+      If the problem only occurs in the Canary version,
+      please indicate in the feedback.
+    thanks:
+      After receiving the feedback, we will process it as soon as possible.
+      Thank you for your support.
 
 zh-CN:
   3rd-party-licenses: 开放源代码许可
