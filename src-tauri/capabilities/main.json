@@ -4,6 +4,7 @@
   "local": true,
   "windows": ["main"],
   "permissions": [
+    "core:default",
     "dialog:allow-open",
     "dialog:allow-save",
     "fs:scope-appdata-recursive",
@@ -15,7 +16,6 @@
       "identifier": "fs:write-all",
       "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
     },
-    "path:default",
     "shell:allow-open",
     "updater:default"
   ]
