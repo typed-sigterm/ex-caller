@@ -48,7 +48,9 @@ function handlePaused() {
 const loadSettings = ref(false); // 是否需要加载设置组件
 const loadedSettings = ref(false); // 设置组件是否已经加载完成
 const showSettings = ref(false);
-const showLoadingSettings = computed(() => showSettings.value && !loadedSettings.value);
+const showLoadingSettings = computed(
+  () => showSettings.value && !loadedSettings.value,
+);
 
 function handleOpenSettings() {
   if (showSettings.value)

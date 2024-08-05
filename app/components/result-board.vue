@@ -64,7 +64,11 @@ function handlePause() {
     @click="handlePause"
   >
     <NSpace v-if="value === undefined">
-      <LargeButton type="primary" data-guide-id="start-button" @click.stop="$emit('start')">
+      <LargeButton
+        type="primary"
+        data-guide-id="start-button"
+        @click.stop="$emit('start')"
+      >
         <template #icon>
           <NIcon class="ml-1" :size="36">
             <IconStart />

@@ -15,12 +15,12 @@ const showClearConfig = ref(false);
 const clearingConfig = ref(false);
 async function handleClearConfig() {
   clearingConfig.value = true;
-  if (!await saveFile('ex-caller.config.json', JSON.stringify(localStorage))) { // 用户取消
+  if (await saveFile('ex-caller.config.json', JSON.stringify(localStorage))) {
+    localStorage.clear();
+    location.reload();
+  } else { // 用户取消
     clearingConfig.value = false;
-    return;
   }
-  localStorage.clear();
-  location.reload();
 }
 </script>
 
@@ -39,7 +39,11 @@ async function handleClearConfig() {
       {{ t('reset-config.download-backup-tip') }}
     </NP>
     <template #action>
-      <NButton type="error" :loading="clearingConfig" @click="handleClearConfig">
+      <NButton
+        type="error"
+        :loading="clearingConfig"
+        @click="handleClearConfig"
+      >
         {{ t('reset-config.confirm') }}
       </NButton>
       <NButton :disabled="clearingConfig" @click="showClearConfig = false">
@@ -81,9 +85,15 @@ en:
   reset-config:
     button: Reset Config
     confirm: Confirm Reset
-    desc: This operation will clear all local configurations, which can solve most problems.
-    consequence: However, this operation is destructive, and your data will be LOST and CANNOT be recovered if no backup.
-    download-backup-tip: If you click "Confirm Reset", ExCaller will export your configuration file for manual data recovery.
+    desc:
+      This operation will clear all local configurations,
+      which can solve most problems.
+    consequence:
+      However, this operation is destructive,
+      and your data will be LOST and CANNOT be recovered if no backup.
+    download-backup-tip:
+      If you click "Confirm Reset",
+      ExCaller will export your configuration file for manual data recovery.
   cancel: Cancel
 
 zh-CN:

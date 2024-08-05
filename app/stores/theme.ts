@@ -22,7 +22,11 @@ export const useThemeStore = defineStore('theme', {
       await tryMkdirRecursive('theme', BaseDirectory.AppData);
 
       // store 内修改同步到本地文件
-      const localProps = await useJsonFile(this.properties, 'theme/properties.json', BaseDirectory.AppData);
+      const localProps = await useJsonFile(
+        this.properties,
+        'theme/properties.json',
+        BaseDirectory.AppData,
+      );
       this.properties = localProps.value;
       watchDeep(() => this.properties, v => localProps.value = v);
 
@@ -54,12 +58,17 @@ export const useThemeStore = defineStore('theme', {
       const old = this[name];
       if (old) {
         old.revoke();
-        await old.rm().catch(() => 0); // 删除文件，忽略失败
+        await old.rm().catch(() => {}); // 删除文件，忽略失败
       }
 
       // 加载新资源
-      if (data)
-        await writeFile(`theme/${name}`, data, { baseDir: BaseDirectory.AppData });
+      if (data) {
+        await writeFile(
+          `theme/${name}`,
+          data,
+          { baseDir: BaseDirectory.AppData },
+        );
+      }
       await this.refresh([name]);
     },
   },

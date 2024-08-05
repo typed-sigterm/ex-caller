@@ -62,6 +62,7 @@ a {
   color: #36ad6a;
 }
 code, kbd, pre, samp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               Liberation Mono, Courier New, monospace;
 }
 </style>

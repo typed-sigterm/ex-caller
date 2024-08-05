@@ -1,7 +1,13 @@
 import type { DialogFilter } from '@tauri-apps/plugin-dialog';
 import { save } from '@tauri-apps/plugin-dialog';
 import type { BaseDirectory } from '@tauri-apps/plugin-fs';
-import { exists, mkdir, readFile, remove, writeFile } from '@tauri-apps/plugin-fs';
+import {
+  exists,
+  mkdir,
+  readFile,
+  remove,
+  writeFile,
+} from '@tauri-apps/plugin-fs';
 import { desktopDir, resolve } from '@tauri-apps/api/path';
 import { promiseTimeout } from '@vueuse/core';
 
@@ -13,7 +19,11 @@ export interface SaveFileOptions {
  * 保存文件。
  * @returns 是否保存成功
  */
-export async function saveFile(filename: string, content: string, options: SaveFileOptions) {
+export async function saveFile(
+  filename: string,
+  content: string,
+  options: SaveFileOptions,
+) {
   if (__APP__) { // 独立 app 环境，使用 Tauri API
     const {
       defaultPath = await resolve(await desktopDir(), filename), // 默认保存到桌面
@@ -80,7 +90,11 @@ export interface LoadedLocalFile {
 }
 
 /** 读取本地文件，生成 Blob 对象。 */
-export async function loadLocalFile(path: string, baseDir: BaseDirectory, options?: LoadLocalFileOptions): Promise<LoadedLocalFile | undefined> {
+export async function loadLocalFile(
+  path: string,
+  baseDir: BaseDirectory,
+  options?: LoadLocalFileOptions,
+): Promise<LoadedLocalFile | undefined> {
   if (!__APP__)
     throw createNotInAppError();
   if (!await exists(path, { baseDir }))

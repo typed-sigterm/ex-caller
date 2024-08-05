@@ -111,7 +111,9 @@ en:
     theme: Theme
     plan: Plans
   canary:
-    alert: You are using the Canary version, which is unstable. If you encounter any problems, please {1}.
+    alert:
+      You are using the Canary version,
+      which is unstable. If you encounter any problems, please {1}.
     feedback: submit feedback
 
 zh-CN:

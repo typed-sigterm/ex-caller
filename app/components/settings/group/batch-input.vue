@@ -45,7 +45,9 @@ function handleOk() {
 <i18n lang="yaml">
 en:
   title: Batch Input
-  tip: One name per line, automatically remove leading and trailing spaces and empty lines.
+  tip:
+    One name per line,
+    automatically remove leading and trailing spaces and empty lines.
   confirm: Confirm & Add namelist
 
 zh-CN:

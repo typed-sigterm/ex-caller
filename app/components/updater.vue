@@ -24,7 +24,8 @@ async function checkUpdate() {
 }
 bus.on('check-update', checkUpdate);
 
-const downloadStatus = ref<'idle' | 'downloading' | 'installing' | 'failed'>('idle');
+const downloadStatus
+  = ref<'idle' | 'downloading' | 'installing' | 'failed'>('idle');
 const downloadedSize = ref(Number.NaN);
 const artifactSize = ref(Number.NaN);
 

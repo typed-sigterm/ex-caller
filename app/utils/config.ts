@@ -27,4 +27,15 @@ export const MAX_INTERVAL = 1000;
 export const MIN_INTERVAL = 20;
 export const MAX_PLAN_QUEUE_SIZE = 10000;
 
-export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = ['鸠', 'Gino', 'Carl', 'Dlyro', 'Fuli', '久住', '尊师古卢', 'Sultan', 'Igallta', '弭儿'];
+export const DEFAULT_GROUP_OPTIONS: RollCallOption[] = [
+  'Geopedia',
+  'Gino',
+  'Carl',
+  'Dlyro',
+  'Fuli',
+  'Kuzumu',
+  'Guru',
+  'Sultan',
+  'Igallta',
+  'Samuelle',
+];

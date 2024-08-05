@@ -77,7 +77,15 @@ export default (config: RollCallConfig): Ref<RollCallController> => {
     currentValue.value = currentIndex.value = undefined;
   };
 
-  return ref({ currentValue, currentIndex, next, pause, start, isActive, reset });
+  return ref({
+    currentValue,
+    currentIndex,
+    next,
+    pause,
+    start,
+    isActive,
+    reset,
+  });
 };
 
 export function rollCallOptionToString(option: RollCallOption) {

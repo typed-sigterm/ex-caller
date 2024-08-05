@@ -1,6 +1,10 @@
 import { reactive } from 'vue';
-import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider';
-import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider';
+import type {
+  DialogApiInjection,
+} from 'naive-ui/es/dialog/src/DialogProvider';
+import type {
+  MessageApiInjection,
+} from 'naive-ui/es/message/src/MessageProvider';
 import { isTauri } from '@tauri-apps/api/core';
 import { version } from '~~/package.json';
 
@@ -45,7 +49,9 @@ export function alertError(content: unknown) {
   });
 }
 
-export const createNotInAppError = () => createError('Please download the app to experience this feature.');
+export function createNotInAppError() {
+  return createError('Please download the app to experience this feature.');
+}
 
 export const DEFAULT_LANG = 'en';
 

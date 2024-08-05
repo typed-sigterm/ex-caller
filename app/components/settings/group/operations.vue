@@ -6,7 +6,9 @@ const { t } = useI18n({ useScope: 'local' });
 const currentGroup = useConfigStore().group;
 const names = defineModel<RollCallOption[]>('names', { required: true });
 
-const limited = computed(() => useGroupStore().nameList.length >= MAX_GROUP_COUNT);
+const limited = computed(
+  () => useGroupStore().nameList.length >= MAX_GROUP_COUNT,
+);
 
 const showBatchInput = ref(false);
 
@@ -71,8 +73,11 @@ en:
   batch-input: Batch Input
   import-excel: Import .xlsx
   export: Export
-  batch-input-desc: One name per line, automatically remove leading and trailing spaces and empty lines.
-  reached-limit: The number of names has reached the limit and new names cannot be imported
+  batch-input-desc:
+    One name per line,
+    automatically remove leading and trailing spaces and empty lines.
+  reached-limit:
+    The number of names has reached the limit and new names cannot be imported
 
 zh-CN:
   batch-input: 批量输入
