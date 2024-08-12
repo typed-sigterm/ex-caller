@@ -1,15 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "group:allNonMajor",
-    ":dependencyDashboard",
-    ":dependencyDashboardApproval"
-  ],
-  "labels": [
-    "dependencies"
-  ],
-  "ignoreDeps": [
-    "node"
+    "github>typed-sigterm/renovate-config"
   ]
 }
