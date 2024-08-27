@@ -32,7 +32,11 @@ const supported = computed(() => {
       >
         <slot name="icon" />
         <span class="ml-1">{{ title }}</span>
-        <LucideArrowRight v-if="supported" class="absolute right-3" :size="20" />
+        <LucideArrowRight
+          v-if="supported"
+          class="absolute right-3"
+          :size="20"
+        />
       </NCard>
     </template>
   </NTooltip>
@@ -79,7 +83,9 @@ const supported = computed(() => {
 
 <i18n lang="yaml">
 en:
-  unsupported: Due to technical limitations, please download the App to experience this feature
+  unsupported:
+    Due to technical limitations,
+    please download the App to experience this feature
 
 zh-CN:
   unsupported: 由于技术限制，请下载 App 体验此功能

@@ -7,7 +7,12 @@ const { t } = useI18n({ useScope: 'local' });
 <template>
   <NAlert v-if="__CANARY__" type="info">
     <I18nT keypath="canary-tip">
-      <a :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`" target="_blank">GitHub</a>
+      <a
+        :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`"
+        target="_blank"
+      >
+        GitHub
+      </a>
     </I18nT>
     <br>
     {{ t('build-time') }}

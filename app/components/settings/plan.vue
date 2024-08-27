@@ -20,7 +20,11 @@ onBeforeUnmount(() => { // 保存设置
 </script>
 
 <template>
-  <NFormItem :label="t('enable-plan')" label-placement="left" data-guide-id="enable-plan-field">
+  <NFormItem
+    :label="t('enable-plan')"
+    label-placement="left"
+    data-guide-id="enable-plan-field"
+  >
     <NSwitch v-model:value="config.plan.enabled" />
   </NFormItem>
 

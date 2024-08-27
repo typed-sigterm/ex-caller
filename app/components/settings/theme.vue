@@ -8,7 +8,8 @@ const { t } = useI18n({ useScope: 'local' });
 
 const theme = useThemeStore();
 
-function getResource(name: ResourceName, filename?: string): UploadFileInfo | undefined {
+function getResource(name: ResourceName, filename?: string):
+    UploadFileInfo | undefined {
   const resource = theme[name];
   if (!resource)
     return;
