@@ -1,4 +1,3 @@
-import { reactive } from 'vue';
 import type {
   DialogApiInjection,
 } from 'naive-ui/es/dialog/src/DialogProvider';
@@ -7,6 +6,7 @@ import type {
 } from 'naive-ui/es/message/src/MessageProvider';
 import { isTauri } from '@tauri-apps/api/core';
 import { version } from '~~/package.json';
+import { reactive } from 'vue';
 
 export const GITHUB_REPO_URL = 'https://github.com/typed-sigterm/ex-caller';
 

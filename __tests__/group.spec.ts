@@ -1,5 +1,5 @@
-import 'mock-local-storage';
 import { createPinia, setActivePinia } from 'pinia';
+import 'mock-local-storage';
 
 beforeEach(() => {
   localStorage.clear();

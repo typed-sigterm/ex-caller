@@ -1,6 +1,7 @@
 import type { DialogFilter } from '@tauri-apps/plugin-dialog';
-import { save } from '@tauri-apps/plugin-dialog';
 import type { BaseDirectory } from '@tauri-apps/plugin-fs';
+import { desktopDir, resolve } from '@tauri-apps/api/path';
+import { save } from '@tauri-apps/plugin-dialog';
 import {
   exists,
   mkdir,
@@ -8,7 +9,6 @@ import {
   remove,
   writeFile,
 } from '@tauri-apps/plugin-fs';
-import { desktopDir, resolve } from '@tauri-apps/api/path';
 import { promiseTimeout } from '@vueuse/core';
 
 export interface SaveFileOptions {
