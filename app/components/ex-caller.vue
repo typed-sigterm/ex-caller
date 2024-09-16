@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { Status as ResultStatus } from './result-board.vue';
 import type { Status as BackgroundStatus } from './background.vue';
+import type { Status as ResultStatus } from './result-board.vue';
 
 setupUiHooks();
 const config = useConfigStore();
