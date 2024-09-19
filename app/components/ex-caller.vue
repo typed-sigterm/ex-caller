@@ -26,7 +26,7 @@ function handleStart() {
       stopWatch();
       status.value = 'rolling';
       result.value.start();
-      triggerStopCallingGuide();
+      triggerStopRollingGuide();
     },
   );
 }

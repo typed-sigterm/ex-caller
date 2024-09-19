@@ -1,5 +1,5 @@
-import type { Guide } from './guide';
 import JSConfetti from 'js-confetti';
+import type { Guide } from './guide';
 
 export const DRAWER_DEFAULT_WIDTH = 450;
 export const DRAWER_MIN_WIDTH = 450;

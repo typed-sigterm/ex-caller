@@ -57,7 +57,7 @@ export default defineNuxtConfig({
             'url_new_win',
             'link_open',
             (tokens: Token[], idx: number) => {
-              tokens[idx].attrPush(['target', '_blank']);
+              tokens[idx]?.attrPush(['target', '_blank']);
             },
           );
         },
@@ -75,4 +75,8 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-03',
+
+  i18n: {
+    locales: ['en', 'zh-CN'],
+  },
 });
