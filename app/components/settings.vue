@@ -23,7 +23,7 @@ const showCanaryAlertNow = ref(showCanaryAlert.value);
 
 function handleClose() {
   emit('close');
-  promiseTimeout(500).then(gc);
+  promiseTimeout(500).then(() => window.gc?.());
   showCanaryAlertNow.value = showCanaryAlert.value;
 }
 </script>
