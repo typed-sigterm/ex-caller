@@ -9,6 +9,12 @@ const show = defineModel<boolean>('show', { required: true });
 
 const { t } = useI18n({ useScope: 'local' });
 
+async function handleShowOrCloseNamelist(show: boolean) {
+  if (!show || !shouldStartGuide('namelist'))
+    return;
+  await promiseTimeout(500);
+  triggerNamelistGuide();
+}
 async function handleShowOrClosePlan(show: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return;
@@ -54,7 +60,11 @@ function handleClose() {
         </I18nT>
       </NAlert>
 
-      <SettingsEntry :title="t('entry.namelist')">
+      <SettingsEntry
+        :title="t('entry.namelist')"
+        :drawer-attrs="{ 'data-guide-id': 'namelist-drawer' }"
+        @update:show="handleShowOrCloseNamelist"
+      >
         <SettingsNamelist />
         <template #icon>
           <LucideNotebookTabs :size="18" />

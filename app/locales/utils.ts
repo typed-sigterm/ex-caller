@@ -9,15 +9,10 @@ export interface I18nRequiedText {
   done: string
   error: string
   guide: {
-    welcome: {
-      [K in 0 | 1 | 2 | 3]: GuideInfo
-    }
-    stopRolling: {
-      0: GuideInfo
-    }
-    plan: {
-      [K in 0 | 1]: GuideInfo
-    }
+    welcome: Record<0 | 1 | 2 | 3, GuideInfo>
+    stopRolling: Record<0, GuideInfo>
+    namelist: Record<0 | 1 | 2, GuideInfo>
+    plan: Record<0 | 1, GuideInfo>
   }
   nextStep: string
   prevStep: string

@@ -52,7 +52,11 @@ function handleAddNamelist() {
 </script>
 
 <template>
-  <NFormItem :label="t('current')" label-placement="left">
+  <NFormItem
+    :label="t('current')"
+    label-placement="left"
+    data-guide-id="namelist-selector"
+  >
     <NSelect
       v-model:value="config.namelist"
       class="namelist-selector"

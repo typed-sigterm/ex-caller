@@ -15,6 +15,11 @@ export default {
     stopRolling: {
       0: { title: 'Stop rolling', description: 'Click the red button to stop rolling.' },
     },
+    namelist: {
+      0: { title: 'Namelist feature', description: 'It is what you think it is.' },
+      1: { title: 'Batch import/export', description: 'You can batch add names, or import names from Excel. Of course, you can also export the list to a text file.' },
+      2: { title: 'Multiple lists', description: 'You can create multiple lists, and different lists do not interfere with each other. Click the dropdown box to switch the currently effective list.' },
+    },
     plan: {
       0: { title: 'Plan feature', description: 'You can enable Plan to control the next draws.' },
       1: { title: 'But to prevent abuse', description: 'After enabling the plan feature, the settings button will turn red.' },

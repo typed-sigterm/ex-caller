@@ -6,6 +6,7 @@ import 'driver.js/dist/driver.css';
 export const GuideSchema = z.object({
   welcome: z.boolean().default(false),
   stopRolling: z.boolean().default(false),
+  namelist: z.boolean().default(false),
   plan: z.boolean().default(false),
 });
 
@@ -72,6 +73,21 @@ export function triggerStopRollingGuide() {
     steps: [{
       element: getElement('result-board'),
       popover: getGuidePopover('stopRolling.0'),
+    }],
+  });
+}
+
+export function triggerNamelistGuide() {
+  drive('namelist', {
+    steps: [{
+      element: getElement('namelist-drawer'),
+      popover: getGuidePopover('namelist.0'),
+    }, {
+      element: getElement('namelist-operations'),
+      popover: getGuidePopover('namelist.1'),
+    }, {
+      element: getElement('namelist-selector'),
+      popover: getGuidePopover('namelist.2'),
     }],
   });
 }

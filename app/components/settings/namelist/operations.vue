@@ -29,7 +29,7 @@ async function handleExport() {
 </script>
 
 <template>
-  <NSpace>
+  <NSpace data-guide-id="namelist-operations">
     <NButton :disabled="limited" @click="showBatchInput = true">
       {{ t('batch-input') }}
       <template #icon>
