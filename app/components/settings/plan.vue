@@ -6,7 +6,7 @@ const { t } = useI18n({ useScope: 'local' });
 const config = useConfigStore();
 const queue = ref([...config.plan.queue]);
 const options = computed((): SelectOption[] => {
-  return useGroupMembers(config.group).value!.map(v => ({
+  return useNamelistMembers(config.namelist).value!.map(v => ({
     value: v,
     label: v,
   }));

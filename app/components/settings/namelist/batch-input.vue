@@ -14,7 +14,7 @@ function handleOk() {
     .split('\n')
     .map(v => v.trim())
     .filter(Boolean); // 去除空元素
-  if (names.length >= MAX_GROUP_MEMBER_COUNT) {
+  if (names.length >= MAX_NAMELIST_MEMBER_COUNT) {
     ui.message.error('名单数量已达上限');
     return;
   }

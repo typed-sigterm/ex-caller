@@ -19,7 +19,7 @@ function customRequest(options: UploadCustomRequestOptions) {
   if (!options.file.file)
     return;
   options.onProgress({ percent: Math.floor(Math.random() * 100) });
-  importGroupFromExcel(options.file.file)
+  importNamelistFromExcel(options.file.file)
     .then((v) => {
       input.value.push(v);
       options.onFinish();
@@ -35,7 +35,7 @@ function handleOk() {
     'done',
     input.value
       .flat()
-      .filter((_, i) => i < MAX_GROUP_MEMBER_COUNT), // 保证名字数量不超过上限
+      .filter((_, i) => i < MAX_NAMELIST_MEMBER_COUNT), // 保证名字数量不超过上限
   );
 }
 </script>
@@ -71,9 +71,9 @@ function handleOk() {
         {{ total }}
       </I18nT>
     </NP>
-    <NP v-if="total > MAX_GROUP_MEMBER_COUNT">
+    <NP v-if="total > MAX_NAMELIST_MEMBER_COUNT">
       <I18nT keypath="exceed-limit">
-        {{ MAX_GROUP_MEMBER_COUNT }}
+        {{ MAX_NAMELIST_MEMBER_COUNT }}
       </I18nT>
     </NP>
     <template #icon>

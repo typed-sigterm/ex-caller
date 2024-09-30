@@ -3,11 +3,11 @@ import IconExcel from '~icons/vscode-icons/file-type-excel';
 
 const { t } = useI18n({ useScope: 'local' });
 
-const currentGroup = useConfigStore().group;
+const currentNamelist = useConfigStore().namelist;
 const names = defineModel<RollCallOption[]>('names', { required: true });
 
 const limited = computed(
-  () => useGroupStore().nameList.length >= MAX_GROUP_COUNT,
+  () => useNamelistStore().namelist.length >= MAX_NAMELIST_COUNT,
 );
 
 const showBatchInput = ref(false);
@@ -20,7 +20,7 @@ function handleImportDone(items: string[]) {
 const exporting = ref(false);
 async function handleExport() {
   exporting.value = true;
-  await exportGroupToText(currentGroup).catch((e) => {
+  await exportNamelistToText(currentNamelist).catch((e) => {
     console.error(e);
     alertError(e);
   });
@@ -58,11 +58,11 @@ async function handleExport() {
     {{ t('reached-limit') }}
   </NP>
 
-  <SettingsGroupBatchInput
+  <SettingsNamelistBatchInput
     v-model:show="showBatchInput"
     @done="handleImportDone"
   />
-  <SettingsGroupImportExcel
+  <SettingsNamelistImportExcel
     v-model:show="showImportExcel"
     @done="handleImportDone"
   />

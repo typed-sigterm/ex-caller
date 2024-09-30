@@ -8,7 +8,7 @@ withDefaults(defineProps<{
   /** 已选择文件的展示方式 */
   listType?: ListType
 }>(), {
-  accept: 'image/*',
+  accept: '*/*',
   listType: 'image-card',
 });
 const file = defineModel<UploadFileInfo | undefined>('file');

@@ -17,7 +17,7 @@ function handleRenamingUpdate(show: boolean) {
 function handleRename() {
   if (renameTo.value === props.value)
     return;
-  if (useGroupStore().has(renameTo.value)) {
+  if (useNamelistStore().has(renameTo.value)) {
     ui.message.error(t('names-duplicated'));
     return;
   }
@@ -39,7 +39,7 @@ function handleRename() {
           v-model:value="renameTo"
           type="text"
           size="small"
-          :maxlength="MAX_GROUP_NAME_LENGTH"
+          :maxlength="MAX_NAMELIST_NAME_LENGTH"
         />
 
         <template #trigger>

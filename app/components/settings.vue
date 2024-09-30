@@ -55,7 +55,7 @@ function handleClose() {
       </NAlert>
 
       <SettingsEntry :title="t('entry.namelist')">
-        <SettingsGroup />
+        <SettingsNamelist />
         <template #icon>
           <LucideNotebookTabs :size="18" />
         </template>

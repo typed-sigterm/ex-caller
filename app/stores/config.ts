@@ -3,7 +3,7 @@ export const useConfigStore = defineStore('config', {
     const ret
       = useLocalStorage<UserConfig>('config', UserConfigSchema.parse({}));
     ret.value = UserConfigSchema.parse(ret.value);
-    fixGroup(ret.value.group);
+    fixNamelist(ret.value.namelist);
     return ret;
   },
 });
