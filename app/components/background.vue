@@ -22,10 +22,11 @@ if (__APP__) {
 
 const videoElement = ref<HTMLVideoElement | null>(null);
 const rollingUsingVideo = computed(() => { // backgroundRolling 使用视频
-  return theme.backgroundRolling && theme.backgroundRolling.url;
+  return theme.backgroundRolling && theme.backgroundRolling.url
+    && theme.properties.backgroundRolling.mimeType.startsWith('video/');
 });
 
-watch(() => status.value, (value) => {
+watch(status, (value) => {
   if (value === 'pausing')
     videoElement.value?.pause();
 

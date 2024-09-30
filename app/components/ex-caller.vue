@@ -20,14 +20,14 @@ const backgroundStatus = ref<BackgroundStatus>('normal');
 
 function handleStart() {
   backgroundStatus.value = 'ready-rolling';
-  const stopWatch = whenever( // 背景准备好后开始抽取
+  whenever( // 背景准备好后开始抽取
     () => backgroundStatus.value === 'rolling',
     () => {
-      stopWatch();
       status.value = 'rolling';
       result.value.start();
       triggerStopRollingGuide();
     },
+    { once: true },
   );
 }
 function handlePausing() {
