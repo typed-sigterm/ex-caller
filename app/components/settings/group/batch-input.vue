@@ -29,8 +29,8 @@ function handleOk() {
     preset="dialog"
     :title="t('title')"
     :close-on-esc="false"
-    :positive-text="t('confirm')"
-    :negative-text="t('cancel')"
+    :positive-text="$t('confirm')"
+    :negative-text="$t('cancel')"
     @positive-click="handleOk"
   >
     <NP>{{ t('tip') }}</NP>

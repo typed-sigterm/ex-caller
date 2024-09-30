@@ -44,11 +44,11 @@ function handleOk() {
   <NModal
     v-model:show="show"
     preset="dialog"
-    title="导入 Excel"
+    :title="t('title')"
     :close-on-esc="false"
-    :positive-text="t('confirm')"
+    :positive-text="$t('confirm')"
     :positive-button-props="{ disabled: !total }"
-    :negative-text="t('cancel')"
+    :negative-text="$t('cancel')"
     @positive-click="handleOk"
   >
     <NUpload :show-remove-button="false" :custom-request="customRequest">
