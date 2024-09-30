@@ -14,7 +14,7 @@ export function getStoredNamelists() {
 
 export function getStoredNamelist(name: string): RollCallOption[] {
   if (!hasStoredNamelist(name))
-    throw new Error(`Cannot find namlist "${name}"`);
+    throw new Error(`Cannot find namelist "${name}"`);
   return JSON.parse(localStorage.getItem(getNamelistKey(name))!);
 }
 
