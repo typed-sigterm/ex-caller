@@ -1,9 +1,8 @@
 name: 代码质量测试
 
 on:
+  push:
   pull_request:
-    branches-ignore:
-      - renovate/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
