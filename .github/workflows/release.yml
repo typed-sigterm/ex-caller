@@ -1,7 +1,7 @@
 name: 发布更新
 
 on:
-  workflow_dispatch:
+  release:
 
 jobs:
   sync-latest-branch:
@@ -13,8 +13,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+      - run: pnpm i
 
-      - run: pnpm install -D semver
       - name: 检查版本稳定性
         id: check-stability
         uses: actions/github-script@v7

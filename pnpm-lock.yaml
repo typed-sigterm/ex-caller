@@ -117,6 +117,9 @@ importers:
       npm-run-all2:
         specifier: ^6.2.3
         version: 6.2.3
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
