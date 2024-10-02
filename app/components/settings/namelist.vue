@@ -33,6 +33,7 @@ function renderNamelistName(options: SelectOption): VNodeChild {
   };
   const handleDelete = () => {
     namelist.remove(options.value as string);
+    ui.message.success(t('namelist-deleted', [options.value]));
   };
 
   return (
@@ -48,6 +49,7 @@ function handleAddNamelist() {
   const name = generateNewNamelistName();
   namelist.add(name); // 创建名单
   config.namelist = name; // 切换到新名单
+  ui.message.success(t('namelist-created', [name]));
 }
 </script>
 
@@ -103,8 +105,12 @@ function handleAddNamelist() {
 en:
   current: Current Namelist
   create-namelist: New
+  namelist-created: New namelist {0} is created
+  namelist-deleted: Namelist {0} is deleted
 
 zh-CN:
   current: 当前名单
   create-namelist: 新建名单
+  namelist-created: 名单 {0} 创建成功
+  namelist-deleted: 已删除名单 {0}
 </i18n>

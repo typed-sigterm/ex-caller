@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
-const { t } = useI18n({ useScope: 'local' });
-
-const currentNamelist = useConfigStore().namelist;
 const names = defineModel<RollCallOption[]>('names', { required: true });
+const currentNamelist = useConfigStore().namelist;
+const { t } = useI18n({ useScope: 'local' });
 
 const limited = computed(
   () => useNamelistStore().namelist.length >= MAX_NAMELIST_COUNT,

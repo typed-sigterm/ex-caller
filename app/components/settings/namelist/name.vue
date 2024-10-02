@@ -18,9 +18,13 @@ function handleRename() {
   if (renameTo.value === props.value)
     return;
   if (useNamelistStore().has(renameTo.value)) {
-    ui.message.error(t('names-duplicated'));
+    ui.message.error(t('name-duplicated'));
     return;
   }
+  ui.message.success(t('namelist-renamed', [
+    props.value,
+    renameTo.value,
+  ]));
   emit('rename', renameTo.value);
 }
 </script>
@@ -77,12 +81,15 @@ function handleRename() {
 en:
   rename: Rename
   confirm-deletion-title: Confirm Deletion
-  confirm-deletion: Confirm deletion {0}"? This action cannot be undone!
-  names-duplicated: Duplicated with existing name
+  confirm-deletion:
+    Confirm deleting namelist {0}? This action cannot be undone!
+  name-duplicated: Duplicated with existing name
+  namelist-renamed: Namelist {0} is renamed to {1}
 
 zh-CN:
   rename: 重命名
   confirm-deletion-title: 确认删除
-  confirm-deletion: 确认删除名单“{0}”？删除后无法找回！
-  names-duplicated: 与现有名单重名了哦
+  confirm-deletion: 确认删除名单 {0}？删除后无法找回！
+  name-duplicated: 与现有名单重名了哦
+  namelist-renamed: 名单 {0} 已重命名为 {1}
 </i18n>
