@@ -31,7 +31,7 @@ jobs:
           git push origin latest
 
       - name: 更新 insider 分支
-        if: !steps.check-stability.outputs.result
+        if: ${{ !steps.check-stability.outputs.result }}
         run: |
           git checkout -b insider origin/insider || git switch -c insider
           git merge --ff-only origin/main
