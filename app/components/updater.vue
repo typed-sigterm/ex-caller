@@ -12,7 +12,7 @@ async function checkUpdate() {
   if (!valid(VERSION)) // DEV, Canary, commit id 等作为版本号时不检查更新
     return;
   try {
-    const res = await $fetch(GITHUB_RELEASE_API_URL);
+    const res: any = await $fetch(GITHUB_RELEASE_API_URL);
     if (gt(res.tag_name, VERSION)) {
       update.value = res;
       changelog.value = mdit.render(res.body);
