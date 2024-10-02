@@ -26,7 +26,7 @@
     "createUpdaterArtifacts": true
   },
   "productName": "ExCaller",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "identifier": "top.by-ts.ex-caller",
   "app": {
     "windows": [
