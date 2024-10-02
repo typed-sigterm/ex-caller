@@ -3,6 +3,11 @@ import { promiseTimeout } from '@vueuse/core';
 import { enUS, zhCN } from 'naive-ui';
 
 const i18n = useI18n();
+useHead({
+  htmlAttrs: {
+    lang: i18n.locale.value === 'zh-CN' ? 'zh-CN' : 'en',
+  },
+});
 
 if (__APP__)
   await useThemeStore().init(); // 异步初始化主题

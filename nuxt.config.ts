@@ -24,7 +24,6 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'ExCaller',
-      htmlAttrs: { lang: '' },
     },
   },
 
