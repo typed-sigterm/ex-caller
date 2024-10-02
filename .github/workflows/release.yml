@@ -2,6 +2,7 @@ name: 发布更新
 
 on:
   release:
+    types: [published]
 
 jobs:
   sync-latest-branch:
@@ -30,21 +31,21 @@ jobs:
             return !prerelease(version)
 
       - name: 更新 latest 分支
-        if: steps.check-stability.outputs.result
+        if: steps.check-stability.outputs.result == 'true'
         run: |
           git checkout -f -b latest origin/latest
           git merge --ff-only origin/main
           git push origin latest
 
       - name: 更新 insider 分支
-        if: ${{ !steps.check-stability.outputs.result }}
+        if: steps.check-stability.outputs.result == 'false'
         run: |
           git checkout -b insider origin/insider || git switch -c insider
           git merge --ff-only origin/main
           git push origin insider
 
       - name: 删除 insider 分支
-        if: steps.check-stability.outputs.result
+        if: steps.check-stability.outputs.result == 'true'
         run: |
           git push origin -d insider || true
 
