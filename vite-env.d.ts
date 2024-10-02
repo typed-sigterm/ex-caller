@@ -8,3 +8,10 @@ interface ImportMetaEnv {
   /** 是否移除独立 App 环境相关代码 */
   readonly EXC_NO_APP: string
 }
+
+declare module '*.md' {
+  import type { ComponentOptions } from 'vue';
+
+  const Component: ComponentOptions;
+  export default Component;
+}

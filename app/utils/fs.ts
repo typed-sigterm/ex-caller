@@ -22,7 +22,7 @@ export interface SaveFileOptions {
 export async function saveFile(
   filename: string,
   content: string,
-  options: SaveFileOptions,
+  options?: SaveFileOptions,
 ) {
   if (__APP__) { // 独立 app 环境，使用 Tauri API
     const {

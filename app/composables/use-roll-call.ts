@@ -53,7 +53,7 @@ export default (config: RollCallConfig): Ref<RollCallController> => {
     let i = (currentIndex.value ?? -1) + 1; // 若未开始，下一个为第一个，即下标 -1+1
     if (i >= options.length) // 越界
       i = 0;
-    const incoming = options[i];
+    const incoming = options[i]!;
     currentValue.value = rollCallOptionToString(incoming);
     currentIndex.value = i;
 
