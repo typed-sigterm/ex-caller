@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import ChangelogMd from '~/changelog-simplified.md';
+import ChangelogMd from '~~/CHANGELOG.md';
 
 const { t } = useI18n({ useScope: 'local' });
 </script>
@@ -23,16 +23,21 @@ const { t } = useI18n({ useScope: 'local' });
 
 <style lang="postcss" scoped>
 :deep() {
-  h2 { /* 版本号 */
-    text-align: center;
-  }
-  &:first-child {
-    margin-top: 0;
+  h1 {
+    display: none;
+    + h2 {
+      margin-top: 0;
+    }
   }
 
-  h3 { /* “新功能”“bug 修复”等 */
-    margin: 0;
-    font-size: inherit
+  h2 {
+    text-align: center;
+    &::before {
+      content: 'v';
+    }
+  }
+  h3 {
+    all: unset
   }
 
   ul {
