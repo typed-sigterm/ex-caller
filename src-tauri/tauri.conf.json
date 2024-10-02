@@ -6,7 +6,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["dmg", "nsis"],
     "windows": {
       "nsis": {
         "languages": ["SimpChinese", "English"]
@@ -30,9 +30,10 @@
   "identifier": "top.by-ts.ex-caller",
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDZGMERDRUVCMkQ3NDI0NDAKUldSQUpIUXQ2ODROYjIvc0ZBNmJsckQ2MlZzSDM3bTZIRVEvSld1Syt1VlQ2UXg2R2hYdDYrWjIK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEZCNUQzNUJBQUQxRTAzMTEKUldRUkF4NnR1alZkKzBJZzFKR0h4MVhpUlNGNmp1L0hWQUl1L2hMcnV5SHkwdCtiY3oyRE55Z2sK",
       "endpoints": [
-        "https://ex-caller.by-ts.top/update.json"
+        "https://ex-caller.by-ts.top/update.json",
+        "https://ex-caller.netlify.app/update.json"
       ]
     }
   },
