@@ -97,7 +97,9 @@ jobs:
         with:
           workspaces: ./src-tauri -> target
 
-      - name: 构建应用
+      - name: 安装 Web 端依赖
+        run: pnpm i
+      - name: 构建 Web 端
         run: pnpm build:web
 
       - name: 构建与发布安装包
