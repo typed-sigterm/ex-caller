@@ -33,7 +33,7 @@ export const DEFAULT_NAMELIST_OPTIONS: RollCallOption[] = [
   'Carl',
   'Dlyro',
   'Fuli',
-  'Kuzumu',
+  'Kuzumi',
   'Guru',
   'Sultan',
   'Igallta',
