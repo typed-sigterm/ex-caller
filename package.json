@@ -26,7 +26,7 @@
     "test:unit": "vitest run"
   },
   "dependencies": {
-    "@bg-dev/nuxt-naiveui": "^1.14.0",
+    "@bg-dev/nuxt-naiveui": "^2.0.0-rc.1",
     "@iconify-json/ant-design": "^1.2.1",
     "@iconify-json/ep": "^1.2.0",
     "@iconify-json/vscode-icons": "^1.2.2",

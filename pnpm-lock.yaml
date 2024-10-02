@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@bg-dev/nuxt-naiveui':
-        specifier: ^1.14.0
-        version: 1.14.0(magicast@0.3.5)(rollup@4.22.5)(vue@3.5.10(typescript@5.6.2))(webpack-sources@3.2.3)
+        specifier: ^2.0.0-rc.1
+        version: 2.0.0-rc.1(magicast@0.3.5)(rollup@4.22.5)(vue@3.5.10(typescript@5.6.2))(webpack-sources@3.2.3)
       '@iconify-json/ant-design':
         specifier: ^1.2.1
         version: 1.2.1
@@ -339,8 +339,8 @@ packages:
     resolution: {integrity: sha512-/l42B1qxpG6RdfYf343Uw1vmDjeNhneUXtzhojE7pDgfpEypmRhI6j1kr17XCVv4Cgl9HdAiQY2x0GwKm7rWCw==}
     engines: {node: '>=6.9.0'}
 
-  '@bg-dev/nuxt-naiveui@1.14.0':
-    resolution: {integrity: sha512-fzZXKBWjcKbVRies5XRXVcb6JmRBmN+oG5SF8JzRmc7iqctCWz/Hf6S3Ec9CBNyfdixr1yC8SO4BO1XHo24hGg==}
+  '@bg-dev/nuxt-naiveui@2.0.0-rc.1':
+    resolution: {integrity: sha512-KWEzIncJmYPO3Tt0CCKUF6xXK8GJyB5shPv+EBad5o9/jl4nNemlT6OtbVIXqHlGwTqDdWYv2dyFR4nIaUeLig==}
 
   '@clack/core@0.3.4':
     resolution: {integrity: sha512-H4hxZDXgHtWTwV3RAVenqcC4VbJZNegbBjlPvzOzCouXtS2y3sDvlO3IsbrPNWuLWPPlYVYPghQdSF64683Ldw==}
@@ -5996,7 +5996,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@bg-dev/nuxt-naiveui@1.14.0(magicast@0.3.5)(rollup@4.22.5)(vue@3.5.10(typescript@5.6.2))(webpack-sources@3.2.3)':
+  '@bg-dev/nuxt-naiveui@2.0.0-rc.1(magicast@0.3.5)(rollup@4.22.5)(vue@3.5.10(typescript@5.6.2))(webpack-sources@3.2.3)':
     dependencies:
       '@ant-design/colors': 7.1.0
       '@iconify/vue': 4.1.2(vue@3.5.10(typescript@5.6.2))
@@ -6917,7 +6917,7 @@ snapshots:
 
   '@nuxt/telemetry@2.6.0(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)':
     dependencies:
-      '@nuxt/kit': 3.13.1(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)
+      '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.22.5)(webpack-sources@3.2.3)
       ci-info: 4.0.0
       consola: 3.2.3
       create-require: 1.1.1
