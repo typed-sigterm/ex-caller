@@ -9,7 +9,7 @@ export function shouldStartGuide(key: keyof Guide) {
   return !useGuideStore()[key];
 }
 /** 标记教程为已完成。 */
-export function markGuideAsStarted(key: keyof Guide) {
+export function markGuideAsDone(key: keyof Guide) {
   useGuideStore().$patch({ [key]: true });
 }
 

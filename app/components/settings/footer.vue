@@ -23,9 +23,11 @@ function checkUpdate() {
     return;
   checkingUpdate.value = true;
 
-  const handleUpdateChecked = () => {
-    checkingUpdate.value = false;
+  const handleUpdateChecked = (available: boolean) => {
     bus.off('update-checked', handleUpdateChecked);
+    checkingUpdate.value = false;
+    if (!available)
+      ui.message.success(t('no-update'));
   };
   bus.on('update-checked', handleUpdateChecked);
   bus.emit('check-update');
@@ -143,6 +145,7 @@ en:
   changelog: Changelog
   changelog-title: ExCaller Changelog
   check-update: Check Update
+  no-update: Already up to date
   feedback:
     title: Send Feedback
     desc:
@@ -169,6 +172,7 @@ zh-CN:
   changelog: 更新记录
   changelog-title: ExCaller 更新记录
   check-update: 检查更新
+  no-update: 已是最新版本
   feedback:
     title: 提交反馈
     desc: 如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。

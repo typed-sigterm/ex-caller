@@ -16,7 +16,6 @@
       "identifier": "fs:write-all",
       "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
     },
-    "shell:allow-open",
-    "updater:default"
+    "shell:allow-open"
   ]
 }

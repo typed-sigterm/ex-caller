@@ -12,7 +12,6 @@
 | [`@tauri-apps/plugin-dialog`,<br>`tauri-plugin-dialog`](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog) | [MIT License](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/dialog/LICENSE_MIT) | 否 |
 | [`@tauri-apps/plugin-fs`,<br>`tauri-plugin-fs`](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/fs) | [MIT License](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/fs/LICENSE_MIT) | 否 |
 | [`@tauri-apps/plugin-shell`,<br>`tauri-plugin-shell`](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/shell) | [MIT License](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/shell/LICENSE_MIT) | 否 |
-| [`@tauri-apps/plugin-updater`,<br>`tauri-plugin-updater`](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/updater) | [MIT License](https://github.com/tauri-apps/plugins-workspace/blob/v2/plugins/updater/LICENSE_MIT) | 否 |
 | [`@typed-sigterm/eslint-config`](https://github.com/typed-sigterm/eslint-config) | [MIT License](https://github.com/unocss/unocss/blob/main/LICENSE) | 否 |
 | [`@unocss/nuxt`](https://unocss.dev/) | [MIT License](https://github.com/unocss/unocss/blob/main/LICENSE) | 否 |
 | [`@vueuse/nuxt`](https://github.com/vueuse/vueuse) | [MIT License](https://github.com/vueuse/vueuse/blob/main/LICENSE) | 否 |

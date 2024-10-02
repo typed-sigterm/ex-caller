@@ -21,11 +21,11 @@ const locale = computed(() => {
 
 // 动画和事件
 promiseTimeout(1500).then(() => loading.value = false);
-promiseTimeout(1850).then(() => {
+promiseTimeout(1850).then(async () => {
   bus.emit('login');
-  bus.emit('check-update');
   show.value = true;
-  triggerWelcomeGuide();
+  await triggerWelcomeGuide();
+  bus.emit('check-update');
 });
 </script>
 

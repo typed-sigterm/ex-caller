@@ -12,9 +12,4 @@ export const bus = mitt<{
    * @param 是否有新版本
    */
   'update-checked': boolean
-  /**
-   * 忽略更新
-   * @param 忽略的版本号
-   */
-  'dismiss-update': string
 }>();

@@ -38,22 +38,26 @@ const getElement = (id: string) => document.querySelector(`[data-guide-id="${id}
  * 若教程未完成，开始教程，完成教程后标记为已完成。
  * @param name 教程名称
  * @param options driver 配置
+ * @returns 一个 `Promise`，教程完成后 resolve
  */
 function drive(name: keyof Guide, options: Config) {
   if (!shouldStartGuide(name))
-    return;
-  const driver = createDriver({
-    ...options,
-    onDestroyed(...args) {
-      markGuideAsStarted(name);
-      options.onDeselected?.(...args);
-    },
+    return Promise.resolve();
+  return new Promise<void>((resolve) => {
+    const driver = createDriver({
+      ...options,
+      onDestroyed(...args) {
+        markGuideAsDone(name);
+        resolve();
+        options.onDeselected?.call(this, ...args);
+      },
+    });
+    driver.drive();
   });
-  driver.drive();
 }
 
 export function triggerWelcomeGuide() {
-  drive('welcome', {
+  return drive('welcome', {
     steps: [{
       popover: getGuidePopover('welcome.0'),
     }, {
@@ -69,7 +73,7 @@ export function triggerWelcomeGuide() {
 }
 
 export function triggerStopRollingGuide() {
-  drive('stopRolling', {
+  return drive('stopRolling', {
     steps: [{
       element: getElement('result-board'),
       popover: getGuidePopover('stopRolling.0'),
@@ -78,7 +82,7 @@ export function triggerStopRollingGuide() {
 }
 
 export function triggerNamelistGuide() {
-  drive('namelist', {
+  return drive('namelist', {
     steps: [{
       element: getElement('namelist-drawer'),
       popover: getGuidePopover('namelist.0'),
@@ -93,7 +97,7 @@ export function triggerNamelistGuide() {
 }
 
 export function triggerPlanGuide() {
-  drive('plan', {
+  return drive('plan', {
     steps: [{
       element: getElement('plan-drawer'),
       popover: getGuidePopover('plan.0'),

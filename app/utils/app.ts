@@ -9,6 +9,8 @@ import { version } from '~~/package.json';
 import { reactive } from 'vue';
 
 export const GITHUB_REPO_URL = 'https://github.com/typed-sigterm/ex-caller';
+export const GITHUB_RELEASE_API_URL = 'https://api.github.com/repos/typed-sigterm/ex-caller/releases/latest';
+export const WEB_APP_URL = 'https://ex-caller.by-ts.top';
 
 /** 是否正式生产环境 */
 export const __GA__ = import.meta.env.PROD && !import.meta.env.EXC_CANARY;

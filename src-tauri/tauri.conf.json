@@ -28,15 +28,6 @@
   "productName": "ExCaller",
   "version": "1.0.0-beta.0",
   "identifier": "top.by-ts.ex-caller",
-  "plugins": {
-    "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEZCNUQzNUJBQUQxRTAzMTEKUldRUkF4NnR1alZkKzBJZzFKR0h4MVhpUlNGNmp1L0hWQUl1L2hMcnV5SHkwdCtiY3oyRE55Z2sK",
-      "endpoints": [
-        "https://ex-caller.by-ts.top/update.json",
-        "https://ex-caller.netlify.app/update.json"
-      ]
-    }
-  },
   "app": {
     "windows": [
       {

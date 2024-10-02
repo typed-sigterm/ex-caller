@@ -5,7 +5,7 @@ const { t } = useI18n({ useScope: 'local' });
 </script>
 
 <template>
-  <NAlert v-if="__CANARY__" type="info">
+  <NAlert v-if="__CANARY__" type="info" class="mb-4">
     <I18nT keypath="canary-tip">
       <a
         :href="`${GITHUB_REPO_URL}/blob/main/CHANGELOG.md`"
@@ -18,34 +18,10 @@ const { t } = useI18n({ useScope: 'local' });
     {{ t('build-time') }}
     <NTime :time="useRuntimeConfig().public.buildTime" />
   </NAlert>
-  <ChangelogMd />
+  <ChangelogWrapper>
+    <ChangelogMd />
+  </ChangelogWrapper>
 </template>
-
-<style lang="postcss" scoped>
-:deep() {
-  h1 {
-    display: none;
-    + h2 {
-      margin-top: 0;
-    }
-  }
-
-  h2 {
-    text-align: center;
-    &::before {
-      content: 'v';
-    }
-  }
-  h3 {
-    all: unset
-  }
-
-  ul {
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-}
-</style>
 
 <i18n lang="yaml">
 en:
