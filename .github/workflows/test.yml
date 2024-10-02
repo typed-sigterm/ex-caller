@@ -2,6 +2,9 @@ name: 代码质量测试
 
 on:
   push:
+    branches-ignore:
+      - latest
+      - insider
   pull_request:
 
 concurrency:
