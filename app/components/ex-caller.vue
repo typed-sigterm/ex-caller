@@ -45,21 +45,28 @@ function handlePaused() {
   backgroundStatus.value = 'normal';
 }
 
+const showSettings = ref(false);
 const loadSettings = ref(false); // 是否需要加载设置组件
 const loadedSettings = ref(false); // 设置组件是否已经加载完成
-const showSettings = ref(false);
-const showLoadingSettings = computed(
-  () => showSettings.value && !loadedSettings.value,
-);
+// 首次打开设置会加载设置组件，不立即显示弹窗
+// 这里等到加载完成后再显示弹窗，否则弹窗动画会消失
+whenever(loadedSettings, () => {
+  showSettings.value = true;
+});
 
-function handleOpenSettings() {
+async function handleOpenSettings() {
   if (showSettings.value)
     return;
-  loadSettings.value = showSettings.value = true;
   // 正在点名时打开设置，停止点名，不显示点名结果
   if (result.value.isActive)
     result.value.reset();
+  // 首次打开设置时，先加载设置组件，不立即显示弹窗
+  if (loadSettings.value)
+    showSettings.value = true;
+  else
+    loadSettings.value = true;
 }
+
 function handleSettingsClose() {
   // 设置更改时需要同步到实例，但需让当前显示的值不变，让用户无感
   result.value = getRollCall({
@@ -88,7 +95,7 @@ prefetchComponents('LazySettings');
     <template #startExtraOperators>
       <LargeButton
         :type="config.plan.enabled ? 'error' : 'info'"
-        :loading="showLoadingSettings"
+        :loading="loadSettings && !loadedSettings"
         data-guide-id="settings-button"
         @click="handleOpenSettings"
       >
@@ -114,7 +121,7 @@ prefetchComponents('LazySettings');
   <LazySettings
     v-if="loadSettings"
     v-model:show="showSettings"
-    @open="loadedSettings = true"
     @close="handleSettingsClose"
+    @vue:mounted="loadedSettings = true"
   />
 </template>
