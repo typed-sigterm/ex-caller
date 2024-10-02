@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: npm install -g semver
+      - run: npm install semver
       - name: 检查版本稳定性
         id: check-stability
         uses: actions/github-script@v7
@@ -48,6 +48,7 @@ jobs:
     permissions:
       contents: write
     runs-on: ${{ matrix.platform }}
+    needs: sync-latest-branch
 
     strategy:
       fail-fast: false
