@@ -55,6 +55,9 @@ jobs:
       contents: write
     runs-on: ${{ matrix.platform }}
     needs: sync-latest-branch
+    env:
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
 
     strategy:
       fail-fast: false
