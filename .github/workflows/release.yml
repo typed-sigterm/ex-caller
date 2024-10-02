@@ -59,7 +59,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [windows-latest, macos-latest]
         include:
           - platform: windows-latest
             target: x86_64-pc-windows-msvc
