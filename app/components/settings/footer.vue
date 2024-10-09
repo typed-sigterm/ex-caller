@@ -10,7 +10,7 @@ const loadChangelog = ref(false);
 const email = ref('');
 onMounted(() => {
   nextTick().then(() => {
-    email.value = `typed.sigterm${String.fromCharCode(64)}gmail.com`;
+    email.value = `ex-caller${String.fromCharCode(64)}by-ts.top`;
   });
 });
 
@@ -82,10 +82,6 @@ function checkUpdate() {
             <a :href="`mailto:${email}?subject=%5BExCaller%5D%20`">
               <code>{{ email }}</code>
             </a>
-            <br>
-            {{ t('feedback.email-subject.before') }}
-            <code>[ExCaller]</code>
-            {{ t('feedback.email-subject.after') }}
           </li>
         </ul>
 
@@ -154,11 +150,6 @@ en:
     ways: 'You can send feedback through either of the following ways:'
     github: Create an issue on GitHub
     email: Send an email to
-    email-subject:
-      before: Please include
-      after:
-        in the email subject,
-        otherwise the feedback may not be processed in time.
     canary:
       If the problem only occurs in the Canary version,
       please indicate in the feedback.
@@ -179,9 +170,6 @@ zh-CN:
     ways: 通过以下任一方式提交反馈：
     github: 在 GitHub 上创建 issue
     email: 发送邮件到
-    email-subject:
-      before: 请在邮件主题中包含
-      after: ，否则反馈可能无法得到及时处理。
     canary: 如果问题仅出现在 Canary 版本中，请在反馈中注明。
     thanks: 收到反馈后，我们会尽快处理，感谢您的支持。
 </i18n>
