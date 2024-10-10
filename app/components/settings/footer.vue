@@ -69,17 +69,20 @@ function checkUpdate() {
         <p class="mt-0">
           {{ t('feedback.desc') }}
         </p>
-        <p>{{ t('feedback.ways') }}</p>
+        <p>{{ t('feedback.methods') }}</p>
 
         <ul class="line-height-normal">
           <li>
+            <NTag class="mr-1" type="success" size="small">
+              {{ t('feedback.recommended') }}
+            </NTag>
             <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
               {{ t('feedback.github') }}
             </a>
           </li>
           <li>
             {{ t('feedback.email') }}
-            <a :href="`mailto:${email}?subject=%5BExCaller%5D%20`">
+            <a :href="`mailto:${email}`">
               <code>{{ email }}</code>
             </a>
           </li>
@@ -147,7 +150,8 @@ en:
     desc:
       If you have any problems or suggestions while using ExCaller,
       feel free to send feedback to us.
-    ways: 'You can send feedback through either of the following ways:'
+    methods: 'You can send feedback through either of the following ways:'
+    recommended: Recommended
     github: Create an issue on GitHub
     email: Send an email to
     canary:
@@ -167,7 +171,8 @@ zh-CN:
   feedback:
     title: 提交反馈
     desc: 如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。
-    ways: 通过以下任一方式提交反馈：
+    methods: 通过以下任一方式提交反馈：
+    recommended: 推荐
     github: 在 GitHub 上创建 issue
     email: 发送邮件到
     canary: 如果问题仅出现在 Canary 版本中，请在反馈中注明。
