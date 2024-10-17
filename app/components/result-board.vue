@@ -35,11 +35,11 @@ whenever(() => status.value === 'pausing', async (pausing) => {
   await promiseTimeout(1000);
   if (!pausing)
     return;
-  // 播放特效
-  if (props.confetti)
+  // 需要特效则播放特效并等待 1s
+  if (props.confetti) {
     confetti.addConfetti();
-  // 再等待 1s 显示按钮
-  await promiseTimeout(1000);
+    await promiseTimeout(1000);
+  }
   if (!pausing)
     return;
   emit('paused');
@@ -55,10 +55,7 @@ function handlePause() {
 <template>
   <NSpace
     class="h-full items-center"
-    :class="[
-      status === 'pausing' && 'showing-resume',
-      status === 'paused' ? 'select-auto' : 'select-none',
-    ]"
+    :class="status === 'paused' && 'select-text show-resume'"
     vertical
     justify="center"
     @click="handlePause"
@@ -100,7 +97,7 @@ function handlePause() {
 </template>
 
 <style scoped>
-.showing-resume .resume-operators {
+.show-resume .resume-operators {
   animation: show-resume-operators .65s forwards;
 }
 @keyframes show-resume-operators {
