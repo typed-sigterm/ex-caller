@@ -54,7 +54,13 @@ promiseTimeout(1850).then(async () => {
 }
 </style>
 
-<style lang="postcss">
+<style>
+:root {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
