@@ -48,18 +48,34 @@ ex-caller
 
 使用 Git 管理版本。
 
-一个 commit 做一件事，建议添加 GPG 签名，无需添加 `Signoff`。Commit message 遵循[约定式提交 1.0.0](https://www.conventionalcommits.org/zh-hans/v1.0.0/)。
+一个 commit 做一件事，非 CI 的提交必须添加 GPG 签名，无需添加 `Signoff`。Commit message 遵循[约定式提交 1.0.0](https://www.conventionalcommits.org/zh-hans/v1.0.0/)。
 
 每个 tag 代表一个版本，以 `v` 开头，加上版本号，无需 GPG 签名。
 
-有两个常驻分支，除此之外都是用于 PR 的临时分支：
+有 2~3 个常驻分支，除此之外都是用于 PR 的临时分支：
 
 - `main` (default)：最新的代码，可以推送，可以 commit
 - `latest`：最新的已发布稳定版的代码，禁止除 CI 以外的推送
-- `insider`：最新的已发布先行版的点名，禁止除 CI 以外的推送
+- 如果有活跃的先行版的，代码放在 `insider` 分支，禁止除 CI 以外的推送。
 
 常驻分支必须拥有线性历史记录。
 
-版本发布遵循 [SemVer 2.0.0](https://semver.org/lang/zh-CN/)，但是 semver 针对的是 dependencies，所以大部分情况仍然自由心证。
+版本号格式遵循 [SemVer 2.0.0](https://semver.org/lang/zh-CN/)，但是 semver 针对的是 dependencies，所以大部分情况仍然自由心证。
 
 在一个版本发布前，可以在 [Canary 环境](https://main--ex-caller.netlify.app/)查看 `main` 分支上的代码效果。
+
+发版的一般流程如下：
+
+1. 更新 `CHANGELOG.md`
+2. 更新版本号
+  - `package.json` > `version`
+  - `src-tauri/tauri.conf.json` > `version`
+  - `src-tauri/Cargo.toml` > `package` > `version`
+  - `src-tauri/Cargo.lock` > 依赖项 `ex-caller` > `package` > `version`
+3. commit，格式如：`release: v1.0.0`
+4. tag，格式如：`v1.0.0`
+5. push 到 GitHub
+6. 在 GitHub 创建 release，标题如 `ExCaller v1.0.0`，内容为 (1) 中增加的部分
+7. 发布 release 后，构建流程自动启动，等待完成后查看 release assets
+
+如果版本构建失败，则可以继续 commit 以修复问题，并把 tag 更新到最终成功发版的 commit。
