@@ -62,7 +62,8 @@ function handleClose() {
 
       <SettingsEntry
         :title="t('entry.namelist')"
-        :drawer-attrs="{ 'data-guide-id': 'namelist-drawer' }"
+        cache
+        data-guide-id="namelist-drawer"
         @update:show="handleShowOrCloseNamelist"
       >
         <SettingsNamelist />
@@ -80,7 +81,7 @@ function handleClose() {
 
       <SettingsEntry
         :title="t('entry.plan')"
-        :drawer-attrs="{ 'data-guide-id': 'plan-drawer' }"
+        data-guide-id="plan-drawer"
         @update:show="handleShowOrClosePlan"
       >
         <SettingsPlan />
