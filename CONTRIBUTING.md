@@ -6,7 +6,7 @@
 
 前端使用 Nuxt 开发，使用 tauri 打包为独立应用程序。
 
-建议使用 Node.js 20，包管理器使用 pnpm 8。
+工具链版本要求见 [`package.json`](./package.json)。
 
 ## 目录结构
 
@@ -14,36 +14,31 @@
 
 ```
 ex-caller
-├── .nuxt                  // 开发时 Nuxt 自动生成的文件
+├── .nuxt                  // 开发模式 Nuxt 自动生成的文件
 ├── .output                // Nuxt 构建产物
-├── app                    // 用来放首屏的加载中占位文件
-├── app.vue                // Nuxt 应用程序入口
-├── components             // 全局可用的 Nuxt 组件
-├── composables            // 全局可用的 Vue hook
+├── app                    // Nuxt 前端根目录
 ├── dist -> .output/public // Nuxt 构建产物
-├── error.vue              // Nuxt 出现 fatal error 时显示的占位组件
 ├── public                 // 复制到 dist 的文件
 ├── src-tauri              // tauri 相关文件
-│   ├── icons              // 应用程序图标
-│   ├── src                // tauri 相关源代码
-│   └── target             // tauri 构建产物
-└── utils                  // 全局可用的工具函数
+└── static                 // 其他用途的静态文件，不包含在 app 中
 ```
 
 ## 脚本
 
+开始开发之前，需要运行 `pnpm install` 安装依赖。
+
 - 启动 tauri 和 Nuxt 的开发服务器：`pnpm dev`
-- 仅启动 Nuxt 开发服务器 `pnpm dev:web`
+- 仅启动 Nuxt 开发服务器：`pnpm dev:web`
 - 检查代码格式：`pnpm lint`
 - 构建：`pnpm build`
-
-开始开发之前，需要运行 `pnpm install` 安装依赖。
+- 运行类型测试：`pnpm test:types`
+- 运行单元测试：`pnpm test:unit`
 
 ## 代码规范
 
 遵循 [ESLint 配置](./eslint.config.js) 即可。
 
-如果你使用 VSCode，建议安装 .vscode/extensions.json 中的推荐插件，并在 .vscode/settings.json 中写入 [antfu 的推荐设置](https://github.com/antfu/eslint-config?tab=readme-ov-file#vs-code-support-auto-fix)。
+如果你使用 VS Code，建议安装 `.vscode/extensions.json` 中的推荐插件，并在 `.vscode/settings.json` 中写入 [antfu 的推荐设置](https://github.com/antfu/eslint-config?tab=readme-ov-file#vs-code-support-auto-fix)。
 
 ## 测试
 
@@ -60,7 +55,8 @@ ex-caller
 有两个常驻分支，除此之外都是用于 PR 的临时分支：
 
 - `main` (default)：最新的代码，可以推送，可以 commit
-- `latest`：最新的已发布的代码，禁止除 CI 以外的推送
+- `latest`：最新的已发布稳定版的代码，禁止除 CI 以外的推送
+- `insider`：最新的已发布先行版的点名，禁止除 CI 以外的推送
 
 常驻分支必须拥有线性历史记录。
 
