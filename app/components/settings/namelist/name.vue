@@ -32,7 +32,7 @@ function handleRename() {
 <template>
   <div class="w-full">
     <div class="flex">
-      {{ value }}
+      {{ props.value }}
       <NPopconfirm
         :show-icon="false"
         :positive-text="t('rename')"
@@ -59,7 +59,7 @@ function handleRename() {
         @positive-click="$emit('delete')"
       >
         <I18nT keypath="confirm-deletion">
-          {{ value }}
+          {{ props.value }}
         </I18nT>
 
         <template #trigger>
