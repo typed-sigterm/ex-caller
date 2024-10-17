@@ -53,6 +53,7 @@ const loadedSettings = ref(false); // 设置组件是否已经加载完成
 whenever(loadedSettings, () => {
   showSettings.value = true;
 });
+const settingsButtonLoading = computed(() => loadSettings.value && !loadedSettings.value);
 
 async function handleOpenSettings() {
   if (showSettings.value)
@@ -95,7 +96,7 @@ prefetchComponents('LazySettings');
     <template #startExtraOperators>
       <LargeButton
         :type="config.plan.enabled ? 'error' : 'info'"
-        :loading="loadSettings && !loadedSettings"
+        :loading="settingsButtonLoading"
         data-guide-id="settings-button"
         @click="handleOpenSettings"
       >
@@ -108,7 +109,12 @@ prefetchComponents('LazySettings');
     </template>
 
     <template #resumeExtraOperators>
-      <NButton circle @click="handleOpenSettings">
+      <NButton
+        :type="config.plan.enabled ? 'error' : 'default'"
+        :loading="settingsButtonLoading"
+        circle
+        @click="handleOpenSettings"
+      >
         <template #icon>
           <NIcon :size="18">
             <LucideSettings :stroke-width="1.8" />
