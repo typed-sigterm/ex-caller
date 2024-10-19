@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { RenderFunction } from 'vue';
-
 defineSlots<{
   /** 触发弹窗的操作，发出 `click` 事件时打开弹窗 */
   default: () => any
