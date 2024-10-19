@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-defineProps<{
-  /** 弹窗标题 */
-  modalTitle: string
-}>();
+import type { RenderFunction } from 'vue';
+
 defineSlots<{
   /** 触发弹窗的操作，发出 `click` 事件时打开弹窗 */
   default: () => any
-  /** 弹窗内容 */
+  modalTitle?: () => any
   modalContent: () => any
 }>();
 
@@ -22,7 +20,7 @@ const showModal = defineModel<boolean>('showModal');
     v-model:show="showModal"
     class="link-to-modal-modal"
     preset="card"
-    :title="modalTitle"
+    :title="$slots.modalTitle"
   >
     <NScrollbar class="scroll-view">
       <slot name="modalContent" />

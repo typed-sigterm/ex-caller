@@ -48,11 +48,12 @@ function checkUpdate() {
 
     <NDivider vertical />
 
-    <LinkToModal
-      :modal-title="t('changelog-title')"
-      @click="loadChangelog = true"
-    >
+    <LinkToModal @click="loadChangelog = true">
       {{ t('changelog') }}
+      <template #modalTitle>
+        <LucideHistory class="v-bottom" :size="22" />
+        {{ t('changelog-title') }}
+      </template>
       <template #modalContent>
         <LazyChangelog v-if="loadChangelog" />
       </template>
@@ -60,11 +61,12 @@ function checkUpdate() {
 
     <NDivider vertical />
 
-    <LinkToModal
-      v-model:show-modal="showFeedback"
-      :modal-title="t('feedback.title')"
-    >
+    <LinkToModal v-model:show-modal="showFeedback">
       {{ t('feedback.title') }}
+      <template #modalTitle>
+        <LucideMessageSquare class="v-bottom" :size="22" />
+        {{ t('feedback.title') }}
+      </template>
       <template #modalContent>
         <p class="mt-0">
           {{ t('feedback.desc') }}
@@ -73,8 +75,11 @@ function checkUpdate() {
 
         <ul class="line-height-normal">
           <li>
-            <NTag class="mr-1" type="success" size="small">
+            <NTag class="mr-1 v-middle" type="success" size="small">
               {{ t('feedback.recommended') }}
+              <template #icon>
+                <LucideStar :size="12" />
+              </template>
             </NTag>
             <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
               {{ t('feedback.github') }}
