@@ -102,7 +102,7 @@ function checkUpdate() {
       </template>
     </LinkToModal>
 
-    <NDivider v-if="__APP__" vertical />
+    <NDivider v-if="__APP__ || __GA__" vertical />
 
     <NButton
       v-if="__APP__"
@@ -111,6 +111,14 @@ function checkUpdate() {
       @click="checkUpdate"
     >
       {{ checkingUpdate ? '' : t('check-update') }}
+    </NButton>
+
+    <NButton
+      v-else-if="__GA__"
+      text
+      @click="navigateTo('/update', { open: { target: '_blank' } })"
+    >
+      下载 App
     </NButton>
   </div>
 
