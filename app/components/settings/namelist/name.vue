@@ -80,7 +80,7 @@ function handleRename() {
 <i18n lang="yaml">
 en:
   rename: Rename
-  confirm-deletion-title: Confirm Deletion
+  confirm-deletion-title: Delete
   confirm-deletion:
     Confirm deleting namelist {0}? This action cannot be undone!
   name-duplicated: Duplicated with existing name
