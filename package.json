@@ -12,7 +12,7 @@
     "url": "https://github.com/typed-sigterm/ex-caller"
   },
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "scripts": {
     "build": "pnpm build:web && pnpm build:app",
