@@ -36,11 +36,11 @@ function checkUpdate() {
 
 <template>
   <div class="flex items-center">
-    <LinkToModal
-      :modal-title="t('3rd-party-licenses-title')"
-      @click="loadLicenses = true"
-    >
+    <LinkToModal @click="loadLicenses = true">
       {{ t('3rd-party-licenses') }}
+      <template #modalTitle>
+        {{ t('3rd-party-licenses-title') }}
+      </template>
       <template #modalContent>
         <LazyLicenses v-if="loadLicenses" />
       </template>
