@@ -45,6 +45,9 @@ export default defineNuxtConfig({
         plugins: [PostcssPresetEnv()],
       },
     },
+    optimizeDeps: {
+      include: ['xlsx'], // 动态导入的库
+    },
     plugins: [
       Markdown({
         markdownItOptions: {
