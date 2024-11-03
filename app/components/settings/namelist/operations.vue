@@ -1,25 +1,34 @@
 <script lang="ts" setup>
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
-const names = defineModel<RollCallOption[]>('names', { required: true });
-const currentNamelist = computed(() => useConfigStore().namelist);
+const emit = defineEmits<{
+  switchNamelist: [namelist: string]
+}>();
+
+const config = useConfigStore();
+const namelist = useNamelistStore();
 const { t } = useI18n({ useScope: 'local' });
 
-const limited = computed(
-  () => useNamelistStore().namelist.length >= MAX_NAMELIST_COUNT,
-);
+const limited = computed(() => namelist.namelist.length >= MAX_NAMELIST_COUNT);
 
 const showBatchInput = ref(false);
 const showImportExcel = ref(false);
 
-function handleImportDone(items: string[]) {
-  names.value.push(...items);
+function handleImportDone(addTo: string, items: string[]) {
+  if (addTo === '\0') {
+    const name = generateNewNamelistName();
+    namelist.add(name, items);
+    emit('switchNamelist', name);
+  } else {
+    useNamelist(addTo).value.push(...items);
+    emit('switchNamelist', addTo);
+  }
 }
 
 const exporting = ref(false);
 async function handleExport() {
   exporting.value = true;
-  await exportNamelistToText(currentNamelist.value).catch((e) => {
+  await exportNamelistToText(config.namelist).catch((e) => {
     console.error(e);
     alertError(e);
   });

@@ -4,8 +4,8 @@
  * 对名单的更改会自动持久化。
  * @returns 名单名称；名单对象；删除名单时需调用的清理函数
  */
-function createNamelist(name: string, options?: RollCallOption[]) {
-  const namelist = ref(options ?? structuredClone(DEFAULT_NAMELIST_OPTIONS));
+function createNamelist(name: string, options: RollCallOption[]) {
+  const namelist = ref(options);
   const stop = watchImmediate(namelist, (v) => { // 持久化，立即执行是为了初始化
     setStoredNamelist(name, v);
   });
@@ -34,9 +34,13 @@ export const useNamelistStore = defineStore('namelist', {
     /**
      * 添加名单。
      * @param name 名单名称，不填则自动生成
+     * @param options 名单内容，不填则使用默认值
      * @returns 名单对象
      */
-    add(name: string = generateNewNamelistName(), options?: RollCallOption[]) {
+    add(
+      name: string = generateNewNamelistName(),
+      options?: RollCallOption[] = structuredClone(DEFAULT_NAMELIST_OPTIONS),
+    ) {
       const namelist = createNamelist(name, options);
       this.data.push(namelist);
       return namelist[1]; // .namelist

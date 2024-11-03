@@ -1,25 +1,37 @@
 <script lang="ts" setup>
 const emit = defineEmits<{
-  /** 输入完成 */
-  (ev: 'done', names: string[]): void
+  done: [addTo: string, names: string[]]
 }>();
-/** 是否显示 */
 const show = defineModel<boolean>('show', { required: true });
 
 const { t } = useI18n({ useScope: 'local' });
 
+const step = ref<'input' | 'select'>('input');
 const input = ref('');
-function handleOk() {
-  const names = input.value
-    .split('\n')
-    .map(v => v.trim())
-    .filter(Boolean); // 去除空元素
-  if (names.length >= MAX_NAMELIST_MEMBER_COUNT) {
-    ui.message.error('名单数量已达上限');
-    return;
-  }
+const items = ref<string[]>([]);
+const addTo = ref('\0');
 
-  emit('done', names);
+function cleanup() {
+  step.value = 'input';
+  input.value = '';
+  items.value = [];
+  addTo.value = '\0';
+}
+
+function handleOk() {
+  if (step.value === 'input') {
+    items.value = input.value
+      .split('\n')
+      .map(v => v.trim())
+      .filter(Boolean); // 去除空元素
+    if (items.value.length)
+      step.value = 'select';
+    else
+      ui.message.error(t('empty-input'));
+    return false;
+  } else {
+    emit('done', addTo.value, items.value);
+  }
 }
 </script>
 
@@ -29,12 +41,20 @@ function handleOk() {
     preset="dialog"
     :title="t('title')"
     :close-on-esc="false"
-    :positive-text="$t('confirm')"
+    :positive-text="step === 'input' ? $t('next-step') : $t('confirm')"
     :negative-text="$t('cancel')"
     @positive-click="handleOk"
+    @after-leave="cleanup"
   >
-    <NP>{{ t('tip') }}</NP>
-    <NInput v-model:value="input" type="textarea" />
+    <template v-if="step === 'input'">
+      <NP>{{ t('tip') }}</NP>
+      <NInput v-model:value="input" type="textarea" />
+    </template>
+
+    <template v-else>
+      <NP>把输入的 {{ items.length }} 个名字导入到名单：</NP>
+      <SettingsNamelistSelector v-model="addTo" />
+    </template>
 
     <template #icon>
       <LucideNotebookTabs />
@@ -49,9 +69,11 @@ en:
     One name per line,
     automatically remove leading and trailing spaces and empty lines.
   confirm: Confirm & Add namelist
+  empty-input: Please input names
 
 zh-CN:
   title: 批量输入
   tip: 每行一个名字，自动去除头尾的空格和空行。
   confirm: 确认
+  empty-input: 请输入需要添加的名字
 </i18n>

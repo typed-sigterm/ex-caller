@@ -81,7 +81,7 @@ function handleAddNamelist() {
     show-sort-button
   />
 
-  <SettingsNamelistOperations v-model:names="names" />
+  <SettingsNamelistOperations @switch-namelist="(name) => config.namelist = name" />
 </template>
 
 <style scoped>

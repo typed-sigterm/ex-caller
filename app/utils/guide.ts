@@ -24,10 +24,10 @@ export function createDriver(config?: Config) {
   const { $i18n } = useNuxtApp();
   return driver({
     showProgress: true,
-    nextBtnText: $i18n.t('nextStep'),
-    prevBtnText: $i18n.t('prevStep'),
+    nextBtnText: $i18n.t('next-step'),
+    prevBtnText: $i18n.t('prev-step'),
     doneBtnText: $i18n.t('done'),
-    progressText: $i18n.t('progressTemplate', ['{{current}}', '{{total}}']),
+    progressText: $i18n.t('progress-template', ['{{current}}', '{{total}}']),
     ...config,
   });
 }

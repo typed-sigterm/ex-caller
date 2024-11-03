@@ -1,11 +1,11 @@
 import type { I18nRequiedText } from './utils';
 
 export default {
-  confirm: '确定',
-  cancel: '取消',
-  done: '完成',
-  error: '错误',
-  guide: {
+  'confirm': '确定',
+  'cancel': '取消',
+  'done': '完成',
+  'error': '错误',
+  'guide': {
     welcome: [
       { title: '欢迎使用 ExCaller', description: '这是一个简约风格的随机点名工具。' },
       { title: '开始点名', description: '点击绿色按钮开始点名。' },
@@ -25,7 +25,7 @@ export default {
       { title: '不过为了防止滥用', description: '启用计划后，设置按钮会变成红色。' },
     ],
   },
-  nextStep: '下一步',
-  prevStep: '上一步',
-  progressTemplate: '步骤 {0} / {1}',
+  'next-step': '下一步',
+  'prev-step': '上一步',
+  'progress-template': '步骤 {0} / {1}',
 } satisfies I18nRequiedText;

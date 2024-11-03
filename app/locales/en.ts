@@ -1,11 +1,11 @@
 import type { I18nRequiedText } from './utils';
 
 export default {
-  confirm: 'Confirm',
-  cancel: 'Cancel',
-  error: 'Error',
-  done: 'Done',
-  guide: {
+  'confirm': 'Confirm',
+  'cancel': 'Cancel',
+  'error': 'Error',
+  'done': 'Done',
+  'guide': {
     welcome: {
       0: { title: 'Welcome to ExCaller', description: 'This is a simple random call tool.' },
       1: { title: 'Start calling', description: 'Click the green button to start calling.' },
@@ -25,7 +25,7 @@ export default {
       1: { title: 'But to prevent abuse', description: 'After enabling the plan feature, the settings button will turn red.' },
     },
   },
-  nextStep: 'Next',
-  prevStep: 'Prev',
-  progressTemplate: 'Step {0} / {1}',
+  'next-step': 'Next',
+  'prev-step': 'Prev',
+  'progress-template': 'Step {0} / {1}',
 } satisfies I18nRequiedText;
