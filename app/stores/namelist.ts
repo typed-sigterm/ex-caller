@@ -39,7 +39,7 @@ export const useNamelistStore = defineStore('namelist', {
      */
     add(
       name: string = generateNewNamelistName(),
-      options?: RollCallOption[] = structuredClone(DEFAULT_NAMELIST_OPTIONS),
+      options: RollCallOption[] = structuredClone(DEFAULT_NAMELIST_OPTIONS),
     ) {
       const namelist = createNamelist(name, options);
       this.data.push(namelist);
