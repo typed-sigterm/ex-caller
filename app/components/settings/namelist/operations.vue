@@ -2,7 +2,7 @@
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
 const names = defineModel<RollCallOption[]>('names', { required: true });
-const currentNamelist = useConfigStore().namelist;
+const currentNamelist = computed(() => useConfigStore().namelist);
 const { t } = useI18n({ useScope: 'local' });
 
 const limited = computed(
@@ -10,8 +10,8 @@ const limited = computed(
 );
 
 const showBatchInput = ref(false);
-
 const showImportExcel = ref(false);
+
 function handleImportDone(items: string[]) {
   names.value.push(...items);
 }
@@ -19,7 +19,7 @@ function handleImportDone(items: string[]) {
 const exporting = ref(false);
 async function handleExport() {
   exporting.value = true;
-  await exportNamelistToText(currentNamelist).catch((e) => {
+  await exportNamelistToText(currentNamelist.value).catch((e) => {
     console.error(e);
     alertError(e);
   });
