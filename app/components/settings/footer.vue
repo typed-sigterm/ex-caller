@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import IconGitHub from '~icons/ant-design/github-filled';
-import avatarTypedSigterm from '~/assets/typed-sigterm.png';
+import avatarTypedSigterm from '~/assets/typed-sigterm.png?inline';
 
 const { t } = useI18n({ useScope: 'local' });
 
