@@ -11,11 +11,11 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version-file: package.json
           cache: pnpm
@@ -23,7 +23,7 @@ jobs:
 
       - name: 检查版本稳定性
         id: check-stability
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         with:
           script: |
             const { prerelease } = require('semver');
@@ -70,16 +70,16 @@ jobs:
           # i686-apple-darwin 在 Rust 平台支持的 Tier 3，不一定能正常工作，所以不支持
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version-file: package.json
           cache: pnpm
 
       - name: 获取 release ID
         id: get-release
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
         with:
           script: |
             const [owner, repo] = process.env.REPO.split('/');
@@ -95,12 +95,12 @@ jobs:
           REPO: ${{ github.repository }}
 
       - name: 安装工具链
-        uses: actions-rust-lang/setup-rust-toolchain@v1
+        uses: actions-rust-lang/setup-rust-toolchain@11df97af8e8102fd60b60a77dfbf58d40cd843b8 # v1
         with:
           target: ${{ matrix.install || matrix.target }}
 
       - name: 缓存依赖
-        uses: swatinem/rust-cache@v2
+        uses: swatinem/rust-cache@82a92a6e8fbeee089604da2575dc567ae9ddeaab # v2
         with:
           workspaces: ./src-tauri -> target
 
@@ -110,7 +110,7 @@ jobs:
         run: pnpm build:web
 
       - name: 构建与发布安装包
-        uses: tauri-apps/tauri-action@v0.5
+        uses: tauri-apps/tauri-action@8c3e0753aa015d00d03631d6d4f64ad59489251d # v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
