@@ -30,7 +30,7 @@
     "@iconify-json/ant-design": "^1.2.1",
     "@iconify-json/ep": "^1.2.0",
     "@iconify-json/vscode-icons": "^1.2.2",
-    "@nuxtjs/i18n": "^8.5.5",
+    "@nuxtjs/i18n": "^9.0.0",
     "@pinia/nuxt": "^0.6.0",
     "@tauri-apps/api": "2.0.3",
     "@tauri-apps/plugin-dialog": "2.0.1",
