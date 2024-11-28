@@ -11,9 +11,6 @@
     "type": "git",
     "url": "https://github.com/typed-sigterm/ex-caller"
   },
-  "engines": {
-    "node": "20"
-  },
   "scripts": {
     "build": "pnpm build:web && pnpm build:app",
     "build:app": "tauri build",
