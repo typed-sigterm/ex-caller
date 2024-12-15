@@ -52,7 +52,6 @@
     "happy-dom": "^15.11.7",
     "mock-local-storage": "^1.1.24",
     "npm-run-all2": "^7.0.1",
-    "typescript": "^5.7.2",
     "vitest": "^2.1.8",
     "vue-tsc": "^2.1.10"
   },
