@@ -2,9 +2,9 @@ name: autofix.ci # needed to securely identify the workflow
 
 on:
   pull_request:
+    branches: [main]
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
@@ -15,14 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
         with:
-          node-version-file: package.json
-          cache: pnpm
+          bun-version-file: .tool-versions
 
-      - run: pnpm i
-      - run: pnpm lint --fix
+      - run: bun i
+      - run: bun run lint --fix
 
       - uses: autofix-ci/action@2891949f3779a1cafafae1523058501de3d4e944 # v1.3.1
         if: always()
