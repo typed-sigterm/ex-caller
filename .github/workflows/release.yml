@@ -4,22 +4,20 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   sync-latest-branch:
     name: 同步 latest 分支
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
         with:
-          node-version-file: package.json
-          cache: pnpm
-      - run: pnpm i
+          bun-version-file: .tool-versions
 
       - name: 检查版本稳定性
         id: check-stability
@@ -46,13 +44,11 @@ jobs:
 
       - name: 删除 insider 分支
         if: steps.check-stability.outputs.result == 'true'
-        run: |
-          git push origin -d insider || true
+        run: git push origin -d insider
+        continue-on-error: true
 
   release:
     name: 发布更新包
-    permissions:
-      contents: write
     runs-on: ${{ matrix.platform }}
     needs: sync-latest-branch
 
@@ -71,11 +67,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
         with:
-          node-version-file: package.json
-          cache: pnpm
+          bun-version-file: .tool-versions
 
       - name: 获取 release ID
         id: get-release
@@ -105,9 +99,9 @@ jobs:
           workspaces: ./src-tauri -> target
 
       - name: 安装 Web 端依赖
-        run: pnpm i
+        run: bun i
       - name: 构建 Web 端
-        run: pnpm build:web
+        run: bun run build:web
 
       - name: 构建与发布安装包
         uses: tauri-apps/tauri-action@ecd2eff64572601ddde25cc4962c2704435736e9 # v0.5

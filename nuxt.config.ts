@@ -1,8 +1,8 @@
 import type Token from 'markdown-it/lib/token.mjs';
-import Markdown from 'unplugin-vue-markdown/vite';
 // @ts-expect-error untyped
 import MarkdownItInline from 'markdown-it-for-inline';
 import PostcssPresetEnv from 'postcss-preset-env';
+import Markdown from 'unplugin-vue-markdown/vite';
 
 export default defineNuxtConfig({
   future: {

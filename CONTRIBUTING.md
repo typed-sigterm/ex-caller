@@ -25,14 +25,14 @@ ex-caller
 
 ## 脚本
 
-开始开发之前，需要运行 `pnpm install` 安装依赖。
+开始开发之前，需要运行 `bun i` 安装依赖。
 
-- 启动 tauri 和 Nuxt 的开发服务器：`pnpm dev`
-- 仅启动 Nuxt 开发服务器：`pnpm dev:web`
-- 检查代码格式：`pnpm lint`
-- 构建：`pnpm build`
-- 运行类型测试：`pnpm test:types`
-- 运行单元测试：`pnpm test:unit`
+- 启动 tauri 和 Nuxt 的开发服务器：`bun run dev`
+- 仅启动 Nuxt 开发服务器：`bun run dev:web`
+- 检查代码格式：`bun lint`
+- 构建：`bun run build`
+- 运行类型测试：`bun run test:types`
+- 运行单元测试：`bun run test:unit`
 
 ## 代码规范
 
@@ -67,11 +67,7 @@ ex-caller
 发版的一般流程如下：
 
 1. 更新 `CHANGELOG.md`
-2. 更新版本号
-  - `package.json` > `version`
-  - `src-tauri/tauri.conf.json` > `version`
-  - `src-tauri/Cargo.toml` > `package` > `version`
-  - `src-tauri/Cargo.lock` > 依赖项 `ex-caller` > `package` > `version`
+2. 更新版本号（`src-tauri/tauri.conf.json` > `version`）
 3. commit，格式如：`release: v1.0.0`
 4. tag，格式如：`v1.0.0`
 5. push 到 GitHub
