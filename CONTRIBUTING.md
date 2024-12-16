@@ -62,7 +62,7 @@ ex-caller
 
 版本号格式遵循 [SemVer 2.0.0](https://semver.org/lang/zh-CN/)，但是 semver 针对的是 dependencies，所以大部分情况仍然自由心证。
 
-在一个版本发布前，可以在 [Canary 环境](https://main--ex-caller.netlify.app/)查看 `main` 分支上的代码效果。
+在一个版本发布前，可以在 [Canary 环境](https://main.ex-caller.by-ts.top)查看 `main` 分支上的代码效果。
 
 发版的一般流程如下：
 
