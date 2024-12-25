@@ -43,7 +43,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^3.12.0",
     "@nuxt/test-utils": "^3.15.1",
-    "@tauri-apps/cli": "2.1.0",
+    "@tauri-apps/cli": "^2.1.0",
     "@typed-sigterm/eslint-config": "^1.4.0",
     "@types/markdown-it": "^14.1.2",
     "@types/semver": "^7.5.8",
