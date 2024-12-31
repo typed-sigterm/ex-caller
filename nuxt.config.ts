@@ -24,6 +24,13 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'ExCaller',
+      meta: [
+        { name: 'browermode', content: 'application' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' },
+        { name: 'screen-orientation', content: 'landscape' },
+        { name: 'x5-orientation', content: 'landscape' },
+        { name: 'x5-page-mode', content: 'app' },
+      ],
     },
   },
 
