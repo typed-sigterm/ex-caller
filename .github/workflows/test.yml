@@ -15,7 +15,7 @@ jobs:
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
         with:
           bun-version-file: .tool-versions
-      - run: bun i
+      - run: bun i --forzen-lockfile
       - run: bun run test:unit
 
   type-check:
@@ -26,5 +26,5 @@ jobs:
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
         with:
           bun-version-file: .tool-versions
-      - run: bun i
+      - run: bun i --forzen-lockfile
       - run: bun run test:types

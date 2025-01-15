@@ -4,7 +4,6 @@ import avatarTypedSigterm from '~/assets/typed-sigterm.png';
 
 const { t } = useI18n({ useScope: 'local' });
 
-const loadLicenses = ref(false);
 const loadChangelog = ref(false);
 
 const email = ref('');
@@ -36,18 +35,6 @@ function checkUpdate() {
 
 <template>
   <div class="flex items-center">
-    <LinkToModal @click="loadLicenses = true">
-      {{ t('3rd-party-licenses') }}
-      <template #modalTitle>
-        {{ t('3rd-party-licenses-title') }}
-      </template>
-      <template #modalContent>
-        <LazyLicenses v-if="loadLicenses" />
-      </template>
-    </LinkToModal>
-
-    <NDivider vertical />
-
     <LinkToModal @click="loadChangelog = true">
       {{ t('changelog') }}
       <template #modalTitle>
@@ -152,8 +139,6 @@ function checkUpdate() {
 
 <i18n lang="yaml">
 en:
-  3rd-party-licenses: OSS Licenses
-  3rd-party-licenses-title: Third-party Open Source Licenses
   changelog: Changelog
   changelog-title: ExCaller Changelog
   check-update: Check Update
@@ -175,8 +160,6 @@ en:
       Thank you for your support.
 
 zh-CN:
-  3rd-party-licenses: 开放源代码许可
-  3rd-party-licenses-title: ExCaller 开放源代码许可
   changelog: 更新记录
   changelog-title: ExCaller 更新记录
   check-update: 检查更新
