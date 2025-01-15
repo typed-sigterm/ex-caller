@@ -28,7 +28,7 @@ promiseTimeout(1500).then(() => loading.value = false);
 promiseTimeout(1850).then(async () => {
   bus.emit('login');
   show.value = true;
-  alertOrientation();
+  await alertOrientation();
   await triggerWelcomeGuide();
   bus.emit('check-update');
 });
