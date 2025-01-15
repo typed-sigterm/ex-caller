@@ -105,7 +105,7 @@ function checkUpdate() {
       text
       @click="navigateTo('/update', { open: { target: '_blank' } })"
     >
-      下载 App
+      {{ t('download-app') }}
     </NButton>
   </div>
 
@@ -142,6 +142,7 @@ en:
   changelog: Changelog
   changelog-title: ExCaller Changelog
   check-update: Check Update
+  download-app: Download App
   no-update: Already up to date
   feedback:
     title: Send Feedback
@@ -163,6 +164,7 @@ zh-CN:
   changelog: 更新记录
   changelog-title: ExCaller 更新记录
   check-update: 检查更新
+  download-app: 下载 App
   no-update: 已是最新版本
   feedback:
     title: 提交反馈
