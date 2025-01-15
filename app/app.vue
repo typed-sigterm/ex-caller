@@ -21,7 +21,7 @@ const locale = computed(() => {
 });
 
 const { orientation } = useScreenOrientation();
-const incorrectOrientation = computed(() => orientation.value?.startsWith('portrait') || 1);
+const incorrectOrientation = computed(() => orientation.value?.startsWith('portrait'));
 
 // 动画和事件
 promiseTimeout(1500).then(() => loading.value = false);
