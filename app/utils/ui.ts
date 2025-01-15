@@ -1,8 +1,9 @@
 import type { Guide } from './guide';
 import JSConfetti from 'js-confetti';
 
-export const DRAWER_DEFAULT_WIDTH = 450;
-export const DRAWER_MIN_WIDTH = 450;
+const fontSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
+export const DRAWER_DEFAULT_WIDTH = 28 * fontSize;
+export const DRAWER_MIN_WIDTH = DRAWER_DEFAULT_WIDTH;
 
 /** 判断是否应该开始教程。 */
 export function shouldStartGuide(key: keyof Guide) {
