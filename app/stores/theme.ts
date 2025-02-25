@@ -1,4 +1,4 @@
-import { BaseDirectory, writeFile } from '@tauri-apps/plugin-fs';
+import { writeFile } from '@tauri-apps/plugin-fs';
 
 export const THEME_DEFAULT_PROPERTIES = {
   backgroundRolling: {
