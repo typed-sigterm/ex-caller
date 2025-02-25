@@ -1,15 +1,14 @@
 import type { DialogFilter } from '@tauri-apps/plugin-dialog';
-import type { BaseDirectory } from '@tauri-apps/plugin-fs';
 import { desktopDir, resolve } from '@tauri-apps/api/path';
 import { save } from '@tauri-apps/plugin-dialog';
-import {
-  exists,
-  mkdir,
-  readFile,
-  remove,
-  writeFile,
-} from '@tauri-apps/plugin-fs';
+import { BaseDirectory, exists, mkdir, readFile, remove, writeFile } from '@tauri-apps/plugin-fs';
 import { promiseTimeout } from '@vueuse/core';
+
+export async function getDataDir() {
+  return await isPortable()
+    ? BaseDirectory.Resource
+    : BaseDirectory.AppData;
+}
 
 export interface SaveFileOptions {
   defaultPath?: string
@@ -109,4 +108,28 @@ export async function loadLocalFile(
   const rm = () => remove(path, { baseDir });
 
   return { blob, url, revoke, rm };
+}
+
+/** Portable 模式下，读取数据文件，更新到 localStorage */
+export async function initPortable() {
+  const fileData = await readPortableData();
+  const localData = Object.fromEntries(Object.entries(localStorage));
+  const keys = new Set<string>();
+  for (const k of Object.keys(fileData))
+    keys.add(k);
+  for (const k of Object.keys(localData))
+    keys.add(k);
+
+  for (const key of keys) {
+    if (key in fileData) // 同步添加/修改字段
+      localStorage.setItem(key, fileData[key]);
+    else // 同步删除字段
+      localStorage.removeItem(key);
+  }
+
+  window.addEventListener('storage', (ev) => {
+    if (ev.storageArea !== localStorage)
+      return;
+    writePortableData(Object.fromEntries(Object.entries(localStorage)));
+  });
 }

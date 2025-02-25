@@ -1,3 +1,4 @@
+import { invoke } from '@tauri-apps/api/core';
 import { z } from 'zod';
 
 export const UserConfigSchema = z.object({
@@ -19,6 +20,9 @@ export const UserConfigSchema = z.object({
 /** 用户配置 */
 export type UserConfig = z.infer<typeof UserConfigSchema>;
 
+export const CONFIG_LOCALSTORAGE_KEY = 'config';
+export const PORTABLE_DATA_FILE = './data.json';
+
 export const MAX_NAMELIST_NAME_LENGTH = 50;
 export const MAX_NAMELIST_COUNT = 100;
 export const MAX_NAMELIST_MEMBER_COUNT = 10000;
@@ -39,3 +43,17 @@ export const DEFAULT_NAMELIST_OPTIONS: RollCallOption[] = [
   'Igallta',
   'Samuelle',
 ];
+
+export async function getRawConfigSnapshot() {
+  if (__APP__ && await isPortable()) // tree-shake
+    return await invoke<string>('read_file', { path: PORTABLE_DATA_FILE });
+  else
+    return localStorage.getItem(CONFIG_LOCALSTORAGE_KEY);
+}
+
+export async function clearConfig() {
+  if (__APP__ && await isPortable()) // tree-shake
+    await writePortableData('{}');
+  else
+    localStorage.setItem(CONFIG_LOCALSTORAGE_KEY, '{}');
+}

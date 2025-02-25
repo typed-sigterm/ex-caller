@@ -3,6 +3,7 @@ import IconGitHub from '~icons/ant-design/github-filled';
 import avatarTypedSigterm from '~/assets/typed-sigterm.png';
 
 const { t } = useI18n({ useScope: 'local' });
+const portable = await isPortable();
 
 const loadChangelog = ref(false);
 
@@ -30,6 +31,12 @@ function checkUpdate() {
   };
   bus.on('update-checked', handleUpdateChecked);
   bus.emit('check-update');
+}
+
+function downloadApp() {
+  const url = new URL(WEB_APP_URL);
+  url.pathname = '/update';
+  window.open(url.toString(), '_blank');
 }
 </script>
 
@@ -89,24 +96,19 @@ function checkUpdate() {
       </template>
     </LinkToModal>
 
-    <NDivider v-if="__APP__ || __GA__" vertical />
+    <template v-if="__APP__ && __GA__">
+      <NDivider vertical />
+      <NButton text :loading="checkingUpdate" @click="checkUpdate">
+        {{ checkingUpdate ? '' : t('check-update') }}
+      </NButton>
+    </template>
 
-    <NButton
-      v-if="__APP__"
-      text
-      :loading="checkingUpdate"
-      @click="checkUpdate"
-    >
-      {{ checkingUpdate ? '' : t('check-update') }}
-    </NButton>
-
-    <NButton
-      v-else-if="__GA__"
-      text
-      @click="navigateTo('/update', { open: { target: '_blank' } })"
-    >
-      {{ t('download-app') }}
-    </NButton>
+    <template v-if="(!__APP__ || portable) && __GA__">
+      <NDivider v-if="__APP__ || __GA__" vertical />
+      <NButton text @click="downloadApp">
+        {{ t('download-app') }}
+      </NButton>
+    </template>
   </div>
 
   <div class="flex items-center mt-2" style="color: #86909c;">

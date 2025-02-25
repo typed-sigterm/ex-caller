@@ -19,13 +19,13 @@ export const useThemeStore = defineStore('theme', {
   actions: {
     /** 初始化。 */
     async init() {
-      await tryMkdirRecursive('theme', BaseDirectory.AppData);
+      await tryMkdirRecursive('theme', await getDataDir());
 
       // store 内修改同步到本地文件
       const localProps = await useJsonFile(
         this.properties,
         'theme/properties.json',
-        BaseDirectory.AppData,
+        await getDataDir(),
       );
       this.properties = localProps.value;
       watchDeep(() => this.properties, v => localProps.value = v);
@@ -66,7 +66,7 @@ export const useThemeStore = defineStore('theme', {
         await writeFile(
           `theme/${name}`,
           data,
-          { baseDir: BaseDirectory.AppData },
+          { baseDir: await getDataDir() },
         );
       }
       await this.refresh([name]);

@@ -4,7 +4,9 @@ import type {
 import type {
   MessageApiInjection,
 } from 'naive-ui/es/message/src/MessageProvider';
-import { isTauri } from '@tauri-apps/api/core';
+import { invoke, isTauri } from '@tauri-apps/api/core';
+import { resolveResource } from '@tauri-apps/api/path';
+import { BaseDirectory, exists } from '@tauri-apps/plugin-fs';
 import { reactive } from 'vue';
 import { version } from '~~/src-tauri/tauri.conf.json';
 
@@ -28,6 +30,15 @@ export const VERSION = __GA__
 
 /** 是否独立 App 环境 */
 export const __APP__ = !import.meta.env.EXC_NO_APP && isTauri();
+
+let _isPortable: boolean | undefined;
+export async function isPortable() {
+  if (_isPortable !== undefined)
+    return _isPortable;
+  return _isPortable = !__DEV__ && !await exists('installed', {
+    baseDir: BaseDirectory.Resource,
+  });
+}
 
 export const ui = reactive({} as {
   dialog: DialogApiInjection
@@ -66,3 +77,15 @@ export function switchLanguage(i18n: ReturnType<typeof useI18n>, lang: string) {
 }
 
 export const DEFAULT_MIME_TYPE = 'application/octet-stream';
+
+export async function readPortableData() {
+  return JSON.parse(await invoke('read_file', {
+    path: await resolveResource(PORTABLE_DATA_FILE),
+  }) || '{}');
+}
+export async function writePortableData(data: unknown) {
+  return invoke<void>('write_file', {
+    path: await resolveResource(PORTABLE_DATA_FILE),
+    content: JSON.stringify(data),
+  });
+}

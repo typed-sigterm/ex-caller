@@ -15,10 +15,17 @@ const showClearConfig = ref(false);
 const clearingConfig = ref(false);
 async function handleClearConfig() {
   clearingConfig.value = true;
-  if (await saveFile('ex-caller.config.json', JSON.stringify(localStorage))) {
-    localStorage.clear();
-    location.reload();
-  } else { // 用户取消
+  try {
+    const config = await getRawConfigSnapshot() ?? '';
+    if (await saveFile('ex-caller.config.json', config)) {
+      await clearConfig();
+      location.reload();
+    } else { // 用户取消
+      clearingConfig.value = false;
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    window.alert(String(e));
     clearingConfig.value = false;
   }
 }
@@ -54,7 +61,7 @@ async function handleClearConfig() {
 
   <div class="w-full h-full flex justify-center items-center">
     <NResult status="500" :title="t('title')">
-      <pre class="text-left">{{ error }}</pre>
+      <pre class="error-message">{{ error }}</pre>
       <template #footer>
         <NSpace style="justify-content: center;">
           <NButton type="primary" @click="handleRefresh">
@@ -75,6 +82,17 @@ async function handleClearConfig() {
   text-align: center;
   margin: 0 auto;
   margin-top: 4px;
+}
+
+.error-message {
+  user-select: all;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 0 5vw;
 }
 </style>
 

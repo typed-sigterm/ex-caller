@@ -100,13 +100,34 @@ jobs:
 
       - name: 安装 Web 端依赖
         run: bun i --forzen-lockfile
-      - name: 构建 Web 端
-        run: bun run build:web
 
-      - name: 构建与发布安装包
+      - id: publish
+        name: 构建与发布安装包
         uses: tauri-apps/tauri-action@ecd2eff64572601ddde25cc4962c2704435736e9 # v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ steps.get-release.outputs.result }}
-          args: --target ${{matrix.target}}
+          args: --target ${{ matrix.target }}
+
+      - id: portable
+        name: 提取便携式可执行文件
+        if: contains(matrix.target, 'windows')
+        shell: pwsh
+        run:
+          $bits = if ('${{ matrix.target }}' -match 'i686') { 'x86' } else { 'x64' }
+          $name = "ExCaller_${{ steps.publish.outputs.appVersion }}_${bits}_portable"
+          mkdir $name
+          mv ./src-tauri/target/release/ex-caller.exe ./$name/ExCaller.exe
+          echo "{}" > ./$name/data.json
+          Compress-Archive -Path ./$name -DestinationPath ./$name.zip
+          echo "file=$name.zip" >> "$GITHUB_OUTPUT"
+
+      - name: 上传便携式可执行文件
+        if: contains(matrix.target, 'windows')
+        uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
+        with:
+          upload_url: ${{ steps.get-release.outputs.upload_url }}
+          asset_path: ${{ steps.portable.outputs.file }}
+          asset_name: ${{ steps.portable.outputs.file }}
+          asset_content_type: application/zip

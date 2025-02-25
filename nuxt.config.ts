@@ -44,6 +44,8 @@ export default defineNuxtConfig({
     },
   },
 
+  devtools: { enabled: false },
+
   vite: {
     clearScreen: false,
     envPrefix: ['EXC_', 'COMMIT_REF'],

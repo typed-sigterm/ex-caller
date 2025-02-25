@@ -7,15 +7,12 @@
     "core:default",
     "dialog:allow-open",
     "dialog:allow-save",
-    "fs:scope-appdata-recursive",
-    {
-      "identifier": "fs:read-all",
-      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-    },
-    {
-      "identifier": "fs:write-all",
-      "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**" }]
-    },
+    "fs:allow-appdata-meta-recursive",
+    "fs:allow-appdata-read-recursive",
+    "fs:allow-appdata-write-recursive",
+    "fs:allow-resource-meta-recursive",
+    "fs:allow-resource-read-recursive",
+    "fs:allow-resource-write-recursive",
     "shell:allow-open"
   ]
 }

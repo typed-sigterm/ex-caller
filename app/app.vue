@@ -1,6 +1,7 @@
 <script lang="tsx" setup>
 import { promiseTimeout } from '@vueuse/core';
 import { enUS, zhCN } from 'naive-ui';
+import { initPortable } from '~/utils/fs';
 
 const i18n = useI18n();
 const { t } = useI18n({ useScope: 'local' });
@@ -11,7 +12,7 @@ useHead({
 });
 
 if (__APP__)
-  await useThemeStore().init(); // 异步初始化主题
+  useThemeStore().init(); // 异步初始化主题
 
 const loading = ref(true);
 const show = ref(false);
@@ -64,6 +65,15 @@ function alertOrientation() {
 watch(orientation, () => {
   if (!closedOrientation && incorrectOrientation.value)
     alertOrientation();
+});
+
+// portable 下 localStorage 与文件同步
+onMounted(async () => {
+  if (!__APP__) // tree-shake
+    return;
+  if (!await isPortable())
+    return;
+  await initPortable();
 });
 </script>
 

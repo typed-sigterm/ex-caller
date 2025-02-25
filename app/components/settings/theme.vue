@@ -14,7 +14,7 @@ function getResource(name: ResourceName, filename?: string):
   if (!resource)
     return;
   return resource && {
-    id: crypto.randomUUID(),
+    id: window.crypto.randomUUID(),
     name: filename ?? name,
     status: 'finished',
     url: resource.url,
