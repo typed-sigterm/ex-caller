@@ -1,8 +1,15 @@
 import type Token from 'markdown-it/lib/token.mjs';
+import type { BuildMeta } from './meta';
+import process from 'node:process';
 // @ts-expect-error untyped
 import MarkdownItInline from 'markdown-it-for-inline';
 import PostcssPresetEnv from 'postcss-preset-env';
 import Markdown from 'unplugin-vue-markdown/vite';
+
+const meta: BuildMeta = {
+  buildTime: Date.now(),
+  commit: process.env.COMMIT_REF,
+};
 
 export default defineNuxtConfig({
   future: {
@@ -31,17 +38,14 @@ export default defineNuxtConfig({
         { name: 'x5-orientation', content: 'landscape' },
         { name: 'x5-page-mode', content: 'app' },
       ],
+      script: [
+        { id: 'ex-caller', type: 'application/json', innerHTML: JSON.stringify(meta) },
+      ],
     },
   },
 
   imports: {
     dirs: ['./stores'],
-  },
-
-  runtimeConfig: {
-    public: {
-      buildTime: Date.now(),
-    },
   },
 
   devtools: { enabled: false },

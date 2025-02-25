@@ -2,6 +2,7 @@
 import ChangelogMd from '~~/CHANGELOG.md';
 
 const { t } = useI18n({ useScope: 'local' });
+const time = getBuildMeta().buildTime;
 </script>
 
 <template>
@@ -16,7 +17,7 @@ const { t } = useI18n({ useScope: 'local' });
     </I18nT>
     <br>
     {{ t('build-time') }}
-    <NTime :time="useRuntimeConfig().public.buildTime" />
+    <NTime :time />
   </NAlert>
   <ChangelogWrapper>
     <ChangelogMd />

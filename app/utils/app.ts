@@ -4,6 +4,7 @@ import type {
 import type {
   MessageApiInjection,
 } from 'naive-ui/es/message/src/MessageProvider';
+import type { BuildMeta } from '~~/meta';
 import { invoke, isTauri } from '@tauri-apps/api/core';
 import { resolveResource } from '@tauri-apps/api/path';
 import { BaseDirectory, exists } from '@tauri-apps/plugin-fs';
@@ -21,11 +22,14 @@ export const __CANARY__ = import.meta.env.EXC_CANARY;
 /** 是否开发环境 */
 export const __DEV__ = !import.meta.env.PROD;
 
-const commit = import.meta.env.COMMIT_REF ?? '0000000';
+export function getBuildMeta(): BuildMeta {
+  return JSON.parse(document.getElementById('ex-caller')!.innerHTML);
+}
+
 export const VERSION = __GA__
   ? `v${version}` // 正式版本显示版本号
   : __CANARY__
-    ? commit.slice(0, 7) // Canary 版本显示 commit id
+    ? getBuildMeta().commit ?? 'Canary'
     : 'DEV'; // 开发版本显示 DEV
 
 /** 是否独立 App 环境 */
