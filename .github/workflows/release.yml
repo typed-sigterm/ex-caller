@@ -99,7 +99,9 @@ jobs:
           workspaces: ./src-tauri -> target
 
       - name: 安装 Web 端依赖
-        run: bun i --forzen-lockfile
+        run: bun i --frozen-lockfile
+      - name: 构建 Web
+        run: bun run build:web
 
       - id: publish
         name: 构建与发布安装包
