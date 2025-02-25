@@ -9,13 +9,13 @@ const show = defineModel<boolean>('show', { required: true });
 
 const { t } = useI18n({ useScope: 'local' });
 
-async function handleShowOrCloseNamelist(show: boolean) {
+async function handleShowOrCloseNamelist(show?: boolean) {
   if (!show || !shouldStartGuide('namelist'))
     return;
   await promiseTimeout(500);
   triggerNamelistGuide();
 }
-async function handleShowOrClosePlan(show: boolean) {
+async function handleShowOrClosePlan(show?: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return;
   await promiseTimeout(500);

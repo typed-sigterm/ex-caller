@@ -69,11 +69,8 @@ watch(orientation, () => {
 
 // portable 下 localStorage 与文件同步
 onMounted(async () => {
-  if (!__APP__) // tree-shake
-    return;
-  if (!await isPortable())
-    return;
-  await initPortable();
+  if (__APP__ && await isPortable()) // tree-shake
+    await initPortable();
 });
 </script>
 

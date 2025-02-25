@@ -33,9 +33,11 @@ export const __APP__ = !import.meta.env.EXC_NO_APP && isTauri();
 
 let _isPortable: boolean | undefined;
 export async function isPortable() {
+  if (!__APP__) // tree-shake
+    return false;
   if (_isPortable !== undefined)
     return _isPortable;
-  return _isPortable = !__DEV__ && !await exists('installed', {
+  return _isPortable = !__DEV__ && !await exists('./installed', {
     baseDir: BaseDirectory.Resource,
   });
 }
@@ -68,7 +70,7 @@ export function createNotInAppError() {
 
 export const DEFAULT_LANG = 'en';
 
-export function switchLanguage(i18n: ReturnType<typeof useI18n>, lang: string) {
+export function switchLanguage(i18n: /* ReturnType<typeof useI18n> */ any, lang: string) {
   if (i18n.locale.value !== lang)
     i18n.setLocale(lang);
   useHead({
