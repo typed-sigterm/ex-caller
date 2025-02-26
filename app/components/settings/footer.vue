@@ -44,10 +44,12 @@ function downloadApp() {
   <div class="flex items-center">
     <LinkToModal @click="loadChangelog = true">
       {{ t('changelog') }}
+
       <template #modalTitle>
         <LucideHistory class="v-bottom" :size="22" />
         {{ t('changelog-title') }}
       </template>
+
       <template #modalContent>
         <LazyChangelog v-if="loadChangelog" />
       </template>
@@ -57,10 +59,12 @@ function downloadApp() {
 
     <LinkToModal v-model:show-modal="showFeedback">
       {{ t('feedback.title') }}
+
       <template #modalTitle>
         <LucideMessageSquare class="v-bottom" :size="22" />
         {{ t('feedback.title') }}
       </template>
+
       <template #modalContent>
         <p class="mt-0">
           {{ t('feedback.desc') }}
@@ -75,24 +79,34 @@ function downloadApp() {
                 <LucideStar :size="12" />
               </template>
             </NTag>
-            <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
-              {{ t('feedback.github') }}
-            </a>
+            <I18nT keypath="feedback.github.message">
+              <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
+                {{ t('feedback.github.link') }}
+              </a>
+            </I18nT>
           </li>
+
           <li>
-            {{ t('feedback.email') }}
-            <a :href="`mailto:${email}`">
-              <code>{{ email }}</code>
-            </a>
+            <I18nT keypath="feedback.gitee.message">
+              <a :href="`${GITEE_REPO_URL}/issues/new`" target="_blank">
+                {{ t('feedback.gitee.link') }}
+              </a>
+            </I18nT>
+          </li>
+
+          <li>
+            <I18nT keypath="feedback.email.message">
+              <a :href="`mailto:${email}`">{{ t('feedback.email.link') }}</a>
+              <code class="select-all">{{ email }}</code>
+            </I18nT>
           </li>
         </ul>
 
         <p v-if="__CANARY__">
           {{ t('feedback.canary') }}
         </p>
-        <p>
-          {{ t('feedback.thanks') }}
-        </p>
+        <p>{{ t('feedback.thanks') }}</p>
+        <p>{{ t('feedback.contributing') }}</p>
       </template>
     </LinkToModal>
 
@@ -153,14 +167,18 @@ en:
       feel free to send feedback to us.
     methods: 'You can send feedback through either of the following ways:'
     recommended: Recommended
-    github: Create an issue on GitHub
-    email: Send an email to
-    canary:
-      If the problem only occurs in the Canary version,
-      please indicate in the feedback.
-    thanks:
-      After receiving the feedback, we will process it as soon as possible.
-      Thank you for your support.
+    github:
+      message: '{0} on GitHub'
+      link: Create an issue
+    gitee:
+      message: 'If you cannot access GitHub, you can {0} on Gitee'
+      link: create an issue
+    email:
+      message: '{0} to {1}'
+      link: Send an email
+    canary: If the problem only occurs in the Canary version, please indicate in the feedback.
+    thanks: After receiving the feedback, we will process it as soon as possible. Thank you for your support.
+    contributing: Anyone can view the source code of ExCaller. If you know how to program, you are welcome to contribute on GitHub.
 
 zh-CN:
   changelog: 更新记录
@@ -173,8 +191,16 @@ zh-CN:
     desc: 如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。
     methods: 通过以下任一方式提交反馈：
     recommended: 推荐
-    github: 在 GitHub 上创建 issue
-    email: 发送邮件到
+    github:
+      message: 在 GitHub 上{0}
+      link: 创建 issue
+    gitee:
+      message: 若无法访问 GitHub，可以在 Gitee 上{0}
+      link: 创建 issue
+    email:
+      message: '{0}到邮箱 {1}'
+      link: 发送邮件
     canary: 如果问题仅出现在 Canary 版本中，请在反馈中注明。
-    thanks: 收到反馈后，我们会尽快处理，感谢您的支持。
+    thanks: ExCaller 开源免费，维护者用爱发电，可能无法及时回复反馈，感谢您的支持。
+    contributing: 任何人都可以查看 ExCaller 的源代码，如果您会编程，欢迎在 GitHub 上参与开发。
 </i18n>

@@ -14,6 +14,7 @@ import { version } from '~~/src-tauri/tauri.conf.json';
 export const GITHUB_REPO_URL = 'https://github.com/typed-sigterm/ex-caller';
 export const GITHUB_RELEASE_API_URL = 'https://api.github.com/repos/typed-sigterm/ex-caller/releases/latest';
 export const WEB_APP_URL = 'https://ex-caller.by-ts.top';
+export const GITEE_REPO_URL = 'https://gitee.com/typed-sigterm/ex-caller';
 
 /** 是否正式生产环境 */
 export const __GA__ = import.meta.env.PROD && !import.meta.env.EXC_CANARY;
