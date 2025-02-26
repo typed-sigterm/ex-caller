@@ -2,11 +2,15 @@
 
 本文档将介绍项目技术信息和开发中的一些约定和规范。
 
+## Roadmap
+
+[在这](https://github.com/users/typed-sigterm/projects/5)
+
 ## 技术栈与工具链
 
-前端使用 Nuxt 开发，使用 tauri 打包为独立应用程序。
+使用 Bun 运行时，使用 Nuxt 框架。
 
-工具链版本要求见 [`package.json`](./package.json)。
+Web 版部署在 Netlify，桌面版使用 tauri 打包为独立应用程序。
 
 ## 目录结构
 
@@ -29,20 +33,30 @@ ex-caller
 
 - 启动 tauri 和 Nuxt 的开发服务器：`bun run dev`
 - 仅启动 Nuxt 开发服务器：`bun run dev:web`
-- 检查代码格式：`bun lint`
+- 检查代码格式：`bun run lint`
 - 构建：`bun run build`
 - 运行类型测试：`bun run test:types`
 - 运行单元测试：`bun run test:unit`
 
-## 代码规范
+## 代码风格
 
 遵循 [ESLint 配置](./eslint.config.js) 即可。
 
 如果你使用 VS Code，建议安装 `.vscode/extensions.json` 中的推荐插件，并在 `.vscode/settings.json` 中写入 [antfu 的推荐设置](https://github.com/antfu/eslint-config?tab=readme-ov-file#vs-code-support-auto-fix)。
 
+## 依赖管理
+
+依赖项更新的 commit scope 为 `deps`。
+
+可以在 [Dependency Dashboard](https://github.com/typed-sigterm/ex-caller/issues/10) 中勾选需要更新的依赖，Renovate Bot 会创建 PR 更新。
+
+若需要在 Renoate Bot 的自动更新上手动调整代码，可以直接提交到 PR 分支。
+
 ## 测试
 
-自由心证。
+自由心证，但至少 CI 和 Netlify Build 得通过。
+
+可以适当使用 `[skip ci]` `[skip netlify]`。
 
 ## 版本管理与发布
 
@@ -75,3 +89,5 @@ ex-caller
 7. 发布 release 后，构建流程自动启动，等待完成后查看 release assets
 
 如果版本构建失败，则可以继续 commit 以修复问题，并把 tag 更新到最终成功发版的 commit。
+
+本仓库在 Gitee 有一个[只读镜像](https://gitee.com/typed-sigterm/ex-caller)。
