@@ -120,7 +120,7 @@ jobs:
           $bits = if ('${{ matrix.target }}' -match 'i686') { 'x86' } else { 'x64' };
           $name = "ExCaller_${{ steps.publish.outputs.appVersion }}_${bits}_portable";
           mkdir $name;
-          mv ./src-tauri/target/release/ex-caller.exe ./$name/ExCaller.exe;
+          mv ./src-tauri/target/${{ matrix.target }}/release/ex-caller.exe ./$name/ExCaller.exe;
           echo "{}" > ./$name/data.json;
           Compress-Archive -Path ./$name -DestinationPath ./$name.zip;
           echo "file=$name.zip" >> "$GITHUB_OUTPUT";
