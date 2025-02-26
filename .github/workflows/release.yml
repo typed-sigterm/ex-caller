@@ -19,7 +19,7 @@ jobs:
         with:
           bun-version-file: .tool-versions
 
-      - run: bun i --frozen-lockfile
+      - run: bun i semver@7
       - name: 检查版本稳定性
         id: check-stability
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
