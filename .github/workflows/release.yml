@@ -19,6 +19,7 @@ jobs:
         with:
           bun-version-file: .tool-versions
 
+      - run: bun i --frozen-lockfile
       - name: 检查版本稳定性
         id: check-stability
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7
@@ -44,8 +45,7 @@ jobs:
 
       - name: 删除 insider 分支
         if: steps.check-stability.outputs.result == 'true'
-        run: git push origin -d insider
-        continue-on-error: true
+        run: git push origin -d insider || true
 
   release:
     name: 发布更新包
