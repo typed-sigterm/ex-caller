@@ -4,6 +4,7 @@
     "vue.volar",
     "tauri-apps.tauri-vscode",
     "dbaeumer.vscode-eslint",
-    "antfu.unocss"
+    "antfu.unocss",
+    "huacnlee.autocorrect"
   ]
 }
