@@ -50,7 +50,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
   >
     <NDrawerContent closable>
       <ClosableAlert v-if="__CANARY__" class="mb-3" state-key="canary-alert">
-        <I18nT keypath="canary.alert">
+        <I18nT keypath="canary">
           <br>
           <SubmitFeedback />
         </I18nT>
