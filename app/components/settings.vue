@@ -8,6 +8,7 @@ const emit = defineEmits<{
 const show = defineModel<boolean>('show', { required: true });
 
 const { t } = useI18n({ useScope: 'local' });
+const portable = await isPortable();
 
 async function handleShowOrCloseNamelist(show?: boolean) {
   if (!show || !shouldStartGuide('namelist'))
@@ -22,19 +23,21 @@ async function handleShowOrClosePlan(show?: boolean) {
   triggerPlanGuide();
 }
 
-const showCanaryAlert = useLocalStorage('canary-alert', true);
-// 为了避免 showCanaryAlert 变成 false 导致 <NAlert> 来不及播放关闭动画
-// 每次打开时都要重新同步一下，在 handleClose 中处理
-const showCanaryAlertNow = ref(showCanaryAlert.value);
-
 function handleClose() {
   emit('close');
   promiseTimeout(500).then(() => window.gc?.());
-  showCanaryAlertNow.value = showCanaryAlert.value;
 }
+
+const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
 </script>
 
 <template>
+  <DefineSubmitFeedback>
+    <a class="cursor-pointer underline" @click="bus.emit('send-feedback')">
+      {{ t('feedback') }}
+    </a>
+  </DefineSubmitFeedback>
+
   <NDrawer
     v-model:show="show"
     :default-width="DRAWER_DEFAULT_WIDTH"
@@ -46,19 +49,19 @@ function handleClose() {
     @after-leave="handleClose"
   >
     <NDrawerContent closable>
-      <NAlert
-        v-if="__CANARY__ && showCanaryAlertNow"
-        type="warning"
-        closable
-        @after-leave="showCanaryAlert = false"
-      >
+      <ClosableAlert v-if="__CANARY__" class="mb-3" state-key="canary-alert">
         <I18nT keypath="canary.alert">
           <br>
-          <a class="cursor-pointer" @click="bus.emit('send-feedback')">
-            {{ t('canary.feedback') }}
-          </a>
+          <SubmitFeedback />
         </I18nT>
-      </NAlert>
+      </ClosableAlert>
+
+      <ClosableAlert v-if="portable" class="mb-3" state-key="portable-alert">
+        <I18nT keypath="portable">
+          <br>
+          <SubmitFeedback />
+        </I18nT>
+      </ClosableAlert>
 
       <SettingsEntry
         :title="t('entry.namelist')"
@@ -108,10 +111,6 @@ function handleClose() {
   justify-content: space-between;
   width: 100%;
 }
-
-.n-alert {
-  margin-bottom: 12px;
-}
 </style>
 
 <i18n lang="yaml">
@@ -121,11 +120,13 @@ en:
     namelist: Namelists
     theme: Theme
     plan: Plans
+  feedback: submit feedback
   canary:
-    alert:
-      You are using the Canary version,
-      which is unstable. If you encounter any problems, please {1}.
-    feedback: submit feedback
+    You are using the Canary version, which is considered as unstable.
+    If you encounter any problems, please {1}.
+  portable:
+    The portable version may have some bugs, desktop version is recommended.
+    If you encounter any problems, please {1}.
 
 zh-CN:
   title: 设置
@@ -133,7 +134,7 @@ zh-CN:
     namelist: 名单设置
     theme: 主题设置
     plan: 计划设置
-  canary:
-    alert: 您正在使用 Canary 版本，功能尚不稳定。{0}若遇到问题，欢迎{1}。
-    feedback: 提交反馈
+  feedback: 提交反馈
+  canary: 您正在使用 Canary 版本，功能尚不稳定。{0}若遇到问题，欢迎 {1}。
+  portable: 便携版可能存在一些 bug，建议使用桌面版。{0}若遇到问题，欢迎 {1}。
 </i18n>

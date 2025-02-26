@@ -11,9 +11,7 @@ const time = getBuildMeta().buildTime;
       <a
         :href="`${GITHUB_REPO_URL}/blob/latest/CHANGELOG.md`"
         target="_blank"
-      >
-        GitHub
-      </a>
+      >GitHub</a>
     </I18nT>
     <br>
     {{ t('build-time') }}
