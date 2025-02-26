@@ -8,7 +8,7 @@ import Markdown from 'unplugin-vue-markdown/vite';
 
 const meta: BuildMeta = {
   buildTime: Date.now(),
-  commit: process.env.COMMIT_REF,
+  commit: process.env.COMMIT_REF?.slice(0, 7),
 };
 
 export default defineNuxtConfig({
