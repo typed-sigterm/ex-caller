@@ -6,14 +6,17 @@ const { t } = useI18n({ useScope: 'local' });
 const mdit = new MarkdownIt();
 
 const update = ref<any>();
+const version = computed(() => update.value?.tag_name);
 const changelog = ref<string>('');
+const isAutoUpdate = ref(false);
 
-async function checkUpdate() {
+async function checkUpdate(auto?: boolean) {
   if (!valid(VERSION)) // DEV, Canary, commit id 等作为版本号时不检查更新
     return;
   try {
-    const res: any = await $fetch(GITHUB_RELEASE_API_URL);
+    const res = await (await fetch(GITHUB_RELEASE_API_URL)).json();
     if (gt(res.tag_name, VERSION)) {
+      isAutoUpdate.value = !!auto;
       update.value = res;
       changelog.value = mdit.render(res.body);
     }
@@ -22,13 +25,23 @@ async function checkUpdate() {
   }
   bus.emit('update-checked', !!update.value);
 }
-bus.on('check-update', checkUpdate);
+bus.on('check-update', () => checkUpdate(true));
 
 function handleGo() {
+  update.value = undefined;
   const to = new URL(WEB_APP_URL);
   to.pathname = `/update`;
   window.open(to.toString(), '_blank');
-  update.value = undefined;
+  if (isAutoUpdate.value)
+    track('Auto Update Confirmed', { to: version.value });
+  else
+    track('Manual Update', { to: version.value });
+}
+
+function handleClose() {
+  if (update.value && isAutoUpdate.value)
+    track('Auto Update Dismissed', { to: version.value });
+  update.value = isAutoUpdate.value = false;
 }
 </script>
 
@@ -41,10 +54,7 @@ function handleGo() {
     :positive-text="t('go')"
     :negative-text="t('skip')"
     @positive-click="handleGo"
-    @negative-click="update = undefined"
-    @close="update = undefined"
-    @mask-click="update = undefined"
-    @esc="update = undefined"
+    @update:show="(v) => !v && handleClose()"
   >
     <ChangelogWrapper :content="changelog" />
   </NModal>

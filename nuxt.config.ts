@@ -11,6 +11,8 @@ const meta: BuildMeta = {
   commit: process.env.COMMIT_REF?.slice(0, 7),
 };
 
+const ga = meta.commit?.startsWith('v');
+
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
@@ -61,6 +63,11 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: ['xlsx'], // 动态导入的库
     },
+
+    define: {
+      'import.meta.env.EXC_MIXPANEL_TOKEN': ga ? JSON.stringify('73508c71e2f4527de3652427193e61d4') : 'undefined',
+    },
+
     plugins: [
       Markdown({
         markdownItOptions: {
@@ -78,6 +85,7 @@ export default defineNuxtConfig({
         },
       }),
     ],
+
     vue: {
       include: [/\.vue$/, /\.md$/],
     },

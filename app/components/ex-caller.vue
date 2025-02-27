@@ -29,7 +29,9 @@ function handleStart() {
     },
     { once: true },
   );
+  track('Roll Call');
 }
+
 function handlePausing() {
   result.value.pause();
   status.value = 'pausing';
@@ -40,6 +42,7 @@ function handlePausing() {
     config.plan.queue.shift();
   }
 }
+
 function handlePaused() {
   status.value = 'paused';
   backgroundStatus.value = 'normal';

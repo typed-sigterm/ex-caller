@@ -1,5 +1,6 @@
 <script lang="tsx" setup>
 import { promiseTimeout } from '@vueuse/core';
+import mp from 'mixpanel-browser';
 import { enUS, zhCN } from 'naive-ui';
 import { initPortable } from '~/utils/fs';
 
@@ -66,6 +67,10 @@ watch(orientation, () => {
   if (!closedOrientation && incorrectOrientation.value)
     alertOrientation();
 });
+
+const token = import.meta.env.EXC_MIXPANEL_TOKEN;
+if (import.meta.client && token)
+  mp.init(token, { track_pageview: true });
 
 // portable 下 localStorage 与文件同步
 onMounted(async () => {
