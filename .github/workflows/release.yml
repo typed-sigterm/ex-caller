@@ -83,7 +83,7 @@ jobs:
               tag: process.env.REF,
               headers: { 'X-GitHub-Api-Version': '2022-11-28' },
             });
-            return data;
+            return data.id;
         env:
           REF: ${{ github.ref_name }}
           REPO: ${{ github.repository }}
@@ -109,7 +109,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          releaseId: ${{ steps.get-release.outputs.result.id }}
+          releaseId: ${{ steps.get-release.outputs.result }}
           args: --target ${{ matrix.target }}
 
       - id: portable
@@ -129,7 +129,7 @@ jobs:
         if: contains(matrix.target, 'windows')
         uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
         with:
-          upload_url: ${{ steps.get-release.outputs.upload_url }}
+          upload_url: ${{ steps.publish.outputs.releaseUploadUrl }}
           asset_path: ${{ steps.portable.outputs.file }}
           asset_name: ${{ steps.portable.outputs.file }}
           asset_content_type: application/zip
