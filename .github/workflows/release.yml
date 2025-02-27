@@ -52,7 +52,7 @@ jobs:
   release:
     name: 发布更新包
     runs-on: ${{ matrix.platform }}
-
+    
     strategy:
       fail-fast: false
       matrix:
@@ -66,6 +66,9 @@ jobs:
             install: aarch64-apple-darwin,x86_64-apple-darwin
           # i686-apple-darwin 在 Rust 平台支持的 Tier 3，不一定能正常工作，所以不支持
 
+    env:
+      ENABLE_PORTABLE: ${{ contains(matrix.target, 'windows') }}
+          
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2
@@ -120,7 +123,7 @@ jobs:
 
       - id: portable
         name: 提取便携式可执行文件
-        if: contains(matrix.target, 'windows')
+        if: env.ENABLE_PORTABLE == 'true'
         shell: pwsh
         run: |
           $bits = if ('${{ matrix.target }}' -match 'i686') { 'x86' } else { 'x64' };
@@ -129,10 +132,10 @@ jobs:
           mv ./src-tauri/target/${{ matrix.target }}/release/ex-caller.exe ./$name/ExCaller.exe;
           echo "{}" > ./$name/data.json;
           Compress-Archive -Path ./$name -DestinationPath ./$name.zip;
-          echo "file=$name.zip" >> "$GITHUB_OUTPUT";
+          echo "file=$name.zip" >> "$env:GITHUB_OUTPUT";
 
       - name: 上传便携式可执行文件
-        if: contains(matrix.target, 'windows')
+        if: env.ENABLE_PORTABLE == 'true'
         uses: actions/upload-release-asset@e8f9f06c4b078e705bd2ea027f0926603fc9b4d5 # v1
         with:
           upload_url: ${{ fromJson(steps.get-release.outputs.result).upload_url }}
@@ -141,7 +144,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: 为便携式可执行文件证明来源
-        if: contains(matrix.target, 'windows')
+        if: env.ENABLE_PORTABLE == 'true'
         uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
         with:
           subject-path: ${{ steps.portable.outputs.file }}
