@@ -6,6 +6,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   sync-latest-branch:
@@ -89,12 +91,12 @@ jobs:
           REPO: ${{ github.repository }}
 
       - name: 安装工具链
-        uses: actions-rust-lang/setup-rust-toolchain@11df97af8e8102fd60b60a77dfbf58d40cd843b8 # v1
+        uses: actions-rust-lang/setup-rust-toolchain@9399c7bb15d4c7d47b27263d024f0a4978346ba4 # v1
         with:
           target: ${{ matrix.install || matrix.target }}
 
       - name: 缓存依赖
-        uses: swatinem/rust-cache@82a92a6e8fbeee089604da2575dc567ae9ddeaab # v2
+        uses: swatinem/rust-cache@f0deed1e0edfc6a9be95417288c0e1099b1eeec3 # v2
         with:
           workspaces: ./src-tauri -> target
 
@@ -105,12 +107,17 @@ jobs:
 
       - id: publish
         name: 构建与发布安装包
-        uses: tauri-apps/tauri-action@ecd2eff64572601ddde25cc4962c2704435736e9 # v0.5
+        uses: tauri-apps/tauri-action@94571df7fd79dbe2aee6d279c0a6b66d086d3b3b # v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ steps.get-release.outputs.result }}
           args: --target ${{ matrix.target }}
+      
+      - name: 为安装包证明来源
+        uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
+        with:
+          subject-path: ${{ join(fromJSON(steps.publish.outputs.artifactPaths), ', ') }}
 
       - id: portable
         name: 提取便携式可执行文件
@@ -133,3 +140,9 @@ jobs:
           asset_path: ${{ steps.portable.outputs.file }}
           asset_name: ${{ steps.portable.outputs.file }}
           asset_content_type: application/zip
+
+      - name: 为便携式可执行文件证明来源
+        if: contains(matrix.target, 'windows')
+        uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
+        with:
+          subject-path: ${{ steps.portable.outputs.file }}
