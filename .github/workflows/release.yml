@@ -99,11 +99,6 @@ jobs:
           releaseId: ${{ github.event.release.id }}
           args: --target ${{ matrix.target }}
 
-      - name: 为安装包证明来源
-        uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
-        with:
-          subject-path: ${{ join(fromJSON(steps.publish.outputs.artifactPaths), ', ') }}
-
       - id: portable
         name: 提取便携式可执行文件
         if: env.ENABLE_PORTABLE == 'true'
@@ -124,12 +119,6 @@ jobs:
           files: ${{ steps.portable.outputs.file }}
           release-id: ${{ github.event.release.id }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 为便携式可执行文件证明来源
-        if: env.ENABLE_PORTABLE == 'true'
-        uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
-        with:
-          subject-path: ${{ steps.portable.outputs.file }}
 
   attest:
     name: 证明来源
