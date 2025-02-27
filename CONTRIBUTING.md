@@ -60,7 +60,7 @@ ex-caller
 
 ## 版本管理与发布
 
-使用 Git 管理版本。
+使用 Git 管理版本。在 Gitee 有一个[只读镜像](https://gitee.com/typed-sigterm/ex-caller)。
 
 一个 commit 做一件事，非 CI 的提交必须添加 GPG 签名，无需添加 `Signoff`。Commit message 遵循[约定式提交 1.0.0](https://www.conventionalcommits.org/zh-hans/v1.0.0/)。
 
@@ -88,6 +88,10 @@ ex-caller
 6. 在 GitHub 创建 release，标题如 `ExCaller v1.0.0`，内容为 (1) 中增加的部分
 7. 发布 release 后，构建流程自动启动，等待完成后查看 release assets
 
-如果版本构建失败，则可以继续 commit 以修复问题，并把 tag 更新到最终成功发版的 commit。
+如果版本发布失败，则可以继续 commit 以修复问题，并把 tag 更新到最终成功发版的 commit。
 
-本仓库在 Gitee 有一个[只读镜像](https://gitee.com/typed-sigterm/ex-caller)。
+更新记录和版本号应以用户的视角撰写，因此：
+
+- 版本号无需遵循 semver，根据用户感知的重要性来决定
+- 更新记录一般不要包含技术细节
+- 更新记录不必包含所有变更

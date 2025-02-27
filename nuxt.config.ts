@@ -11,8 +11,6 @@ const meta: BuildMeta = {
   commit: process.env.COMMIT_REF?.slice(0, 7),
 };
 
-const ga = meta.commit?.startsWith('v');
-
 export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
@@ -65,7 +63,7 @@ export default defineNuxtConfig({
     },
 
     define: {
-      'import.meta.env.EXC_MIXPANEL_TOKEN': ga ? JSON.stringify('73508c71e2f4527de3652427193e61d4') : 'undefined',
+      'import.meta.env.EXC_MIXPANEL_TOKEN': JSON.stringify('73508c71e2f4527de3652427193e61d4'),
     },
 
     plugins: [

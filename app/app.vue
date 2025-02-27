@@ -69,8 +69,12 @@ watch(orientation, () => {
 });
 
 const token = import.meta.env.EXC_MIXPANEL_TOKEN;
-if (import.meta.client && token)
-  mp.init(token, { track_pageview: true });
+mp.init(token, {
+  persistence: 'localStorage',
+  track_pageview: __GA__,
+});
+if (!__GA__)
+  mp.disable();
 
 // portable 下 localStorage 与文件同步
 onMounted(async () => {
