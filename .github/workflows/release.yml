@@ -136,3 +136,4 @@ jobs:
         uses: actions/attest-build-provenance@f9eaf234fc1c2e333c1eca18177db0f44fa6ba52 # v2
         with:
           subject-path: ${{ join(fromJson(steps.download.outputs.downloaded_files), ', ') }}
+          subject-name: ExCaller ${{ github.event.release.tag_name }}
