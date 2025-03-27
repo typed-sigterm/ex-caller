@@ -105,7 +105,7 @@ jobs:
         shell: pwsh
         run: |
           $bits = if ('${{ matrix.target }}' -match 'i686') { 'x86' } else { 'x64' };
-          $name = "ExCaller_${{ steps.publish.outputs.appVersion }}_${bits}_portable";
+          $name = "ExCaller_${{ steps.publish.outputs.appVersion }}_${bits}-portable";
           mkdir $name;
           mv ./src-tauri/target/${{ matrix.target }}/release/ex-caller.exe ./$name/ExCaller.exe;
           echo "{}" > ./$name/data.json;
