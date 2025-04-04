@@ -95,3 +95,9 @@ ex-caller
 - 版本号无需遵循 semver，根据用户感知的重要性来决定
 - 更新记录一般不要包含技术细节
 - 更新记录不必包含所有变更
+
+## 数据统计
+
+用户行为数据被匿名发送到 Mixpanel。
+
+统计数据是公开的，任何人都可以在[这个 Mixpanel Board](https://mixpanel.com/p/2NXuZUnZ4wcGKhQEJ1aAHj) 中查看统计数据。
