@@ -57,7 +57,7 @@ export function generateNewNamelistName() {
 
 /** 从 Excel 文件中读取名单。 */
 export async function importNamelistFromExcel(file: File): Promise<string[]> {
-  const { read, utils } = await import('./xlsx');
+  const { read, utils } = await import('@/utils/xlsx');
 
   const workbook = read(await file.arrayBuffer(), { type: 'array' });
   if (workbook.SheetNames[0] == null)

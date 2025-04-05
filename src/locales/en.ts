@@ -1,4 +1,4 @@
-import type { I18nRequiedText } from './utils';
+import type { I18nRequiedText } from '@/locales/utils';
 
 export default {
   'confirm': 'Confirm',

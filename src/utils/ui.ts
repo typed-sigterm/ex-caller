@@ -1,7 +1,7 @@
+import type { Guide } from '@/utils/guide';
 import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider';
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider';
 import type { Composer } from 'vue-i18n';
-import type { Guide } from './guide';
 import { useGuideStore } from '@/stores/guide';
 import JSConfetti from 'js-confetti';
 import { useDialog, useMessage } from 'naive-ui';
