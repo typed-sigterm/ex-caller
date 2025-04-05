@@ -1,5 +1,5 @@
+import useRollCall from '@/utils/roll-call';
 import { promiseTimeout } from '@vueuse/core';
-import useRollCall from '~/composables/use-roll-call';
 
 const duration = 500;
 const rest = 50;

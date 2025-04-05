@@ -36,14 +36,17 @@ jobs:
         run: |
           git checkout -f -b latest origin/latest
           git merge --ff-only origin/main
-          git push origin latest
+          # 不直接更新 latest 分支，避免再次触发 issue 被 commit 引用的事件
+          git push origin -d latest
+          git push -u origin latest
 
       - name: 更新 insider 分支
         if: steps.check-stability.outputs.result == 'false'
         run: |
           git checkout -b insider origin/insider || git switch -c insider
           git merge --ff-only origin/main
-          git push origin insider
+          git push origin -d insider
+          git push -u origin insider
 
       - name: 删除 insider 分支
         if: steps.check-stability.outputs.result == 'true'
