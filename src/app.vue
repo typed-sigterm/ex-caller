@@ -88,6 +88,10 @@ onMounted(async () => {
   if (__APP__ && await isPortable()) // tree-shake
     await initPortable();
 });
+
+function hideSpin() {
+  document.getElementById('app')!.removeAttribute('data-loading');
+}
 </script>
 
 <template>
@@ -95,7 +99,7 @@ onMounted(async () => {
     <NMessageProvider>
       <NDialogProvider>
         <Updater v-if="__APP__" />
-        <ExCaller />
+        <ExCaller @vue:mounted="hideSpin" />
       </NDialogProvider>
     </NMessageProvider>
   </NConfigProvider>

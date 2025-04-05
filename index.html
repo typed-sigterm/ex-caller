@@ -11,14 +11,13 @@
     <title>ExCaller</title>
     <script type="application/json" id="ex-caller"></script>
     <style>
-      #loading {
+      #app[data-loading] {
         background: center / 72px auto no-repeat url("/logo.webp");
       }
     </style>    
   </head>
   <body>
-    <div id="app">
-      <div id="loading"></div>
+    <div id="app" data-loading>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

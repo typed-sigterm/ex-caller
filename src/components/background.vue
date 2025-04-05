@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useThemeStore } from '@/stores/theme';
 import { __APP__ } from '@/utils/app';
+import { preload } from '@/utils/ui';
 import { createReusableTemplate, watchImmediate } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 
@@ -14,14 +15,8 @@ const theme = useThemeStore();
 // 预加载背景视频
 if (__APP__) {
   watchImmediate(() => theme.backgroundRolling?.url, (url) => {
-    if (!url)
-      return;
-    const prefetch = document.getElementById('background-video-prefetch') as HTMLLinkElement | null
-      || document.createElement('link');
-    prefetch.id = 'background-video-prefetch';
-    prefetch.rel = 'prefetch';
-    prefetch.href = url;
-    document.head.appendChild(prefetch);
+    if (url)
+      preload(url, 'video');
   });
 }
 

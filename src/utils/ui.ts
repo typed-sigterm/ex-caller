@@ -61,10 +61,11 @@ export function nextFrame() {
   );
 }
 
-export function preload(url: string) {
+export function preload(url: string, as: 'audio' | 'document' | 'embed' | 'fetch' | 'font' | 'image' | 'object' | 'script' | 'style' | 'track' | 'video' | 'worker') {
   const link = document.createElement('link');
   link.rel = 'preload';
   link.href = url;
+  link.as = as;
   document.head.appendChild(link);
   return link;
 }
