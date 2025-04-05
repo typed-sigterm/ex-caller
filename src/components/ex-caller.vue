@@ -8,12 +8,11 @@ import { track } from '@/utils/analytics';
 import { triggerStopRollingGuide } from '@/utils/guide';
 import { useNamelist } from '@/utils/namelist';
 import useRollCall from '@/utils/roll-call';
-import { preload, setupUiHooks } from '@/utils/ui';
+import { setupUiHooks } from '@/utils/ui';
 import { whenever } from '@vueuse/core';
 import { computed, defineAsyncComponent, ref } from 'vue';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
-preload(import.meta.resolve('./settings.vue'), 'script');
 </script>
 
 <script setup lang="ts">
