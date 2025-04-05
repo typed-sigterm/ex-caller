@@ -8,11 +8,12 @@ import { track } from '@/utils/analytics';
 import { triggerStopRollingGuide } from '@/utils/guide';
 import { useNamelist } from '@/utils/namelist';
 import useRollCall from '@/utils/roll-call';
-import { setupUiHooks } from '@/utils/ui';
+import { /* preload, */setupUiHooks } from '@/utils/ui';
 import { whenever } from '@vueuse/core';
 import { computed, defineAsyncComponent, ref } from 'vue';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
+// preload(import.meta.resolve('@/components/settings.vue'));
 </script>
 
 <script setup lang="ts">
@@ -92,9 +93,6 @@ function handleSettingsClose() {
     defaultValue: result.value.currentValue,
   }).value;
 }
-
-// TODO:
-// prefetchComponents('LazySettings');
 </script>
 
 <template>

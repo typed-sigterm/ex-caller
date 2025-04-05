@@ -1,6 +1,7 @@
 import type Token from 'markdown-it/lib/token.mjs';
 import type { BuildMeta } from './meta';
-import { fileURLToPath, URL } from 'node:url';
+import process from 'node:process';
+import { URL } from 'node:url';
 import pluginI18n from '@intlify/unplugin-vue-i18n/vite';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginVueJsx from '@vitejs/plugin-vue-jsx';
@@ -69,7 +70,7 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@/': new URL('./src/', import.meta.url).pathname,
     },
   },
 
@@ -83,5 +84,9 @@ export default defineConfig({
 
   server: {
     port: 6408,
+  },
+
+  test: {
+    globals: true,
   },
 });

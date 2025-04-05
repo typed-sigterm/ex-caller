@@ -60,3 +60,11 @@ export function nextFrame() {
     resolve => requestAnimationFrame(resolve),
   );
 }
+
+export function preload(url: string) {
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.href = url;
+  document.head.appendChild(link);
+  return link;
+}

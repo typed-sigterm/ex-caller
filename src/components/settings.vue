@@ -6,7 +6,7 @@ import { DRAWER_DEFAULT_WIDTH, DRAWER_MIN_WIDTH, shouldStartGuide } from '@/util
 import { createReusableTemplate, promiseTimeout } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 
-const emit = defineEmits<{
+defineEmits<{
   open: []
   close: []
 }>();

@@ -16,13 +16,12 @@ if (__APP__) {
   watchImmediate(() => theme.backgroundRolling?.url, (url) => {
     if (!url)
       return;
-    // TODO:
-    // useHead({
-    //   link: [{
-    //     rel: 'prefetch',
-    //     href: url,
-    //   }],
-    // });
+    const prefetch = document.getElementById('background-video-prefetch') as HTMLLinkElement | null
+      || document.createElement('link');
+    prefetch.id = 'background-video-prefetch';
+    prefetch.rel = 'prefetch';
+    prefetch.href = url;
+    document.head.appendChild(prefetch);
   });
 }
 
