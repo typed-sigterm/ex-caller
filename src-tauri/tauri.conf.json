@@ -33,8 +33,7 @@
   "app": {
     "windows": [
       {
-        "fullscreen": false,
-        "resizable": true,
+        "label": "main",
         "title": "ExCaller",
         "width": 800,
         "height": 600,

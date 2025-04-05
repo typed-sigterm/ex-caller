@@ -1,5 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::command;
+use tauri::{command, Manager, tray::{TrayIconBuilder, TrayIconEvent}};
 use std::fs::File;
 
 #[command]
@@ -31,6 +31,20 @@ fn main() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
         .invoke_handler(tauri::generate_handler![read_file, write_file])
+        .setup(|app| {
+            TrayIconBuilder::new()
+                .icon(app.default_window_icon().unwrap().clone())
+                .on_tray_icon_event(|tray, event| match event {
+                    TrayIconEvent::Click { .. } => {
+                        let window = tray.app_handle().get_webview_window("main").unwrap();
+                        window.show().ok();
+                        window.set_focus().ok();
+                    }
+                    _ => {}
+                })
+                .build(app)?;
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
