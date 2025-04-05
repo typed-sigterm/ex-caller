@@ -1,0 +1,30 @@
+:root {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#app, #app > .n-config-provider {
+  width: 100vw;
+  height: 100vh;
+}
+
+a {
+  color: #36ad6a;
+}
+
+code, kbd, pre, samp {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+}
+
+.n-modal-container {
+  z-index: 1000000001 !important; /* for driver.js */
+}
+
+.driver-active .n-modal-container * {
+  pointer-events: initial; /* for driver.js */
+}

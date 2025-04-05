@@ -1,4 +1,7 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
-  "exclude": ["./src-tauri"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.bun.json" },
+    { "path": "./tsconfig.app.json" }
+  ]
 }
