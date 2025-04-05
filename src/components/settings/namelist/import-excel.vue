@@ -1,11 +1,11 @@
 <script lang="tsx" setup>
 import type { UploadCustomRequestOptions } from 'naive-ui';
+import { MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
+import { importNamelistFromExcel } from '@/utils/namelist';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { importNamelistFromExcel } from '@/utils/namelist';
 import IconUpload from '~icons/ep/upload-filled';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
-import { MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
 
 const emit = defineEmits<{
   done: [addTo: string, names: string[]]

@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
-import { alertError } from '@/utils/ui';
 import { MAX_NAMELIST_COUNT } from '@/utils/config';
 import { exportNamelistToText, generateNewNamelistName, useNamelist } from '@/utils/namelist';
-import { ref } from 'vue';
-import { computed } from 'vue';
+import { alertError } from '@/utils/ui';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 

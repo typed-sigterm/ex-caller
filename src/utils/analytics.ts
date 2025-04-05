@@ -1,6 +1,6 @@
 import type { Callback } from 'mixpanel-browser';
-import mp from 'mixpanel-browser';
 import { __APP__, getBuildMeta, isPortable } from '@/utils/app';
+import mp from 'mixpanel-browser';
 
 export type TrackEvent =
   | 'Roll Call'

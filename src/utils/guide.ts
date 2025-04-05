@@ -1,9 +1,8 @@
 import type { Config, Popover } from 'driver.js';
+import { getGlobalI18n, markGuideAsDone, shouldStartGuide } from '@/utils/ui';
 import { driver } from 'driver.js';
 import { z } from 'zod';
 import 'driver.js/dist/driver.css';
-import { useI18n } from 'vue-i18n';
-import { getGlobalI18n, markGuideAsDone, shouldStartGuide } from '@/utils/ui';
 
 export const GuideSchema = z.object({
   welcome: z.boolean().default(false),

@@ -1,5 +1,5 @@
-import { useThemeStore } from "@/stores/theme";
-import { getDataDir, loadLocalFile } from "@/utils/fs";
+import { useThemeStore } from '@/stores/theme';
+import { getDataDir, loadLocalFile } from '@/utils/fs';
 
 export const RESOURCES = ['background', 'backgroundRolling'] as const;
 export type ResourceName

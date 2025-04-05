@@ -1,12 +1,10 @@
-import { readTextFile, writeTextFile } from '@tauri-apps/plugin-fs';
-import { ref } from 'vue';
-import { watchDeep } from '@vueuse/core';
 import type { DialogFilter } from '@tauri-apps/plugin-dialog';
+import { __APP__, createNotInAppError, DEFAULT_MIME_TYPE, isPortable, readPortableData, writePortableData } from '@/utils/app';
 import { desktopDir, resolve } from '@tauri-apps/api/path';
 import { save } from '@tauri-apps/plugin-dialog';
-import { BaseDirectory, exists, mkdir, readFile, remove, writeFile } from '@tauri-apps/plugin-fs';
-import { promiseTimeout } from '@vueuse/core';
-import { __APP__, createNotInAppError, DEFAULT_MIME_TYPE, isPortable, readPortableData, writePortableData } from '@/utils/app';
+import { BaseDirectory, exists, mkdir, readFile, readTextFile, remove, writeFile, writeTextFile } from '@tauri-apps/plugin-fs';
+import { promiseTimeout, watchDeep } from '@vueuse/core';
+import { ref } from 'vue';
 
 export async function getDataDir() {
   return await isPortable()

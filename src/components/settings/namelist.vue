@@ -1,18 +1,17 @@
 <script lang="tsx" setup>
+import type { RollCallOption } from '@/utils/roll-call';
 import type { SelectOption } from 'naive-ui';
 import type { VNodeChild } from 'vue';
+import DynamicInput from '@/components/dynamic-input.tsx';
 import SettingsNamelistName from '@/components/settings/namelist/name.vue';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
-import { useI18n } from 'vue-i18n';
-import type { RollCallOption } from '@/utils/roll-call';
-import { watchImmediate } from '@vueuse/core';
-import { generateNewNamelistName, useNamelist } from '@/utils/namelist';
-import { ref, watch } from 'vue';
-import { computed } from 'vue';
 import { MAX_NAMELIST_COUNT, MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
+import { generateNewNamelistName, useNamelist } from '@/utils/namelist';
 import { ui } from '@/utils/ui';
-import DynamicInput from '@/components/dynamic-input.tsx';
+import { watchImmediate } from '@vueuse/core';
+import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });
 

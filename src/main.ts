@@ -1,11 +1,11 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from '@/app.vue'
-import { createI18n } from 'vue-i18n'
-import 'virtual:uno.css'
-import '@/main.css'
-import localeEn from '@/locales/en'
-import localeZhCn from '@/locales/zh-CN'
+import App from '@/app.vue';
+import localeEn from '@/locales/en';
+import localeZhCn from '@/locales/zh-CN';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
+import { createI18n } from 'vue-i18n';
+import 'virtual:uno.css';
+import '@/main.css';
 
 createApp(App)
   .use(createPinia())
@@ -15,6 +15,6 @@ createApp(App)
     messages: {
       'en': localeEn,
       'zh-CN': localeZhCn,
-    }
+    },
   }))
-  .mount('#app')
+  .mount('#app');

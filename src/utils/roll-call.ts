@@ -1,5 +1,6 @@
-import { useIntervalFn } from "@vueuse/core";
-import { ref, type Ref } from "vue";
+import type { Ref } from 'vue';
+import { useIntervalFn } from '@vueuse/core';
+import { ref } from 'vue';
 
 /** 高级待点选项 */
 export interface RollCallAdvancedOption {

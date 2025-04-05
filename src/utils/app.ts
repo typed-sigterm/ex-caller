@@ -1,10 +1,9 @@
 import type { BuildMeta } from '../../meta';
+import { PORTABLE_DATA_FILE } from '@/utils/config';
 import { invoke, isTauri } from '@tauri-apps/api/core';
 import { resolveResource } from '@tauri-apps/api/path';
 import { BaseDirectory, exists } from '@tauri-apps/plugin-fs';
 import { version } from '../../src-tauri/tauri.conf.json';
-import { PORTABLE_DATA_FILE } from '@/utils/config';
-import { getGlobalI18n } from './ui';
 
 export const GITHUB_REPO_URL = 'https://github.com/typed-sigterm/ex-caller';
 export const GITHUB_RELEASE_API_URL = 'https://api.github.com/repos/typed-sigterm/ex-caller/releases/latest';

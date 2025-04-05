@@ -4,8 +4,7 @@ import { GITHUB_RELEASE_API_URL, VERSION, WEB_APP_URL } from '@/utils/app';
 import { bus } from '@/utils/event';
 import MarkdownIt from 'markdown-it';
 import { gt, valid } from 'semver';
-import { computed } from 'vue';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });

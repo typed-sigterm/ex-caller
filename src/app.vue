@@ -1,17 +1,15 @@
 <script lang="tsx" setup>
+import { useThemeStore } from '@/stores/theme';
+import { __APP__, __GA__, isPortable } from '@/utils/app';
+import { bus } from '@/utils/event';
+import { initPortable } from '@/utils/fs';
+import { triggerWelcomeGuide } from '@/utils/guide';
+import { setupI18nHooks, ui } from '@/utils/ui';
 import { promiseTimeout, useScreenOrientation, watchImmediate } from '@vueuse/core';
 import mp from 'mixpanel-browser';
 import { enUS, zhCN } from 'naive-ui';
+import { computed, markRaw, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { initPortable } from '@/utils/fs';
-import { ref, computed, markRaw } from 'vue';
-import { useThemeStore } from '@/stores/theme';
-import { __APP__, __GA__, isPortable } from '@/utils/app';
-import { setupI18nHooks, ui } from '@/utils/ui';
-import { triggerWelcomeGuide } from '@/utils/guide';
-import { bus } from '@/utils/event';
-import { onMounted } from 'vue';
-import { watch } from 'vue';
 
 setupI18nHooks();
 

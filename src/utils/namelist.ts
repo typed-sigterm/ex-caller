@@ -1,7 +1,8 @@
-import { computed } from "vue";
-import { rollCallOptionToString, type RollCallOption } from "@/utils/roll-call";
-import { useNamelistStore } from "@/stores/namelist";
-import { saveFile } from "@/utils/fs";
+import type { RollCallOption } from '@/utils/roll-call';
+import { useNamelistStore } from '@/stores/namelist';
+import { saveFile } from '@/utils/fs';
+import { rollCallOptionToString } from '@/utils/roll-call';
+import { computed } from 'vue';
 
 const NAMELIST_PREFIX = 'namelist/';
 /** 获取名单在 `localStorage` 中的键。 */
@@ -100,4 +101,3 @@ export function useNamelist(name: string) {
     throw new Error(`Cannot find namelist "${name}"`);
   return item[1];
 }
-  

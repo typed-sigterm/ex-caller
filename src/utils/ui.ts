@@ -1,11 +1,12 @@
-import { useGuideStore } from '@/stores/guide';
-import type { Guide } from './guide';
-import JSConfetti from 'js-confetti';
-import { reactive } from 'vue';
 import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider';
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider';
+import type { Composer } from 'vue-i18n';
+import type { Guide } from './guide';
+import { useGuideStore } from '@/stores/guide';
+import JSConfetti from 'js-confetti';
 import { useDialog, useMessage } from 'naive-ui';
-import { useI18n, type Composer } from 'vue-i18n';
+import { reactive } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 export const ui = reactive({} as {
   dialog: DialogApiInjection
@@ -17,7 +18,7 @@ export function setupUiHooks() {
 }
 
 let i18n: Composer | undefined;
-export const getGlobalI18n = () => {
+export function getGlobalI18n() {
   if (i18n)
     return i18n;
   throw new Error('i18n not initialized');

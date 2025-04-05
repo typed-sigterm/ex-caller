@@ -1,6 +1,8 @@
+import type { LoadedLocalFile } from '@/utils/fs';
+import type { ResourceName } from '@/utils/theme';
 import { DEFAULT_MIME_TYPE } from '@/utils/app';
-import { getDataDir, tryMkdirRecursive, useJsonFile, type LoadedLocalFile } from '@/utils/fs';
-import { getThemeResource, RESOURCES, type ResourceName } from '@/utils/theme';
+import { getDataDir, tryMkdirRecursive, useJsonFile } from '@/utils/fs';
+import { getThemeResource, RESOURCES } from '@/utils/theme';
 import { writeFile } from '@tauri-apps/plugin-fs';
 import { watchDeep } from '@vueuse/core';
 import { defineStore } from 'pinia';

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useNamelistStore } from '@/stores/namelist';
-import { ui } from '@/utils/ui';
-import { MAX_NAMELIST_NAME_LENGTH } from '@/utils/config';
 import type { SelectOption } from 'naive-ui';
+import { useNamelistStore } from '@/stores/namelist';
+import { MAX_NAMELIST_NAME_LENGTH } from '@/utils/config';
+import { ui } from '@/utils/ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 

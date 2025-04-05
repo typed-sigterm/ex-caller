@@ -2,9 +2,7 @@
 import { useThemeStore } from '@/stores/theme';
 import { __APP__ } from '@/utils/app';
 import { createReusableTemplate, watchImmediate } from '@vueuse/core';
-import { ref } from 'vue';
-import { computed } from 'vue';
-import { watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 export type Status = 'normal' | 'ready-rolling' | 'rolling' | 'pausing';
 

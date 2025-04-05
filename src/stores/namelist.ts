@@ -1,9 +1,9 @@
-import { DEFAULT_NAMELIST_OPTIONS } from "@/utils/config";
-import { generateNewNamelistName, getStoredNamelist, getStoredNamelists, removeStoredNamelist, setStoredNamelist } from "@/utils/namelist";
-import type { RollCallOption } from "@/utils/roll-call";
-import { watchImmediate } from "@vueuse/core";
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import type { RollCallOption } from '@/utils/roll-call';
+import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
+import { generateNewNamelistName, getStoredNamelist, getStoredNamelists, removeStoredNamelist, setStoredNamelist } from '@/utils/namelist';
+import { watchImmediate } from '@vueuse/core';
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
 /**
  * 创建名单。

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { getGlobalI18n } from '@/utils/ui';
 import type { DropdownOption } from 'naive-ui';
+import { getGlobalI18n } from '@/utils/ui';
 import { useI18n } from 'vue-i18n';
 
 const i18n = useI18n();

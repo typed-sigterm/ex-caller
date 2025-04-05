@@ -12,6 +12,9 @@
     "test:types": "vue-tsc --noEmit",
     "test:unit": "vitest run"
   },
+  "dependencies": {
+    "@vueuse/core": "^13.0.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^4.3.0",
     "@iconify-json/ant-design": "^1.2.5",
@@ -60,8 +63,5 @@
     "core-js",
     "esbuild",
     "vue-demi"
-  ],
-  "dependencies": {
-    "@vueuse/core": "^13.0.0"
-  }
+  ]
 }

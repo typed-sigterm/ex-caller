@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
-import { getStoredNamelists } from '@/utils/namelist';
 import type { SelectOption } from 'naive-ui';
+import { getStoredNamelists } from '@/utils/namelist';
 import { useI18n } from 'vue-i18n';
 import IconPlus from '~icons/lucide/plus';
 

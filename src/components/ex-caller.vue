@@ -1,17 +1,16 @@
 <script lang="ts">
-import { ref } from 'vue';
 import type { Status as BackgroundStatus } from '@/components/background.vue';
 import type { Status as ResultStatus } from '@/components/result-board.vue';
-import { whenever } from '@vueuse/core';
-import { computed } from 'vue';
-import { setupUiHooks } from '@/utils/ui';
-import { useConfigStore } from '@/stores/config';
-import useRollCall, { type RollCallConfig } from '@/utils/roll-call';
-import { useNamelist } from '@/utils/namelist';
-import { triggerStopRollingGuide } from '@/utils/guide';
-import { track } from '@/utils/analytics';
-import { defineAsyncComponent } from 'vue';
+import type { RollCallConfig } from '@/utils/roll-call';
 import LargeButton from '@/components/large-button';
+import { useConfigStore } from '@/stores/config';
+import { track } from '@/utils/analytics';
+import { triggerStopRollingGuide } from '@/utils/guide';
+import { useNamelist } from '@/utils/namelist';
+import useRollCall from '@/utils/roll-call';
+import { setupUiHooks } from '@/utils/ui';
+import { whenever } from '@vueuse/core';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
 </script>
