@@ -9,8 +9,8 @@
     "dev:web": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "vue-tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "vue-tsc --noEmit"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.3.0",
