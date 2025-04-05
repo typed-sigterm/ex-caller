@@ -27,6 +27,6 @@ jobs:
         with:
           bun-version-file: .tool-versions
       - run: bun i --forzen-lockfile
-      - run: bun run build
+      - run: bun run build:web
         continue-on-error: true
       - run: bun run type-check
