@@ -33,8 +33,8 @@ fn write_file(path: String, content: String) -> Result<(), String> {
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![read_file, write_file])
         .setup(|app| {
             let quit_item = MenuItem::with_id(app, "quit", "退出", true, None::<&str>).unwrap();
