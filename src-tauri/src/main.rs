@@ -1,5 +1,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use tauri::{command, Manager, tray::{TrayIconBuilder, TrayIconEvent}};
+use tauri::{
+    Manager,
+    command,
+    menu::{Menu, MenuItem},
+    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+};
 use std::fs::File;
 
 #[command]
@@ -32,10 +37,24 @@ fn main() {
         .plugin(tauri_plugin_fs::init())
         .invoke_handler(tauri::generate_handler![read_file, write_file])
         .setup(|app| {
+            let quit_item = MenuItem::with_id(app, "quit", "退出", true, None::<&str>).unwrap();
+            let menu = Menu::with_items(app, &[&quit_item]).unwrap();
+
             TrayIconBuilder::new()
+                .tooltip("ExCaller")
                 .icon(app.default_window_icon().unwrap().clone())
+                .menu(&menu)
+                .show_menu_on_left_click(false)
+                .on_menu_event(|app, event| match event.id.as_ref() {
+                    "quit" => app.exit(0),
+                    _ => {}
+                })
                 .on_tray_icon_event(|tray, event| match event {
-                    TrayIconEvent::Click { .. } => {
+                    TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                    } => {
                         let window = tray.app_handle().get_webview_window("main").unwrap();
                         window.show().ok();
                         window.set_focus().ok();
