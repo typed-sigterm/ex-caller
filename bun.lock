@@ -13,7 +13,6 @@
         "@tauri-apps/cli": "^2.2.7",
         "@tauri-apps/plugin-dialog": "^2.2.0",
         "@tauri-apps/plugin-fs": "^2.2.0",
-        "@tauri-apps/plugin-shell": "^2.2.0",
         "@tsconfig/bun": "^1.0.7",
         "@typed-sigterm/eslint-config": "^1.4.1",
         "@types/bun": "^1.2.8",
@@ -430,8 +429,6 @@
     "@tauri-apps/plugin-dialog": ["@tauri-apps/plugin-dialog@2.2.1", "https://registry.npmmirror.com/@tauri-apps/plugin-dialog/-/plugin-dialog-2.2.1.tgz", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-wZmCouo4PgTosh/UoejPw9DPs6RllS5Pp3fuOV2JobCu36mR5AXU2MzU9NZiVaFi/5Zfc8RN0IhcZHnksJ1o8A=="],
 
     "@tauri-apps/plugin-fs": ["@tauri-apps/plugin-fs@2.2.1", "https://registry.npmmirror.com/@tauri-apps/plugin-fs/-/plugin-fs-2.2.1.tgz", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-KdGzvvA4Eg0Dhw55MwczFbjxLxsTx0FvwwC/0StXlr6IxwPUxh5ziZQoaugkBFs8t+wfebdQrjBEzd8NmmDXNw=="],
-
-    "@tauri-apps/plugin-shell": ["@tauri-apps/plugin-shell@2.2.1", "https://registry.npmmirror.com/@tauri-apps/plugin-shell/-/plugin-shell-2.2.1.tgz", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-G1GFYyWe/KlCsymuLiNImUgC8zGY0tI0Y3p8JgBCWduR5IEXlIJS+JuG1qtveitwYXlfJrsExt3enhv5l2/yhA=="],
 
     "@tsconfig/bun": ["@tsconfig/bun@1.0.7", "https://registry.npmmirror.com/@tsconfig/bun/-/bun-1.0.7.tgz", {}, "sha512-udGrGJBNQdXGVulehc1aWT73wkR9wdaGBtB6yL70RJsqwW/yJhIg6ZbRlPOfIUiFNrnBuYLBi9CSmMKfDC7dvA=="],
 

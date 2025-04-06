@@ -13,6 +13,6 @@
     "fs:allow-resource-meta-recursive",
     "fs:allow-resource-read-recursive",
     "fs:allow-resource-write-recursive",
-    "shell:allow-open"
+    "opener:default"
   ]
 }
