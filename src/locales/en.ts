@@ -22,6 +22,7 @@ export default {
     ],
     group: [
       { title: 'Group feature', description: 'You can group names, and narrow down the range of names to be called.' },
+      { title: 'Enable group calling', description: 'Limiting the range of names to be called within the group.' },
     ],
     plan: [
       { title: 'Plan feature', description: 'You can enable Plan to control the next draws.' },

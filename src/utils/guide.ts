@@ -103,6 +103,9 @@ export function triggerGroupGuide() {
     steps: [{
       element: getElement('group-drawer'),
       popover: getGuidePopover('group.0'),
+    }, {
+      element: getElement('enable-group'),
+      popover: getGuidePopover('group.1'),
     }],
   });
 }

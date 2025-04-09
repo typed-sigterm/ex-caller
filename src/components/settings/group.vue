@@ -99,7 +99,7 @@ function attemptRename(to: string) {
     {{ config.namelist }}
   </NFormItem>
 
-  <NFormItem :label="t('enable')" label-placement="left">
+  <NFormItem :label="t('enable')" label-placement="left" data-guide-id="enable-group">
     <NSwitch v-model:value="enable" />
     <NSelect
       v-if="enable"
