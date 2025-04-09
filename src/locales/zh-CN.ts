@@ -22,7 +22,7 @@ export default {
     ],
     group: [
       { title: '分组功能', description: '你可以给名单里的名字分组。' },
-      { title: '启用分组抽取', description: '……将抽取范围限制在组内。' }
+      { title: '启用分组抽取', description: '……将抽取范围限制在组内。' },
     ],
     plan: [
       { title: '计划功能', description: '可以让你控制接下来的抽取结果。' },
