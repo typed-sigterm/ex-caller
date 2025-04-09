@@ -97,7 +97,7 @@ function handleOpen() {
   }
 }
 
-.card:hover {
+.card:not(.unsupported):hover {
   box-shadow: 0 0 4px 2px var(--n-border-color);
   transition: box-shadow .2s;
 }
