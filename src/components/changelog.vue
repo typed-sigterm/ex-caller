@@ -15,10 +15,13 @@ const time = getBuildMeta().buildTime;
         target="_blank"
       >GitHub</a>
     </I18nT>
+
     <br>
+
     {{ t('build-time') }}
     <NTime :time />
   </NAlert>
+
   <ChangelogWrapper>
     <ChangelogMd />
   </ChangelogWrapper>

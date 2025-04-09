@@ -20,6 +20,9 @@ export default {
       { title: '批量导入/导出', description: '你可以批量添加名字，也可以 Excel 中导入名字。当然也支持把名单导出为文本文件。' },
       { title: '多个名单', description: '你可以创建多个名单，不同名单之间互不干扰。点击下拉框即可切换当前生效的名单。' },
     ],
+    group: [
+      { title: '分组功能', description: '你可以将名字分组，把抽取范围限定在组内。' },
+    ],
     plan: [
       { title: '计划功能', description: '可以让你控制接下来的抽取结果。' },
       { title: '不过为了防止滥用', description: '启用计划后，设置按钮会变成红色。' },

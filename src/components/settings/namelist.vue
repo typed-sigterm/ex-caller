@@ -7,7 +7,7 @@ import SettingsNamelistName from '@/components/settings/namelist/name.vue';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { MAX_NAMELIST_COUNT, MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
-import { generateNewNamelistName, useNamelist } from '@/utils/namelist';
+import { genNewNamelistName, useNamelist } from '@/utils/namelist';
 import { ui } from '@/utils/ui';
 import { watchImmediate } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
@@ -56,7 +56,7 @@ function renderNamelistName(options: SelectOption): VNodeChild {
 }
 
 function handleAddNamelist() {
-  const name = generateNewNamelistName();
+  const name = genNewNamelistName();
   namelist.add(name); // 创建名单
   config.namelist = name; // 切换到新名单
   ui.message.success(t('namelist-created', [name]));
@@ -75,6 +75,7 @@ function handleAddNamelist() {
       :options="namelists"
       :render-label="renderNamelistName"
     />
+    
     <NButton class="ml-1" :disabled="limited" @click="handleAddNamelist">
       {{ t('create-namelist') }}
       <template #icon>

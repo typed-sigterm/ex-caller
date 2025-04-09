@@ -8,6 +8,7 @@ export const GuideSchema = z.object({
   welcome: z.boolean().default(false),
   stopRolling: z.boolean().default(false),
   namelist: z.boolean().default(false),
+  group: z.boolean().default(false),
   plan: z.boolean().default(false),
 });
 
@@ -93,6 +94,15 @@ export function triggerNamelistGuide() {
     }, {
       element: getElement('namelist-selector'),
       popover: getGuidePopover('namelist.2'),
+    }],
+  });
+}
+
+export function triggerGroupGuide() {
+  return drive('group', {
+    steps: [{
+      element: getElement('group-drawer'),
+      popover: getGuidePopover('group.0'),
     }],
   });
 }
