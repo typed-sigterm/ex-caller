@@ -75,7 +75,7 @@ function handleAddNamelist() {
       :options="namelists"
       :render-label="renderNamelistName"
     />
-    
+
     <NButton class="ml-1" :disabled="limited" @click="handleAddNamelist">
       {{ t('create-namelist') }}
       <template #icon>

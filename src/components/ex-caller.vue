@@ -5,13 +5,13 @@ import type { RollCallConfig } from '@/utils/roll-call';
 import LargeButton from '@/components/large-button';
 import { useConfigStore } from '@/stores/config';
 import { track } from '@/utils/analytics';
+import { getGroup } from '@/utils/group';
 import { triggerStopRollingGuide } from '@/utils/guide';
 import { useNamelist } from '@/utils/namelist';
 import useRollCall from '@/utils/roll-call';
 import { setupUiHooks } from '@/utils/ui';
 import { whenever } from '@vueuse/core';
 import { computed, defineAsyncComponent, ref } from 'vue';
-import { getGroup } from '@/utils/group';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
 </script>

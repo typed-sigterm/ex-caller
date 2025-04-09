@@ -1,16 +1,15 @@
 <script lang="ts" setup>
+import { syncRef } from '@vueuse/core';
 import { ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { syncRef } from '@vueuse/core';
 
+defineOptions({ inheritAttrs: false });
 const props = defineProps<{
   default: string
 }>();
 const emit = defineEmits<{
   rename: [to: string]
 }>();
-
-defineOptions({ inheritAttrs: false })
 
 const { t } = useI18n({ useScope: 'local' });
 const to = ref('');
@@ -56,4 +55,3 @@ en:
 zh-CN:
   rename: 重命名
 </i18n>
-  

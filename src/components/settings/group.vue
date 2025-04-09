@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { useConfigStore } from '@/stores/config';
-import { genNewGroupName, removeGroup, listGroups, setGroup, getGroup, hasGroup } from '@/utils/group';
-import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
-import { ref } from 'vue';
 import DynamicInput from '@/components/dynamic-input';
-import { useI18n } from 'vue-i18n';
+import { useConfigStore } from '@/stores/config';
+import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
+import { genNewGroupName, getGroup, hasGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import useNamelistMembers from '@/utils/namelist';
-import { computed } from 'vue';
 import { ui } from '@/utils/ui';
-import { watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });
 const config = useConfigStore();
@@ -62,7 +60,7 @@ function attemptRename(to: string) {
 </script>
 
 <template>
-  <NModal class="w-[30em]" v-model:show="editing" preset="card">
+  <NModal v-model:show="editing" class="w-[30em]" preset="card">
     <DynamicInput v-model:value="editingGroupMembers" show-sort-button>
       <template #default="{ index }">
         <NSelect
