@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import type { SelectOption } from 'naive-ui';
-import { getStoredNamelists } from '@/utils/namelist';
+import { listNamelists } from '@/utils/namelist';
 import { useI18n } from 'vue-i18n';
 import IconPlus from '~icons/lucide/plus';
 
@@ -8,7 +8,7 @@ const value = defineModel<string>();
 
 const { t } = useI18n({ useScope: 'local' });
 
-const options: SelectOption[] = getStoredNamelists().map(value => ({ label: value, value }));
+const options: SelectOption[] = listNamelists().map(value => ({ label: value, value }));
 options.push({
   label: () => (
     <>

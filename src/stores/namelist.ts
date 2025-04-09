@@ -1,6 +1,6 @@
 import type { RollCallOption } from '@/utils/roll-call';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
-import { generateNewNamelistName, getStoredNamelist, getStoredNamelists, removeStoredNamelist, setStoredNamelist } from '@/utils/namelist';
+import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
 import { watchImmediate } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -14,12 +14,12 @@ import { ref } from 'vue';
 function createNamelist(name: string, options: RollCallOption[]) {
   const namelist = ref(options);
   const stop = watchImmediate(namelist, (v) => { // 持久化，立即执行是为了初始化
-    setStoredNamelist(name, v);
+    setNamelist(name, v);
   });
   const cleanup = () => {
     stop();
     namelist.value = [];
-    removeStoredNamelist(name);
+    removeNamelist(name);
   };
   return [name, namelist, cleanup] as const;
 }
@@ -27,8 +27,8 @@ function createNamelist(name: string, options: RollCallOption[]) {
 export const useNamelistStore = defineStore('namelist', {
   state: () => {
     const data = [];
-    for (const name of getStoredNamelists())
-      data.push(createNamelist(name, getStoredNamelist(name)));
+    for (const name of listNamelists())
+      data.push(createNamelist(name, getNamelist(name)));
     return { data };
   },
   getters: {
@@ -45,7 +45,7 @@ export const useNamelistStore = defineStore('namelist', {
      * @returns 名单对象
      */
     add(
-      name: string = generateNewNamelistName(),
+      name: string = genNewNamelistName(),
       options: RollCallOption[] = structuredClone(DEFAULT_NAMELIST_OPTIONS),
     ) {
       const namelist = createNamelist(name, options);
@@ -63,7 +63,7 @@ export const useNamelistStore = defineStore('namelist', {
       return this.namelist.includes(name);
     },
     rename(from: string, to: string) {
-      this.add(to, getStoredNamelist(from));
+      this.add(to, getNamelist(from));
       this.remove(from);
     },
   },

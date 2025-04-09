@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { __CANARY__, isPortable } from '@/utils/app';
 import { bus } from '@/utils/event';
-import { triggerNamelistGuide, triggerPlanGuide } from '@/utils/guide';
+import { triggerGroupGuide, triggerNamelistGuide, triggerPlanGuide } from '@/utils/guide';
 import { DRAWER_DEFAULT_WIDTH, DRAWER_MIN_WIDTH, shouldStartGuide } from '@/utils/ui';
 import { createReusableTemplate, promiseTimeout } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
@@ -15,17 +15,23 @@ const show = defineModel<boolean>('show', { required: true });
 const { t } = useI18n({ useScope: 'local' });
 const portable = await isPortable();
 
-async function handleShowOrCloseNamelist(show?: boolean) {
+async function toggleNamelist(show?: boolean) {
   if (!show || !shouldStartGuide('namelist'))
     return;
   await promiseTimeout(500);
   triggerNamelistGuide();
 }
-async function handleShowOrClosePlan(show?: boolean) {
+async function togglePlan(show?: boolean) {
   if (!show || !shouldStartGuide('plan'))
     return;
   await promiseTimeout(500);
   triggerPlanGuide();
+}
+async function toggleGroup(show?: boolean) {
+  if (!show || !shouldStartGuide('group'))
+    return;
+  await promiseTimeout(500);
+  triggerGroupGuide();
 }
 
 const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
@@ -67,7 +73,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
         :title="t('entry.namelist')"
         cache
         data-guide-id="namelist-drawer"
-        @update:show="handleShowOrCloseNamelist"
+        @update:show="toggleNamelist"
       >
         <SettingsNamelist />
         <template #icon>
@@ -85,11 +91,22 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
       <SettingsEntry
         :title="t('entry.plan')"
         data-guide-id="plan-drawer"
-        @update:show="handleShowOrClosePlan"
+        @update:show="togglePlan"
       >
         <SettingsPlan />
         <template #icon>
           <ILucideFlag :size="18" />
+        </template>
+      </SettingsEntry>
+
+      <SettingsEntry
+        :title="t('entry.group')"
+        data-guide-id="group-drawer"
+        @update:show="toggleGroup"
+      >
+        <SettingsGroup />
+        <template #icon>
+          <ILucideUsers :size="18" />
         </template>
       </SettingsEntry>
 
@@ -118,6 +135,7 @@ en:
   title: Settings
   entry:
     namelist: Namelists
+    group: Groups
     theme: Theme
     plan: Plans
   feedback: submit feedback
@@ -132,6 +150,7 @@ zh-CN:
   title: 设置
   entry:
     namelist: 名单设置
+    group: 分组设置
     theme: 主题设置
     plan: 计划设置
   feedback: 提交反馈

@@ -11,7 +11,7 @@ const { t } = useI18n({ useScope: 'local' });
 
 const config = useConfigStore();
 const queue = ref([...config.plan.queue]);
-const options = computed((): SelectOption[] => {
+const candidates = computed((): SelectOption[] => {
   return useNamelistMembers(config.namelist).value!.map(v => ({
     value: v,
     label: v,
@@ -35,17 +35,15 @@ onBeforeUnmount(() => { // 保存设置
   </NFormItem>
 
   <NFormItem v-if="config.plan.enabled" :label="t('planned-next')">
-    <DynamicInput
-      v-model:value="queue"
-      :max="MAX_PLAN_QUEUE_SIZE"
-    >
-      <template #default="{ index }: { index: number }">
+    <DynamicInput v-model:value="queue" :max="MAX_PLAN_QUEUE_SIZE">
+      <template #default="{ index }">
         <NSelect
           v-model:value="queue[index]"
-          :options="options"
+          :options="candidates"
           filterable
         />
       </template>
+
       <template #create-button-default>
         {{ t('create-list') }}
       </template>

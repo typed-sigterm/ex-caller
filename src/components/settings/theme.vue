@@ -70,6 +70,7 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
       accept="image/*"
     />
   </NFormItem>
+
   <NFormItem :label="t('background-rolling')">
     <SingleFileSelector
       v-model:file="backgroundRolling"

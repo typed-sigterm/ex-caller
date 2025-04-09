@@ -2,7 +2,7 @@
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { MAX_NAMELIST_COUNT } from '@/utils/config';
-import { exportNamelistToText, generateNewNamelistName, useNamelist } from '@/utils/namelist';
+import { exportNamelistToText, genNewNamelistName, useNamelist } from '@/utils/namelist';
 import { alertError } from '@/utils/ui';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -23,7 +23,7 @@ const showImportExcel = ref(false);
 
 function handleImportDone(addTo: string, items: string[]) {
   if (addTo === '\0') {
-    const name = generateNewNamelistName();
+    const name = genNewNamelistName();
     namelist.add(name, items);
     emit('switchNamelist', name);
   } else {

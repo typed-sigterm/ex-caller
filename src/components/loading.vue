@@ -22,7 +22,7 @@ defineProps<{
   background: url("/loading.webp") left / auto 100% no-repeat;
 
   &.animation {
-    animation: loading 1.5s steps(1, start) 0s infinite normal none;
+    animation: loading 1.5s steps(1, start) 0s 1 normal none;
   }
 }
 

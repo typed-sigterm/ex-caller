@@ -5,6 +5,7 @@ import type { RollCallConfig } from '@/utils/roll-call';
 import LargeButton from '@/components/large-button';
 import { useConfigStore } from '@/stores/config';
 import { track } from '@/utils/analytics';
+import { getGroup } from '@/utils/group';
 import { triggerStopRollingGuide } from '@/utils/guide';
 import { useNamelist } from '@/utils/namelist';
 import useRollCall from '@/utils/roll-call';
@@ -21,7 +22,9 @@ const config = useConfigStore();
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
-    options: useNamelist(config.namelist).value,
+    options: config.group // 如果有分组，则使用分组
+      ? getGroup(config.namelist, config.group)
+      : useNamelist(config.namelist).value,
     duration: config.interval,
     ...options,
   });
