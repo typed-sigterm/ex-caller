@@ -2,7 +2,7 @@ import type { DialogFilter } from '@tauri-apps/plugin-dialog';
 import { __APP__, createNotInAppError, DEFAULT_MIME_TYPE, isPortable, readPortableData, writePortableData } from '@/utils/app';
 import { desktopDir, resolve } from '@tauri-apps/api/path';
 import { save } from '@tauri-apps/plugin-dialog';
-import { BaseDirectory, exists, mkdir, readFile, readTextFile, remove, writeFile, writeTextFile } from '@tauri-apps/plugin-fs';
+import { BaseDirectory, exists, readFile, readTextFile, remove, writeFile, writeTextFile } from '@tauri-apps/plugin-fs';
 import { promiseTimeout, watchDeep } from '@vueuse/core';
 import { ref } from 'vue';
 
