@@ -1,11 +1,12 @@
-import { rollCallOptionToString, type RollCallOption } from '@/utils/roll-call';
-import type { Reactive, Ref } from 'vue';
+import type { RollCallOption } from '@/utils/roll-call';
+import type { Reactive } from 'vue';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
+import { getGroup, listGroups } from '@/utils/group';
 import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
-import { toReactive, watchImmediate } from '@vueuse/core';
+import { rollCallOptionToString } from '@/utils/roll-call';
+import { watchImmediate } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { reactive, ref } from 'vue';
-import { getGroup, listGroups } from '@/utils/group';
 
 type GroupData = Record<string, string[]>;
 
@@ -37,7 +38,7 @@ function createNamelist(
   const add = (name: string, options?: string[]) => {
     options ??= [rollCallOptionToString(names.value[0])];
     groups.value[name] = options;
-  }
+  };
 
   const remove = (name: string) => delete groups.value[name];
   const has = (name: string) => name in groups;
@@ -66,7 +67,7 @@ export const useNamelistStore = defineStore('namelist', {
   state: () => {
     const data = reactive<Record<string, Reactive<NamelistData>>>({});
     for (const name of listNamelists()) {
-      const groups: GroupData  = {};
+      const groups: GroupData = {};
       for (const g of listGroups(name))
         groups[name] = getGroup(name, g);
       data[name] = createNamelist(name, getNamelist(name), groups);

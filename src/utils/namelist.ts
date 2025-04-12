@@ -76,4 +76,3 @@ export default function useNamelistMembers(name: string) {
     () => useNamelistStore().use(name).names.map(rollCallOptionToString),
   );
 };
-
