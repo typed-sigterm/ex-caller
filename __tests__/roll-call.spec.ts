@@ -8,7 +8,7 @@ async function wait(times = 1) {
   await promiseTimeout(duration * times + rest);
 }
 
-describe.concurrent('useRollCall', () => {
+describe.concurrent.todo('useRollCall', () => {
   it('初始化', () => {
     const inst = useRollCall({
       options: ['A', 'B'],

@@ -2,7 +2,7 @@
 import avatarTypedSigterm from '@/assets/typed-sigterm.png';
 import { __APP__, __CANARY__, __GA__, GITEE_REPO_URL, GITHUB_REPO_URL, isPortable, VERSION, WEB_APP_URL } from '@/utils/app';
 import { bus } from '@/utils/event';
-import { ui } from '@/utils/ui';
+import { useMessage } from 'naive-ui';
 import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconGitHub from '~icons/ant-design/github-filled';
@@ -12,8 +12,9 @@ const LazyChangelog = defineAsyncComponent(() => import('@/components/changelog.
 
 <script lang="ts" setup>
 const { t } = useI18n({ useScope: 'local' });
-const portable = await isPortable();
+const message = useMessage();
 
+const portable = await isPortable();
 const loadChangelog = ref(false);
 
 const email = ref('');
@@ -36,7 +37,7 @@ function checkUpdate() {
     bus.off('update-checked', handleUpdateChecked);
     checkingUpdate.value = false;
     if (!available)
-      ui.message.success(t('no-update'));
+      message.success(t('no-update'));
   };
   bus.on('update-checked', handleUpdateChecked);
   bus.emit('check-update');

@@ -5,11 +5,12 @@ import { useConfigStore } from '@/stores/config';
 import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
 import { genNewGroupName, getGroup, hasGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import useNamelistMembers from '@/utils/namelist';
-import { ui } from '@/utils/ui';
+import { useMessage } from 'naive-ui';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });
+const message = useMessage();
 const config = useConfigStore();
 
 const enable = ref(!!config.group);
@@ -55,7 +56,7 @@ function saveEdit() {
 
 function attemptRename(to: string) {
   if (hasGroup(config.namelist, to))
-    ui.message.error(t('name-duplicated'));
+    message.error(t('name-duplicated'));
   else
     renameTo.value = to;
 }

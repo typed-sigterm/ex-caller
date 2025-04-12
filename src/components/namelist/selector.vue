@@ -1,14 +1,19 @@
-<script lang="tsx" setup>
+<script lang="tsx">
 import type { SelectOption } from 'naive-ui';
-import { listNamelists } from '@/utils/namelist';
+import { useNamelistStore } from '@/stores/namelist';
 import { useI18n } from 'vue-i18n';
 import IconPlus from '~icons/lucide/plus';
 
+export const NEW_NAMELIST = '\0';
+</script>
+
+<script lang="tsx" setup>
 const value = defineModel<string>();
 
 const { t } = useI18n({ useScope: 'local' });
+const namelist = useNamelistStore();
 
-const options: SelectOption[] = listNamelists().map(value => ({ label: value, value }));
+const options: SelectOption[] = namelist.list.map(v => ({ label: v, value: v }));
 options.push({
   label: () => (
     <>
@@ -16,12 +21,12 @@ options.push({
       {t('create-namelist')}
     </>
   ),
-  value: '\0',
+  value: NEW_NAMELIST,
 });
 </script>
 
 <template>
-  <NSelect v-model:value="value" :options />
+  <NSelect v-model:value="value" filterable :options />
 </template>
 
 <i18n lang="yaml">

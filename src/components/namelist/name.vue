@@ -3,7 +3,7 @@ import type { SelectOption } from 'naive-ui';
 import PopoverRename from '@/components/popover-rename.vue';
 import { MAX_NAMELIST_NAME_LENGTH } from '@/utils/config';
 import { hasNamelist } from '@/utils/namelist';
-import { ui } from '@/utils/ui';
+import { useMessage } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<SelectOption>();
@@ -13,10 +13,11 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n({ useScope: 'local' });
+const message = useMessage();
 
 function rename(to: string) {
   if (hasNamelist(to))
-    ui.message.error(t('name-duplicated'));
+    message.error(t('name-duplicated'));
   else
     emit('rename', to);
 }
@@ -28,7 +29,7 @@ function rename(to: string) {
       {{ props.value }}
 
       <PopoverRename
-        :default="props.value as string"
+        :default="(props.value as string)"
         :maxlength="MAX_NAMELIST_NAME_LENGTH"
         @rename="rename"
       />

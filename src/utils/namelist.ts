@@ -57,26 +57,6 @@ export function genNewNamelistName() {
   return ret;
 }
 
-/** 从 Excel 文件中读取名单。 */
-export async function importNamelistFromExcel(file: File): Promise<string[]> {
-  const { read, utils } = await import('@/utils/xlsx');
-
-  const workbook = read(await file.arrayBuffer(), { type: 'array' });
-  if (workbook.SheetNames[0] == null)
-    return [];
-  const worksheet = workbook.Sheets[workbook.SheetNames[0]]!;
-  const rows = utils.sheet_to_json(worksheet, {
-    blankrows: false,
-    header: 1,
-    skipHidden: true,
-  }) as unknown[][];
-
-  return (rows // 去除非字符串，去除空元素
-    .filter(v => typeof v[0] === 'string') as string[][])
-    .map(v => (v[0] || '').trim())
-    .filter(Boolean);
-}
-
 /**
  * 导出名单到文本文件。
  * @returns 是否导出成功
@@ -93,13 +73,7 @@ export async function exportNamelistToText(namelist: string) {
 
 export default function useNamelistMembers(name: string) {
   return computed(
-    () => useNamelist(name).value.map(rollCallOptionToString),
+    () => useNamelistStore().use(name).names.map(rollCallOptionToString),
   );
 };
 
-export function useNamelist(name: string) {
-  const item = useNamelistStore().data.find(v => v[0] === name);
-  if (!item)
-    throw new Error(`Cannot find namelist "${name}"`);
-  return item[1];
-}

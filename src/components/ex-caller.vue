@@ -12,6 +12,7 @@ import useRollCall from '@/utils/roll-call';
 import { setupUiHooks } from '@/utils/ui';
 import { whenever } from '@vueuse/core';
 import { computed, defineAsyncComponent, ref } from 'vue';
+import { useNamelistStore } from '@/stores/namelist';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
 </script>
@@ -19,12 +20,13 @@ const LazySettings = defineAsyncComponent(() => import('@/components/settings.vu
 <script setup lang="ts">
 setupUiHooks();
 const config = useConfigStore();
+const namelist = useNamelistStore();
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
     options: config.group // 如果有分组，则使用分组
       ? getGroup(config.namelist, config.group)
-      : useNamelist(config.namelist).value,
+      : namelist.use(config.namelist).value,
     duration: config.interval,
     ...options,
   });

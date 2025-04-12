@@ -1,41 +1,48 @@
 <script lang="ts" setup>
-import { ui } from '@/utils/ui';
+import { useMessage } from 'naive-ui';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const emit = defineEmits<{
-  done: [addTo: string, names: string[]]
+defineProps<{
+  max?: number
 }>();
-const show = defineModel<boolean>('show', { required: true });
+
+const emit = defineEmits<{
+  submit: [items: string[]]
+}>();
+
+defineSlots<{
+  selectTarget: (props: { count: number }) => any
+}>();
 
 const { t } = useI18n({ useScope: 'local' });
+const message = useMessage();
 
+const show = ref(false);
 const step = ref<'input' | 'select'>('input');
 const input = ref('');
-const items = ref<string[]>([]);
-const addTo = ref('\0');
-
-function cleanup() {
-  step.value = 'input';
-  input.value = '';
-  items.value = [];
-  addTo.value = '\0';
-}
+const names = ref<string[]>([]);
 
 function handleOk() {
   if (step.value === 'input') {
-    items.value = input.value
+    names.value = input.value
       .split('\n')
       .map(v => v.trim())
-      .filter(Boolean); // 去除空元素
-    if (items.value.length)
+      .filter(Boolean);
+
+    if (names.value.length)
       step.value = 'select';
     else
-      ui.message.error(t('empty-input'));
+      message.error(t('empty-input'));
     return false;
   } else {
-    emit('done', addTo.value, items.value);
+    emit('submit', names.value);
   }
+}
+
+function cleanup() {
+  input.value = '';
+  step.value = 'input';
 }
 </script>
 
@@ -44,7 +51,6 @@ function handleOk() {
     v-model:show="show"
     preset="dialog"
     :title="t('title')"
-    :close-on-esc="false"
     :positive-text="step === 'input' ? $t('next-step') : $t('confirm')"
     :negative-text="$t('cancel')"
     @positive-click="handleOk"
@@ -55,29 +61,33 @@ function handleOk() {
       <NInput v-model:value="input" type="textarea" />
     </template>
 
-    <template v-else>
-      <NP>把输入的 {{ items.length }} 个名字导入到名单：</NP>
-      <SettingsNamelistSelector v-model="addTo" />
-    </template>
+    <slot v-else name="selectTarget" :count="names.length" />
 
     <template #icon>
       <ILucideNotebookTabs />
     </template>
   </NModal>
+
+  <NButton v-bind="$attrs" @click="show = true">
+    {{ t('title') }}
+    <template #icon>
+      <ILucideNotebookTabs :size="20" />
+    </template>
+  </NButton>
 </template>
 
 <i18n lang="yaml">
 en:
   title: Batch Input
-  tip:
-    One name per line,
-    automatically remove leading and trailing spaces and empty lines.
-  confirm: Confirm & Add namelist
+  tip: "One name per line, automatically remove leading and trailing spaces and empty lines."
+  confirm: Confirm
   empty-input: Please input names
+  cancel: Cancel
 
 zh-CN:
   title: 批量输入
-  tip: 每行一个名字，自动去除头尾的空格和空行。
+  tip: "每行一个名字，自动去除头尾的空格和空行。"
   confirm: 确认
   empty-input: 请输入需要添加的名字
+  cancel: 取消
 </i18n>

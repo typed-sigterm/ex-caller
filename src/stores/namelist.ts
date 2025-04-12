@@ -1,9 +1,24 @@
-import type { RollCallOption } from '@/utils/roll-call';
+import { rollCallOptionToString, type RollCallOption } from '@/utils/roll-call';
+import type { Reactive, Ref } from 'vue';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
 import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
-import { watchImmediate } from '@vueuse/core';
+import { toReactive, watchImmediate } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import { getGroup, listGroups } from '@/utils/group';
+
+type GroupData = Record<string, string[]>;
+
+interface NamelistData {
+  names: RollCallOption[]
+  groups: {
+    add: (name: string, options?: string[]) => void
+    remove: (name: string) => void
+    has: (name: string) => boolean
+    rename: (from: string, to: string) => void
+  }
+  cleanup: () => void
+}
 
 /**
  * 创建名单。
@@ -11,33 +26,64 @@ import { ref } from 'vue';
  * 对名单的更改会自动持久化。
  * @returns 名单名称；名单对象；删除名单时需调用的清理函数
  */
-function createNamelist(name: string, options: RollCallOption[]) {
-  const namelist = ref(options);
-  const stop = watchImmediate(namelist, (v) => { // 持久化，立即执行是为了初始化
+function createNamelist(
+  name: string,
+  initialOptions: RollCallOption[],
+  initialGroups: GroupData,
+): Reactive<NamelistData> {
+  const names = ref(initialOptions);
+  const groups = ref(initialGroups);
+
+  const add = (name: string, options?: string[]) => {
+    options ??= [rollCallOptionToString(names.value[0])];
+    groups.value[name] = options;
+  }
+
+  const remove = (name: string) => delete groups.value[name];
+  const has = (name: string) => name in groups;
+
+  const rename = (from: string, to: string) => {
+    add(to, getGroup(name, from));
+    remove(from);
+  };
+
+  const stop = watchImmediate(names, (v) => { // 持久化，立即执行是为了初始化
     setNamelist(name, v);
   });
-  const cleanup = () => {
-    stop();
-    namelist.value = [];
-    removeNamelist(name);
-  };
-  return [name, namelist, cleanup] as const;
+
+  return reactive({
+    names,
+    groups: { add, remove, has, rename },
+    cleanup: () => {
+      stop();
+      names.value = [];
+      removeNamelist(name);
+    },
+  });
 }
 
 export const useNamelistStore = defineStore('namelist', {
   state: () => {
-    const data = [];
-    for (const name of listNamelists())
-      data.push(createNamelist(name, getNamelist(name)));
+    const data = reactive<Record<string, Reactive<NamelistData>>>({});
+    for (const name of listNamelists()) {
+      const groups: GroupData  = {};
+      for (const g of listGroups(name))
+        groups[name] = getGroup(name, g);
+      data[name] = createNamelist(name, getNamelist(name), groups);
+    }
     return { data };
   },
+
   getters: {
     /** 名单列表 */
-    namelist(state) {
-      return state.data.map(v => v[0]);
-    },
+    list: state => Object.keys(state.data),
   },
+
   actions: {
+    use(name: string) {
+      return this.data[name];
+    },
+
     /**
      * 添加名单。
      * @param name 名单名称，不填则自动生成
@@ -48,20 +94,20 @@ export const useNamelistStore = defineStore('namelist', {
       name: string = genNewNamelistName(),
       options: RollCallOption[] = structuredClone(DEFAULT_NAMELIST_OPTIONS),
     ) {
-      const namelist = createNamelist(name, options);
-      this.data.push(namelist);
-      return namelist[1]; // .namelist
+      return this.data[name] = createNamelist(name, options, {});
     },
+
     remove(name: string) {
-      const index = this.data.findIndex(v => v[0] === name);
-      if (index === -1)
-        throw new Error(`Cannot find namelist "${name}"`);
-      this.data[index]![2](); // .cleanup
-      this.data.splice(index, 1);
+      if (!this.has(name))
+        throw new Error(`Namelist "${name}" does not exist.`);
+      this.data[name].cleanup();
+      delete this.data[name];
     },
+
     has(name: string) {
-      return this.namelist.includes(name);
+      return name in this.data;
     },
+
     rename(from: string, to: string) {
       this.add(to, getNamelist(from));
       this.remove(from);
