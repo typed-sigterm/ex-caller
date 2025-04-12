@@ -32,4 +32,6 @@ export default {
   'next-step': 'Next',
   'prev-step': 'Prev',
   'progress-template': 'Step {0} / {1}',
+  'namelist-n': 'Namelist {0}',
+  'group-n': 'Group {0}',
 } satisfies I18nRequiedText;

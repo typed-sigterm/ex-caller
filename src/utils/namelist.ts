@@ -2,6 +2,7 @@ import type { RollCallOption } from '@/utils/roll-call';
 import { useNamelistStore } from '@/stores/namelist';
 import { saveFile } from '@/utils/fs';
 import { rollCallOptionToString } from '@/utils/roll-call';
+import { getGlobalI18n } from '@/utils/ui';
 import { computed } from 'vue';
 
 const NAMELIST_KEY_PREFIX = 'namelist';
@@ -45,12 +46,13 @@ export function fixNamelist(name: string) {
 
 /** 生成新的名单名称。 */
 export function genNewNamelistName() {
+  const { t } = getGlobalI18n();
   const keys = listNamelists();
   let ret = '';
   let index = keys.length;
   do { // 避免与现有名单冲突
     ++index;
-    ret = `#${index}`;
+    ret = t('namelist-n', [index]);
   } while (keys.includes(ret));
   return ret;
 }

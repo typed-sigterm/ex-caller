@@ -32,4 +32,6 @@ export default {
   'next-step': '下一步',
   'prev-step': '上一步',
   'progress-template': '步骤 {0} / {1}',
+  'namelist-n': '名单 {0}',
+  'group-n': '分组 {0}',
 } satisfies I18nRequiedText;

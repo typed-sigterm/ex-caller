@@ -1,3 +1,5 @@
+import { getGlobalI18n } from '@/utils/ui';
+
 const GROUP_KEY_PREFIX = 'group';
 
 const toKey = (namelist: string, group: string) => `${GROUP_KEY_PREFIX}/${namelist}/${group}`;
@@ -28,12 +30,13 @@ export function hasGroup(namelist: string, group: string) {
 
 /** 生成新的名单名称。 */
 export function genNewGroupName(namelist: string) {
+  const { t } = getGlobalI18n();
   const keys = listGroups(namelist);
   let ret = '';
   let index = keys.length;
-  do { // 避免与现有名单冲突
+  do { // 避免与现有分组冲突
     ++index;
-    ret = `#${index}`;
+    ret = t('group-n', [index]);
   } while (keys.includes(ret));
   return ret;
 }

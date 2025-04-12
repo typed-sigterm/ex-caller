@@ -54,24 +54,6 @@ export async function saveFile(
   }
 }
 
-/** 递归创建目录 */
-export async function tryMkdirRecursive(path: string, baseDir: BaseDirectory) {
-  if (!__APP__)
-    throw createNotInAppError();
-
-  let current = '';
-  let created = false;
-  if (!await exists('./', { baseDir })) // 先保证根目录存在
-    await mkdir('./', { baseDir });
-  for (const part of path.split('/')) {
-    current += part;
-    if (created || !await exists(current, { baseDir })) {
-      created = true;
-      await mkdir(current, { baseDir });
-    }
-  }
-}
-
 interface LoadLocalFileOptions {
   /**
    * 文件 MIME Type
@@ -117,6 +99,7 @@ export async function initPortable() {
   const fileData = await readPortableData();
   const localData = Object.fromEntries(Object.entries(localStorage));
   const keys = new Set<string>();
+
   for (const k of Object.keys(fileData))
     keys.add(k);
   for (const k of Object.keys(localData))

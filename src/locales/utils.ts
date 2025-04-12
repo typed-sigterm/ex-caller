@@ -18,4 +18,6 @@ export interface I18nRequiedText {
   'next-step': string
   'prev-step': string
   'progress-template': string
+  'namelist-n': string
+  'group-n': string
 };

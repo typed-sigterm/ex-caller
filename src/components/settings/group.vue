@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SelectOption } from 'naive-ui';
 import DynamicInput from '@/components/dynamic-input';
 import { useConfigStore } from '@/stores/config';
 import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
@@ -13,13 +14,6 @@ const config = useConfigStore();
 
 const enable = ref(!!config.group);
 watch(enable, v => !v && (config.group = undefined));
-
-const candidates = computed(() => {
-  return useNamelistMembers(config.namelist).value.map(v => ({
-    value: v,
-    label: v,
-  }));
-});
 const groups = ref(listGroups(config.namelist));
 
 function handleCreate() {
@@ -32,6 +26,14 @@ const editing = ref(false);
 const editingGroup = ref<string>('');
 const editingGroupMembers = ref<string[]>([]);
 const renameTo = ref<string | undefined>();
+
+const candidates = computed((): SelectOption[] => {
+  return useNamelistMembers(config.namelist).value.map(v => ({
+    value: v,
+    label: v,
+    disabled: editingGroupMembers.value.includes(v),
+  }));
+});
 
 function openEdit(group: string) {
   editing.value = true;
@@ -105,7 +107,8 @@ function attemptRename(to: string) {
       v-if="enable"
       v-model:value="config.group"
       class="ml-3"
-      :options="groups.map(g => ({ label: g, value: g }))"
+      :options="groups.map(v => ({ label: v, value: v }))"
+      filterable
     />
   </NFormItem>
 
