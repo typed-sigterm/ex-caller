@@ -19,6 +19,8 @@ const message = useMessage();
 const config = useConfigStore();
 const namelist = useNamelistStore();
 
+watch(() => config.namelist, () => config.group = undefined);
+
 const names = ref<RollCallOption[]>([]);
 watchImmediate(() => config.namelist, () => {
   names.value = namelist.use(config.namelist).names;
