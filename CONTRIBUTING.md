@@ -81,7 +81,7 @@ ex-caller
 发版的一般流程如下：
 
 1. 更新 `CHANGELOG.md`
-2. 更新版本号（`src-tauri/tauri.conf.json` > `version`）
+2. 更新版本号（`package.json` > `version`）
 3. commit，格式如：`release: v1.0.0`
 4. tag，格式如：`v1.0.0`
 5. push 到 GitHub
