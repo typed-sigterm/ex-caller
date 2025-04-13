@@ -2,26 +2,23 @@
 import type { SelectOption } from 'naive-ui';
 import DynamicInput from '@/components/dynamic-input';
 import { useConfigStore } from '@/stores/config';
+import { useNamelistStore } from '@/stores/namelist';
 import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
-import { genNewGroupName, getGroup, hasGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import useNamelistMembers from '@/utils/namelist';
 import { useMessage } from 'naive-ui';
-import { computed, ref, watch } from 'vue';
+import { computed, ref, toRaw, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });
 const message = useMessage();
 const config = useConfigStore();
+const namelist = useNamelistStore();
+
+const currentNamelist = computed(() => namelist.use(config.namelist));
 
 const enable = ref(!!config.group);
 watch(enable, v => !v && (config.group = undefined));
-const groups = ref(listGroups(config.namelist));
-
-function handleCreate() {
-  const name = genNewGroupName(config.namelist);
-  setGroup(config.namelist, name, []);
-  return name;
-}
+const groups = ref(currentNamelist.value.groups.list());
 
 const editing = ref(false);
 const editingGroup = ref<string>('');
@@ -39,23 +36,23 @@ const candidates = computed((): SelectOption[] => {
 function openEdit(group: string) {
   editing.value = true;
   editingGroup.value = group;
-  editingGroupMembers.value = getGroup(config.namelist, group);
+  editingGroupMembers.value = structuredClone(toRaw(
+    currentNamelist.value.groups.use(group).value,
+  ));
+  renameTo.value = undefined;
 }
 
 function saveEdit() {
   if (renameTo.value) {
-    setGroup(config.namelist, renameTo.value, editingGroupMembers.value);
-    removeGroup(config.namelist, editingGroup.value!);
-    groups.value = listGroups(config.namelist);
-  } else {
-    setGroup(config.namelist, editingGroup.value!, editingGroupMembers.value);
+    currentNamelist.value.groups.rename(editingGroup.value, renameTo.value);
+    editingGroup.value = renameTo.value;
   }
+  currentNamelist.value.groups.use(editingGroup.value).value = editingGroupMembers.value;
   editing.value = false;
-  renameTo.value = undefined;
 }
 
 function attemptRename(to: string) {
-  if (hasGroup(config.namelist, to))
+  if (currentNamelist.value.groups.has(to))
     message.error(t('name-duplicated'));
   else
     renameTo.value = to;
@@ -113,7 +110,10 @@ function attemptRename(to: string) {
     />
   </NFormItem>
 
-  <NDynamicInput v-model:value="groups" :on-create="handleCreate">
+  <NDynamicInput
+    v-model:value="groups"
+    :on-create="() => currentNamelist.groups.add()"
+  >
     <template #default="{ value }">
       <NButton style="width: calc(100% - 88px)" @click="openEdit(value)">
         {{ value }}

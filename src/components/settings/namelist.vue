@@ -27,7 +27,7 @@ watch(names, (v) => {
   namelist.use(config.namelist).names = v;
 });
 
-const limited = computed(() => namelist.list.length >= MAX_NAMELIST_COUNT);
+const limited = computed(() => namelist.list().length >= MAX_NAMELIST_COUNT);
 
 function renderNamelistName(options: SelectOption): VNodeChild {
   const handleRename = (to: string) => {
@@ -80,7 +80,7 @@ async function handleExport() {
     <NSelect
       v-model:value="config.namelist"
       class="namelist-selector"
-      :options="namelist.list.map(item => ({
+      :options="namelist.list().map(item => ({
         label: '',
         value: item,
         class: 'namelist-name-item',
@@ -120,6 +120,7 @@ async function handleExport() {
       <p>把 {{ count }} 个名字导入到名单：</p>
       <NamelistSelector
         v-model="importTo"
+        allow-new
         @vue:before-mount="importTo = NEW_NAMELIST"
       />
     </template>

@@ -1,22 +1,27 @@
 import type { RollCallOption } from '@/utils/roll-call';
-import type { Reactive } from 'vue';
+import type { Reactive, Ref } from 'vue';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
-import { getGroup, listGroups } from '@/utils/group';
+import { getGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
 import { rollCallOptionToString } from '@/utils/roll-call';
+import { getGlobalI18n } from '@/utils/ui';
 import { watchImmediate } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { reactive, ref } from 'vue';
+import { reactive, ref, toRef, watch } from 'vue';
 
 type GroupData = Record<string, string[]>;
 
 interface NamelistData {
   names: RollCallOption[]
   groups: {
-    add: (name: string, options?: string[]) => void
+    /** @returns 新分组名称 */
+    add: (name?: string, options?: string[]) => string
     remove: (name: string) => void
     has: (name: string) => boolean
     rename: (from: string, to: string) => void
+    genName: () => string
+    list: () => string[]
+    use: (name: string) => Ref<string[]>
   }
   cleanup: () => void
 }
@@ -28,37 +33,62 @@ interface NamelistData {
  * @returns 名单名称；名单对象；删除名单时需调用的清理函数
  */
 function createNamelist(
-  name: string,
+  namelist: string,
   initialOptions: RollCallOption[],
   initialGroups: GroupData,
 ): Reactive<NamelistData> {
   const names = ref(initialOptions);
   const groups = ref(initialGroups);
 
-  const add = (name: string, options?: string[]) => {
-    options ??= [rollCallOptionToString(names.value[0])];
-    groups.value[name] = options;
+  const use = (group: string) => toRef(groups.value, group);
+
+  const genName = () => {
+    const { t } = getGlobalI18n();
+    const keys = listGroups(namelist);
+    let ret = '';
+    let index = keys.length;
+    do { // 避免与现有分组冲突
+      ++index;
+      ret = t('group-n', [index]);
+    } while (keys.includes(ret));
+    return ret;
   };
 
-  const remove = (name: string) => delete groups.value[name];
-  const has = (name: string) => name in groups;
+  const add = (group?: string, options?: string[]) => {
+    group ??= genName();
+    options ??= [rollCallOptionToString(names.value[0])];
+    groups.value[group] = options;
+    return group;
+  };
+
+  const remove = (group: string) => {
+    removeGroup(namelist, group);
+    delete groups.value[group];
+  };
+  const has = (group: string) => group in groups.value;
+  const list = () => Object.keys(groups.value);
 
   const rename = (from: string, to: string) => {
-    add(to, getGroup(name, from));
+    add(to, getGroup(namelist, from));
     remove(from);
   };
 
-  const stop = watchImmediate(names, (v) => { // 持久化，立即执行是为了初始化
-    setNamelist(name, v);
+  const stop1 = watchImmediate(names, (names) => { // 持久化，立即执行是为了初始化
+    setNamelist(namelist, names);
   });
+  const stop2 = watch(groups, (groups) => {
+    for (const name in groups)
+      setGroup(namelist, name, groups[name]);
+  }, { deep: true, immediate: true });
 
   return reactive({
     names,
-    groups: { add, remove, has, rename },
+    groups: { add, remove, has, rename, genName, use, list },
     cleanup: () => {
-      stop();
+      stop1();
+      stop2();
       names.value = [];
-      removeNamelist(name);
+      removeNamelist(namelist);
     },
   });
 }
@@ -73,11 +103,6 @@ export const useNamelistStore = defineStore('namelist', {
       data[name] = createNamelist(name, getNamelist(name), groups);
     }
     return { data };
-  },
-
-  getters: {
-    /** 名单列表 */
-    list: state => Object.keys(state.data),
   },
 
   actions: {
@@ -109,9 +134,25 @@ export const useNamelistStore = defineStore('namelist', {
       return name in this.data;
     },
 
+    list() {
+      return Object.keys(this.data);
+    },
+
     rename(from: string, to: string) {
       this.add(to, getNamelist(from));
       this.remove(from);
+    },
+
+    genName() {
+      const { t } = getGlobalI18n();
+      const keys = listNamelists();
+      let ret = '';
+      let index = keys.length;
+      do { // 避免与现有名单冲突
+        ++index;
+        ret = t('namelist-n', [index]);
+      } while (keys.includes(ret));
+      return ret;
     },
   },
 });

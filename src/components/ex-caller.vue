@@ -6,12 +6,11 @@ import LargeButton from '@/components/large-button';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { track } from '@/utils/analytics';
-import { getGroup } from '@/utils/group';
 import { triggerStopRollingGuide } from '@/utils/guide';
 import useRollCall from '@/utils/roll-call';
 import { setupUiHooks } from '@/utils/ui';
 import { whenever } from '@vueuse/core';
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, defineAsyncComponent, ref, toRaw } from 'vue';
 
 const LazySettings = defineAsyncComponent(() => import('@/components/settings.vue'));
 </script>
@@ -23,9 +22,9 @@ const namelist = useNamelistStore();
 
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
-    options: config.group // 如果有分组，则使用分组
-      ? getGroup(config.namelist, config.group)
-      : namelist.use(config.namelist).value,
+    options: toRaw(config.group // 如果有分组，则使用分组
+      ? (namelist.use(config.namelist).groups.use(config.group).value)
+      : namelist.use(config.namelist).names),
     duration: config.interval,
     ...options,
   });

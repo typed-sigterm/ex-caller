@@ -8,13 +8,17 @@ export const NEW_NAMELIST = '\0';
 </script>
 
 <script lang="tsx" setup>
+const { allowNew } = defineProps<{
+  allowNew?: boolean
+}>();
+
 const value = defineModel<string>();
 
 const { t } = useI18n({ useScope: 'local' });
 const namelist = useNamelistStore();
 
-const options: SelectOption[] = namelist.list.map(v => ({ label: v, value: v }));
-options.push({
+const options: SelectOption[] = namelist.list().map(v => ({ label: v, value: v }));
+allowNew && options.push({
   label: () => (
     <>
       <IconPlus class="v-top mr-0.5 size-5" />
