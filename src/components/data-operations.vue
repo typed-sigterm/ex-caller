@@ -9,7 +9,6 @@ const props = withDefaults(defineProps<{
 }>(), {
   disabled: false,
   max: Infinity,
-  handleExport: () => Promise.resolve(),
 });
 
 const emit = defineEmits<{
@@ -17,7 +16,7 @@ const emit = defineEmits<{
 }>();
 
 defineSlots<{
-  selectTarget: (props: { count: number }) => any
+  selectTarget: (props: { count: number, type: 'import'/* | 'export' */ }) => any
 }>();
 
 const { t } = useI18n();
@@ -25,9 +24,9 @@ const { t } = useI18n();
 const handleImport = (items: string[]) => emit('import', items);
 
 const exporting = ref(false);
-function handleExport() {
+function wrapExport() {
   exporting.value = true;
-  props.handleExport().finally(() => exporting.value = false);
+  props.handleExport!().finally(() => exporting.value = false);
 }
 </script>
 
@@ -35,17 +34,17 @@ function handleExport() {
   <NSpace>
     <ImportFromText :disabled :max @submit="handleImport">
       <template #selectTarget="p">
-        <slot name="selectTarget" v-bind="p" />
+        <slot name="selectTarget" v-bind="p" type="import" />
       </template>
     </ImportFromText>
 
     <ImportFromExcel :disabled :max @submit="handleImport">
       <template #selectTarget="p">
-        <slot name="selectTarget" v-bind="p" />
+        <slot name="selectTarget" v-bind="p" type="import" />
       </template>
     </ImportFromExcel>
 
-    <NButton :loading="exporting" @click="handleExport">
+    <NButton v-if="handleExport" :loading="exporting" @click="wrapExport">
       {{ t('export') }}
       <template #icon>
         <ILucideDownload :size="20" />

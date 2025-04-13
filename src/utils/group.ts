@@ -1,3 +1,5 @@
+import { saveFile } from './fs';
+
 const GROUP_KEY_PREFIX = 'group';
 
 const toKey = (namelist: string, group: string) => `${GROUP_KEY_PREFIX}/${namelist}/${group}`;
@@ -24,4 +26,18 @@ export function removeGroup(namelist: string, group: string) {
 
 export function hasGroup(namelist: string, group: string) {
   return localStorage.getItem(toKey(namelist, group)) !== null;
+}
+
+/**
+ * 导出分组到文本文件。
+ * @returns 是否导出成功
+ */
+export async function exportGroupToText(namelist: string, group: string) {
+  return await saveFile(
+    `${namelist}_${group}.txt`,
+    getGroup(namelist, group).value!.join('\n'),
+    {
+      filters: [{ name: '文本文件', extensions: ['txt'] }],
+    },
+  );
 }

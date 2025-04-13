@@ -8,6 +8,7 @@ import useNamelistMembers from '@/utils/namelist';
 import { useMessage } from 'naive-ui';
 import { computed, ref, toRaw, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { NEW_GROUP } from '../namelist/group-selector.vue';
 
 const { t } = useI18n({ useScope: 'local' });
 const message = useMessage();
@@ -18,7 +19,7 @@ const currentNamelist = computed(() => namelist.use(config.namelist));
 
 const enable = ref(!!config.group);
 watch(enable, v => !v && (config.group = undefined));
-const groups = ref(currentNamelist.value.groups.list());
+const groups = computed(() => currentNamelist.value.groups.list());
 
 const editing = ref(false);
 const editingGroup = ref<string>('');
@@ -56,6 +57,15 @@ function attemptRename(to: string) {
     message.error(t('name-duplicated'));
   else
     renameTo.value = to;
+}
+
+const importTo = ref<string>(NEW_GROUP);
+function handleImport(items: string[]) {
+  const target = importTo.value;
+  if (target === NEW_GROUP)
+    currentNamelist.value.groups.add(currentNamelist.value.groups.genName(), items);
+  else
+    currentNamelist.value.groups.use(target).value.push(...items);
 }
 </script>
 
@@ -99,7 +109,12 @@ function attemptRename(to: string) {
     {{ config.namelist }}
   </NFormItem>
 
-  <NFormItem :label="t('enable')" label-placement="left" data-guide-id="enable-group">
+  <NFormItem
+    :label="t('enable')"
+    label-placement="left"
+    data-guide-id="enable-group"
+    :show-feedback="false"
+  >
     <NSwitch v-model:value="enable" />
     <NSelect
       v-if="enable"
@@ -110,8 +125,9 @@ function attemptRename(to: string) {
     />
   </NFormItem>
 
-  <NDynamicInput
+  <DynamicInput
     v-model:value="groups"
+    class="mt-2 mb-4"
     :on-create="() => currentNamelist.groups.add()"
   >
     <template #default="{ value }">
@@ -123,7 +139,19 @@ function attemptRename(to: string) {
     <template #create-button-default>
       {{ t('add-group') }}
     </template>
-  </NDynamicInput>
+  </DynamicInput>
+
+  <DataOperations @import="handleImport">
+    <template #selectTarget="{ count }">
+      <p>把 {{ count }} 个名字导入到分组：</p>
+      <NamelistGroupSelector
+        v-model="importTo"
+        :namelist="config.namelist"
+        allow-new
+        @vue:before-mount="importTo = NEW_GROUP"
+      />
+    </template>
+  </DataOperations>
 </template>
 
 <i18n lang="yaml">

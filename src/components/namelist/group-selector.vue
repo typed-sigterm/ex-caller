@@ -5,11 +5,12 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconPlus from '~icons/lucide/plus';
 
-export const NEW_NAMELIST = '\0';
+export const NEW_GROUP = '\0';
 </script>
 
 <script lang="tsx" setup>
 const props = defineProps<{
+  namelist: string
   allowNew?: boolean
 }>();
 
@@ -19,16 +20,16 @@ const { t } = useI18n({ useScope: 'local' });
 const namelist = useNamelistStore();
 
 const options = computed(() => {
-  const ret: SelectOption[] = namelist.list().map(v => ({ label: v, value: v }));
+  const ret: SelectOption[] = namelist.use(props.namelist).groups.list().map(v => ({ label: v, value: v }));
   if (props.allowNew) {
     ret.push({
       label: () => (
         <>
           <IconPlus class="v-top mr-0.5 size-5" />
-          {t('create-namelist')}
+          {t('create-group')}
         </>
       ),
-      value: NEW_NAMELIST,
+      value: NEW_GROUP,
     });
   }
   return ret;
@@ -41,8 +42,8 @@ const options = computed(() => {
 
 <i18n lang="yaml">
 en:
-  create-namelist: Create new namelist
+  create-group: Create new group
 
 zh-CN:
-  create-namelist: 创建新名单
+  create-group: 创建新分组
 </i18n>

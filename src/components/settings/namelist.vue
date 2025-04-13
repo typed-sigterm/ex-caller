@@ -8,7 +8,7 @@ import { NEW_NAMELIST } from '@/components/namelist/selector.vue';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { MAX_NAMELIST_COUNT, MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
-import { exportNamelistToText, genNewNamelistName } from '@/utils/namelist';
+import { exportNamelistToText } from '@/utils/namelist';
 import { watchImmediate } from '@vueuse/core';
 import { useMessage } from 'naive-ui';
 import { computed, ref, watch } from 'vue';
@@ -50,7 +50,7 @@ function renderNamelistName(options: SelectOption): VNodeChild {
 }
 
 function handleAddNamelist() {
-  const name = genNewNamelistName();
+  const name = namelist.genName();
   namelist.add(name); // 创建名单
   config.namelist = name; // 切换到新名单
   message.success(t('namelist-created', [name]));
@@ -60,7 +60,7 @@ const importTo = ref<string>(NEW_NAMELIST);
 function handleImport(items: string[]) {
   let target = importTo.value;
   if (target === NEW_NAMELIST)
-    namelist.add(target = genNewNamelistName(), items);
+    namelist.add(target = namelist.genName(), items);
   else
     namelist.use(target).names.push(...items);
   config.namelist = target;
@@ -110,12 +110,6 @@ async function handleExport() {
     :handle-export
     @import="handleImport"
   >
-    <template #excelDetected="{ itemCount }">
-      <p v-if="itemCount">
-        {{ t('detected', { itemCount }) }}
-      </p>
-    </template>
-
     <template #selectTarget="{ count }">
       <p>把 {{ count }} 个名字导入到名单：</p>
       <NamelistSelector
