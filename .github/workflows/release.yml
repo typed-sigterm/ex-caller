@@ -95,12 +95,13 @@ jobs:
 
       - id: publish
         name: 构建与发布安装包
-        uses: tauri-apps/tauri-action@94571df7fd79dbe2aee6d279c0a6b66d086d3b3b # v0.5
+        uses: tauri-apps/tauri-action@42e9df6c59070d114bf90dcd3943a1b8f138b113 # v0.5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           releaseId: ${{ github.event.release.id }}
           args: --target ${{ matrix.target }}
+          tauriScript: bun tauri
 
       - id: portable
         name: 提取便携式可执行文件
