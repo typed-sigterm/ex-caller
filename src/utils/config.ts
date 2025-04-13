@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 export const UserConfigSchema = z.object({
   /** 待点名单名称 */
-  namelist: z.string().default('#1'),
+  namelist: z.string().default('名单 1'),
   /** 分组点名时，选中的分组 */
   group: z.string().optional(),
   /** 开始点名后，每个待点选项停留的时间 */
