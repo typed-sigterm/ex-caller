@@ -76,9 +76,17 @@ function createNamelist(
   const stop1 = watchImmediate(names, (names) => { // 持久化，立即执行是为了初始化
     setNamelist(namelist, names);
   });
+
+  // TODO: perf
   const stop2 = watch(groups, (groups) => {
-    for (const name in groups)
+    for (const name in groups) {
+      // 如果导入了名单中没有的名字，一并加入名单
+      for (const n of groups[name]) {
+        if (!names.value.includes(n))
+          names.value.push(n);
+      }
       setGroup(namelist, name, groups[name]);
+    }
   }, { deep: true, immediate: true });
 
   return reactive({
