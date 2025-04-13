@@ -1,34 +1,40 @@
 <script lang="tsx" setup>
 import type { UploadCustomRequestOptions } from 'naive-ui';
-import { MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
-import { importNamelistFromExcel } from '@/utils/namelist';
+import { readExcelLines } from '@/utils/xlsx';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconUpload from '~icons/ep/upload-filled';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
 
-const emit = defineEmits<{
-  done: [addTo: string, names: string[]]
+defineProps<{
+  max?: number
 }>();
-const show = defineModel<boolean>('show', { required: true });
+
+const emit = defineEmits<{
+  submit: [items: string[]]
+}>();
+
+defineSlots<{
+  selectTarget: (props: { count: number }) => any
+}>();
 
 const { t } = useI18n({ useScope: 'local' });
 
+const show = ref(false);
 const step = ref<'upload' | 'select'>('upload');
 const input = ref<string[]>([]);
-const addTo = ref('\0');
 
 function cleanup() {
   step.value = 'upload';
   input.value = [];
-  addTo.value = '\0';
 }
 
 function customRequest(options: UploadCustomRequestOptions) {
   if (!options.file.file)
     return;
+
   options.onProgress({ percent: Math.floor(Math.random() * 100) });
-  importNamelistFromExcel(options.file.file)
+  readExcelLines(options.file.file)
     .then((v) => {
       input.value.push(...v);
       options.onFinish();
@@ -44,7 +50,7 @@ function handleOk() {
     step.value = 'select';
     return false;
   } else {
-    emit('done', addTo.value, input.value);
+    emit('submit', input.value);
   }
 }
 </script>
@@ -54,7 +60,6 @@ function handleOk() {
     v-model:show="show"
     preset="dialog"
     :title="t('title')"
-    :close-on-esc="false"
     :positive-text="step === 'upload' ? $t('next-step') : $t('confirm')"
     :positive-button-props="{ disabled: !input.length }"
     :negative-text="$t('cancel')"
@@ -65,6 +70,7 @@ function handleOk() {
       <NUpload
         :show-remove-button="false"
         :custom-request="customRequest"
+        accept=".xlsx"
       >
         <NUploadDragger>
           <div>
@@ -72,6 +78,7 @@ function handleOk() {
               <IconUpload />
             </NIcon>
           </div>
+
           <NText class="text-base">
             {{ t('click-or-drag') }}
           </NText>
@@ -80,22 +87,9 @@ function handleOk() {
           </NP>
         </NUploadDragger>
       </NUpload>
-      <NP v-if="input.length">
-        <I18nT keypath="detected-names">
-          {{ input.length }}
-        </I18nT>
-      </NP>
-      <NP v-if="input.length > MAX_NAMELIST_MEMBER_COUNT">
-        <I18nT keypath="exceed-limit">
-          {{ MAX_NAMELIST_MEMBER_COUNT }}
-        </I18nT>
-      </NP>
     </template>
 
-    <template v-else>
-      <NP>把检测到的 {{ input.length }} 个名字导入到名单：</NP>
-      <SettingsNamelistSelector v-model="addTo" />
-    </template>
+    <slot v-else name="selectTarget" :count="input.length" />
 
     <template #icon>
       <NIcon :size="28">
@@ -103,6 +97,15 @@ function handleOk() {
       </NIcon>
     </template>
   </NModal>
+
+  <NButton v-bind="$attrs" @click="show = true">
+    {{ t('title') }}
+    <template #icon>
+      <NIcon :size="20">
+        <IconExcel />
+      </NIcon>
+    </template>
+  </NButton>
 </template>
 
 <i18n lang="yaml">
@@ -110,13 +113,10 @@ en:
   title: Import Excel Worksheet
   click-or-drag: Click or drag file here
   supported-files: Supported .xls .xlsx .csv files
-  detected-names: Detected {0} names, click "Next" to import.
-  exceed-limit: 'Note: Exceeded {0} names, only import the first {0} ones.'
 
 zh-CN:
   title: 导入 Excel
   click-or-drag: 点击此处或拖动文件到此区域
   supported-files: 支持 .xls .xlsx .csv 文件
-  detected-names: 共检测到 {0} 个名字，点击“下一步”即可导入。
-  exceed-limit: 注意：已超过 {0} 个名字，将只导入前 {0} 个。
+  not-detected: 未检测到名字，请将所有名字放在 Excel 的第一列中
 </i18n>

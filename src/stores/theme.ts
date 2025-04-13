@@ -1,9 +1,9 @@
 import type { LoadedLocalFile } from '@/utils/fs';
 import type { ResourceName } from '@/utils/theme';
 import { DEFAULT_MIME_TYPE } from '@/utils/app';
-import { getDataDir, tryMkdirRecursive, useJsonFile } from '@/utils/fs';
+import { getDataDir, useJsonFile } from '@/utils/fs';
 import { getThemeResource, RESOURCES } from '@/utils/theme';
-import { writeFile } from '@tauri-apps/plugin-fs';
+import { BaseDirectory, mkdir, writeFile } from '@tauri-apps/plugin-fs';
 import { watchDeep } from '@vueuse/core';
 import { defineStore } from 'pinia';
 
@@ -26,7 +26,10 @@ export const useThemeStore = defineStore('theme', {
   actions: {
     /** 初始化。 */
     async init() {
-      await tryMkdirRecursive('theme', await getDataDir());
+      await mkdir('theme', {
+        baseDir: BaseDirectory.Data,
+        recursive: true,
+      });
 
       // store 内修改同步到本地文件
       const localProps = await useJsonFile(

@@ -3,37 +3,33 @@ import type { RollCallOption } from '@/utils/roll-call';
 import type { SelectOption } from 'naive-ui';
 import type { VNodeChild } from 'vue';
 import DynamicInput from '@/components/dynamic-input.tsx';
-import SettingsNamelistName from '@/components/settings/namelist/name.vue';
+import NamelistName from '@/components/namelist/name.vue';
+import { NEW_NAMELIST } from '@/components/namelist/selector.vue';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { MAX_NAMELIST_COUNT, MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
-import { generateNewNamelistName, useNamelist } from '@/utils/namelist';
-import { ui } from '@/utils/ui';
+import { exportNamelistToText } from '@/utils/namelist';
 import { watchImmediate } from '@vueuse/core';
+import { useMessage } from 'naive-ui';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n({ useScope: 'local' });
-
+const message = useMessage();
 const config = useConfigStore();
 const namelist = useNamelistStore();
 
+watch(() => config.namelist, () => config.group = undefined);
+
 const names = ref<RollCallOption[]>([]);
 watchImmediate(() => config.namelist, () => {
-  names.value = useNamelist(config.namelist).value;
+  names.value = namelist.use(config.namelist).names;
 });
 watch(names, (v) => {
-  useNamelist(config.namelist).value = v;
+  namelist.use(config.namelist).names = v;
 });
 
-const namelists = computed<SelectOption[]>(() => {
-  return namelist.namelist.map(item => ({
-    label: '',
-    value: item,
-    class: 'namelist-name-item',
-  }));
-});
-const limited = computed(() => namelist.namelist.length >= MAX_NAMELIST_COUNT);
+const limited = computed(() => namelist.list().length >= MAX_NAMELIST_COUNT);
 
 function renderNamelistName(options: SelectOption): VNodeChild {
   const handleRename = (to: string) => {
@@ -43,11 +39,11 @@ function renderNamelistName(options: SelectOption): VNodeChild {
   };
   const handleDelete = () => {
     namelist.remove(options.value as string);
-    ui.message.success(t('namelist-deleted', [options.value]));
+    message.success(t('namelist-deleted', [options.value]));
   };
 
   return (
-    <SettingsNamelistName
+    <NamelistName
       {...options}
       onRename={handleRename}
       onDelete={handleDelete}
@@ -56,10 +52,24 @@ function renderNamelistName(options: SelectOption): VNodeChild {
 }
 
 function handleAddNamelist() {
-  const name = generateNewNamelistName();
+  const name = namelist.genName();
   namelist.add(name); // 创建名单
   config.namelist = name; // 切换到新名单
-  ui.message.success(t('namelist-created', [name]));
+  message.success(t('namelist-created', [name]));
+}
+
+const importTo = ref<string>(NEW_NAMELIST);
+function handleImport(items: string[]) {
+  let target = importTo.value;
+  if (target === NEW_NAMELIST)
+    namelist.add(target = namelist.genName(), items);
+  else
+    namelist.use(target).names.push(...items);
+  config.namelist = target;
+}
+
+async function handleExport() {
+  await exportNamelistToText(config.namelist);
 }
 </script>
 
@@ -72,9 +82,14 @@ function handleAddNamelist() {
     <NSelect
       v-model:value="config.namelist"
       class="namelist-selector"
-      :options="namelists"
+      :options="namelist.list().map(item => ({
+        label: '',
+        value: item,
+        class: 'namelist-name-item',
+      }))"
       :render-label="renderNamelistName"
     />
+
     <NButton class="ml-1" :disabled="limited" @click="handleAddNamelist">
       {{ t('create-namelist') }}
       <template #icon>
@@ -91,7 +106,21 @@ function handleAddNamelist() {
     show-sort-button
   />
 
-  <SettingsNamelistOperations @switch-namelist="(name) => config.namelist = name" />
+  <DataOperations
+    :disabled="limited"
+    :max="MAX_NAMELIST_MEMBER_COUNT - names.length"
+    :handle-export
+    @import="handleImport"
+  >
+    <template #selectTarget="{ count }">
+      <p>把 {{ count }} 个名字导入到名单：</p>
+      <NamelistSelector
+        v-model="importTo"
+        allow-new
+        @vue:before-mount="importTo = NEW_NAMELIST"
+      />
+    </template>
+  </DataOperations>
 </template>
 
 <style scoped>
@@ -117,10 +146,12 @@ en:
   create-namelist: New
   namelist-created: New namelist {0} is created
   namelist-deleted: Namelist {0} is deleted
+  detected-names: Detected {0} names, click "Next" to import.
 
 zh-CN:
   current: 当前名单
   create-namelist: 新建名单
   namelist-created: 名单 {0} 创建成功
   namelist-deleted: 已删除名单 {0}
+  detected: 共检测到 {0} 个名字，点击“下一步”即可导入。
 </i18n>

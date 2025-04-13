@@ -17,8 +17,10 @@ export default defineComponent({
       const id = ++syncId.value;
       const origin = toRaw(v) ?? [];
       const legacy = displayValue.value;
+
       if (origin.length < legacy.length) // 选项变少
-        displayValue.value.splice(origin.length);
+        displayValue.value.length = origin.length;
+
       for (let i = 0; i < origin.length; ++i) {
         if (origin[i] !== legacy[i]) { // 简单增量更新
           displayValue.value[i] = v?.[i];

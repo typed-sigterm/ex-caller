@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { SelectOption } from 'naive-ui';
-import { useNamelistStore } from '@/stores/namelist';
+import PopoverRename from '@/components/popover-rename.vue';
 import { MAX_NAMELIST_NAME_LENGTH } from '@/utils/config';
-import { ui } from '@/utils/ui';
-import { ref } from 'vue';
+import { hasNamelist } from '@/utils/namelist';
+import { useMessage } from 'naive-ui';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps<SelectOption>();
@@ -13,24 +13,13 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n({ useScope: 'local' });
+const message = useMessage();
 
-const renameTo = ref('');
-function handleRenamingUpdate(show: boolean) {
-  if (show)
-    renameTo.value = props.value as string;
-}
-function handleRename() {
-  if (renameTo.value === props.value)
-    return;
-  if (useNamelistStore().has(renameTo.value)) {
-    ui.message.error(t('name-duplicated'));
-    return;
-  }
-  ui.message.success(t('namelist-renamed', [
-    props.value,
-    renameTo.value,
-  ]));
-  emit('rename', renameTo.value);
+function rename(to: string) {
+  if (hasNamelist(to))
+    message.error(t('name-duplicated'));
+  else
+    emit('rename', to);
 }
 </script>
 
@@ -38,25 +27,12 @@ function handleRename() {
   <div class="w-full">
     <div class="flex">
       {{ props.value }}
-      <NPopconfirm
-        :show-icon="false"
-        :positive-text="t('rename')"
-        @update:show="handleRenamingUpdate"
-        @positive-click="handleRename"
-      >
-        <NInput
-          v-model:value="renameTo"
-          type="text"
-          size="small"
-          :maxlength="MAX_NAMELIST_NAME_LENGTH"
-        />
 
-        <template #trigger>
-          <NButton class="operator ml-1" size="tiny" text>
-            <ILucidePencil :size="14" />
-          </NButton>
-        </template>
-      </NPopconfirm>
+      <PopoverRename
+        :default="(props.value as string)"
+        :maxlength="MAX_NAMELIST_NAME_LENGTH"
+        @rename="rename"
+      />
 
       <NPopconfirm
         :positive-text="t('confirm-deletion-title')"

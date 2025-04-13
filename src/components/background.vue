@@ -45,6 +45,7 @@ const [DefineDefaultBackground, DefaultBackground] = createReusableTemplate();
   </DefineDefaultBackground>
 
   <DefaultBackground v-if="status === 'normal'" />
+
   <template v-else>
     <!-- 使用 v-show 避免多次加载视频资源 -->
     <video
@@ -60,6 +61,7 @@ const [DefineDefaultBackground, DefaultBackground] = createReusableTemplate();
       >
       <DefaultBackground />
     </video>
+
     <DefaultBackground v-show="!rollingUsingVideo" disablepictureinpicture />
   </template>
 </template>

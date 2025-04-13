@@ -46,6 +46,7 @@ let closedOrientation = false;
 function alertOrientation() {
   if (!incorrectOrientation.value || closedOrientation)
     return Promise.resolve();
+
   return new Promise<void>((resolve) => {
     const modal = ui.dialog.info({
       title: t('orientation.title'),
@@ -60,6 +61,7 @@ function alertOrientation() {
       onPositiveClick: () => closedOrientation = true, // 手动关闭，下次不再弹窗
       onAfterLeave: resolve,
     });
+
     const orientationListener = () => {
       if (incorrectOrientation.value) // 已变为横屏才自动关闭弹窗
         return;
