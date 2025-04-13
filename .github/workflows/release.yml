@@ -101,7 +101,6 @@ jobs:
         with:
           releaseId: ${{ github.event.release.id }}
           args: --target ${{ matrix.target }}
-          tauriScript: bun tauri
 
       - id: portable
         name: 提取便携式可执行文件
