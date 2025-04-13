@@ -71,7 +71,7 @@ function handleImport(items: string[]) {
 
 <template>
   <NModal v-model:show="editing" class="w-[30em]" preset="card">
-    <DynamicInput v-model:value="editingGroupMembers" show-sort-button>
+    <DynamicInput v-model:value="editingGroupMembers" :min="1" show-sort-button>
       <template #default="{ index }">
         <NSelect
           v-model:value="editingGroupMembers[index]"
