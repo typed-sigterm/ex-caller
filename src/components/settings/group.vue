@@ -4,7 +4,7 @@ import DynamicInput from '@/components/dynamic-input';
 import { useConfigStore } from '@/stores/config';
 import { useNamelistStore } from '@/stores/namelist';
 import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
-import useNamelistMembers from '@/utils/namelist';
+import { useNamelistMembers } from '@/utils/namelist';
 import { useMessage } from 'naive-ui';
 import { computed, ref, toRaw, watch } from 'vue';
 import { useI18n } from 'vue-i18n';

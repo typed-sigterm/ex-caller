@@ -71,7 +71,7 @@ export async function exportNamelistToText(namelist: string) {
   );
 }
 
-export default function useNamelistMembers(name: string) {
+export function useNamelistMembers(name: string) {
   return computed(
     () => useNamelistStore().use(name).names.map(rollCallOptionToString),
   );

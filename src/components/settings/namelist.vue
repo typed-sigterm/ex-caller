@@ -22,11 +22,16 @@ const namelist = useNamelistStore();
 watch(() => config.namelist, () => config.group = undefined);
 
 const names = ref<RollCallOption[]>([]);
-watchImmediate(() => config.namelist, () => {
-  names.value = namelist.use(config.namelist).names;
+const checksum = ref<string | undefined>();
+const expanded = ref(false);
+
+watchImmediate(() => config.namelist, (n) => {
+  names.value = namelist.use(n).names;
+  namelist.calcChecksum(n).then(v => checksum.value = v);
 });
 watch(names, (v) => {
   namelist.use(config.namelist).names = v;
+  namelist.calcChecksum(config.namelist).then(v => checksum.value = v);
 });
 
 const limited = computed(() => namelist.list().length >= MAX_NAMELIST_COUNT);
@@ -121,6 +126,34 @@ async function handleExport() {
       />
     </template>
   </DataOperations>
+
+  <p class="break-anywhere">
+    {{ t('checksum.label') }}
+    <span
+      class="select-all mr-1"
+      v-text="checksum ? (expanded ? checksum : checksum.slice(0, 5)) : '...'"
+    />
+
+    <NTooltip>
+      <template #trigger>
+        <ILucideCircleHelp class="align-sub" :size="20" />
+      </template>
+      {{ t('checksum.notes') }}
+    </NTooltip>
+
+    <NTooltip v-if="!expanded">
+      <template #trigger>
+        <ILucidePlus class="align-sub" :size="20" @click="expanded = true" />
+      </template>
+      {{ t('checksum.expand') }}
+    </NTooltip>
+    <NTooltip v-else>
+      <template #trigger>
+        <ILucideMinus class="align-sub" :size="20" @click="expanded = false" />
+      </template>
+      {{ t('checksum.collapse') }}
+    </NTooltip>
+  </p>
 </template>
 
 <style scoped>
@@ -147,6 +180,11 @@ en:
   namelist-created: New namelist {0} is created
   namelist-deleted: Namelist {0} is deleted
   detected-names: Detected {0} names, click "Next" to import.
+  checksum:
+    label: 'Checksum:'
+    notes: Used to verify the integrity of the namelist. If the namelist is modified, the checksum will change.
+    expand: Expand
+    collapse: Collapse
 
 zh-CN:
   current: 当前名单
@@ -154,4 +192,9 @@ zh-CN:
   namelist-created: 名单 {0} 创建成功
   namelist-deleted: 已删除名单 {0}
   detected: 共检测到 {0} 个名字，点击“下一步”即可导入。
+  checksum:
+    label: 校验码：
+    notes: 用于验证名单的完整性，若名单被修改，校验码会发生变化。
+    expand: 展开
+    collapse: 收起
 </i18n>

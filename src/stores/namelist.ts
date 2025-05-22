@@ -5,9 +5,16 @@ import { getGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
 import { rollCallOptionToString } from '@/utils/roll-call';
 import { getGlobalI18n } from '@/utils/ui';
+import { Sha256 } from '@aws-crypto/sha256-browser';
 import { watchImmediate } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { reactive, ref, toRef, watch } from 'vue';
+import { reactive, ref, toRaw, toRef, watch } from 'vue';
+
+function toHex(array: Uint8Array) {
+  return Array.from(array)
+    .map(byte => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 type GroupData = Record<string, string[]>;
 
@@ -161,6 +168,12 @@ export const useNamelistStore = defineStore('namelist', {
         ret = t('namelist-n', [index]);
       } while (keys.includes(ret));
       return ret;
+    },
+
+    async calcChecksum(name: string) {
+      const s = new Sha256();
+      s.update(JSON.stringify(toRaw(this.data[name].names)));
+      return toHex(await s.digest());
     },
   },
 });

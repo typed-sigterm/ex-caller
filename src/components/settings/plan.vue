@@ -3,7 +3,7 @@ import type { SelectOption } from 'naive-ui/es/select/src/interface';
 import DynamicInput from '@/components/dynamic-input.tsx';
 import { useConfigStore } from '@/stores/config';
 import { MAX_PLAN_QUEUE_SIZE } from '@/utils/config';
-import useNamelistMembers from '@/utils/namelist';
+import { useNamelistMembers } from '@/utils/namelist';
 import { computed, onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
