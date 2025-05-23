@@ -1,25 +1,31 @@
 <script lang="ts" setup>
 import { __CANARY__, getBuildMeta, GITHUB_REPO_URL } from '@/utils/app';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import ChangelogMd from '../../CHANGELOG.md';
 
 const { t } = useI18n({ useScope: 'local' });
-const time = getBuildMeta().buildTime;
+const meta = getBuildMeta();
+
+const canaryLink = computed(() => {
+  if (!__CANARY__)
+    return '';
+  return meta.commit
+    ? `/compare/main...${meta.commit}`
+    : `/blob/main/CHANGELOG.md`;
+});
 </script>
 
 <template>
   <NAlert v-if="__CANARY__" type="info" class="mb-4">
     <I18nT keypath="canary-tip">
-      <a
-        :href="`${GITHUB_REPO_URL}/blob/latest/CHANGELOG.md`"
-        target="_blank"
-      >GitHub</a>
+      <a :href="`${GITHUB_REPO_URL}${canaryLink}`" target="_blank">GitHub</a>
     </I18nT>
 
     <br>
 
     {{ t('build-time') }}
-    <NTime :time />
+    <NTime :time="meta.buildTime" />
   </NAlert>
 
   <ChangelogWrapper>
