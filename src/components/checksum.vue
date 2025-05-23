@@ -61,13 +61,13 @@ const [DefineOperations, Operations] = createReusableTemplate();
 <i18n lang="yaml">
 en:
   label: 'Checksum:'
-  notes: Used to verify the integrity of {0}. If {0} is modified, the checksum will change
+  notes: Used to verify the integrity of {0}. If {0} is modified, the entire checksum will change
   expand: Expand
   collapse: Collapse
 
 zh-CN:
   label: 校验码：
-  notes: 用于验证{0}完整性，若{0}被修改，校验码会发生变化
+  notes: 用于验证{0}完整性，若{0}被修改，整串校验码会改变
   expand: 展开
   collapse: 收起
 </i18n>

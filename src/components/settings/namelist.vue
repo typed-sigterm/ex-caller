@@ -117,7 +117,7 @@ async function handleExport() {
     @import="handleImport"
   >
     <template #selectTarget="{ count }">
-      <p>把 {{ count }} 个名字导入到名单：</p>
+      <p v-text="t('pre-import', [count])" />
       <NamelistSelector
         v-model="importTo"
         allow-new
@@ -148,12 +148,13 @@ async function handleExport() {
 
 <i18n lang="yaml">
 en:
-  namelist: Namelist
+  namelist: the namelist
   current: Current Namelist
   create-namelist: New
   namelist-created: New namelist {0} is created
   namelist-deleted: Namelist {0} is deleted
   detected-names: Detected {0} names, click "Next" to import.
+  pre-import: 'Import {0} names to namelist:'
 
 zh-CN:
   namelist: 名单
@@ -162,4 +163,5 @@ zh-CN:
   namelist-created: 名单 {0} 创建成功
   namelist-deleted: 已删除名单 {0}
   detected: 共检测到 {0} 个名字，点击“下一步”即可导入。
+  pre-import: 把 {0} 个名字导入到名单：
 </i18n>

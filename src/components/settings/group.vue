@@ -143,7 +143,7 @@ function handleImport(items: string[]) {
 
   <DataOperations @import="handleImport">
     <template #selectTarget="{ count }">
-      <p>把 {{ count }} 个名字导入到分组：</p>
+      <p v-text="t('pre-import', [count])" />
       <NamelistGroupSelector
         v-model="importTo"
         :namelist="config.namelist"
@@ -162,6 +162,7 @@ en:
   name-duplicated: Duplicated with existing name
   add-group: Add Group
   enable: Enable
+  pre-import: 'Import {0} names to group:'
 
 zh-CN:
   add-name: 添加名字
@@ -170,4 +171,5 @@ zh-CN:
   name-duplicated: 与现有分组重名了哦
   add-group: 添加分组
   enable: 启用分组点名
+  pre-import: 把 {0} 个名字导入到分组：
 </i18n>

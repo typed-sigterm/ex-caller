@@ -110,7 +110,7 @@ function handleOk() {
 
 <i18n lang="yaml">
 en:
-  title: Import Excel Worksheet
+  title: Import Excel
   click-or-drag: Click or drag file here
   supported-files: Supported .xls .xlsx .csv files
 
