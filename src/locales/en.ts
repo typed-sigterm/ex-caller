@@ -1,8 +1,10 @@
 import type { I18nRequiedText } from '@/locales/utils';
 
 export default {
-  'confirm': 'Confirm',
   'cancel': 'Cancel',
+  'confirm': 'Confirm',
+  'copied': 'Copied',
+  'copy': 'Copy',
   'error': 'Error',
   'done': 'Done',
   'guide': {

@@ -1,8 +1,10 @@
 import type { I18nRequiedText } from '@/locales/utils';
 
 export default {
-  'confirm': '确定',
   'cancel': '取消',
+  'confirm': '确定',
+  'copied': '已复制',
+  'copy': '复制',
   'done': '完成',
   'error': '错误',
   'guide': {

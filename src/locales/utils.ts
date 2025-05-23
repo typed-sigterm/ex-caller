@@ -4,8 +4,10 @@ interface GuideInfo {
 }
 
 export interface I18nRequiedText {
-  'confirm': string
   'cancel': string
+  'confirm': string
+  'copied': string
+  'copy': string
   'done': string
   'error': string
   'guide': {
