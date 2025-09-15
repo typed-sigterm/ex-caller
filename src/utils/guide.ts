@@ -1,7 +1,7 @@
 import type { Config, Popover } from 'driver.js';
-import { getGlobalI18n, markGuideAsDone, shouldStartGuide } from '@/utils/ui';
 import { driver } from 'driver.js';
 import { z } from 'zod';
+import { getGlobalI18n, markGuideAsDone, shouldStartGuide } from '@/utils/ui';
 import 'driver.js/dist/driver.css';
 
 export const GuideSchema = z.object({

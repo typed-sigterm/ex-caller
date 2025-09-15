@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { SelectOption } from 'naive-ui';
+import { useMessage } from 'naive-ui';
+import { useI18n } from 'vue-i18n';
 import PopoverRename from '@/components/popover-rename.vue';
 import { MAX_NAMELIST_NAME_LENGTH } from '@/utils/config';
 import { hasNamelist } from '@/utils/namelist';
-import { useMessage } from 'naive-ui';
-import { useI18n } from 'vue-i18n';
 
 const props = defineProps<SelectOption>();
 const emit = defineEmits<{

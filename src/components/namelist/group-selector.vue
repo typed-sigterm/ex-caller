@@ -1,9 +1,9 @@
 <script lang="tsx">
 import type { SelectOption } from 'naive-ui';
-import { useNamelistStore } from '@/stores/namelist';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconPlus from '~icons/lucide/plus';
+import { useNamelistStore } from '@/stores/namelist';
 
 export const NEW_GROUP = '\0';
 </script>

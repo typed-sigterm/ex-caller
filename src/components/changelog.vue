@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { __CANARY__, getBuildMeta, GITHUB_REPO_URL } from '@/utils/app';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { __CANARY__, getBuildMeta, GITHUB_REPO_URL } from '@/utils/app';
 import ChangelogMd from '../../CHANGELOG.md';
 
 const { t } = useI18n({ useScope: 'local' });

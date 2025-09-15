@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { createReusableTemplate, watchImmediate } from '@vueuse/core';
+import { computed, ref, watch } from 'vue';
 import { useThemeStore } from '@/stores/theme';
 import { __APP__ } from '@/utils/app';
 import { preload } from '@/utils/ui';
-import { createReusableTemplate, watchImmediate } from '@vueuse/core';
-import { computed, ref, watch } from 'vue';
 
 export type Status = 'normal' | 'ready-rolling' | 'rolling' | 'pausing';
 

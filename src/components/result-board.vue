@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import largeButton from '@/components/large-button';
-import { confetti } from '@/utils/ui';
 import { promiseTimeout, whenever } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 import IconStart from '~icons/ant-design/caret-right-filled';
 import IconResume from '~icons/ant-design/play-circle-filled';
+import largeButton from '@/components/large-button';
+import { confetti } from '@/utils/ui';
 
 export type Status = 'rolling' | 'pausing' | 'paused';
 

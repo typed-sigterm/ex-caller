@@ -1,12 +1,12 @@
-import type { Guide } from '@/utils/guide';
 import type { DialogApiInjection } from 'naive-ui/es/dialog/src/DialogProvider';
 import type { MessageApiInjection } from 'naive-ui/es/message/src/MessageProvider';
 import type { Composer } from 'vue-i18n';
-import { useGuideStore } from '@/stores/guide';
+import type { Guide } from '@/utils/guide';
 import JSConfetti from 'js-confetti';
 import { useDialog, useMessage } from 'naive-ui';
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useGuideStore } from '@/stores/guide';
 
 export const ui = reactive({} as {
   dialog: DialogApiInjection

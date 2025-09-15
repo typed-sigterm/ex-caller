@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+import { createReusableTemplate, promiseTimeout } from '@vueuse/core';
+import { useI18n } from 'vue-i18n';
 import { __CANARY__, isPortable } from '@/utils/app';
 import { bus } from '@/utils/event';
 import { triggerGroupGuide, triggerNamelistGuide, triggerPlanGuide } from '@/utils/guide';
 import { DRAWER_DEFAULT_WIDTH, DRAWER_MIN_WIDTH, shouldStartGuide } from '@/utils/ui';
-import { createReusableTemplate, promiseTimeout } from '@vueuse/core';
-import { useI18n } from 'vue-i18n';
 
 defineEmits<{
   open: []

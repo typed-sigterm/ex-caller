@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { track } from '@/utils/analytics';
-import { GITHUB_RELEASE_API_URL, VERSION, WEB_APP_URL } from '@/utils/app';
-import { bus } from '@/utils/event';
 import MarkdownIt from 'markdown-it';
 import { gt, valid } from 'semver';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { track } from '@/utils/analytics';
+import { GITHUB_RELEASE_API_URL, VERSION, WEB_APP_URL } from '@/utils/app';
+import { bus } from '@/utils/event';
 
 const { t } = useI18n({ useScope: 'local' });
 const mdit = new MarkdownIt();

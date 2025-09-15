@@ -1,14 +1,14 @@
-import type { RollCallOption } from '@/utils/roll-call';
 import type { Reactive, Ref } from 'vue';
+import type { RollCallOption } from '@/utils/roll-call';
+import { Sha256 } from '@aws-crypto/sha256-browser';
+import { watchImmediate } from '@vueuse/core';
+import { defineStore } from 'pinia';
+import { reactive, ref, toRaw, toRef, watch } from 'vue';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
 import { getGroup, listGroups, removeGroup, setGroup } from '@/utils/group';
 import { genNewNamelistName, getNamelist, listNamelists, removeNamelist, setNamelist } from '@/utils/namelist';
 import { rollCallOptionToString } from '@/utils/roll-call';
 import { getGlobalI18n } from '@/utils/ui';
-import { Sha256 } from '@aws-crypto/sha256-browser';
-import { watchImmediate } from '@vueuse/core';
-import { defineStore } from 'pinia';
-import { reactive, ref, toRaw, toRef, watch } from 'vue';
 
 function toHex(array: Uint8Array) {
   return Array.from(array)

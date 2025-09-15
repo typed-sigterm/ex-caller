@@ -1,11 +1,11 @@
 import type { LoadedLocalFile } from '@/utils/fs';
 import type { ResourceName } from '@/utils/theme';
-import { DEFAULT_MIME_TYPE } from '@/utils/app';
-import { getDataDir, useJsonFile } from '@/utils/fs';
-import { getThemeResource, RESOURCES } from '@/utils/theme';
 import { BaseDirectory, mkdir, writeFile } from '@tauri-apps/plugin-fs';
 import { watchDeep } from '@vueuse/core';
 import { defineStore } from 'pinia';
+import { DEFAULT_MIME_TYPE } from '@/utils/app';
+import { getDataDir, useJsonFile } from '@/utils/fs';
+import { getThemeResource, RESOURCES } from '@/utils/theme';
 
 export const THEME_DEFAULT_PROPERTIES = {
   backgroundRolling: {

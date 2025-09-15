@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { __APP__ } from '@/utils/app';
-import { DRAWER_DEFAULT_WIDTH, DRAWER_MIN_WIDTH } from '@/utils/ui';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { __APP__ } from '@/utils/app';
+import { DRAWER_DEFAULT_WIDTH, DRAWER_MIN_WIDTH } from '@/utils/ui';
 
 defineOptions({
   inheritAttrs: false,

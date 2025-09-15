@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useConfigStore } from '@/stores/config';
-import { MAX_INTERVAL, MIN_INTERVAL } from '@/utils/config';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useConfigStore } from '@/stores/config';
+import { MAX_INTERVAL, MIN_INTERVAL } from '@/utils/config';
 
 const { t } = useI18n({ useScope: 'local' });
 

@@ -1,9 +1,9 @@
 import type { RollCallOption } from '@/utils/roll-call';
+import { computed } from 'vue';
 import { useNamelistStore } from '@/stores/namelist';
 import { saveFile } from '@/utils/fs';
 import { rollCallOptionToString } from '@/utils/roll-call';
 import { getGlobalI18n } from '@/utils/ui';
-import { computed } from 'vue';
 
 const NAMELIST_KEY_PREFIX = 'namelist';
 

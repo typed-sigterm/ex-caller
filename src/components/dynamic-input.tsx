@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
-import { nextFrame } from '@/utils/ui';
 import { NDynamicInput, NSpin } from 'naive-ui';
 import { defineComponent, ref, toRaw, toRef, watch } from 'vue';
+import { nextFrame } from '@/utils/ui';
 
 export default defineComponent({
   name: 'DynamicInput',

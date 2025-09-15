@@ -1,7 +1,7 @@
 import type { RollCallOption } from '@/utils/roll-call';
-import { __APP__, isPortable, writePortableData } from '@/utils/app';
 import { invoke } from '@tauri-apps/api/core';
 import { z } from 'zod';
+import { __APP__, isPortable, writePortableData } from '@/utils/app';
 
 export const UserConfigSchema = z.object({
   /** 待点名单名称 */

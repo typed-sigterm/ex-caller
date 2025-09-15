@@ -1,7 +1,7 @@
+import { createPinia, setActivePinia } from 'pinia';
 import { useNamelistStore } from '@/stores/namelist';
 import { DEFAULT_NAMELIST_OPTIONS } from '@/utils/config';
 import { fixNamelist, genNewNamelistName, getNamelist, hasNamelist, setNamelist } from '@/utils/namelist';
-import { createPinia, setActivePinia } from 'pinia';
 import 'mock-local-storage';
 
 beforeEach(() => localStorage.clear());

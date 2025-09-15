@@ -1,8 +1,8 @@
 import type { UserConfig } from '@/utils/config';
-import { CONFIG_LOCALSTORAGE_KEY, UserConfigSchema } from '@/utils/config';
-import { fixNamelist } from '@/utils/namelist';
 import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
+import { CONFIG_LOCALSTORAGE_KEY, UserConfigSchema } from '@/utils/config';
+import { fixNamelist } from '@/utils/namelist';
 
 export const useConfigStore = defineStore(CONFIG_LOCALSTORAGE_KEY, {
   state: () => {

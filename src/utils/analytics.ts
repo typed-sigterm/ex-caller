@@ -1,12 +1,12 @@
 import type { Callback } from 'mixpanel-browser';
-import { __APP__, getBuildMeta, isPortable } from '@/utils/app';
 import mp from 'mixpanel-browser';
+import { __APP__, getBuildMeta, isPortable } from '@/utils/app';
 
-export type TrackEvent =
-  | 'Roll Call'
-  | 'Auto Update Confirmed'
-  | 'Auto Update Dismissed'
-  | 'Manual Update'
+export type TrackEvent
+  = | 'Roll Call'
+    | 'Auto Update Confirmed'
+    | 'Auto Update Dismissed'
+    | 'Manual Update'
 ;
 
 const clientType = __APP__ ? 'app' : 'web';

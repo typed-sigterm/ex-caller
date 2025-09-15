@@ -1,11 +1,11 @@
 <script lang="ts">
-import avatarTypedSigterm from '@/assets/typed-sigterm.png';
-import { __APP__, __CANARY__, __GA__, GITEE_REPO_URL, GITHUB_REPO_URL, isPortable, VERSION, WEB_APP_URL } from '@/utils/app';
-import { bus } from '@/utils/event';
 import { useMessage } from 'naive-ui';
 import { defineAsyncComponent, nextTick, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconGitHub from '~icons/ant-design/github-filled';
+import avatarTypedSigterm from '@/assets/typed-sigterm.png';
+import { __APP__, __CANARY__, __GA__, GITEE_REPO_URL, GITHUB_REPO_URL, isPortable, VERSION, WEB_APP_URL } from '@/utils/app';
+import { bus } from '@/utils/event';
 
 const LazyChangelog = defineAsyncComponent(() => import('@/components/changelog.vue'));
 </script>

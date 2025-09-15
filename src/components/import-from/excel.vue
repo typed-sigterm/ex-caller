@@ -1,10 +1,10 @@
 <script lang="tsx" setup>
 import type { UploadCustomRequestOptions } from 'naive-ui';
-import { readExcelLines } from '@/utils/xlsx';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import IconUpload from '~icons/ep/upload-filled';
 import IconExcel from '~icons/vscode-icons/file-type-excel';
+import { readExcelLines } from '@/utils/xlsx';
 
 defineProps<{
   max?: number
