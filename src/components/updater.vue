@@ -7,7 +7,7 @@ import { track } from '@/utils/analytics';
 import { GITHUB_RELEASE_API_URL, VERSION, WEB_APP_URL } from '@/utils/app';
 import { bus } from '@/utils/event';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const mdit = new MarkdownIt();
 
 const update = ref<any>();
@@ -54,10 +54,10 @@ function handleClose() {
   <NModal
     :show="!!update"
     preset="dialog"
-    :title="t('title', [update?.tag_name])"
+    :title="t('updater.title', [update?.tag_name])"
     type="info"
-    :positive-text="t('go')"
-    :negative-text="t('skip')"
+    :positive-text="t('updater.go')"
+    :negative-text="t('updater.skip')"
     @positive-click="handleGo"
     @update:show="(v) => !v && handleClose()"
   >
@@ -65,16 +65,3 @@ function handleClose() {
   </NModal>
 </template>
 
-<i18n lang="yaml">
-en:
-  title: New Version {0} Available
-  go: Read More
-  skip: Skip
-  view-changelog: View Changelog
-
-zh-CN:
-  title: 发现新版本 {0}
-  go: 查看更新
-  skip: 忽略
-  view-changelog: 查看更新内容
-</i18n>

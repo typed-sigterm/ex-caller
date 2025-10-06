@@ -7,7 +7,7 @@ import { useConfigStore } from '@/stores/config';
 import { MAX_PLAN_QUEUE_SIZE } from '@/utils/config';
 import { useNamelistMembers } from '@/utils/namelist';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 
 const config = useConfigStore();
 const queue = ref([...config.plan.queue]);
@@ -27,14 +27,14 @@ onBeforeUnmount(() => { // 保存设置
 
 <template>
   <NFormItem
-    :label="t('enable-plan')"
+    :label="t('settings.plan.enable-plan')"
     label-placement="left"
     data-guide-id="enable-plan-field"
   >
     <NSwitch v-model:value="config.plan.enabled" />
   </NFormItem>
 
-  <NFormItem v-if="config.plan.enabled" :label="t('planned-next')">
+  <NFormItem v-if="config.plan.enabled" :label="t('settings.plan.planned-next')">
     <DynamicInput v-model:value="queue" :max="MAX_PLAN_QUEUE_SIZE">
       <template #default="{ index }">
         <NSelect
@@ -45,7 +45,7 @@ onBeforeUnmount(() => { // 保存设置
       </template>
 
       <template #create-button-default>
-        {{ t('create-list') }}
+        {{ t('settings.plan.create-list') }}
       </template>
     </DynamicInput>
   </NFormItem>
@@ -61,14 +61,3 @@ onBeforeUnmount(() => { // 保存设置
 }
 </style>
 
-<i18n lang="yaml">
-en:
-  enable-plan: Enable Plan
-  planned-next: Next to be called
-  create-list: Add
-
-zh-CN:
-  enable-plan: 启用计划
-  planned-next: 接下来点到
-  create-list: 添加
-</i18n>

@@ -11,7 +11,7 @@ const LazyChangelog = defineAsyncComponent(() => import('@/components/changelog.
 </script>
 
 <script lang="ts" setup>
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const message = useMessage();
 
 const portable = await isPortable();
@@ -37,10 +37,10 @@ function checkUpdate() {
     bus.off('update-checked', handleUpdateChecked);
     checkingUpdate.value = false;
     if (!available)
-      message.success(t('no-update'));
+      message.success(t('settings.footer.no-update'));
   };
   bus.on('update-checked', handleUpdateChecked);
-  bus.emit('check-update');
+  bus.emit('settings.footer.check-update');
 }
 
 function downloadApp() {
@@ -53,11 +53,11 @@ function downloadApp() {
 <template>
   <div class="flex items-center">
     <LinkToModal @click="loadChangelog = true">
-      {{ t('changelog') }}
+      {{ t('settings.footer.changelog') }}
 
       <template #modalTitle>
         <ILucideHistory class="v-bottom" :size="22" />
-        {{ t('changelog-title') }}
+        {{ t('settings.footer.changelog-title') }}
       </template>
 
       <template #modalContent>
@@ -68,69 +68,69 @@ function downloadApp() {
     <NDivider vertical />
 
     <LinkToModal v-model:show-modal="showFeedback">
-      {{ t('feedback.title') }}
+      {{ t('settings.footer.feedback.title') }}
 
       <template #modalTitle>
         <ILucideMessageSquare class="v-bottom" :size="22" />
-        {{ t('feedback.title') }}
+        {{ t('settings.footer.feedback.title') }}
       </template>
 
       <template #modalContent>
         <p class="mt-0">
-          {{ t('feedback.desc') }}
+          {{ t('settings.footer.feedback.desc') }}
         </p>
-        <p>{{ t('feedback.methods') }}</p>
+        <p>{{ t('settings.footer.feedback.methods') }}</p>
 
         <ul class="line-height-normal">
           <li>
             <NTag class="mr-1 v-middle" type="success" size="small">
-              {{ t('feedback.recommended') }}
+              {{ t('settings.footer.feedback.recommended') }}
               <template #icon>
                 <ILucideStar :size="12" />
               </template>
             </NTag>
-            <I18nT keypath="feedback.github.message">
+            <I18nT keypath="settings.footer.feedback.github.message">
               <a :href="`${GITHUB_REPO_URL}/issues/new`" target="_blank">
-                {{ t('feedback.github.link') }}
+                {{ t('settings.footer.feedback.github.link') }}
               </a>
             </I18nT>
           </li>
 
           <li>
-            <I18nT keypath="feedback.gitee.message">
+            <I18nT keypath="settings.footer.feedback.gitee.message">
               <a :href="`${GITEE_REPO_URL}/issues/new`" target="_blank">
-                {{ t('feedback.gitee.link') }}
+                {{ t('settings.footer.feedback.gitee.link') }}
               </a>
             </I18nT>
           </li>
 
           <li>
-            <I18nT keypath="feedback.email.message">
-              <a :href="`mailto:${email}`">{{ t('feedback.email.link') }}</a>
+            <I18nT keypath="settings.footer.feedback.email.message">
+              <a :href="`mailto:${email}`">{{ t('settings.footer.feedback.email.link') }}</a>
               <code class="select-all">{{ email }}</code>
             </I18nT>
           </li>
         </ul>
 
         <p v-if="__CANARY__">
-          {{ t('feedback.canary') }}
+          {{ t('settings.footer.feedback.canary') }}
         </p>
-        <p>{{ t('feedback.thanks') }}</p>
-        <p>{{ t('feedback.contributing') }}</p>
+        <p>{{ t('settings.footer.feedback.thanks') }}</p>
+        <p>{{ t('settings.footer.feedback.contributing') }}</p>
       </template>
     </LinkToModal>
 
     <template v-if="__APP__ && __GA__">
       <NDivider vertical />
       <NButton text :loading="checkingUpdate" @click="checkUpdate">
-        {{ checkingUpdate ? '' : t('check-update') }}
+        {{ checkingUpdate ? '' : t('settings.footer.check-update') }}
       </NButton>
     </template>
 
     <template v-if="(!__APP__ || portable) && __GA__">
       <NDivider v-if="__APP__ || __GA__" vertical />
       <NButton text @click="downloadApp">
-        {{ t('download-app') }}
+        {{ t('settings.footer.download-app') }}
       </NButton>
     </template>
   </div>
@@ -163,54 +163,3 @@ function downloadApp() {
 }
 </style>
 
-<i18n lang="yaml">
-en:
-  changelog: Changelog
-  changelog-title: ExCaller Changelog
-  check-update: Check Update
-  download-app: Download App
-  no-update: Already up to date
-  feedback:
-    title: Send Feedback
-    desc:
-      If you have any problems or suggestions while using ExCaller,
-      feel free to send feedback to us.
-    methods: 'You can send feedback through either of the following ways:'
-    recommended: Recommended
-    github:
-      message: '{0} on GitHub'
-      link: Create an issue
-    gitee:
-      message: 'If you cannot access GitHub, you can {0} on Gitee'
-      link: create an issue
-    email:
-      message: '{0} to {1}'
-      link: Send an email
-    canary: If the problem only occurs in the Canary version, please indicate in the feedback.
-    thanks: After receiving the feedback, we will process it as soon as possible. Thank you for your support.
-    contributing: Anyone can view the source code of ExCaller. If you know how to program, you are welcome to contribute on GitHub.
-
-zh-CN:
-  changelog: 更新记录
-  changelog-title: ExCaller 更新记录
-  check-update: 检查更新
-  download-app: 下载 App
-  no-update: 已是最新版本
-  feedback:
-    title: 提交反馈
-    desc: 如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。
-    methods: 通过以下任一方式提交反馈：
-    recommended: 推荐
-    github:
-      message: 在 GitHub 上{0}
-      link: 创建 issue
-    gitee:
-      message: 若无法访问 GitHub，可以在 Gitee 上{0}
-      link: 创建 issue
-    email:
-      message: '{0}到邮箱 {1}'
-      link: 发送邮件
-    canary: 如果问题仅出现在 Canary 版本中，请在反馈中注明。
-    thanks: ExCaller 开源免费，维护者用爱发电，可能无法及时回复反馈，感谢您的支持。
-    contributing: 任何人都可以查看 ExCaller 的源代码，如果您会编程，欢迎在 GitHub 上参与开发。
-</i18n>

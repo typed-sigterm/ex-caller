@@ -8,7 +8,7 @@ const { value } = defineProps<{
   describes: string
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const { copy, copied, isSupported } = useClipboard();
 
 const expanded = ref(false);
@@ -25,7 +25,7 @@ const [DefineOperations, Operations] = createReusableTemplate();
       <template #trigger>
         <ILucideCircleHelp :size="20" />
       </template>
-      {{ t('notes', [describes]) }}
+      {{ t('checksum.notes', [describes]) }}
     </NTooltip>
 
     <NTooltip v-if="isSupported">
@@ -40,34 +40,21 @@ const [DefineOperations, Operations] = createReusableTemplate();
       <template #trigger>
         <ILucideMinus :size="20" @click="expanded = false" />
       </template>
-      {{ t('collapse') }}
+      {{ t('checksum.collapse') }}
     </NTooltip>
     <NTooltip v-else>
       <template #trigger>
         <ILucidePlus :size="20" @click="expanded = true" />
       </template>
-      {{ t('expand') }}
+      {{ t('checksum.expand') }}
     </NTooltip>
   </DefineOperations>
 
   <p v-if="value" class="flex flex-wrap items-center gap-1">
-    <span v-text="t('label')" />
+    <span v-text="t('checksum.label')" />
     <Operations v-if="expanded" />
     <span class="border-1 font-mono break-anywhere mr-1" v-text="shown" />
     <Operations v-if="!expanded" />
   </p>
 </template>
 
-<i18n lang="yaml">
-en:
-  label: 'Checksum:'
-  notes: Used to verify the integrity of {0}. If {0} is modified, the entire checksum will change
-  expand: Expand
-  collapse: Collapse
-
-zh-CN:
-  label: 校验码：
-  notes: 用于验证{0}完整性，若{0}被修改，整串校验码会改变
-  expand: 展开
-  collapse: 收起
-</i18n>

@@ -12,7 +12,7 @@ defineEmits<{
 }>();
 const show = defineModel<boolean>('show', { required: true });
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const portable = await isPortable();
 
 async function toggleNamelist(show?: boolean) {
@@ -40,7 +40,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
 <template>
   <DefineSubmitFeedback>
     <a class="cursor-pointer underline" @click="bus.emit('send-feedback')">
-      {{ t('feedback') }}
+      {{ t('settings.feedback') }}
     </a>
   </DefineSubmitFeedback>
 
@@ -56,21 +56,21 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
   >
     <NDrawerContent closable>
       <ClosableAlert v-if="__CANARY__" class="mb-3" state-key="canary-alert">
-        <I18nT keypath="canary">
+        <I18nT keypath="settings.canary">
           <br>
           <SubmitFeedback />
         </I18nT>
       </ClosableAlert>
 
       <ClosableAlert v-if="portable" class="mb-3" state-key="portable-alert">
-        <I18nT keypath="portable">
+        <I18nT keypath="settings.portable">
           <br>
           <SubmitFeedback />
         </I18nT>
       </ClosableAlert>
 
       <SettingsEntry
-        :title="t('entry.namelist')"
+        :title="t('settings.entry.namelist')"
         cache
         data-guide-id="namelist-drawer"
         @update:show="toggleNamelist"
@@ -81,7 +81,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
         </template>
       </SettingsEntry>
 
-      <SettingsEntry :title="t('entry.theme')" only-in-app>
+      <SettingsEntry :title="t('settings.entry.theme')" only-in-app>
         <SettingsTheme />
         <template #icon>
           <ILucidePalette :size="18" />
@@ -89,7 +89,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
       </SettingsEntry>
 
       <SettingsEntry
-        :title="t('entry.plan')"
+        :title="t('settings.entry.plan')"
         data-guide-id="plan-drawer"
         @update:show="togglePlan"
       >
@@ -100,7 +100,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
       </SettingsEntry>
 
       <SettingsEntry
-        :title="t('entry.group')"
+        :title="t('settings.entry.group')"
         data-guide-id="group-drawer"
         @update:show="toggleGroup"
       >
@@ -115,7 +115,7 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
       <SettingsFooter />
 
       <template #header>
-        <span>{{ t('title') }}</span>
+        <span>{{ t('settings.title') }}</span>
         <SettingsLanguage />
       </template>
     </NDrawerContent>
@@ -130,30 +130,3 @@ const [DefineSubmitFeedback, SubmitFeedback] = createReusableTemplate();
 }
 </style>
 
-<i18n lang="yaml">
-en:
-  title: Settings
-  entry:
-    namelist: Namelists
-    group: Groups
-    theme: Theme
-    plan: Plans
-  feedback: submit feedback
-  canary:
-    You are using the Canary version, which is considered as unstable.
-    If you encounter any problems, please {1}.
-  portable:
-    The portable version may have some bugs, desktop version is recommended.
-    If you encounter any problems, please {1}.
-
-zh-CN:
-  title: 设置
-  entry:
-    namelist: 名单设置
-    group: 分组设置
-    theme: 主题设置
-    plan: 计划设置
-  feedback: 提交反馈
-  canary: 您正在使用 Canary 版本，功能尚不稳定。{0}若遇到问题，欢迎{1}。
-  portable: 便携版可能存在一些 bug，建议使用桌面版。{0}若遇到问题，欢迎{1}。
-</i18n>

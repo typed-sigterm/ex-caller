@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { useConfigStore } from '@/stores/config';
 import { MAX_INTERVAL, MIN_INTERVAL } from '@/utils/config';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 
 const config = useConfigStore();
 
@@ -19,10 +19,10 @@ function handleInputIntervalDone() {
 
 <template>
   <NForm label-placement="left">
-    <NFormItem :label="t('interval')">
+    <NFormItem :label="t('settings.ui.interval')">
       <NSlider
         v-model:value="inputInterval"
-        :format-tooltip="ms => `${ms / 1000}${t('second')}`"
+        :format-tooltip="ms => `${ms / 1000}${t('settings.ui.second')}`"
         :max="MAX_INTERVAL"
         :min="MIN_INTERVAL"
         :step="10"
@@ -30,20 +30,9 @@ function handleInputIntervalDone() {
       />
     </NFormItem>
 
-    <NFormItem :label="t('confetti')">
+    <NFormItem :label="t('settings.ui.confetti')">
       <NSwitch v-model:value="config.confetti" />
     </NFormItem>
   </NForm>
 </template>
 
-<i18n lang="yaml">
-en:
-  interval: Interval
-  confetti: Confetti Effect
-  second: s
-
-zh-CN:
-  interval: 过号时间
-  confetti: 彩带效果
-  second: ' 秒'
-</i18n>

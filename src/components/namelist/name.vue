@@ -12,12 +12,12 @@ const emit = defineEmits<{
   delete: []
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const message = useMessage();
 
 function rename(to: string) {
   if (hasNamelist(to))
-    message.error(t('name-duplicated'));
+    message.error(t('namelist.name.name-duplicated'));
   else
     emit('rename', to);
 }
@@ -35,7 +35,7 @@ function rename(to: string) {
       />
 
       <NPopconfirm
-        :positive-text="t('confirm-deletion-title')"
+        :positive-text="t('namelist.name.confirm-deletion-title')"
         :positive-button-props="{ type: 'error' }"
         @positive-click="$emit('delete')"
       >
@@ -58,19 +58,3 @@ function rename(to: string) {
   </div>
 </template>
 
-<i18n lang="yaml">
-en:
-  rename: Rename
-  confirm-deletion-title: Delete
-  confirm-deletion:
-    Confirm deleting namelist {0}? This action cannot be undone!
-  name-duplicated: Duplicated with existing name
-  namelist-renamed: Namelist {0} is renamed to {1}
-
-zh-CN:
-  rename: 重命名
-  confirm-deletion-title: 确认删除
-  confirm-deletion: 确认删除名单 {0}？删除后无法找回！
-  name-duplicated: 与现有名单重名了哦
-  namelist-renamed: 名单 {0} 已重命名为 {1}
-</i18n>

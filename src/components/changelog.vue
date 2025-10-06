@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { __CANARY__, getBuildMeta, GITHUB_REPO_URL } from '@/utils/app';
 import ChangelogMd from '../../CHANGELOG.md';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const meta = getBuildMeta();
 
 const canaryLink = computed(() => {
@@ -24,7 +24,7 @@ const canaryLink = computed(() => {
 
     <br>
 
-    {{ t('build-time') }}
+    {{ t('changelog.build-time') }}
     <NTime :time="meta.buildTime" />
   </NAlert>
 
@@ -33,12 +33,3 @@ const canaryLink = computed(() => {
   </ChangelogWrapper>
 </template>
 
-<i18n lang="yaml">
-en:
-  canary-tip: For the latest changes in the canary version, please visit {0}.
-  build-time: "Build time:"
-
-zh-CN:
-  canary-tip: Canary 版本更新内容请前往 {0} 查看。
-  build-time: 构建时间：
-</i18n>

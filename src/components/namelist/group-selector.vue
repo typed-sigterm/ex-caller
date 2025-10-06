@@ -16,7 +16,7 @@ const props = defineProps<{
 
 const value = defineModel<string>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const namelist = useNamelistStore();
 
 const options = computed(() => {
@@ -26,7 +26,7 @@ const options = computed(() => {
       label: () => (
         <>
           <IconPlus class="v-top mr-0.5 size-5" />
-          {t('create-group')}
+          {t('namelist.group-selector.create-group')}
         </>
       ),
       value: NEW_GROUP,
@@ -40,10 +40,3 @@ const options = computed(() => {
   <NSelect v-model:value="value" filterable :options />
 </template>
 
-<i18n lang="yaml">
-en:
-  create-group: Create new group
-
-zh-CN:
-  create-group: 创建新分组
-</i18n>

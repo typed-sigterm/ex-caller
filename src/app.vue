@@ -14,7 +14,7 @@ import { setupI18nHooks, ui } from '@/utils/ui';
 setupI18nHooks();
 
 const i18n = useI18n();
-const { t } = useI18n({ useScope: 'local' });
+const { t } = i18n;
 watchImmediate(i18n.locale, (v) => {
   document.documentElement.lang = v;
 });
@@ -49,14 +49,14 @@ function alertOrientation() {
 
   return new Promise<void>((resolve) => {
     const modal = ui.dialog.info({
-      title: t('orientation.title'),
+      title: t('app.orientation.title'),
       content: () => (
         <>
-          <p class="m-0">{t('orientation.content-1')}</p>
-          <p class="mt-1">{t('orientation.content-2')}</p>
+          <p class="m-0">{t('app.orientation.content-1')}</p>
+          <p class="mt-1">{t('app.orientation.content-2')}</p>
         </>
       ),
-      positiveText: i18n.t('confirm'),
+      positiveText: t('confirm'),
       closable: false,
       onPositiveClick: () => closedOrientation = true, // 手动关闭，下次不再弹窗
       onAfterLeave: resolve,
@@ -121,16 +121,3 @@ function hideSpin() {
 }
 </style>
 
-<i18n lang="yaml">
-en:
-  orientation:
-    title: Prefer Landscape Mode
-    content-1: ExCaller is designed to be used in landscape mode, and may have UI issues in portrait mode.
-    content-2: You can open the notification bar and enable "Auto-rotate", then rotate your device to landscape mode.
-
-zh-CN:
-  orientation:
-    title: 推荐横屏使用
-    content-1: ExCaller 被设计为横屏使用，竖屏使用可能出现问题。
-    content-2: 您可以下拉通知栏打开“自动旋转”，并将设备旋转至横屏模式。
-</i18n>

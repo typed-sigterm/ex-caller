@@ -11,7 +11,7 @@ const emit = defineEmits<{
   rename: [to: string]
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const to = ref('');
 syncRef(toRef(props, 'default'), to, { direction: 'ltr' });
 
@@ -29,7 +29,7 @@ function handleRename() {
 <template>
   <NPopconfirm
     :show-icon="false"
-    :positive-text="t('rename')"
+    :positive-text="t('popover-rename.rename')"
     @update:show="handleRenamingUpdate"
     @positive-click="handleRename"
   >
@@ -48,10 +48,3 @@ function handleRename() {
   </NPopconfirm>
 </template>
 
-<i18n lang="yaml">
-en:
-  rename: Rename
-
-zh-CN:
-  rename: 重命名
-</i18n>

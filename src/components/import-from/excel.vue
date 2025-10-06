@@ -18,7 +18,7 @@ defineSlots<{
   selectTarget: (props: { count: number }) => any
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 
 const show = ref(false);
 const step = ref<'upload' | 'select'>('upload');
@@ -59,7 +59,7 @@ function handleOk() {
   <NModal
     v-model:show="show"
     preset="dialog"
-    :title="t('title')"
+    :title="t('import-from.excel.title')"
     :positive-text="step === 'upload' ? $t('next-step') : $t('confirm')"
     :positive-button-props="{ disabled: !input.length }"
     :negative-text="$t('cancel')"
@@ -80,10 +80,10 @@ function handleOk() {
           </div>
 
           <NText class="text-base">
-            {{ t('click-or-drag') }}
+            {{ t('import-from.excel.click-or-drag') }}
           </NText>
           <NP depth="3" class="mt-2">
-            {{ t('supported-files') }}
+            {{ t('import-from.excel.supported-files') }}
           </NP>
         </NUploadDragger>
       </NUpload>
@@ -99,7 +99,7 @@ function handleOk() {
   </NModal>
 
   <NButton v-bind="$attrs" @click="show = true">
-    {{ t('title') }}
+    {{ t('import-from.excel.title') }}
     <template #icon>
       <NIcon :size="20">
         <IconExcel />
@@ -108,15 +108,3 @@ function handleOk() {
   </NButton>
 </template>
 
-<i18n lang="yaml">
-en:
-  title: Import Excel
-  click-or-drag: Click or drag file here
-  supported-files: Supported .xls .xlsx .csv files
-
-zh-CN:
-  title: 导入 Excel
-  click-or-drag: 点击此处或拖动文件到此区域
-  supported-files: 支持 .xls .xlsx .csv 文件
-  not-detected: 未检测到名字，请将所有名字放在 Excel 的第一列中
-</i18n>

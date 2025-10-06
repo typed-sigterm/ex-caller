@@ -39,7 +39,9 @@ export default defineConfig({
 
     pluginUnocss(),
     pluginIcons(),
-    pluginI18n(),
+    pluginI18n({
+      include: [new URL('./src/locales/**', import.meta.url).pathname],
+    }),
 
     pluginMarkdown({
       markdownItOptions: {

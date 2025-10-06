@@ -9,7 +9,7 @@ import { __APP__, createNotInAppError, DEFAULT_MIME_TYPE } from '@/utils/app';
 if (!__APP__)
   throw createNotInAppError();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 
 const theme = useThemeStore();
 
@@ -64,14 +64,14 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
 </script>
 
 <template>
-  <NFormItem :label="t('default-background')">
+  <NFormItem :label="t('settings.theme.default-background')">
     <SingleFileSelector
       v-model:file="background"
       accept="image/*"
     />
   </NFormItem>
 
-  <NFormItem :label="t('background-rolling')">
+  <NFormItem :label="t('settings.theme.background-rolling')">
     <SingleFileSelector
       v-model:file="backgroundRolling"
       list-type="text"
@@ -80,12 +80,3 @@ watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
   </NFormItem>
 </template>
 
-<i18n lang="yaml">
-en:
-  default-background: Default Background
-  background-rolling: Background When Rolling
-
-zh-CN:
-  default-background: 默认背景
-  background-rolling: 点名时的背景
-</i18n>
