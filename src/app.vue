@@ -1,15 +1,15 @@
 <script lang="tsx" setup>
 import { promiseTimeout, useScreenOrientation, watchImmediate } from '@vueuse/core';
-import mp from 'mixpanel-browser';
 import { enUS, zhCN } from 'naive-ui';
 import { computed, markRaw, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useThemeStore } from '@/stores/theme';
-import { __APP__, __GA__, isPortable } from '@/utils/app';
+import { __APP__, isPortable } from '@/utils/app';
 import { bus } from '@/utils/event';
 import { initPortable } from '@/utils/fs';
 import { triggerWelcomeGuide } from '@/utils/guide';
 import { setupI18nHooks, ui } from '@/utils/ui';
+import { initAnalytics } from './utils/analytics';
 
 setupI18nHooks();
 
@@ -77,14 +77,6 @@ watch(orientation, () => {
     alertOrientation();
 });
 
-const token = import.meta.env.EXC_MIXPANEL_TOKEN;
-mp.init(token, {
-  persistence: 'localStorage',
-  track_pageview: __GA__,
-});
-if (!__GA__)
-  mp.disable();
-
 // portable 下 localStorage 与文件同步
 onMounted(async () => {
   if (__APP__ && await isPortable()) // tree-shake
@@ -94,6 +86,8 @@ onMounted(async () => {
 function hideSpin() {
   document.getElementById('app')!.removeAttribute('data-loading');
 }
+
+onMounted(initAnalytics);
 </script>
 
 <template>
@@ -120,4 +114,3 @@ function hideSpin() {
   transition: opacity 0.3s;
 }
 </style>
-

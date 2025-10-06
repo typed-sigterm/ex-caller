@@ -1,0 +1,208 @@
+{
+  "cancel": "取消",
+  "confirm": "确定",
+  "copied": "已复制",
+  "copy": "复制",
+  "done": "完成",
+  "error": "错误",
+  "guide": {
+    "welcome": [
+      {
+        "title": "欢迎使用 ExCaller",
+        "description": "这是一个简约风格的随机点名工具。"
+      },
+      {
+        "title": "开始点名",
+        "description": "点击绿色按钮开始点名。"
+      },
+      {
+        "title": "设置",
+        "description": "点击蓝色按钮打开设置界面。"
+      },
+      {
+        "title": "就这些",
+        "description": "是不是足够简约？（笑）"
+      }
+    ],
+    "stopRolling": [
+      {
+        "title": "停止抽取",
+        "description": "点击红色按钮停止抽取。"
+      }
+    ],
+    "namelist": [
+      {
+        "title": "名单功能",
+        "description": "似乎不需要解释。"
+      },
+      {
+        "title": "批量导入/导出",
+        "description": "你可以批量添加名字，也可以 Excel 中导入名字。当然也支持把名单导出为文本文件。"
+      },
+      {
+        "title": "多个名单",
+        "description": "你可以创建多个名单，不同名单之间互不干扰。点击下拉框即可切换当前生效的名单。"
+      }
+    ],
+    "group": [
+      {
+        "title": "分组功能",
+        "description": "你可以给名单里的名字分组。"
+      },
+      {
+        "title": "启用分组抽取",
+        "description": "……将抽取范围限制在组内。"
+      }
+    ],
+    "plan": [
+      {
+        "title": "计划功能",
+        "description": "可以让你控制接下来的抽取结果。"
+      },
+      {
+        "title": "不过为了防止滥用",
+        "description": "启用计划后，设置按钮会变成红色。"
+      }
+    ]
+  },
+  "next-step": "下一步",
+  "prev-step": "上一步",
+  "progress-template": "步骤 {0} / {1}",
+  "namelist-n": "名单 {0}",
+  "group-n": "分组 {0}",
+  "app": {
+    "orientation": {
+      "title": "推荐横屏使用",
+      "content-1": "ExCaller 被设计为横屏使用，竖屏使用可能出现问题。",
+      "content-2": "您可以下拉通知栏打开\"自动旋转\"，并将设备旋转至横屏模式。"
+    }
+  },
+  "changelog": {
+    "canary-tip": "Canary 版本更新内容请前往 {0} 查看。",
+    "build-time": "构建时间："
+  },
+  "checksum": {
+    "label": "校验码：",
+    "notes": "用于验证{0}完整性，若{0}被修改，整串校验码会改变",
+    "expand": "展开",
+    "collapse": "收起"
+  },
+  "data-operations": {
+    "export": "导出"
+  },
+  "import-from": {
+    "excel": {
+      "title": "导入 Excel",
+      "click-or-drag": "点击此处或拖动文件到此区域",
+      "supported-files": "支持 .xls .xlsx .csv 文件",
+      "not-detected": "未检测到名字，请将所有名字放在 Excel 的第一列中"
+    },
+    "text": {
+      "title": "批量输入",
+      "tip": "每行一个名字，自动去除头尾的空格和空行。",
+      "confirm": "确认",
+      "empty-input": "请输入需要添加的名字",
+      "cancel": "取消"
+    }
+  },
+  "namelist": {
+    "group-selector": {
+      "create-group": "创建新分组"
+    },
+    "name": {
+      "rename": "重命名",
+      "confirm-deletion-title": "确认删除",
+      "confirm-deletion": "确认删除名单 {0}？删除后无法找回！",
+      "name-duplicated": "与现有名单重名了哦",
+      "namelist-renamed": "名单 {0} 已重命名为 {1}"
+    },
+    "selector": {
+      "create-namelist": "创建新名单"
+    }
+  },
+  "popover-rename": {
+    "rename": "重命名"
+  },
+  "result-board": {
+    "continue-rolling": "继续点名"
+  },
+  "settings": {
+    "title": "设置",
+    "entry": {
+      "namelist": "名单设置",
+      "group": "分组设置",
+      "theme": "主题设置",
+      "plan": "计划设置",
+      "unsupported": "由于技术限制，请下载 App 体验此功能"
+    },
+    "feedback": "提交反馈",
+    "canary": "您正在使用 Canary 版本，功能尚不稳定。{0}若遇到问题，欢迎{1}。",
+    "portable": "便携版可能存在一些 bug，建议使用桌面版。{0}若遇到问题，欢迎{1}。",
+    "footer": {
+      "changelog": "更新记录",
+      "changelog-title": "ExCaller 更新记录",
+      "check-update": "检查更新",
+      "download-app": "下载 App",
+      "no-update": "已是最新版本",
+      "feedback": {
+        "title": "提交反馈",
+        "desc": "如果您在使用 ExCaller 时有任何问题或建议，欢迎反馈给我们。",
+        "methods": "通过以下任一方式提交反馈：",
+        "recommended": "推荐",
+        "github": {
+          "message": "在 GitHub 上{0}",
+          "link": "创建 issue"
+        },
+        "gitee": {
+          "message": "若无法访问 GitHub，可以在 Gitee 上{0}",
+          "link": "创建 issue"
+        },
+        "email": {
+          "message": "{0}到邮箱 {1}",
+          "link": "发送邮件"
+        },
+        "canary": "如果问题仅出现在 Canary 版本中，请在反馈中注明。",
+        "thanks": "ExCaller 开源免费，维护者用爱发电，可能无法及时回复反馈，感谢您的支持。",
+        "contributing": "任何人都可以查看 ExCaller 的源代码，如果您会编程，欢迎在 GitHub 上参与开发。"
+      }
+    },
+    "group": {
+      "add-name": "添加名字",
+      "current-namelist": "当前名单",
+      "edit-title": "编辑分组 {0}",
+      "name-duplicated": "与现有分组重名了哦",
+      "add-group": "添加分组",
+      "enable": "启用分组点名",
+      "pre-import": "把 {0} 个名字导入到分组："
+    },
+    "namelist": {
+      "namelist": "名单",
+      "current": "当前名单",
+      "create-namelist": "新建名单",
+      "namelist-created": "名单 {0} 创建成功",
+      "namelist-deleted": "已删除名单 {0}",
+      "detected-names": "共检测到 {0} 个名字，点击\"下一步\"即可导入。",
+      "pre-import": "把 {0} 个名字导入到名单："
+    },
+    "plan": {
+      "enable-plan": "启用计划",
+      "planned-next": "接下来点到",
+      "create-list": "添加"
+    },
+    "theme": {
+      "default-background": "默认背景",
+      "background-rolling": "点名时的背景"
+    },
+    "ui": {
+      "interval": "过号时间",
+      "confetti": "彩带效果",
+      "second": " 秒"
+    }
+  },
+  "updater": {
+    "title": "发现新版本 {0}",
+    "go": "查看更新",
+    "skip": "忽略",
+    "view-changelog": "查看更新内容"
+  }
+}

@@ -5,6 +5,7 @@
     "tauri-apps.tauri-vscode",
     "dbaeumer.vscode-eslint",
     "antfu.unocss",
-    "huacnlee.autocorrect"
+    "huacnlee.autocorrect",
+    "lokalise.i18n-ally"
   ]
 }
