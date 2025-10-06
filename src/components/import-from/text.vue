@@ -15,7 +15,7 @@ defineSlots<{
   selectTarget: (props: { count: number }) => any
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const message = useMessage();
 
 const show = ref(false);
@@ -33,7 +33,7 @@ function handleOk() {
     if (names.value.length)
       step.value = 'select';
     else
-      message.error(t('empty-input'));
+      message.error(t('import-from.text.empty-input'));
     return false;
   } else {
     emit('submit', names.value);
@@ -50,14 +50,14 @@ function cleanup() {
   <NModal
     v-model:show="show"
     preset="dialog"
-    :title="t('title')"
-    :positive-text="step === 'input' ? $t('next-step') : $t('confirm')"
-    :negative-text="$t('cancel')"
+    :title="t('import-from.text.title')"
+    :positive-text="step === 'input' ? $t('next-step') : $t('import-from.text.confirm')"
+    :negative-text="$t('import-from.text.cancel')"
     @positive-click="handleOk"
     @after-leave="cleanup"
   >
     <template v-if="step === 'input'">
-      <NP>{{ t('tip') }}</NP>
+      <NP>{{ t('import-from.text.tip') }}</NP>
       <NInput v-model:value="input" type="textarea" />
     </template>
 
@@ -69,25 +69,9 @@ function cleanup() {
   </NModal>
 
   <NButton v-bind="$attrs" @click="show = true">
-    {{ t('title') }}
+    {{ t('import-from.text.title') }}
     <template #icon>
       <ILucideNotebookTabs :size="20" />
     </template>
   </NButton>
 </template>
-
-<i18n lang="yaml">
-en:
-  title: Batch Input
-  tip: "One name per line, automatically remove leading and trailing spaces and empty lines."
-  confirm: Confirm
-  empty-input: Please input names
-  cancel: Cancel
-
-zh-CN:
-  title: 批量输入
-  tip: "每行一个名字，自动去除头尾的空格和空行。"
-  confirm: 确认
-  empty-input: 请输入需要添加的名字
-  cancel: 取消
-</i18n>

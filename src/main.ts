@@ -2,8 +2,8 @@ import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import { createI18n } from 'vue-i18n';
 import App from '@/app.vue';
-import localeEn from '@/locales/en';
-import localeZhCn from '@/locales/zh-CN';
+import localeEn from '@/locales/en.json';
+import localeZhCn from '@/locales/zh-CN.json';
 import 'virtual:uno.css';
 import '@/main.css';
 

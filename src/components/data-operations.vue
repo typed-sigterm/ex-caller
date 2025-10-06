@@ -45,18 +45,10 @@ function wrapExport() {
     </ImportFromExcel>
 
     <NButton v-if="handleExport" :loading="exporting" @click="wrapExport">
-      {{ t('export') }}
+      {{ t('data-operations.export') }}
       <template #icon>
         <ILucideDownload :size="20" />
       </template>
     </NButton>
   </NSpace>
 </template>
-
-<i18n lang="yaml">
-en:
-  export: Export
-
-zh-CN:
-  export: 导出
-</i18n>

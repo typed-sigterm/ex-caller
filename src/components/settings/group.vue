@@ -10,7 +10,7 @@ import { MAX_GROUP_NAME_LENGTH } from '@/utils/config';
 import { useNamelistMembers } from '@/utils/namelist';
 import { NEW_GROUP } from '../namelist/group-selector.vue';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const message = useMessage();
 const config = useConfigStore();
 const namelist = useNamelistStore();
@@ -54,7 +54,7 @@ function saveEdit() {
 
 function attemptRename(to: string) {
   if (currentNamelist.value.groups.has(to))
-    message.error(t('name-duplicated'));
+    message.error(t('settings.group.name-duplicated'));
   else
     renameTo.value = to;
 }
@@ -81,7 +81,7 @@ function handleImport(items: string[]) {
       </template>
 
       <template #create-button-default>
-        {{ t('add-name') }}
+        {{ t('settings.group.add-name') }}
       </template>
     </DynamicInput>
 
@@ -96,7 +96,7 @@ function handleImport(items: string[]) {
     </NSpace>
 
     <template #header>
-      {{ t('edit-title', [renameTo ?? editingGroup]) }}
+      {{ t('settings.group.edit-title', [renameTo ?? editingGroup]) }}
       <PopoverRename
         :default="renameTo ?? editingGroup"
         :maxlength="MAX_GROUP_NAME_LENGTH"
@@ -105,12 +105,12 @@ function handleImport(items: string[]) {
     </template>
   </NModal>
 
-  <NFormItem :label="t('current-namelist')" label-placement="left" :show-feedback="false">
+  <NFormItem :label="t('settings.group.current-namelist')" label-placement="left" :show-feedback="false">
     {{ config.namelist }}
   </NFormItem>
 
   <NFormItem
-    :label="t('enable')"
+    :label="t('settings.group.enable')"
     label-placement="left"
     data-guide-id="enable-group"
     :show-feedback="false"
@@ -137,13 +137,13 @@ function handleImport(items: string[]) {
     </template>
 
     <template #create-button-default>
-      {{ t('add-group') }}
+      {{ t('settings.group.add-group') }}
     </template>
   </DynamicInput>
 
   <DataOperations @import="handleImport">
     <template #selectTarget="{ count }">
-      <p v-text="t('pre-import', [count])" />
+      <p v-text="t('settings.group.pre-import', [count])" />
       <NamelistGroupSelector
         v-model="importTo"
         :namelist="config.namelist"
@@ -153,23 +153,3 @@ function handleImport(items: string[]) {
     </template>
   </DataOperations>
 </template>
-
-<i18n lang="yaml">
-en:
-  add-name: Add Name
-  current-namelist: Current Namelist
-  edit-title: 'Edit Group: {0}'
-  name-duplicated: Duplicated with existing name
-  add-group: Add Group
-  enable: Enable
-  pre-import: 'Import {0} names to group:'
-
-zh-CN:
-  add-name: 添加名字
-  current-namelist: 当前名单
-  edit-title: 编辑分组 {0}
-  name-duplicated: 与现有分组重名了哦
-  add-group: 添加分组
-  enable: 启用分组点名
-  pre-import: 把 {0} 个名字导入到分组：
-</i18n>

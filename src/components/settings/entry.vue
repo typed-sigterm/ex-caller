@@ -24,7 +24,7 @@ defineSlots<{
   icon: () => any
 }>();
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 
 const show = defineModel<boolean>('show');
 // 不启用缓存，则 v-if 控制显示，内容容器始终展示（因为 v-if 会销毁内容）
@@ -43,7 +43,7 @@ function handleOpen() {
 
 <template>
   <NTooltip :disabled="supported">
-    {{ t('unsupported') }}
+    {{ t('settings.entry.unsupported') }}
     <template #trigger>
       <NCard
         class="card"
@@ -102,13 +102,3 @@ function handleOpen() {
   transition: box-shadow .2s;
 }
 </style>
-
-<i18n lang="yaml">
-en:
-  unsupported:
-    Due to technical limitations,
-    please download the App to experience this feature
-
-zh-CN:
-  unsupported: 由于技术限制，请下载 App 体验此功能
-</i18n>

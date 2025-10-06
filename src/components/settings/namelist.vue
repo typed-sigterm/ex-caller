@@ -14,7 +14,7 @@ import { useNamelistStore } from '@/stores/namelist';
 import { MAX_NAMELIST_COUNT, MAX_NAMELIST_MEMBER_COUNT } from '@/utils/config';
 import { exportNamelistToText } from '@/utils/namelist';
 
-const { t } = useI18n({ useScope: 'local' });
+const { t } = useI18n();
 const message = useMessage();
 const config = useConfigStore();
 const namelist = useNamelistStore();
@@ -43,7 +43,7 @@ function renderNamelistName(options: SelectOption): VNodeChild {
   };
   const handleDelete = () => {
     namelist.remove(options.value as string);
-    message.success(t('namelist-deleted', [options.value]));
+    message.success(t('settings.namelist.namelist-deleted', [options.value]));
   };
 
   return (
@@ -59,7 +59,7 @@ function handleAddNamelist() {
   const name = namelist.genName();
   namelist.add(name); // 创建名单
   config.namelist = name; // 切换到新名单
-  message.success(t('namelist-created', [name]));
+  message.success(t('settings.namelist.namelist-created', [name]));
 }
 
 const importTo = ref<string>(NEW_NAMELIST);
@@ -79,7 +79,7 @@ async function handleExport() {
 
 <template>
   <NFormItem
-    :label="t('current')"
+    :label="t('settings.namelist.current')"
     label-placement="left"
     data-guide-id="namelist-selector"
   >
@@ -95,7 +95,7 @@ async function handleExport() {
     />
 
     <NButton class="ml-1" :disabled="limited" @click="handleAddNamelist">
-      {{ t('create-namelist') }}
+      {{ t('settings.namelist.create-namelist') }}
       <template #icon>
         <ILucidePlus :size="16" />
       </template>
@@ -117,7 +117,7 @@ async function handleExport() {
     @import="handleImport"
   >
     <template #selectTarget="{ count }">
-      <p v-text="t('pre-import', [count])" />
+      <p v-text="t('settings.namelist.pre-import', [count])" />
       <NamelistSelector
         v-model="importTo"
         allow-new
@@ -126,7 +126,7 @@ async function handleExport() {
     </template>
   </DataOperations>
 
-  <Checksum :value="checksum" :describes="t('namelist')" />
+  <Checksum :value="checksum" :describes="t('settings.namelist.namelist')" />
 </template>
 
 <style scoped>
@@ -145,23 +145,3 @@ async function handleExport() {
   }
 }
 </style>
-
-<i18n lang="yaml">
-en:
-  namelist: the namelist
-  current: Current Namelist
-  create-namelist: New
-  namelist-created: New namelist {0} is created
-  namelist-deleted: Namelist {0} is deleted
-  detected-names: Detected {0} names, click "Next" to import.
-  pre-import: 'Import {0} names to namelist:'
-
-zh-CN:
-  namelist: 名单
-  current: 当前名单
-  create-namelist: 新建名单
-  namelist-created: 名单 {0} 创建成功
-  namelist-deleted: 已删除名单 {0}
-  detected: 共检测到 {0} 个名字，点击“下一步”即可导入。
-  pre-import: 把 {0} 个名字导入到名单：
-</i18n>

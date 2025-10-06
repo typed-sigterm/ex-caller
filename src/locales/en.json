@@ -1,0 +1,208 @@
+{
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "copied": "Copied",
+  "copy": "Copy",
+  "error": "Error",
+  "done": "Done",
+  "guide": {
+    "welcome": [
+      {
+        "title": "Welcome to ExCaller",
+        "description": "This is a simple random call tool."
+      },
+      {
+        "title": "Start calling",
+        "description": "Click the green button to start calling."
+      },
+      {
+        "title": "Settings",
+        "description": "Click the blue button to open the settings page."
+      },
+      {
+        "title": "That's it",
+        "description": "Is it simple enough? (lol)"
+      }
+    ],
+    "stopRolling": [
+      {
+        "title": "Stop rolling",
+        "description": "Click the red button to stop rolling."
+      }
+    ],
+    "namelist": [
+      {
+        "title": "Namelist feature",
+        "description": "It is what you think it is."
+      },
+      {
+        "title": "Batch import/export",
+        "description": "You can batch add names, or import names from Excel. Of course, you can also export the list to a text file."
+      },
+      {
+        "title": "Multiple lists",
+        "description": "You can create multiple lists, and different lists do not interfere with each other. Click the dropdown box to switch the currently effective list."
+      }
+    ],
+    "group": [
+      {
+        "title": "Group feature",
+        "description": "You can group names, and narrow down the range of names to be called."
+      },
+      {
+        "title": "Enable group calling",
+        "description": "Limiting the range of names to be called within the group."
+      }
+    ],
+    "plan": [
+      {
+        "title": "Plan feature",
+        "description": "You can enable Plan to control the next draws."
+      },
+      {
+        "title": "But to prevent abuse",
+        "description": "After enabling the plan feature, the settings button will turn red."
+      }
+    ]
+  },
+  "next-step": "Next",
+  "prev-step": "Prev",
+  "progress-template": "Step {0} / {1}",
+  "namelist-n": "Namelist {0}",
+  "group-n": "Group {0}",
+  "app": {
+    "orientation": {
+      "title": "Prefer Landscape Mode",
+      "content-1": "ExCaller is designed to be used in landscape mode, and may have UI issues in portrait mode.",
+      "content-2": "You can open the notification bar and enable \"Auto-rotate\", then rotate your device to landscape mode."
+    }
+  },
+  "changelog": {
+    "canary-tip": "For the latest changes in the canary version, please visit {0}.",
+    "build-time": "Build time:"
+  },
+  "checksum": {
+    "label": "Checksum:",
+    "notes": "Used to verify the integrity of {0}. If {0} is modified, the entire checksum will change",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "data-operations": {
+    "export": "Export"
+  },
+  "import-from": {
+    "excel": {
+      "title": "Import Excel",
+      "click-or-drag": "Click or drag file here",
+      "supported-files": "Supported .xls .xlsx .csv files",
+      "not-detected": "No names detected"
+    },
+    "text": {
+      "title": "Batch Input",
+      "tip": "One name per line, automatically remove leading and trailing spaces and empty lines.",
+      "confirm": "Confirm",
+      "empty-input": "Please input names",
+      "cancel": "Cancel"
+    }
+  },
+  "namelist": {
+    "group-selector": {
+      "create-group": "Create new group"
+    },
+    "name": {
+      "rename": "Rename",
+      "confirm-deletion-title": "Delete",
+      "confirm-deletion": "Confirm deleting namelist {0}? This action cannot be undone!",
+      "name-duplicated": "Duplicated with existing name",
+      "namelist-renamed": "Namelist {0} is renamed to {1}"
+    },
+    "selector": {
+      "create-namelist": "Create new namelist"
+    }
+  },
+  "popover-rename": {
+    "rename": "Rename"
+  },
+  "result-board": {
+    "continue-rolling": "Continue"
+  },
+  "settings": {
+    "title": "Settings",
+    "entry": {
+      "namelist": "Namelists",
+      "group": "Groups",
+      "theme": "Theme",
+      "plan": "Plans",
+      "unsupported": "Due to technical limitations, please download the App to experience this feature"
+    },
+    "feedback": "submit feedback",
+    "canary": "You are using the Canary version, which is considered as unstable. If you encounter any problems, please {1}.",
+    "portable": "The portable version may have some bugs, desktop version is recommended. If you encounter any problems, please {1}.",
+    "footer": {
+      "changelog": "Changelog",
+      "changelog-title": "ExCaller Changelog",
+      "check-update": "Check Update",
+      "download-app": "Download App",
+      "no-update": "Already up to date",
+      "feedback": {
+        "title": "Send Feedback",
+        "desc": "If you have any problems or suggestions while using ExCaller, feel free to send feedback to us.",
+        "methods": "You can send feedback through either of the following ways:",
+        "recommended": "Recommended",
+        "github": {
+          "message": "{0} on GitHub",
+          "link": "Create an issue"
+        },
+        "gitee": {
+          "message": "If you cannot access GitHub, you can {0} on Gitee",
+          "link": "create an issue"
+        },
+        "email": {
+          "message": "{0} to {1}",
+          "link": "Send an email"
+        },
+        "canary": "If the problem only occurs in the Canary version, please indicate in the feedback.",
+        "thanks": "After receiving the feedback, we will process it as soon as possible. Thank you for your support.",
+        "contributing": "Anyone can view the source code of ExCaller. If you know how to program, you are welcome to contribute on GitHub."
+      }
+    },
+    "group": {
+      "add-name": "Add Name",
+      "current-namelist": "Current Namelist",
+      "edit-title": "Edit Group: {0}",
+      "name-duplicated": "Duplicated with existing name",
+      "add-group": "Add Group",
+      "enable": "Enable",
+      "pre-import": "Import {0} names to group:"
+    },
+    "namelist": {
+      "namelist": "the namelist",
+      "current": "Current Namelist",
+      "create-namelist": "New",
+      "namelist-created": "New namelist {0} is created",
+      "namelist-deleted": "Namelist {0} is deleted",
+      "detected-names": "Detected {0} names, click \"Next\" to import.",
+      "pre-import": "Import {0} names to namelist:"
+    },
+    "plan": {
+      "enable-plan": "Enable Plan",
+      "planned-next": "Next to be called",
+      "create-list": "Add"
+    },
+    "theme": {
+      "default-background": "Default Background",
+      "background-rolling": "Background When Rolling"
+    },
+    "ui": {
+      "interval": "Interval",
+      "confetti": "Confetti Effect",
+      "second": "s"
+    }
+  },
+  "updater": {
+    "title": "New Version {0} Available",
+    "go": "Read More",
+    "skip": "Skip",
+    "view-changelog": "View Changelog"
+  }
+}

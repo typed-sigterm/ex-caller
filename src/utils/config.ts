@@ -18,7 +18,10 @@ export const UserConfigSchema = z.object({
     enabled: z.boolean().default(false),
     /** 计划队列 */
     queue: z.array(z.string()).default([]),
-  }).default({}),
+  }).default({
+    enabled: false,
+    queue: [],
+  }),
 });
 
 /** 用户配置 */

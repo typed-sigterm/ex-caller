@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import type Token from 'markdown-it/lib/token.mjs';
 import type { BuildMeta } from './meta';
 import process from 'node:process';
@@ -39,7 +40,9 @@ export default defineConfig({
 
     pluginUnocss(),
     pluginIcons(),
-    pluginI18n(),
+    pluginI18n({
+      include: [new URL('./src/locales/**', import.meta.url).pathname],
+    }),
 
     pluginMarkdown({
       markdownItOptions: {
@@ -86,6 +89,7 @@ export default defineConfig({
     port: 6408,
   },
 
+  // @ts-expect-error 不知道什么情况
   test: {
     globals: true,
   },
