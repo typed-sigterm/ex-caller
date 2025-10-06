@@ -23,8 +23,8 @@ const namelist = useNamelistStore();
 function getRollCall(options?: Partial<RollCallConfig>) {
   return useRollCall({ // 点名结果
     options: toRaw(config.group // 如果有分组，则使用分组
-      ? (namelist.use(config.namelist)!.groups.use(config.group).value)
-      : namelist.use(config.namelist)!.names),
+      ? (namelist.use(config.namelist).groups.use(config.group).value)
+      : namelist.use(config.namelist).names),
     duration: config.interval,
     ...options,
   });

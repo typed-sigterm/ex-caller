@@ -122,7 +122,9 @@ export const useNamelistStore = defineStore('namelist', {
 
   actions: {
     use(name: string) {
-      return this.data[name];
+      if (!this.has(name))
+        throw new Error(`Namelist "${name}" does not exist.`);
+      return this.data[name]!;
     },
 
     /**
