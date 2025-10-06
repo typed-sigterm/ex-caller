@@ -114,4 +114,3 @@ function handlePause() {
   }
 }
 </style>
-

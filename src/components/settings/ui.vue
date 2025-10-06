@@ -35,4 +35,3 @@ function handleInputIntervalDone() {
     </NFormItem>
   </NForm>
 </template>
-

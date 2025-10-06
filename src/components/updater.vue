@@ -64,4 +64,3 @@ function handleClose() {
     <ChangelogWrapper :content="changelog" />
   </NModal>
 </template>
-

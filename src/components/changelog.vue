@@ -32,4 +32,3 @@ const canaryLink = computed(() => {
     <ChangelogMd />
   </ChangelogWrapper>
 </template>
-

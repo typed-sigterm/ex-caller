@@ -57,4 +57,3 @@ const [DefineOperations, Operations] = createReusableTemplate();
     <Operations v-if="!expanded" />
   </p>
 </template>
-

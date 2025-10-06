@@ -162,4 +162,3 @@ function downloadApp() {
   --n-icon-size: 16px;
 }
 </style>
-

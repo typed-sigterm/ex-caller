@@ -102,4 +102,3 @@ function handleOpen() {
   transition: box-shadow .2s;
 }
 </style>
-

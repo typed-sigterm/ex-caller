@@ -38,4 +38,3 @@ const options = computed(() => {
 <template>
   <NSelect v-model:value="value" filterable :options />
 </template>
-

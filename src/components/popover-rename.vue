@@ -47,4 +47,3 @@ function handleRename() {
     </template>
   </NPopconfirm>
 </template>
-
