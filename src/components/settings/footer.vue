@@ -40,7 +40,7 @@ function checkUpdate() {
       message.success(t('settings.footer.no-update'));
   };
   bus.on('update-checked', handleUpdateChecked);
-  bus.emit('settings.footer.check-update');
+  bus.emit('check-update');
 }
 
 function downloadApp() {
