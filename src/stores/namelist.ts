@@ -63,7 +63,7 @@ function createNamelist(
 
   const add = (group?: string, options?: string[]) => {
     group ??= genName();
-    options ??= [rollCallOptionToString(names.value[0])];
+    options ??= [rollCallOptionToString(names.value[0]!)];
     groups.value[group] = options;
     return group;
   };
@@ -88,11 +88,11 @@ function createNamelist(
   const stop2 = watch(groups, (groups) => {
     for (const name in groups) {
       // 如果导入了名单中没有的名字，一并加入名单
-      for (const n of groups[name]) {
+      for (const n of groups[name]!) {
         if (!names.value.includes(n))
           names.value.push(n);
       }
-      setGroup(namelist, name, groups[name]);
+      setGroup(namelist, name, groups[name]!);
     }
   }, { deep: true, immediate: true });
 
@@ -141,7 +141,7 @@ export const useNamelistStore = defineStore('namelist', {
     remove(name: string) {
       if (!this.has(name))
         throw new Error(`Namelist "${name}" does not exist.`);
-      this.data[name].cleanup();
+      this.data[name]!.cleanup();
       delete this.data[name];
     },
 
@@ -172,7 +172,7 @@ export const useNamelistStore = defineStore('namelist', {
 
     async calcChecksum(name: string) {
       const s = new Sha256();
-      s.update(JSON.stringify(toRaw(this.data[name].names)));
+      s.update(JSON.stringify(toRaw(this.data[name]!.names)));
       return toHex(await s.digest());
     },
   },
