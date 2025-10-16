@@ -18,15 +18,9 @@ function handleInputIntervalDone() {
   config.interval = inputInterval.value;
 }
 
-const inputZoom = ref(config.zoom);
-config.$subscribe(() => {
-  inputZoom.value = config.zoom;
-});
-
 async function handleZoomChange(value: number | null) {
   if (value === null || !__APP__)
     return;
-  config.zoom = value;
   try {
     await invoke('set_zoom', { zoomLevel: value });
   } catch (e) {
@@ -61,7 +55,7 @@ if (__APP__) {
 
     <NFormItem v-if="__APP__" :label="t('settings.ui.zoom')">
       <NInputNumber
-        v-model:value="inputZoom"
+        v-model:value="config.zoom"
         :format="value => `${Math.round((value ?? 1) * 100)}%`"
         :max="MAX_ZOOM"
         :min="MIN_ZOOM"

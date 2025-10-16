@@ -45,7 +45,7 @@ export const MIN_INTERVAL = 20;
 export const MAX_PLAN_QUEUE_SIZE = 10000;
 export const MIN_ZOOM = 0.25;
 export const MAX_ZOOM = 5.0;
-export const ZOOM_STEP = 0.5;
+export const ZOOM_STEP = 0.1;
 
 export const DEFAULT_NAMELIST_OPTIONS: RollCallOption[] = [
   'Geopedia',
