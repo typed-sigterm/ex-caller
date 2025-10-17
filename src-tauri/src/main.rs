@@ -33,7 +33,7 @@ fn write_file(path: String, content: String) -> Result<(), String> {
 #[command]
 fn set_zoom(app: tauri::AppHandle, factor: f64) -> Result<(), String> {
     let window = app.get_webview_window("main").ok_or("Failed to get main window")?;
-    window.set_zoom(zoom_level).map_err(|e| e.to_string())
+    window.set_zoom(factor).map_err(|e| e.to_string())
 }
 
 fn main() {
@@ -73,4 +73,5 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
 
