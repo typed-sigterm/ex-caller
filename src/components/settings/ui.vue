@@ -18,14 +18,10 @@ function handleInputIntervalDone() {
   config.interval = inputInterval.value;
 }
 
-async function handleZoomChange(value: number | null) {
-  if (value === null || !__APP__)
+function handleZoomChange(factor?: number) {
+  if (!__APP__ || typeof value !== 'number')
     return;
-  try {
-    await invoke('set_zoom', { zoomLevel: value });
-  } catch (e) {
-    console.error('Failed to set zoom:', e);
-  }
+  invoke('set_zoom', { factor });
 }
 
 if (__APP__)
