@@ -1,8 +1,10 @@
 <script lang="ts" setup>
+import { invoke } from '@tauri-apps/api/core';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useConfigStore } from '@/stores/config';
-import { MAX_INTERVAL, MIN_INTERVAL } from '@/utils/config';
+import { __APP__ } from '@/utils/app';
+import { MAX_INTERVAL, MAX_ZOOM, MIN_INTERVAL, MIN_ZOOM, ZOOM_STEP } from '@/utils/config';
 
 const { t } = useI18n();
 
@@ -15,6 +17,15 @@ config.$subscribe(() => {
 function handleInputIntervalDone() {
   config.interval = inputInterval.value;
 }
+
+function handleZoomChange(factor: number | null) {
+  if (!__APP__ || factor == null)
+    return;
+  invoke('set_zoom', { factor });
+}
+
+if (__APP__)
+  invoke('set_zoom', { factor: config.zoom });
 </script>
 
 <template>
@@ -32,6 +43,17 @@ function handleInputIntervalDone() {
 
     <NFormItem :label="t('settings.ui.confetti')">
       <NSwitch v-model:value="config.confetti" />
+    </NFormItem>
+
+    <NFormItem v-if="__APP__" :label="t('settings.ui.zoom')">
+      <NInputNumber
+        v-model:value="config.zoom"
+        :format="x => `${Math.round((x ?? 1) * 100)}%`"
+        :max="MAX_ZOOM"
+        :min="MIN_ZOOM"
+        :step="ZOOM_STEP"
+        @update:value="handleZoomChange"
+      />
     </NFormItem>
   </NForm>
 </template>

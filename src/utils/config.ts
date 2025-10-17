@@ -12,6 +12,8 @@ export const UserConfigSchema = z.object({
   interval: z.number().default(100),
   /** 抽取完成后是否显示彩带效果 */
   confetti: z.boolean().default(true),
+  /** 页面缩放级别 (0.25-5.0, 1.0 为 100%) */
+  zoom: z.number().default(1.0),
   /** 计划设置 */
   plan: z.object({
     /** 是否启用计划队列 */
@@ -41,6 +43,9 @@ export const MAX_GROUP_MEMBER_LENGTH = 100;
 export const MAX_INTERVAL = 1000;
 export const MIN_INTERVAL = 20;
 export const MAX_PLAN_QUEUE_SIZE = 10000;
+export const MIN_ZOOM = 0.25;
+export const MAX_ZOOM = 5.0;
+export const ZOOM_STEP = 0.1;
 
 export const DEFAULT_NAMELIST_OPTIONS: RollCallOption[] = [
   'Geopedia',

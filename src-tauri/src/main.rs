@@ -30,12 +30,18 @@ fn write_file(path: String, content: String) -> Result<(), String> {
     Ok(())
 }
 
+#[command]
+fn set_zoom(app: tauri::AppHandle, factor: f64) -> Result<(), String> {
+    let window = app.get_webview_window("main").ok_or("Failed to get main window")?;
+    window.set_zoom(factor).map_err(|e| e.to_string())
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![read_file, write_file])
+        .invoke_handler(tauri::generate_handler![read_file, write_file, set_zoom])
         .setup(|app| {
             let quit_item = MenuItem::with_id(app, "quit", "退出", true, None::<&str>).unwrap();
             let menu = Menu::with_items(app, &[&quit_item]).unwrap();
@@ -67,3 +73,5 @@ fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+

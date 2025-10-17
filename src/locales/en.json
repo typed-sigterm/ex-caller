@@ -196,7 +196,8 @@
     "ui": {
       "interval": "Interval",
       "confetti": "Confetti Effect",
-      "second": "s"
+      "second": "s",
+      "zoom": "Page Zoom"
     }
   },
   "updater": {

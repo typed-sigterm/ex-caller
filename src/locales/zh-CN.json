@@ -196,7 +196,8 @@
     "ui": {
       "interval": "过号时间",
       "confetti": "彩带效果",
-      "second": " 秒"
+      "second": " 秒",
+      "zoom": "页面缩放"
     }
   },
   "updater": {
