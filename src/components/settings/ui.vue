@@ -18,8 +18,8 @@ function handleInputIntervalDone() {
   config.interval = inputInterval.value;
 }
 
-function handleZoomChange(factor?: number) {
-  if (!__APP__ || typeof value !== 'number')
+function handleZoomChange(factor: number | null) {
+  if (!__APP__ || factor == null)
     return;
   invoke('set_zoom', { factor });
 }
@@ -48,7 +48,7 @@ if (__APP__)
     <NFormItem v-if="__APP__" :label="t('settings.ui.zoom')">
       <NInputNumber
         v-model:value="config.zoom"
-        :format="value => `${Math.round((value ?? 1) * 100)}%`"
+        :format="x => `${Math.round((x ?? 1) * 100)}%`"
         :max="MAX_ZOOM"
         :min="MIN_ZOOM"
         :step="ZOOM_STEP"
