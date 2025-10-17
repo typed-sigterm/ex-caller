@@ -28,12 +28,8 @@ async function handleZoomChange(value: number | null) {
   }
 }
 
-// Apply zoom on mount
-if (__APP__) {
-  invoke('set_zoom', { zoomLevel: config.zoom }).catch((e) => {
-    console.error('Failed to apply initial zoom:', e);
-  });
-}
+if (__APP__)
+  invoke('set_zoom', { factor: config.zoom });
 </script>
 
 <template>
