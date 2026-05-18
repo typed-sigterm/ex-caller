@@ -1,3 +1,4 @@
+// Polyfill for Object.groupBy required by ESLint 10+ runtime helpers.
 if (!Object.groupBy) {
   Object.groupBy = (items, callbackfn) => {
     const result = {};

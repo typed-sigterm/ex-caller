@@ -1,4 +1,4 @@
-# ExCaller ![最新版本徽章](https://img.shields.io/github/v/release/typed-sigterm/ex-caller?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC) ![许可证](https://img.shields.io/github/license/typed-sigterm/ex-caller?label=%E8%AE%B8%E5%8F%AF%E8%AF%81) ![OSS Lifecycle](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fraw.githubusercontent.com%2Ftyped-sigterm%2Fex-caller%2Fmain%2FOSSMETADATA) [![GitHub Stars](https://img.shields.io/github/stars/typed-sigterm/ex-caller)](https://github.com/typed-sigterm/ex-caller)
+# ExCaller ![最新版本徽章](https://img.shields.io/github/v/release/typed-sigterm/ex-caller?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC) ![许可证](https://img.shields.io/github/license/typed-sigterm/ex-caller?label=%E8%AE%B8%E5%8F%AF%E8%AF%81) ![生命周期徽章](https://img.shields.io/osslifecycle?file_url=https%3A%2F%2Fraw.githubusercontent.com%2Ftyped-sigterm%2Fex-caller%2Fmain%2FOSSMETADATA) [![GitHub Stars 徽章](https://img.shields.io/github/stars/typed-sigterm/ex-caller)](https://github.com/typed-sigterm/ex-caller)
 
 简约风格的随机点名工具。
 
