@@ -37,29 +37,35 @@ function getResourceRef(name: ResourceName, filename?: string) {
   return ret;
 }
 
-const background = getResourceRef('background');
+const background = getResourceRef(
+  'background',
+  theme.properties.background.originalName,
+);
 const backgroundRolling = getResourceRef(
   'backgroundRolling',
   theme.properties.backgroundRolling.originalName,
 );
 
-watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
-  if (file) { // 选择了文件，更新 properties
-    theme.$patch({
-      properties: {
-        backgroundRolling: {
+watch(background, (file) => { // 更新 originalName 和 mimeType
+  theme.$patch((state) => {
+    state.properties.background = file
+      ? {
           originalName: file.name,
           mimeType: file.type ?? DEFAULT_MIME_TYPE,
-        },
-      },
-    });
-  } else { // 删除了文件，恢复默认值
-    theme.$patch({
-      properties: {
-        backgroundRolling: THEME_DEFAULT_PROPERTIES.backgroundRolling,
-      },
-    });
-  }
+        }
+      : THEME_DEFAULT_PROPERTIES.background;
+  });
+});
+
+watch(backgroundRolling, (file) => { // 更新 originalName 和 mimeType
+  theme.$patch((state) => {
+    state.properties.backgroundRolling = file
+      ? {
+          originalName: file.name,
+          mimeType: file.type ?? DEFAULT_MIME_TYPE,
+        }
+      : THEME_DEFAULT_PROPERTIES.backgroundRolling;
+  });
 });
 </script>
 

@@ -8,11 +8,33 @@ import { getDataDir, useJsonFile } from '@/utils/fs';
 import { getThemeResource, RESOURCES } from '@/utils/theme';
 
 export const THEME_DEFAULT_PROPERTIES = {
+  background: {
+    originalName: '',
+    mimeType: DEFAULT_MIME_TYPE,
+  },
   backgroundRolling: {
     originalName: '',
     mimeType: DEFAULT_MIME_TYPE,
   },
 };
+
+type ThemeProperties = typeof THEME_DEFAULT_PROPERTIES;
+
+function normalizeThemeProperties(
+  properties?: Partial<ThemeProperties>,
+): ThemeProperties {
+  return {
+    ...THEME_DEFAULT_PROPERTIES,
+    background: {
+      ...THEME_DEFAULT_PROPERTIES.background,
+      ...properties?.background,
+    },
+    backgroundRolling: {
+      ...THEME_DEFAULT_PROPERTIES.backgroundRolling,
+      ...properties?.backgroundRolling,
+    },
+  };
+}
 
 export const useThemeStore = defineStore('theme', {
   state: () => {
@@ -33,12 +55,14 @@ export const useThemeStore = defineStore('theme', {
 
       // store 内修改同步到本地文件
       const localProps = await useJsonFile(
-        this.properties,
+        structuredClone(THEME_DEFAULT_PROPERTIES),
         'theme/properties.json',
         await getDataDir(),
       );
-      this.properties = localProps.value;
-      watchDeep(() => this.properties, v => localProps.value = v);
+      this.properties = normalizeThemeProperties(localProps.value);
+      watchDeep(() => this.properties, (v) => {
+        localProps.value = normalizeThemeProperties(v);
+      });
 
       await this.refresh();
     },
