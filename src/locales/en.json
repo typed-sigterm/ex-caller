@@ -164,7 +164,8 @@
         "canary": "If the problem only occurs in the Canary version, please indicate in the feedback.",
         "thanks": "After receiving the feedback, we will process it as soon as possible. Thank you for your support.",
         "contributing": "Anyone can view the source code of ExCaller. If you know how to program, you are welcome to contribute on GitHub."
-      }
+      },
+      "privacy-policy": "Privacy Policy"
     },
     "group": {
       "add-name": "Add Name",
@@ -196,6 +197,7 @@
     "ui": {
       "interval": "Interval",
       "confetti": "Confetti Effect",
+      "analytics": "Anonymous Statistics",
       "second": "s",
       "zoom": "Page Zoom"
     }

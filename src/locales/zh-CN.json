@@ -164,7 +164,8 @@
         "canary": "如果问题仅出现在 Canary 版本中，请在反馈中注明。",
         "thanks": "ExCaller 开源免费，维护者用爱发电，可能无法及时回复反馈，感谢您的支持。",
         "contributing": "任何人都可以查看 ExCaller 的源代码，如果您会编程，欢迎在 GitHub 上参与开发。"
-      }
+      },
+      "privacy-policy": "隐私政策"
     },
     "group": {
       "add-name": "添加名字",
@@ -196,6 +197,7 @@
     "ui": {
       "interval": "过号时间",
       "confetti": "彩带效果",
+      "analytics": "匿名统计数据",
       "second": " 秒",
       "zoom": "页面缩放"
     }

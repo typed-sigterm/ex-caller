@@ -45,6 +45,10 @@ if (__APP__)
       <NSwitch v-model:value="config.confetti" />
     </NFormItem>
 
+    <NFormItem :label="t('settings.ui.analytics')">
+      <NSwitch v-model:value="config.analytics" />
+    </NFormItem>
+
     <NFormItem v-if="__APP__" :label="t('settings.ui.zoom')">
       <NInputNumber
         v-model:value="config.zoom"

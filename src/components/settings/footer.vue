@@ -120,6 +120,11 @@ function downloadApp() {
       </template>
     </LinkToModal>
 
+    <NButton text tag="a" :href="`${WEB_APP_URL}/privacy-policy.html`" target="_blank">
+      <NDivider vertical />
+      {{ t('settings.footer.privacy-policy') }}
+    </NButton>
+
     <template v-if="__APP__ && __GA__">
       <NDivider vertical />
       <NButton text :loading="checkingUpdate" @click="checkUpdate">

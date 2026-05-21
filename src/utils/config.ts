@@ -14,6 +14,8 @@ export const UserConfigSchema = z.object({
   confetti: z.boolean().default(true),
   /** 页面缩放级别 (0.25-5.0, 1.0 为 100%) */
   zoom: z.number().default(1.0),
+  /** 是否启用匿名统计数据收集 */
+  analytics: z.boolean().default(true),
   /** 计划设置 */
   plan: z.object({
     /** 是否启用计划队列 */
