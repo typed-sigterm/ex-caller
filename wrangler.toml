@@ -13,3 +13,7 @@ EXC_NO_APP = "1"
 [env.preview.vars]
 EXC_NO_APP = "1"
 EXC_CANARY = "1"
+
+[route]
+pattern = "ex-caller.by-ts.top"
+custom_domain = true
