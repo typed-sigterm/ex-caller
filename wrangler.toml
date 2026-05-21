@@ -1,0 +1,15 @@
+name = "ex-caller"
+compatibility_date = "2026-05-21"
+
+[assets]
+directory = "./dist"
+
+[build]
+command = "bun run build:web"
+
+[vars]
+EXC_NO_APP = "1"
+
+[env.preview.vars]
+EXC_NO_APP = "1"
+EXC_CANARY = "1"

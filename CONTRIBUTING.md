@@ -10,7 +10,7 @@
 
 使用 Bun 运行时，使用 Nuxt 框架。
 
-Web 版部署在 Netlify，桌面版使用 tauri 打包为独立应用程序。
+Web 版部署在 Cloudflare Pages，桌面版使用 tauri 打包为独立应用程序。
 
 ## 目录结构
 
@@ -54,9 +54,9 @@ ex-caller
 
 ## 测试
 
-自由心证，但至少 CI 和 Netlify Build 得通过。
+自由心证，但至少 CI 和 Cloudflare Pages Build 得通过。
 
-可以适当使用 `[skip ci]` `[skip netlify]`。
+可以适当使用 `[skip ci]`。
 
 ## 版本管理与发布
 
