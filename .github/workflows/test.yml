@@ -13,7 +13,7 @@ jobs:
     # TODO
     if: 0
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version-file: .tool-versions
@@ -24,10 +24,10 @@ jobs:
     name: 类型检查
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version-file: .tool-versions
       - run: bun ci
       - run: bun run build:web
-      - run: bun run type-check
+      - run: bun run --config=bunfig.vue-tsc.toml type-check
