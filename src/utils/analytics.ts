@@ -17,7 +17,8 @@ let mp: typeof import('mixpanel-browser').default | undefined;
 function isAnalyticsEnabled(): boolean {
   try {
     const raw = localStorage.getItem(CONFIG_LOCALSTORAGE_KEY);
-    if (!raw) return true;
+    if (!raw)
+      return true;
     const config = JSON.parse(raw) as Partial<UserConfig>;
     return config.analytics !== false;
   } catch {
@@ -37,7 +38,8 @@ export async function initAnalytics() {
 }
 
 export async function track(event: TrackEvent, prop?: Record<string, unknown>) {
-  if (!isAnalyticsEnabled()) return;
+  if (!isAnalyticsEnabled())
+    return;
   const portable = clientType === 'app' ? await isPortable() : undefined;
   mp ??= (await import('mixpanel-browser')).default;
   return new Promise<MixpanelResponse>((resolve) => {
