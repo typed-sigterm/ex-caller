@@ -16,7 +16,7 @@ const showModal = defineModel<boolean>('showModal');
 
   <NModal
     v-model:show="showModal"
-    class="link-to-modal-modal"
+    class="link-to-modal"
     preset="card"
     :title="$slots.modalTitle"
   >
@@ -26,10 +26,16 @@ const showModal = defineModel<boolean>('showModal');
   </NModal>
 </template>
 
-<style lang="postcss">
-.link-to-modal-modal {
+<style>
+.link-to-modal {
   width: 600px;
   height: 90vh;
+
+  .n-card-header__main {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 
   .n-scrollbar-content {
     height: 0; /* 确保内容在弹窗内滑动 */

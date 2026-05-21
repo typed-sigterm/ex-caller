@@ -79,7 +79,7 @@ function handleOpen() {
   </NDrawer>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .card:deep() {
   cursor: pointer;
   margin-bottom: 8px;
@@ -90,7 +90,7 @@ function handleOpen() {
     cursor: not-allowed;
   }
 
-  > .n-card__content {
+  > .n-card-content {
     display: flex;
     align-items: center;
     padding: 12px;

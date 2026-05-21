@@ -8,7 +8,6 @@ import pluginVue from '@vitejs/plugin-vue';
 import pluginVueJsx from '@vitejs/plugin-vue-jsx';
 // @ts-expect-error untyped
 import MarkdownItInline from 'markdown-it-for-inline';
-import PostcssPresetEnv from 'postcss-preset-env';
 import pluginUnocss from 'unocss/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import pluginIcons from 'unplugin-icons/vite';
@@ -71,6 +70,8 @@ export default defineConfig({
     },
   ],
 
+  clearScreen: false,
+
   resolve: {
     alias: {
       '@/': new URL('./src/', import.meta.url).pathname,
@@ -79,17 +80,10 @@ export default defineConfig({
 
   envPrefix: ['EXC_', 'COMMIT_REF'],
 
-  css: {
-    postcss: {
-      plugins: [PostcssPresetEnv()],
-    },
-  },
-
   server: {
     port: 6408,
   },
 
-  // @ts-expect-error 不知道什么情况
   test: {
     globals: true,
   },

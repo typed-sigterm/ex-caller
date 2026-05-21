@@ -135,7 +135,7 @@ async function handleExport() {
 }
 </style>
 
-<style lang="postcss">
+<style>
 .namelist-name-item {
   &.n-base-select-option--selected .operator-delete {
     display: none;
