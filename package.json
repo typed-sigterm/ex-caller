@@ -6,6 +6,8 @@
     "build": "bun run build:web && bun run build:app",
     "build:app": "tauri build",
     "build:web": "vite build",
+    "deploy": "bun run build:web && bunx wrangler pages deploy dist",
+    "deploy:preview": "bun run build:web && bunx wrangler pages deploy dist --branch preview",
     "dev": "tauri dev",
     "dev:web": "vite",
     "lint": "eslint .",
@@ -59,6 +61,7 @@
     "vue": "^3.5.34",
     "vue-i18n": "^11.4.4",
     "vue-tsc": "^3.2.9",
+    "wrangler": "3",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "zod": "^4.4.3"
   },

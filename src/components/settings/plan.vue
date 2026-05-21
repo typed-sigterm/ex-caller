@@ -51,7 +51,7 @@ onBeforeUnmount(() => { // 保存设置
   </NFormItem>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 :deep() .n-form-item-blank {
   width: 100%;
 
