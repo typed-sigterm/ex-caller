@@ -5,14 +5,11 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "dialog:allow-open",
-    "dialog:allow-save",
-    "fs:allow-appdata-meta-recursive",
-    "fs:allow-appdata-read-recursive",
-    "fs:allow-appdata-write-recursive",
-    "fs:allow-resource-meta-recursive",
-    "fs:allow-resource-read-recursive",
-    "fs:allow-resource-write-recursive",
-    "opener:default"
+    "dialog:default",
+    "opener:default",
+    "fs:read-all",
+    "fs:write-all",
+    "fs:scope-appdata-recursive",
+    "fs:scope-resource-recursive"
   ]
 }

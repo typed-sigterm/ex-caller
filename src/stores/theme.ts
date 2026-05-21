@@ -49,7 +49,7 @@ export const useThemeStore = defineStore('theme', {
     /** 初始化。 */
     async init() {
       await mkdir('theme', {
-        baseDir: BaseDirectory.Data,
+        baseDir: await getDataDir(),
         recursive: true,
       });
 
