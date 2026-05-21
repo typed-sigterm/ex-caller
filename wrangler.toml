@@ -1,5 +1,6 @@
 name = "ex-caller"
 compatibility_date = "2026-05-21"
+preview_urls = true
 
 [assets]
 directory = "./dist"
@@ -10,10 +11,14 @@ command = "bun run build:web"
 [vars]
 EXC_NO_APP = "1"
 
-[env.preview.vars]
+[route]
+pattern = "ex-caller.by-ts.top"
+custom_domain = true
+
+[env.canary.vars]
 EXC_NO_APP = "1"
 EXC_CANARY = "1"
 
-[route]
-pattern = "ex-caller.by-ts.top"
+[env.canary.route]
+pattern = "canary.ex-caller.by-ts.top"
 custom_domain = true
