@@ -1,5 +1,19 @@
 # 更新记录
 
+## 1.3.0 (2026-05-22)
+
+### 🚀 新功能
+
+- ExCaller 现已上架至 Microsoft Store，Windows 用户可[一键安装](https://apps.microsoft.com/search?query=ExCaller&hl=zh-CN&gl=CN)
+- 支持打开和关闭统计数据
+- 支持页面缩放
+- 优化校验码显示，添加复制按钮
+- 添加隐私政策链接
+
+### 🩹 Bug 修复
+
+- 修复背景图设置无效的问题
+
 ## 1.2.1 (2025-05-23)
 
 ### 🚀 新功能
