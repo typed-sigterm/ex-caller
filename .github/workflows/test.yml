@@ -30,4 +30,4 @@ jobs:
           bun-version-file: .tool-versions
       - run: bun ci
       - run: bun run build:web
-      - run: bun run type-check
+      - run: bun run --config=bunfig.vue-tsc.toml type-check

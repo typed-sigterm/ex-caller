@@ -16,7 +16,7 @@
     "type-check:app": "vue-tsc --noEmit -p tsconfig.app.json",
     "type-check:bun": "vue-tsc --noEmit -p tsconfig.bun.json",
     "type-check:test": "vue-tsc --noEmit -p tsconfig.test.json",
-    "type-check": "bun run type-check:app && bun run type-check:bun && bun run type-check:test"
+    "type-check": "bun run --config=bunfig.vue-tsc.toml type-check:app && bun run --config=bunfig.vue-tsc.toml type-check:bun && bun run --config=bunfig.vue-tsc.toml type-check:test"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",

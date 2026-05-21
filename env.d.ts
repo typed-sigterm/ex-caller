@@ -3,13 +3,6 @@
 /// <reference types="unplugin-icons/types/vue3" />
 /// <reference path="components.d.ts" />
 
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue';
-
-  const component: DefineComponent<{}, {}, any>;
-  export default component;
-}
-
 interface ImportMetaEnv {
   /** 当前 commit SHA */
   readonly COMMIT_REF?: string

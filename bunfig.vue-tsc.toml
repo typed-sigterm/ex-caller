@@ -1,0 +1,2 @@
+[bun]
+run = false # https://github.com/oven-sh/bun/issues/4754
