@@ -1,6 +1,6 @@
 import type { LoadedLocalFile } from '@/utils/fs';
 import type { ResourceName } from '@/utils/theme';
-import { BaseDirectory, mkdir, writeFile } from '@tauri-apps/plugin-fs';
+import { mkdir, writeFile } from '@tauri-apps/plugin-fs';
 import { watchDeep } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { DEFAULT_MIME_TYPE } from '@/utils/app';
